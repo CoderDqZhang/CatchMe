@@ -12,7 +12,7 @@ import UIKit
 extension UIViewController {
 
     func setNavigationItemBack(){
-        let leftImage = UIImage.init(named: "Icon_Back_Normal")
+        let leftImage = UIImage.init(named: "back_bar")
         let spacBarButton = UIBarButtonItem.init(barButtonSystemItem: .fixedSpace, target: nil, action: nil);
         self.navigationItem.leftBarButtonItems = [spacBarButton,UIBarButtonItem(image: leftImage?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(UIViewController.backBtnPress(_:)))]
     }

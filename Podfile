@@ -18,5 +18,6 @@ target 'CatchMe' do
   pod 'ReactiveCocoa', '~> 7.0'
   pod 'NJKWebViewProgress'
   pod 'IQKeyboardManagerSwift'
+  pod 'NIMSDK'
 
 end

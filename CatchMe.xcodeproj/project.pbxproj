@@ -70,6 +70,31 @@
 		1F126E251FC01B48006306D2 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F126E231FC01AF0006306D2 /* SystemConfiguration.framework */; };
 		1F126E271FC01B96006306D2 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F126E261FC01B87006306D2 /* CoreTelephony.framework */; };
 		1F126E291FC01BC6006306D2 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F126E281FC01BBC006306D2 /* CoreMotion.framework */; };
+		1F126E2C1FC01D0A006306D2 /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F126E2B1FC01D0A006306D2 /* MainTabBarViewController.swift */; };
+		1F126E301FC01D7F006306D2 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F126E2F1FC01D7F006306D2 /* BaseViewController.swift */; };
+		1F126E321FC01D8F006306D2 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F126E311FC01D8F006306D2 /* HomeViewController.swift */; };
+		1F126E351FC01DA8006306D2 /* TopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F126E341FC01DA8006306D2 /* TopViewController.swift */; };
+		1F126E381FC01DBA006306D2 /* MineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F126E371FC01DBA006306D2 /* MineViewController.swift */; };
+		1F126E3B1FC01EB9006306D2 /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F126E3A1FC01EB9006306D2 /* BaseViewModel.swift */; };
+		1F126E3D1FC021B5006306D2 /* CacheMeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F126E3C1FC021B5006306D2 /* CacheMeViewController.swift */; };
+		1F126E421FC07CBF006306D2 /* MineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F126E411FC07CBF006306D2 /* MineViewModel.swift */; };
+		1F126E471FC07D13006306D2 /* MineHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F126E461FC07D13006306D2 /* MineHeaderTableViewCell.swift */; };
+		1F126E491FC07F1B006306D2 /* MineToolsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F126E481FC07F1B006306D2 /* MineToolsTableViewCell.swift */; };
+		1F126E4D1FC08257006306D2 /* UINavigationController+FDFullscreenPopGesture.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F126E4C1FC08257006306D2 /* UINavigationController+FDFullscreenPopGesture.m */; };
+		1F126E501FC08792006306D2 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F126E4F1FC08792006306D2 /* LoginViewController.swift */; };
+		1F126E531FC087D0006306D2 /* Gloable+View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F126E521FC087D0006306D2 /* Gloable+View.swift */; };
+		1F126E551FC08824006306D2 /* UserProtocolViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F126E541FC08824006306D2 /* UserProtocolViewController.swift */; };
+		1F126E581FC088C4006306D2 /* LoginForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F126E571FC088C4006306D2 /* LoginForm.swift */; };
+		1F126E5B1FC0891D006306D2 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F126E5A1FC0891D006306D2 /* LoginViewModel.swift */; };
+		1F126E5D1FC089AA006306D2 /* LoginTypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F126E5C1FC089AA006306D2 /* LoginTypeViewController.swift */; };
+		1F126E5F1FC0976F006306D2 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F126E5E1FC0976F006306D2 /* ProfileViewController.swift */; };
+		1F126E611FC0977F006306D2 /* QuestionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F126E601FC0977F006306D2 /* QuestionViewController.swift */; };
+		1F126E631FC0978E006306D2 /* MyCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F126E621FC0978E006306D2 /* MyCodeViewController.swift */; };
+		1F126E651FC0979A006306D2 /* AddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F126E641FC0979A006306D2 /* AddressViewController.swift */; };
+		1F126E671FC097AE006306D2 /* SenderJoysViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F126E661FC097AE006306D2 /* SenderJoysViewController.swift */; };
+		1F126E691FC097BC006306D2 /* MyJoysViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F126E681FC097BC006306D2 /* MyJoysViewController.swift */; };
+		1F126E6B1FC097CE006306D2 /* JoysDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F126E6A1FC097CE006306D2 /* JoysDetailViewController.swift */; };
+		1F126E6D1FC097FF006306D2 /* TopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F126E6C1FC097FF006306D2 /* TopUpViewController.swift */; };
 		54C665C6CE13906B598CBB0B /* Pods_CatchMe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 018F762371DA9CCCFF9892F6 /* Pods_CatchMe.framework */; };
 /* End PBXBuildFile section */
 
@@ -180,6 +205,32 @@
 		1F126E241FC01B15006306D2 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		1F126E261FC01B87006306D2 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		1F126E281FC01BBC006306D2 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		1F126E2B1FC01D0A006306D2 /* MainTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarViewController.swift; sourceTree = "<group>"; };
+		1F126E2F1FC01D7F006306D2 /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		1F126E311FC01D8F006306D2 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		1F126E341FC01DA8006306D2 /* TopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopViewController.swift; sourceTree = "<group>"; };
+		1F126E371FC01DBA006306D2 /* MineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineViewController.swift; sourceTree = "<group>"; };
+		1F126E3A1FC01EB9006306D2 /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
+		1F126E3C1FC021B5006306D2 /* CacheMeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheMeViewController.swift; sourceTree = "<group>"; };
+		1F126E411FC07CBF006306D2 /* MineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineViewModel.swift; sourceTree = "<group>"; };
+		1F126E461FC07D13006306D2 /* MineHeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineHeaderTableViewCell.swift; sourceTree = "<group>"; };
+		1F126E481FC07F1B006306D2 /* MineToolsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineToolsTableViewCell.swift; sourceTree = "<group>"; };
+		1F126E4B1FC08257006306D2 /* UINavigationController+FDFullscreenPopGesture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+FDFullscreenPopGesture.h"; sourceTree = "<group>"; };
+		1F126E4C1FC08257006306D2 /* UINavigationController+FDFullscreenPopGesture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+FDFullscreenPopGesture.m"; sourceTree = "<group>"; };
+		1F126E4F1FC08792006306D2 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		1F126E521FC087D0006306D2 /* Gloable+View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Gloable+View.swift"; sourceTree = "<group>"; };
+		1F126E541FC08824006306D2 /* UserProtocolViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProtocolViewController.swift; sourceTree = "<group>"; };
+		1F126E571FC088C4006306D2 /* LoginForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginForm.swift; sourceTree = "<group>"; };
+		1F126E5A1FC0891D006306D2 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		1F126E5C1FC089AA006306D2 /* LoginTypeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginTypeViewController.swift; sourceTree = "<group>"; };
+		1F126E5E1FC0976F006306D2 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		1F126E601FC0977F006306D2 /* QuestionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionViewController.swift; sourceTree = "<group>"; };
+		1F126E621FC0978E006306D2 /* MyCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCodeViewController.swift; sourceTree = "<group>"; };
+		1F126E641FC0979A006306D2 /* AddressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressViewController.swift; sourceTree = "<group>"; };
+		1F126E661FC097AE006306D2 /* SenderJoysViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SenderJoysViewController.swift; sourceTree = "<group>"; };
+		1F126E681FC097BC006306D2 /* MyJoysViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyJoysViewController.swift; sourceTree = "<group>"; };
+		1F126E6A1FC097CE006306D2 /* JoysDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoysDetailViewController.swift; sourceTree = "<group>"; };
+		1F126E6C1FC097FF006306D2 /* TopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopUpViewController.swift; sourceTree = "<group>"; };
 		599640648AD4571953B84782 /* Pods-CatchMe.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CatchMe.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CatchMe/Pods-CatchMe.debug.xcconfig"; sourceTree = "<group>"; };
 		66871A49004208702649CA5E /* Pods-CatchMe.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CatchMe.release.xcconfig"; path = "Pods/Target Support Files/Pods-CatchMe/Pods-CatchMe.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -189,12 +240,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F126DF11FBFF86B006306D2 /* libresolv.tbd in Frameworks */,
+				1F126DF31FBFF873006306D2 /* libz.tbd in Frameworks */,
 				1F126E291FC01BC6006306D2 /* CoreMotion.framework in Frameworks */,
 				1F126E271FC01B96006306D2 /* CoreTelephony.framework in Frameworks */,
 				1F126E251FC01B48006306D2 /* SystemConfiguration.framework in Frameworks */,
 				1F126E221FC01AC4006306D2 /* CFNetwork.framework in Frameworks */,
 				1F126DEE1FBFF849006306D2 /* libssl.a in Frameworks */,
-				1F126DF31FBFF873006306D2 /* libz.tbd in Frameworks */,
 				1F126E201FC01A9A006306D2 /* libsqlite3.tbd in Frameworks */,
 				1F126DEC1FBFF849006306D2 /* libyuv.a in Frameworks */,
 				1F126D8A1FBFF328006306D2 /* libWeChatSDK.a in Frameworks */,
@@ -204,7 +256,6 @@
 				1F126D8C1FBFF328006306D2 /* TencentOpenAPI.framework in Frameworks */,
 				1F126E1C1FBFFE35006306D2 /* libWeiboSDK.a in Frameworks */,
 				1F126DF51FBFF886006306D2 /* libstdc++.tbd in Frameworks */,
-				1F126DF11FBFF86B006306D2 /* libresolv.tbd in Frameworks */,
 				54C665C6CE13906B598CBB0B /* Pods_CatchMe.framework in Frameworks */,
 				1F126DED1FBFF849006306D2 /* libNELivePlayer.a in Frameworks */,
 			);
@@ -258,6 +309,7 @@
 		1F126D741FBFF21B006306D2 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				1F126E561FC088B0006306D2 /* Login */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -265,6 +317,7 @@
 		1F126D751FBFF21B006306D2 /* Global */ = {
 			isa = PBXGroup;
 			children = (
+				1F126E511FC087B9006306D2 /* View */,
 				1F126D8D1FBFF348006306D2 /* Tools */,
 				1F126D7F1FBFF2C0006306D2 /* Net */,
 				1F126D7E1FBFF2AD006306D2 /* Extentions */,
@@ -289,6 +342,7 @@
 		1F126D771FBFF21B006306D2 /* Lib */ = {
 			isa = PBXGroup;
 			children = (
+				1F126E4A1FC08257006306D2 /* FDFullscreenPopGesture */,
 				1F126DB31FBFF391006306D2 /* UITableView-FDTempleateLayoutCell */,
 				1F126D941FBFF387006306D2 /* CountDown */,
 				1F126D971FBFF387006306D2 /* SDCycleScrollView */,
@@ -300,6 +354,11 @@
 		1F126D781FBFF21B006306D2 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				1F126E591FC0890C006306D2 /* Login */,
+				1F126E401FC07CA3006306D2 /* Home */,
+				1F126E3F1FC07C9D006306D2 /* Top */,
+				1F126E3E1FC07C96006306D2 /* Mine */,
+				1F126E391FC01EA4006306D2 /* Base */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -307,6 +366,12 @@
 		1F126D791FBFF21B006306D2 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				1F126E4E1FC08678006306D2 /* Login */,
+				1F126E2E1FC01D61006306D2 /* Base */,
+				1F126E361FC01DAD006306D2 /* Mine */,
+				1F126E331FC01D97006306D2 /* Top */,
+				1F126E2D1FC01D4F006306D2 /* Home */,
+				1F126E2A1FC01CEE006306D2 /* TabBarController */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -314,6 +379,9 @@
 		1F126D7A1FBFF21B006306D2 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				1F126E451FC07CF3006306D2 /* Home */,
+				1F126E441FC07CEE006306D2 /* Top */,
+				1F126E431FC07CE9006306D2 /* Mine */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -507,6 +575,151 @@
 			path = libWeiboSDK;
 			sourceTree = "<group>";
 		};
+		1F126E2A1FC01CEE006306D2 /* TabBarController */ = {
+			isa = PBXGroup;
+			children = (
+				1F126E2B1FC01D0A006306D2 /* MainTabBarViewController.swift */,
+			);
+			path = TabBarController;
+			sourceTree = "<group>";
+		};
+		1F126E2D1FC01D4F006306D2 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				1F126E311FC01D8F006306D2 /* HomeViewController.swift */,
+				1F126E6A1FC097CE006306D2 /* JoysDetailViewController.swift */,
+				1F126E3C1FC021B5006306D2 /* CacheMeViewController.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		1F126E2E1FC01D61006306D2 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				1F126E2F1FC01D7F006306D2 /* BaseViewController.swift */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
+		1F126E331FC01D97006306D2 /* Top */ = {
+			isa = PBXGroup;
+			children = (
+				1F126E341FC01DA8006306D2 /* TopViewController.swift */,
+			);
+			path = Top;
+			sourceTree = "<group>";
+		};
+		1F126E361FC01DAD006306D2 /* Mine */ = {
+			isa = PBXGroup;
+			children = (
+				1F126E371FC01DBA006306D2 /* MineViewController.swift */,
+				1F126E541FC08824006306D2 /* UserProtocolViewController.swift */,
+				1F126E5E1FC0976F006306D2 /* ProfileViewController.swift */,
+				1F126E601FC0977F006306D2 /* QuestionViewController.swift */,
+				1F126E621FC0978E006306D2 /* MyCodeViewController.swift */,
+				1F126E6C1FC097FF006306D2 /* TopUpViewController.swift */,
+				1F126E641FC0979A006306D2 /* AddressViewController.swift */,
+				1F126E661FC097AE006306D2 /* SenderJoysViewController.swift */,
+				1F126E681FC097BC006306D2 /* MyJoysViewController.swift */,
+			);
+			path = Mine;
+			sourceTree = "<group>";
+		};
+		1F126E391FC01EA4006306D2 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				1F126E3A1FC01EB9006306D2 /* BaseViewModel.swift */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
+		1F126E3E1FC07C96006306D2 /* Mine */ = {
+			isa = PBXGroup;
+			children = (
+				1F126E411FC07CBF006306D2 /* MineViewModel.swift */,
+			);
+			path = Mine;
+			sourceTree = "<group>";
+		};
+		1F126E3F1FC07C9D006306D2 /* Top */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Top;
+			sourceTree = "<group>";
+		};
+		1F126E401FC07CA3006306D2 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		1F126E431FC07CE9006306D2 /* Mine */ = {
+			isa = PBXGroup;
+			children = (
+				1F126E461FC07D13006306D2 /* MineHeaderTableViewCell.swift */,
+				1F126E481FC07F1B006306D2 /* MineToolsTableViewCell.swift */,
+			);
+			path = Mine;
+			sourceTree = "<group>";
+		};
+		1F126E441FC07CEE006306D2 /* Top */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Top;
+			sourceTree = "<group>";
+		};
+		1F126E451FC07CF3006306D2 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		1F126E4A1FC08257006306D2 /* FDFullscreenPopGesture */ = {
+			isa = PBXGroup;
+			children = (
+				1F126E4B1FC08257006306D2 /* UINavigationController+FDFullscreenPopGesture.h */,
+				1F126E4C1FC08257006306D2 /* UINavigationController+FDFullscreenPopGesture.m */,
+			);
+			path = FDFullscreenPopGesture;
+			sourceTree = "<group>";
+		};
+		1F126E4E1FC08678006306D2 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				1F126E4F1FC08792006306D2 /* LoginViewController.swift */,
+				1F126E5C1FC089AA006306D2 /* LoginTypeViewController.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		1F126E511FC087B9006306D2 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				1F126E521FC087D0006306D2 /* Gloable+View.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		1F126E561FC088B0006306D2 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				1F126E571FC088C4006306D2 /* LoginForm.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		1F126E591FC0890C006306D2 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				1F126E5A1FC0891D006306D2 /* LoginViewModel.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
 		AB92BE9F4E2397317A00B46E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -664,19 +877,28 @@
 			buildActionMask = 2147483647;
 			files = (
 				1F126DBD1FBFF391006306D2 /* UITableView+FDKeyedHeightCache.m in Sources */,
+				1F126E631FC0978E006306D2 /* MyCodeViewController.swift in Sources */,
+				1F126E3B1FC01EB9006306D2 /* BaseViewModel.swift in Sources */,
 				1F126DC51FBFF3AF006306D2 /* AlertControl+Tools.swift in Sources */,
 				1F126D901FBFF354006306D2 /* ShareTools.swift in Sources */,
 				1F126DAB1FBFF387006306D2 /* SDCycleScrollView.m in Sources */,
 				1F126DCB1FBFF3B9006306D2 /* UIViewController+NavigationBar.swift in Sources */,
+				1F126E301FC01D7F006306D2 /* BaseViewController.swift in Sources */,
+				1F126E351FC01DA8006306D2 /* TopViewController.swift in Sources */,
+				1F126E5B1FC0891D006306D2 /* LoginViewModel.swift in Sources */,
 				1F126D931FBFF36B006306D2 /* BaseNetWorke.swift in Sources */,
 				1F126D651FBFF024006306D2 /* ViewController.swift in Sources */,
 				1F126E061FBFFD70006306D2 /* UIImage+PureColor.m in Sources */,
+				1F126E581FC088C4006306D2 /* LoginForm.swift in Sources */,
 				1F126DC61FBFF3AF006306D2 /* NSTimer.swift in Sources */,
 				1F126DC91FBFF3AF006306D2 /* UIImage+Crop.swift in Sources */,
 				1F126DC71FBFF3AF006306D2 /* String+Size.swift in Sources */,
+				1F126E381FC01DBA006306D2 /* MineViewController.swift in Sources */,
+				1F126E671FC097AE006306D2 /* SenderJoysViewController.swift in Sources */,
 				1F126D631FBFF024006306D2 /* AppDelegate.swift in Sources */,
 				1F126DD71FBFF3DE006306D2 /* NSString+Utils.m in Sources */,
 				1F126D911FBFF354006306D2 /* Tools.swift in Sources */,
+				1F126E471FC07D13006306D2 /* MineHeaderTableViewCell.swift in Sources */,
 				1F126DAF1FBFF387006306D2 /* TAPageControl.m in Sources */,
 				1F126E1E1FBFFED9006306D2 /* View+Extntion.swift in Sources */,
 				1F126DD81FBFF3DE006306D2 /* NSString+StringSize.m in Sources */,
@@ -686,20 +908,36 @@
 				1F126DFD1FBFFB76006306D2 /* Config.swift in Sources */,
 				1F126DAA1FBFF387006306D2 /* CountDown.m in Sources */,
 				1F126DC81FBFF3AF006306D2 /* UIButton+Extentions.swift in Sources */,
+				1F126E651FC0979A006306D2 /* AddressViewController.swift in Sources */,
 				1F126E091FBFFD9C006306D2 /* UILabel+ChangeLineSpaceAndWordSpace.m in Sources */,
 				1F126DBE1FBFF391006306D2 /* UITableView+FDTemplateLayoutCellDebug.m in Sources */,
 				1F126E0C1FBFFDCB006306D2 /* NSDate+LSCore.m in Sources */,
 				1F126DBC1FBFF391006306D2 /* UITableView+FDTemplateLayoutCell.m in Sources */,
+				1F126E421FC07CBF006306D2 /* MineViewModel.swift in Sources */,
+				1F126E4D1FC08257006306D2 /* UINavigationController+FDFullscreenPopGesture.m in Sources */,
 				1F126DB01FBFF387006306D2 /* TAAnimatedDotView.m in Sources */,
+				1F126E3D1FC021B5006306D2 /* CacheMeViewController.swift in Sources */,
+				1F126E611FC0977F006306D2 /* QuestionViewController.swift in Sources */,
 				1F126DAC1FBFF387006306D2 /* UIView+SDExtension.m in Sources */,
+				1F126E491FC07F1B006306D2 /* MineToolsTableViewCell.swift in Sources */,
+				1F126E501FC08792006306D2 /* LoginViewController.swift in Sources */,
+				1F126E691FC097BC006306D2 /* MyJoysViewController.swift in Sources */,
+				1F126E6D1FC097FF006306D2 /* TopUpViewController.swift in Sources */,
 				1F126DDA1FBFF3DE006306D2 /* UITextView+Placeholder.m in Sources */,
 				1F126E031FBFFD5F006306D2 /* UIViewController+DismissKeyboard.m in Sources */,
 				1F126DD91FBFF3DE006306D2 /* UIViewController+hideExcessLine.m in Sources */,
+				1F126E5D1FC089AA006306D2 /* LoginTypeViewController.swift in Sources */,
+				1F126E551FC08824006306D2 /* UserProtocolViewController.swift in Sources */,
+				1F126E5F1FC0976F006306D2 /* ProfileViewController.swift in Sources */,
 				1F126DD61FBFF3DE006306D2 /* UIColor+Hex.m in Sources */,
+				1F126E2C1FC01D0A006306D2 /* MainTabBarViewController.swift in Sources */,
 				1F126DAD1FBFF387006306D2 /* SDCollectionViewCell.m in Sources */,
+				1F126E321FC01D8F006306D2 /* HomeViewController.swift in Sources */,
 				1F126DAE1FBFF387006306D2 /* TADotView.m in Sources */,
 				1F126DB21FBFF387006306D2 /* ZHPickView.m in Sources */,
+				1F126E6B1FC097CE006306D2 /* JoysDetailViewController.swift in Sources */,
 				1F126E001FBFFB76006306D2 /* RequestUrl.swift in Sources */,
+				1F126E531FC087D0006306D2 /* Gloable+View.swift in Sources */,
 				1F126DFF1FBFFB76006306D2 /* AppThemeTool.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -21,4 +21,7 @@
 #import "WeiboSDK.h"
 #import <CommonCrypto/CommonCrypto.h>
 #import "NSDate+LSCore.h"
-
+#import "NELivePlayer.h"
+#import "NELivePlayerController.h"
+#import "UINavigationController+FDFullscreenPopGesture.h"
+#import <NIMAVChat/NIMAVChat.h>

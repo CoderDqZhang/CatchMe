@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import NIMSDK
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -15,8 +16,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        
+        AppleThemeTool.setUpToolBarColor()
+        AppleThemeTool.setUpKeyBoardManager()
+        self.registerAPPKey()
+        
+        self.window?.rootViewController = MainTabBarViewController()
+        self.window?.makeKeyAndVisible()
         // Override point for customization after application launch.
         return true
+    }
+    
+    func registerAPPKey(){
+        let options = NIMSDKOption.init(appKey: WANGYIIMAPPKEY)
+        NIMSDK.shared().register(with: options)
+        
+        NIMSDKConfig.shared().enabledHttpsForInfo = true
+        self.login()
+    }
+    
+    func login(){
+        NIMSDK.shared().loginManager.login("lingwen2", token: "procedure".md5()) { (error) in
+            if error == nil {
+                print("登录成功")
+            }
+        }
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

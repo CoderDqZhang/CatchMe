@@ -9,7 +9,7 @@
 import Foundation
 import SwifterSwift
 
-let IPHONE_VERSION:Int = Int(UIDevice.current.systemVersion)!
+let IPHONE_VERSION:Int = (UIDevice.current.systemVersion as! NSString).integerValue
 let IPHONE_VERSION_LAST9 = IPHONE_VERSION >= 9 ? 1:0
 let IPHONE_VERSION_LAST10 = IPHONE_VERSION >= 10 ? 1:0
 
@@ -38,6 +38,7 @@ let DidRegisterRemoteNotification = "DidRegisterRemoteNotification"
 let DidRegisterRemoteURLNotification = "DidRegisterRemoteURLNotification"
 let DidRegisterRemoteDiviceToken = "DidRegisterRemoteDiviceToken"
 
+let WANGYIIMAPPKEY = "6f49e3f759ccd47810b445444eebc090"
 
 let WeiXinAppID = "wx6c6b940e660449a2"
 let QQAppID = "1105914312"
@@ -72,6 +73,7 @@ let ExpressDelivierEBusinessID = "1281351"
 
 let deverliyDic:NSDictionary = ["顺丰":"SF","EMS":"EMS","圆通":"YTO","中通":"ZTO","申通":"STO","宅急送":"ZJS","韵达":"YD"]
 
+let APPVERSION = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
 
 func KWINDOWDS() -> UIWindow{
     let window = UIApplication.shared.keyWindow
@@ -113,6 +115,12 @@ func Notification(_ name:String,value:String?) {
 func NavigationPushView(_ formviewController:UIViewController, toConroller:UIViewController) {
     toConroller.hidesBottomBarWhenPushed = true
     formviewController.navigationController?.pushViewController(toConroller, animated: true)
+}
+
+func NavigaiontPresentView(_ formViewController:UIViewController, toController:UIViewController) {
+    formViewController.present(toController, animated: true) {
+        
+    }
 }
 
 func MainThreadAlertShow(_ msg:String,view:UIView){
