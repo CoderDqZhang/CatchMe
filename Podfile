@@ -6,5 +6,17 @@ target 'CatchMe' do
   use_frameworks!
 
   # Pods for CatchMe
+  pod 'Alamofire', '~> 4.4'
+  pod 'SnapKit','~> 4.0.0'
+  pod 'SDWebImage', '~> 4.0.0-beta2'
+  pod 'MBProgressHUD'
+  pod 'FDFullscreenPopGesture', '1.1'
+  pod 'SwifterSwift'
+  pod 'MJRefresh'
+  pod 'FMDB'
+  pod 'MJExtension'
+  pod 'ReactiveCocoa', '~> 7.0'
+  pod 'NJKWebViewProgress'
+  pod 'IQKeyboardManagerSwift'
 
 end
