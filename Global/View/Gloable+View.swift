@@ -127,3 +127,20 @@ class CustomViewButton: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 }
+
+class CustonPayTypeView: UIView {
+    var imageView:UIImageView!
+    var lable:UILabel!
+    var isSelect:Bool!
+    
+    init(frame:CGRect, image:UIImage, title:String, isSelect:Bool) {
+        super.init(frame: frame)
+        imageView = UIImageView.init()
+//        imageView.frame = CGRect.init(x: <#T##CGFloat#>, y: <#T##CGFloat#>, width: <#T##CGFloat#>, height: <#T##CGFloat#>)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+}

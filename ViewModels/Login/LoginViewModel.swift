@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MJExtension
 
 class LoginViewModel: BaseViewModel {
     
@@ -15,7 +16,7 @@ class LoginViewModel: BaseViewModel {
     }
     
     func requestLoginCode(_ number:String, controller:LoginViewController){
-        let dic = ["mobile_num":number]
+        let dic = ["telephone":number]
         BaseNetWorke.sharedInstance.postUrlWithString(LoginCode, parameters: dic as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
                 let aMinutes:TimeInterval = 60
@@ -25,21 +26,16 @@ class LoginViewModel: BaseViewModel {
     }
     
     func requestLogin(_ form:LoginForm,controller:LoginViewController) {
-        let dic = ["mobile_num":form.phone, "code":form.code]
+        let dic = ["telephone":form.phone, "verifyCode":form.code]
         BaseNetWorke.sharedInstance.postUrlWithString(LoginUrl, parameters: dic as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
-//                let model = UserInfoModel.mj_object(withKeyValues: resultDic.value)
-//                model?.phone = form.phone
-//                UserInfoModel.shareInstance().avatar = model?.avatar
-//                UserInfoModel.shareInstance().username = model?.username
-//                UserInfoModel.shareInstance().id = model?.id
-//                UserInfoModel.shareInstance().gender = (model?.gender)!
-//                UserInfoModel.shareInstance().phone = model?.phone
-//                UserInfoModel.shareInstance().role = model?.role
-//                model?.saveOrUpdate()
-//                self.savePhotoImage()
+                UserDefaultsSetSynchronize(form.phone as AnyObject, key: "telephone")
+                let model = UserInfoModel.mj_object(withKeyValues: (resultDic.value as! NSDictionary).object(forKey: "data"))
+                model?.saveOrUpdate()
                 Notification(LoginStatuesChange, value: nil)
-                controller.navigationController?.popViewController(animated: true)
+                controller.navigationController?.dismiss(animated: true, completion: {
+                    
+                })
                 
             }
         }

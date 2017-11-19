@@ -10,6 +10,12 @@ import UIKit
 
 class TopUpViewController: BaseViewController {
 
+    var balance:UILabel!
+    var topUpView:UIView!
+    var iconDesc:UILabel!
+    var otherBalance:UILabel!
+    var line:GloabLineView!
+//    var weiChatPayView:
     override func viewDidLoad() {
         super.viewDidLoad()
 

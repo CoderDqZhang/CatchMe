@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class MineHeaderTableViewCell: UITableViewCell {
 
@@ -45,6 +46,14 @@ class MineHeaderTableViewCell: UITableViewCell {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func cellSetData(model:UserInfoModel){
+        UIImageViewManger.shareInstance.sd_imageView(url: model.photo != nil ? model.photo as! String : "", imageView: headerImage, placeholderImage: nil) { (image, error, cacheType, url) in
+            
+        }
+        
+        userName.text = model.userName
     }
     
     

@@ -13,12 +13,11 @@ import Foundation
 //测试服
 //let BaseStr = "liangpiao.me/"
 //正式服
-let BaseStr = "niceticket.cc/"
-let BaseURL = "https://api.\(BaseStr)"
+let BaseURL = "http://192.168.167.177:8202/"
 
 
 //登录api
-let LoginUrl = "\(BaseURL)user/login/"
+let LoginUrl = "\(BaseURL)user/login"
 //验证码
 let LoginCode = "\(BaseURL)user/login_code/"
 //用户头像
@@ -85,8 +84,8 @@ let OneShowTicketUrl = "\(BaseURL)supplier/show/"
 //订单快递信息
 let OrderExpress = "\(BaseURL)supplier/order"
 //分享
-let ShareUrl = "http://www.\(BaseStr)show/"
-let UserProtocol = "http://www.\(BaseStr)protocol/"
+//let ShareUrl = "http://www.\(BaseStr)show/"
+//let UserProtocol = "http://www.\(BaseStr)protocol/"
 
 //充值
 let TopUpUrl = "\(BaseURL)account/recharge/"

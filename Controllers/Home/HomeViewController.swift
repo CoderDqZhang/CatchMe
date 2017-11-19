@@ -11,12 +11,30 @@ import ReactiveCocoa
 
 class HomeViewController: BaseViewController {
 
-    
+    var collectView:UICollectionView!
+    var homeViewModel = HomeViewModel()
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        self.setUpView()
+        self.bindLogicViewModel()
+        self.setUpCollectView()
         // Do any additional setup after loading the view.
+    }
+    
+    func setUpCollectView(){
+        let layout = UICollectionViewFlowLayout.init()
+        layout.headerReferenceSize = CGSize.init(width: SCREENWIDTH, height: SCREENWIDTH * 80 / 188)
+        collectView = UICollectionView.init(frame: CGRect.init(x: 0, y: -20, width: SCREENWIDTH, height: SCREENHEIGHT), collectionViewLayout: layout)
+        collectView.backgroundColor = UIColor.init(hexString: App_Theme_FAFAFA_Color)
+        collectView.delegate = homeViewModel
+        collectView.dataSource = homeViewModel
+        self.view.addSubview(collectView)
+        collectView.register(MyDollsCollectionViewCell.self, forCellWithReuseIdentifier: MyDollsCollectionViewCell.description())
+        collectView.register(BannerCollectionReusableView.self, forSupplementaryViewOfKind: "UICollectionElementKindSectionHeader", withReuseIdentifier: BannerCollectionReusableView.description())
+        collectView.register(BannerCollectionReusableView.self, forSupplementaryViewOfKind: "UICollectionElementKindSectionFooter", withReuseIdentifier: BannerCollectionReusableView.description())
+    }
+    
+    func bindLogicViewModel(){
+        self.homeViewModel.controller = self
     }
 
     override func setUpView(){
@@ -25,10 +43,20 @@ class HomeViewController: BaseViewController {
         button.backgroundColor = UIColor.red
         button.setTitle("播放", for: .normal)
         button.reactive.controlEvents(.touchUpInside).observe { (action) in
-            self.testNetWork()
-//            NavigationPushView(self, toConroller: CacheMeViewController())
+//            self.testNetWork()
+            NavigationPushView(self, toConroller: CacheMeViewController())
         }
         self.view.addSubview(button)
+        
+        let buttonShare = UIButton.init(type: .custom)
+        buttonShare.frame = CGRect.init(x: 100, y: 200, width: 100, height: 40)
+        buttonShare.backgroundColor = UIColor.red
+        buttonShare.setTitle("分享", for: .normal)
+        buttonShare.reactive.controlEvents(.touchUpInside).observe { (action) in
+            //            self.testNetWork()
+            self.shareItemPress()
+        }
+        self.view.addSubview(buttonShare)
     }
     
     func testNetWork(){
@@ -50,7 +78,10 @@ class HomeViewController: BaseViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
+    func shareItemPress() {
+        let url = "www.baidu.com"
+        KWINDOWDS().addSubview(ShareView.init(title: "推荐给好友", model: ShareModel.init(), image: nil, url: url))
+    }
     /*
     // MARK: - Navigation
 
@@ -60,5 +91,5 @@ class HomeViewController: BaseViewController {
         // Pass the selected object to the new view controller.
     }
     */
-
 }
+

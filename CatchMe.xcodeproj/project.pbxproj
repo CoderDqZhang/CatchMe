@@ -95,6 +95,31 @@
 		1F126E691FC097BC006306D2 /* MyJoysViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F126E681FC097BC006306D2 /* MyJoysViewController.swift */; };
 		1F126E6B1FC097CE006306D2 /* JoysDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F126E6A1FC097CE006306D2 /* JoysDetailViewController.swift */; };
 		1F126E6D1FC097FF006306D2 /* TopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F126E6C1FC097FF006306D2 /* TopUpViewController.swift */; };
+		1F126E701FC15457006306D2 /* NTESGLView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F126E6F1FC15457006306D2 /* NTESGLView.m */; };
+		1F126E981FC154A0006306D2 /* renderer_yuv444p10le.c in Sources */ = {isa = PBXBuildFile; fileRef = 1F126E761FC1549F006306D2 /* renderer_yuv444p10le.c */; };
+		1F126E991FC154A0006306D2 /* common.c in Sources */ = {isa = PBXBuildFile; fileRef = 1F126E771FC1549F006306D2 /* common.c */; };
+		1F126E9A1FC154A0006306D2 /* mvp.vsh.c in Sources */ = {isa = PBXBuildFile; fileRef = 1F126E7A1FC1549F006306D2 /* mvp.vsh.c */; };
+		1F126E9B1FC154A0006306D2 /* renderer_rgb.c in Sources */ = {isa = PBXBuildFile; fileRef = 1F126E7B1FC1549F006306D2 /* renderer_rgb.c */; };
+		1F126E9C1FC154A0006306D2 /* renderer_yuv420p.c in Sources */ = {isa = PBXBuildFile; fileRef = 1F126E7C1FC1549F006306D2 /* renderer_yuv420p.c */; };
+		1F126E9D1FC154A0006306D2 /* renderer_yuv420sp.c in Sources */ = {isa = PBXBuildFile; fileRef = 1F126E7D1FC1549F006306D2 /* renderer_yuv420sp.c */; };
+		1F126E9E1FC154A0006306D2 /* shader.c in Sources */ = {isa = PBXBuildFile; fileRef = 1F126E7E1FC1549F006306D2 /* shader.c */; };
+		1F126E9F1FC154A0006306D2 /* renderer.c in Sources */ = {isa = PBXBuildFile; fileRef = 1F126E7F1FC1549F006306D2 /* renderer.c */; };
+		1F126EA01FC154A0006306D2 /* yuv444p10le.fsh.c in Sources */ = {isa = PBXBuildFile; fileRef = 1F126E811FC1549F006306D2 /* yuv444p10le.fsh.c */; };
+		1F126EA11FC154A0006306D2 /* yuv420p.fsh.c in Sources */ = {isa = PBXBuildFile; fileRef = 1F126E821FC1549F006306D2 /* yuv420p.fsh.c */; };
+		1F126EA21FC154A0006306D2 /* yuv420sp.fsh.c in Sources */ = {isa = PBXBuildFile; fileRef = 1F126E831FC1549F006306D2 /* yuv420sp.fsh.c */; };
+		1F126EA31FC154A0006306D2 /* rgb.fsh.c in Sources */ = {isa = PBXBuildFile; fileRef = 1F126E841FC1549F006306D2 /* rgb.fsh.c */; };
+		1F126EA41FC154A0006306D2 /* color.c in Sources */ = {isa = PBXBuildFile; fileRef = 1F126E851FC1549F006306D2 /* color.c */; };
+		1F126EA51FC154A0006306D2 /* IJKSDLGLView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F126E8F1FC1549F006306D2 /* IJKSDLGLView.m */; };
+		1F126EA61FC154A0006306D2 /* ijksdl_timer.c in Sources */ = {isa = PBXBuildFile; fileRef = 1F126E971FC1549F006306D2 /* ijksdl_timer.c */; };
+		1F126EA81FC16212006306D2 /* ShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F126EA71FC16212006306D2 /* ShareView.swift */; };
+		1F126EAA1FC16C50006306D2 /* ShareManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F126EA91FC16C50006306D2 /* ShareManager.swift */; };
+		1F126EAF1FC180B0006306D2 /* UserInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F126EAE1FC180B0006306D2 /* UserInfoModel.m */; };
+		1F126EB51FC180FC006306D2 /* JKDBModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F126EB11FC180FC006306D2 /* JKDBModel.m */; };
+		1F126EB61FC180FC006306D2 /* JKDBHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F126EB21FC180FC006306D2 /* JKDBHelper.m */; };
+		1F126EBB1FC18CCB006306D2 /* UIImageViewManger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F126EBA1FC18CCB006306D2 /* UIImageViewManger.swift */; };
+		1F126EBD1FC198D6006306D2 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F126EBC1FC198D6006306D2 /* HomeViewModel.swift */; };
+		1F126EBF1FC19A42006306D2 /* MyDollsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F126EBE1FC19A42006306D2 /* MyDollsCollectionViewCell.swift */; };
+		1F126EC11FC1A48C006306D2 /* BannerCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F126EC01FC1A48C006306D2 /* BannerCollectionReusableView.swift */; };
 		54C665C6CE13906B598CBB0B /* Pods_CatchMe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 018F762371DA9CCCFF9892F6 /* Pods_CatchMe.framework */; };
 /* End PBXBuildFile section */
 
@@ -231,6 +256,54 @@
 		1F126E681FC097BC006306D2 /* MyJoysViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyJoysViewController.swift; sourceTree = "<group>"; };
 		1F126E6A1FC097CE006306D2 /* JoysDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoysDetailViewController.swift; sourceTree = "<group>"; };
 		1F126E6C1FC097FF006306D2 /* TopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopUpViewController.swift; sourceTree = "<group>"; };
+		1F126E6E1FC15456006306D2 /* NTESGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTESGLView.h; sourceTree = "<group>"; };
+		1F126E6F1FC15457006306D2 /* NTESGLView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NTESGLView.m; sourceTree = "<group>"; };
+		1F126E721FC1549F006306D2 /* ijksdl_gles2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ijksdl_gles2.h; sourceTree = "<group>"; };
+		1F126E731FC1549F006306D2 /* ijksdl_stdinc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ijksdl_stdinc.h; sourceTree = "<group>"; };
+		1F126E741FC1549F006306D2 /* ijksdl_vout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ijksdl_vout.h; sourceTree = "<group>"; };
+		1F126E761FC1549F006306D2 /* renderer_yuv444p10le.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = renderer_yuv444p10le.c; sourceTree = "<group>"; };
+		1F126E771FC1549F006306D2 /* common.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = common.c; sourceTree = "<group>"; };
+		1F126E781FC1549F006306D2 /* internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = internal.h; sourceTree = "<group>"; };
+		1F126E7A1FC1549F006306D2 /* mvp.vsh.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mvp.vsh.c; sourceTree = "<group>"; };
+		1F126E7B1FC1549F006306D2 /* renderer_rgb.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = renderer_rgb.c; sourceTree = "<group>"; };
+		1F126E7C1FC1549F006306D2 /* renderer_yuv420p.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = renderer_yuv420p.c; sourceTree = "<group>"; };
+		1F126E7D1FC1549F006306D2 /* renderer_yuv420sp.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = renderer_yuv420sp.c; sourceTree = "<group>"; };
+		1F126E7E1FC1549F006306D2 /* shader.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = shader.c; sourceTree = "<group>"; };
+		1F126E7F1FC1549F006306D2 /* renderer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = renderer.c; sourceTree = "<group>"; };
+		1F126E811FC1549F006306D2 /* yuv444p10le.fsh.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = yuv444p10le.fsh.c; sourceTree = "<group>"; };
+		1F126E821FC1549F006306D2 /* yuv420p.fsh.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = yuv420p.fsh.c; sourceTree = "<group>"; };
+		1F126E831FC1549F006306D2 /* yuv420sp.fsh.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = yuv420sp.fsh.c; sourceTree = "<group>"; };
+		1F126E841FC1549F006306D2 /* rgb.fsh.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = rgb.fsh.c; sourceTree = "<group>"; };
+		1F126E851FC1549F006306D2 /* color.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = color.c; sourceTree = "<group>"; };
+		1F126E861FC1549F006306D2 /* ijksdl_mutex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ijksdl_mutex.h; sourceTree = "<group>"; };
+		1F126E871FC1549F006306D2 /* ijksdl_fourcc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ijksdl_fourcc.h; sourceTree = "<group>"; };
+		1F126E881FC1549F006306D2 /* ijksdl_video.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ijksdl_video.h; sourceTree = "<group>"; };
+		1F126E891FC1549F006306D2 /* ijksdl_endian.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ijksdl_endian.h; sourceTree = "<group>"; };
+		1F126E8A1FC1549F006306D2 /* ijksdl_class.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ijksdl_class.h; sourceTree = "<group>"; };
+		1F126E8B1FC1549F006306D2 /* ijksdl_timer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ijksdl_timer.h; sourceTree = "<group>"; };
+		1F126E8C1FC1549F006306D2 /* ijksdl_inc_internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ijksdl_inc_internal.h; sourceTree = "<group>"; };
+		1F126E8E1FC1549F006306D2 /* ijksdl_ios.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ijksdl_ios.h; sourceTree = "<group>"; };
+		1F126E8F1FC1549F006306D2 /* IJKSDLGLView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IJKSDLGLView.m; sourceTree = "<group>"; };
+		1F126E901FC1549F006306D2 /* ijksdl_vout_overlay_videotoolbox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ijksdl_vout_overlay_videotoolbox.h; sourceTree = "<group>"; };
+		1F126E911FC1549F006306D2 /* IJKSDLGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IJKSDLGLView.h; sourceTree = "<group>"; };
+		1F126E921FC1549F006306D2 /* ijksdl_thread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ijksdl_thread.h; sourceTree = "<group>"; };
+		1F126E931FC1549F006306D2 /* ijksdl_log.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ijksdl_log.h; sourceTree = "<group>"; };
+		1F126E941FC1549F006306D2 /* ijksdl_misc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ijksdl_misc.h; sourceTree = "<group>"; };
+		1F126E951FC1549F006306D2 /* ijksdl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ijksdl.h; sourceTree = "<group>"; };
+		1F126E961FC1549F006306D2 /* ijksdl_error.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ijksdl_error.h; sourceTree = "<group>"; };
+		1F126E971FC1549F006306D2 /* ijksdl_timer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ijksdl_timer.c; sourceTree = "<group>"; };
+		1F126EA71FC16212006306D2 /* ShareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareView.swift; sourceTree = "<group>"; };
+		1F126EA91FC16C50006306D2 /* ShareManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareManager.swift; sourceTree = "<group>"; };
+		1F126EAD1FC180B0006306D2 /* UserInfoModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserInfoModel.h; sourceTree = "<group>"; };
+		1F126EAE1FC180B0006306D2 /* UserInfoModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserInfoModel.m; sourceTree = "<group>"; };
+		1F126EB11FC180FC006306D2 /* JKDBModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKDBModel.m; sourceTree = "<group>"; };
+		1F126EB21FC180FC006306D2 /* JKDBHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKDBHelper.m; sourceTree = "<group>"; };
+		1F126EB31FC180FC006306D2 /* JKDBModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKDBModel.h; sourceTree = "<group>"; };
+		1F126EB41FC180FC006306D2 /* JKDBHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKDBHelper.h; sourceTree = "<group>"; };
+		1F126EBA1FC18CCB006306D2 /* UIImageViewManger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageViewManger.swift; sourceTree = "<group>"; };
+		1F126EBC1FC198D6006306D2 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		1F126EBE1FC19A42006306D2 /* MyDollsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDollsCollectionViewCell.swift; sourceTree = "<group>"; };
+		1F126EC01FC1A48C006306D2 /* BannerCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerCollectionReusableView.swift; sourceTree = "<group>"; };
 		599640648AD4571953B84782 /* Pods-CatchMe.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CatchMe.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CatchMe/Pods-CatchMe.debug.xcconfig"; sourceTree = "<group>"; };
 		66871A49004208702649CA5E /* Pods-CatchMe.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CatchMe.release.xcconfig"; path = "Pods/Target Support Files/Pods-CatchMe/Pods-CatchMe.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -293,6 +366,7 @@
 				1F126D621FBFF024006306D2 /* AppDelegate.swift */,
 				1F126D641FBFF024006306D2 /* ViewController.swift */,
 				1F126DF91FBFFB75006306D2 /* AppThemeTool.swift */,
+				1F126EA91FC16C50006306D2 /* ShareManager.swift */,
 				1F126DF71FBFFB75006306D2 /* Config.swift */,
 				1F126DF81FBFFB75006306D2 /* Define.swift */,
 				1F126DFB1FBFFB76006306D2 /* CatchMe-Bridging-Header.h */,
@@ -342,6 +416,8 @@
 		1F126D771FBFF21B006306D2 /* Lib */ = {
 			isa = PBXGroup;
 			children = (
+				1F126EB01FC180FC006306D2 /* DBModel */,
+				1F126E711FC1549F006306D2 /* ijksdl */,
 				1F126E4A1FC08257006306D2 /* FDFullscreenPopGesture */,
 				1F126DB31FBFF391006306D2 /* UITableView-FDTempleateLayoutCell */,
 				1F126D941FBFF387006306D2 /* CountDown */,
@@ -459,6 +535,7 @@
 			children = (
 				1F126D8E1FBFF354006306D2 /* ShareTools.swift */,
 				1F126D8F1FBFF354006306D2 /* Tools.swift */,
+				1F126EBA1FC18CCB006306D2 /* UIImageViewManger.swift */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -651,6 +728,7 @@
 		1F126E401FC07CA3006306D2 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				1F126EBC1FC198D6006306D2 /* HomeViewModel.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -674,6 +752,8 @@
 		1F126E451FC07CF3006306D2 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				1F126EC01FC1A48C006306D2 /* BannerCollectionReusableView.swift */,
+				1F126EBE1FC19A42006306D2 /* MyDollsCollectionViewCell.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -700,6 +780,9 @@
 			isa = PBXGroup;
 			children = (
 				1F126E521FC087D0006306D2 /* Gloable+View.swift */,
+				1F126E6E1FC15456006306D2 /* NTESGLView.h */,
+				1F126E6F1FC15457006306D2 /* NTESGLView.m */,
+				1F126EA71FC16212006306D2 /* ShareView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -708,6 +791,8 @@
 			isa = PBXGroup;
 			children = (
 				1F126E571FC088C4006306D2 /* LoginForm.swift */,
+				1F126EAD1FC180B0006306D2 /* UserInfoModel.h */,
+				1F126EAE1FC180B0006306D2 /* UserInfoModel.m */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -718,6 +803,90 @@
 				1F126E5A1FC0891D006306D2 /* LoginViewModel.swift */,
 			);
 			path = Login;
+			sourceTree = "<group>";
+		};
+		1F126E711FC1549F006306D2 /* ijksdl */ = {
+			isa = PBXGroup;
+			children = (
+				1F126E721FC1549F006306D2 /* ijksdl_gles2.h */,
+				1F126E731FC1549F006306D2 /* ijksdl_stdinc.h */,
+				1F126E741FC1549F006306D2 /* ijksdl_vout.h */,
+				1F126E751FC1549F006306D2 /* gles2 */,
+				1F126E861FC1549F006306D2 /* ijksdl_mutex.h */,
+				1F126E871FC1549F006306D2 /* ijksdl_fourcc.h */,
+				1F126E881FC1549F006306D2 /* ijksdl_video.h */,
+				1F126E891FC1549F006306D2 /* ijksdl_endian.h */,
+				1F126E8A1FC1549F006306D2 /* ijksdl_class.h */,
+				1F126E8B1FC1549F006306D2 /* ijksdl_timer.h */,
+				1F126E8C1FC1549F006306D2 /* ijksdl_inc_internal.h */,
+				1F126E8D1FC1549F006306D2 /* ios */,
+				1F126E921FC1549F006306D2 /* ijksdl_thread.h */,
+				1F126E931FC1549F006306D2 /* ijksdl_log.h */,
+				1F126E941FC1549F006306D2 /* ijksdl_misc.h */,
+				1F126E951FC1549F006306D2 /* ijksdl.h */,
+				1F126E961FC1549F006306D2 /* ijksdl_error.h */,
+				1F126E971FC1549F006306D2 /* ijksdl_timer.c */,
+			);
+			path = ijksdl;
+			sourceTree = "<group>";
+		};
+		1F126E751FC1549F006306D2 /* gles2 */ = {
+			isa = PBXGroup;
+			children = (
+				1F126E761FC1549F006306D2 /* renderer_yuv444p10le.c */,
+				1F126E771FC1549F006306D2 /* common.c */,
+				1F126E781FC1549F006306D2 /* internal.h */,
+				1F126E791FC1549F006306D2 /* vsh */,
+				1F126E7B1FC1549F006306D2 /* renderer_rgb.c */,
+				1F126E7C1FC1549F006306D2 /* renderer_yuv420p.c */,
+				1F126E7D1FC1549F006306D2 /* renderer_yuv420sp.c */,
+				1F126E7E1FC1549F006306D2 /* shader.c */,
+				1F126E7F1FC1549F006306D2 /* renderer.c */,
+				1F126E801FC1549F006306D2 /* fsh */,
+				1F126E851FC1549F006306D2 /* color.c */,
+			);
+			path = gles2;
+			sourceTree = "<group>";
+		};
+		1F126E791FC1549F006306D2 /* vsh */ = {
+			isa = PBXGroup;
+			children = (
+				1F126E7A1FC1549F006306D2 /* mvp.vsh.c */,
+			);
+			path = vsh;
+			sourceTree = "<group>";
+		};
+		1F126E801FC1549F006306D2 /* fsh */ = {
+			isa = PBXGroup;
+			children = (
+				1F126E811FC1549F006306D2 /* yuv444p10le.fsh.c */,
+				1F126E821FC1549F006306D2 /* yuv420p.fsh.c */,
+				1F126E831FC1549F006306D2 /* yuv420sp.fsh.c */,
+				1F126E841FC1549F006306D2 /* rgb.fsh.c */,
+			);
+			path = fsh;
+			sourceTree = "<group>";
+		};
+		1F126E8D1FC1549F006306D2 /* ios */ = {
+			isa = PBXGroup;
+			children = (
+				1F126E8E1FC1549F006306D2 /* ijksdl_ios.h */,
+				1F126E8F1FC1549F006306D2 /* IJKSDLGLView.m */,
+				1F126E901FC1549F006306D2 /* ijksdl_vout_overlay_videotoolbox.h */,
+				1F126E911FC1549F006306D2 /* IJKSDLGLView.h */,
+			);
+			path = ios;
+			sourceTree = "<group>";
+		};
+		1F126EB01FC180FC006306D2 /* DBModel */ = {
+			isa = PBXGroup;
+			children = (
+				1F126EB11FC180FC006306D2 /* JKDBModel.m */,
+				1F126EB21FC180FC006306D2 /* JKDBHelper.m */,
+				1F126EB31FC180FC006306D2 /* JKDBModel.h */,
+				1F126EB41FC180FC006306D2 /* JKDBHelper.h */,
+			);
+			path = DBModel;
 			sourceTree = "<group>";
 		};
 		AB92BE9F4E2397317A00B46E /* Frameworks */ = {
@@ -879,34 +1048,48 @@
 				1F126DBD1FBFF391006306D2 /* UITableView+FDKeyedHeightCache.m in Sources */,
 				1F126E631FC0978E006306D2 /* MyCodeViewController.swift in Sources */,
 				1F126E3B1FC01EB9006306D2 /* BaseViewModel.swift in Sources */,
+				1F126EBD1FC198D6006306D2 /* HomeViewModel.swift in Sources */,
+				1F126EBB1FC18CCB006306D2 /* UIImageViewManger.swift in Sources */,
 				1F126DC51FBFF3AF006306D2 /* AlertControl+Tools.swift in Sources */,
 				1F126D901FBFF354006306D2 /* ShareTools.swift in Sources */,
 				1F126DAB1FBFF387006306D2 /* SDCycleScrollView.m in Sources */,
+				1F126EA01FC154A0006306D2 /* yuv444p10le.fsh.c in Sources */,
+				1F126EB61FC180FC006306D2 /* JKDBHelper.m in Sources */,
 				1F126DCB1FBFF3B9006306D2 /* UIViewController+NavigationBar.swift in Sources */,
 				1F126E301FC01D7F006306D2 /* BaseViewController.swift in Sources */,
+				1F126E9C1FC154A0006306D2 /* renderer_yuv420p.c in Sources */,
 				1F126E351FC01DA8006306D2 /* TopViewController.swift in Sources */,
 				1F126E5B1FC0891D006306D2 /* LoginViewModel.swift in Sources */,
 				1F126D931FBFF36B006306D2 /* BaseNetWorke.swift in Sources */,
 				1F126D651FBFF024006306D2 /* ViewController.swift in Sources */,
 				1F126E061FBFFD70006306D2 /* UIImage+PureColor.m in Sources */,
 				1F126E581FC088C4006306D2 /* LoginForm.swift in Sources */,
+				1F126E9E1FC154A0006306D2 /* shader.c in Sources */,
 				1F126DC61FBFF3AF006306D2 /* NSTimer.swift in Sources */,
+				1F126E701FC15457006306D2 /* NTESGLView.m in Sources */,
 				1F126DC91FBFF3AF006306D2 /* UIImage+Crop.swift in Sources */,
 				1F126DC71FBFF3AF006306D2 /* String+Size.swift in Sources */,
 				1F126E381FC01DBA006306D2 /* MineViewController.swift in Sources */,
 				1F126E671FC097AE006306D2 /* SenderJoysViewController.swift in Sources */,
+				1F126E9D1FC154A0006306D2 /* renderer_yuv420sp.c in Sources */,
 				1F126D631FBFF024006306D2 /* AppDelegate.swift in Sources */,
 				1F126DD71FBFF3DE006306D2 /* NSString+Utils.m in Sources */,
 				1F126D911FBFF354006306D2 /* Tools.swift in Sources */,
 				1F126E471FC07D13006306D2 /* MineHeaderTableViewCell.swift in Sources */,
+				1F126E991FC154A0006306D2 /* common.c in Sources */,
 				1F126DAF1FBFF387006306D2 /* TAPageControl.m in Sources */,
+				1F126EC11FC1A48C006306D2 /* BannerCollectionReusableView.swift in Sources */,
 				1F126E1E1FBFFED9006306D2 /* View+Extntion.swift in Sources */,
+				1F126EA11FC154A0006306D2 /* yuv420p.fsh.c in Sources */,
 				1F126DD81FBFF3DE006306D2 /* NSString+StringSize.m in Sources */,
 				1F126DB11FBFF387006306D2 /* TAAbstractDotView.m in Sources */,
 				1F126DFE1FBFFB76006306D2 /* Define.swift in Sources */,
 				1F126DBF1FBFF391006306D2 /* UITableView+FDIndexPathHeightCache.m in Sources */,
 				1F126DFD1FBFFB76006306D2 /* Config.swift in Sources */,
+				1F126E9B1FC154A0006306D2 /* renderer_rgb.c in Sources */,
+				1F126EA51FC154A0006306D2 /* IJKSDLGLView.m in Sources */,
 				1F126DAA1FBFF387006306D2 /* CountDown.m in Sources */,
+				1F126EA81FC16212006306D2 /* ShareView.swift in Sources */,
 				1F126DC81FBFF3AF006306D2 /* UIButton+Extentions.swift in Sources */,
 				1F126E651FC0979A006306D2 /* AddressViewController.swift in Sources */,
 				1F126E091FBFFD9C006306D2 /* UILabel+ChangeLineSpaceAndWordSpace.m in Sources */,
@@ -920,24 +1103,35 @@
 				1F126E611FC0977F006306D2 /* QuestionViewController.swift in Sources */,
 				1F126DAC1FBFF387006306D2 /* UIView+SDExtension.m in Sources */,
 				1F126E491FC07F1B006306D2 /* MineToolsTableViewCell.swift in Sources */,
+				1F126E9F1FC154A0006306D2 /* renderer.c in Sources */,
+				1F126E9A1FC154A0006306D2 /* mvp.vsh.c in Sources */,
+				1F126EAF1FC180B0006306D2 /* UserInfoModel.m in Sources */,
 				1F126E501FC08792006306D2 /* LoginViewController.swift in Sources */,
+				1F126EAA1FC16C50006306D2 /* ShareManager.swift in Sources */,
 				1F126E691FC097BC006306D2 /* MyJoysViewController.swift in Sources */,
 				1F126E6D1FC097FF006306D2 /* TopUpViewController.swift in Sources */,
 				1F126DDA1FBFF3DE006306D2 /* UITextView+Placeholder.m in Sources */,
+				1F126EA61FC154A0006306D2 /* ijksdl_timer.c in Sources */,
 				1F126E031FBFFD5F006306D2 /* UIViewController+DismissKeyboard.m in Sources */,
 				1F126DD91FBFF3DE006306D2 /* UIViewController+hideExcessLine.m in Sources */,
+				1F126EA41FC154A0006306D2 /* color.c in Sources */,
+				1F126E981FC154A0006306D2 /* renderer_yuv444p10le.c in Sources */,
 				1F126E5D1FC089AA006306D2 /* LoginTypeViewController.swift in Sources */,
 				1F126E551FC08824006306D2 /* UserProtocolViewController.swift in Sources */,
 				1F126E5F1FC0976F006306D2 /* ProfileViewController.swift in Sources */,
+				1F126EA31FC154A0006306D2 /* rgb.fsh.c in Sources */,
 				1F126DD61FBFF3DE006306D2 /* UIColor+Hex.m in Sources */,
 				1F126E2C1FC01D0A006306D2 /* MainTabBarViewController.swift in Sources */,
+				1F126EB51FC180FC006306D2 /* JKDBModel.m in Sources */,
 				1F126DAD1FBFF387006306D2 /* SDCollectionViewCell.m in Sources */,
 				1F126E321FC01D8F006306D2 /* HomeViewController.swift in Sources */,
 				1F126DAE1FBFF387006306D2 /* TADotView.m in Sources */,
 				1F126DB21FBFF387006306D2 /* ZHPickView.m in Sources */,
 				1F126E6B1FC097CE006306D2 /* JoysDetailViewController.swift in Sources */,
 				1F126E001FBFFB76006306D2 /* RequestUrl.swift in Sources */,
+				1F126EA21FC154A0006306D2 /* yuv420sp.fsh.c in Sources */,
 				1F126E531FC087D0006306D2 /* Gloable+View.swift in Sources */,
+				1F126EBF1FC19A42006306D2 /* MyDollsCollectionViewCell.swift in Sources */,
 				1F126DFF1FBFFB76006306D2 /* AppThemeTool.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1092,7 +1286,7 @@
 					"$(PROJECT_DIR)/Global/Utli/NELivePlayer/libs",
 					"$(PROJECT_DIR)/Global/Utli/libWeiboSDK",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.cizi.CatchMe;
+				PRODUCT_BUNDLE_IDENTIFIER = com.zhuawo.catchdoll;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "CatchMe/CatchMe-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
@@ -1121,7 +1315,7 @@
 					"$(PROJECT_DIR)/Global/Utli/NELivePlayer/libs",
 					"$(PROJECT_DIR)/Global/Utli/libWeiboSDK",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.cizi.CatchMe;
+				PRODUCT_BUNDLE_IDENTIFIER = com.zhuawo.catchdoll;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "CatchMe/CatchMe-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;

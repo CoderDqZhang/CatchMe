@@ -12,10 +12,21 @@ class MineViewModel: BaseViewModel {
 
     override init() {
         super.init()
+        NotificationCenter.default.addObserver(self, selector: #selector(MineViewModel.updataTableView), name: NSNotification.Name(rawValue: LoginStatuesChange), object: nil)
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: LoginStatuesChange), object: nil)
+    }
+    
+    @objc func updataTableView(){
+        self.controller?.tableView.reloadData()
     }
     //MARK: TableViewCellSetData
     func tableViewMineHeaderTableViewCellSetData(_ indexPath:IndexPath, cell:MineHeaderTableViewCell) {
-        
+        if UserInfoModel.isLoggedIn() {
+            cell.cellSetData(model: UserInfoModel.shareInstance());
+        }
     }
     
     func tableViewMineToolsTableViewCellSetData(_ indexPath:IndexPath, cell:MineToolsTableViewCell){
@@ -26,7 +37,11 @@ class MineViewModel: BaseViewModel {
     
     func tableViewDidSelect(_ indexPath:IndexPath) {
         if indexPath.row == 0 {
-            NavigaiontPresentView(self.controller!, toController: UINavigationController.init(rootViewController: LoginTypeViewController()))
+            if UserInfoModel.isLoggedIn() {
+                NavigationPushView(self.controller!, toConroller: ProfileViewController())
+            }else{
+                NavigaiontPresentView(self.controller!, toController: UINavigationController.init(rootViewController: LoginTypeViewController()))
+            }
         }
     }
 }

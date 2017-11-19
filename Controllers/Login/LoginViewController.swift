@@ -57,6 +57,7 @@ class LoginViewController: UIViewController {
         
         confimCodeField = self.createTextFiled(CGRect.zero)
         confimCodeField.delegate = self
+        confimCodeField.text = "2"
         confimCodeField.placeholder = "验证码"
         confimCodeField.textColor = UIColor.init(hexString: App_Theme_333333_Color)
         confimCodeField.font = App_Theme_PinFan_R_14_Font
@@ -69,6 +70,7 @@ class LoginViewController: UIViewController {
         phontTextField = self.createTextFiled(CGRect.zero)
         phontTextField.delegate = self
         phontTextField.tag = 1
+        phontTextField.text = "13588888888"
         phontTextField.textColor = UIColor.init(hexString: App_Theme_333333_Color)
         phontTextField.keyboardType = .phonePad
         phontTextField.placeholder = "请输入手机号"
@@ -122,7 +124,7 @@ class LoginViewController: UIViewController {
         
         
         
-        proBtn = CustomButton.init(frame: CGRect.zero, title: "《良票用户协议》", tag: 1, titleFont: App_Theme_PinFan_R_12_Font!, type: .withNoBoarder, pressClouse: { (tag) in
+        proBtn = CustomButton.init(frame: CGRect.zero, title: "《抓我用户协议》", tag: 1, titleFont: App_Theme_PinFan_R_12_Font!, type: .withNoBoarder, pressClouse: { (tag) in
             NavigationPushView(self, toConroller: UserProtocolViewController())
         })
         self.view.addSubview(proBtn)

@@ -221,10 +221,13 @@ class BaseNetWorke {
                 methods = HTTPMethod.delete
             default:
                 methods = HTTPMethod.put
-        }
+        };
+        
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
         
-        Alamofire.request(url, method: methods, parameters: parameters as? [String: Any], encoding: JSONEncoding.default, headers: nil).responseJSON { (response) in
+        
+//        let urlString = (url as NSString).urlEncode(url)
+        Alamofire.request(url, method: methods, parameters: parameters as? [String: Any], encoding: URLEncoding.default, headers: nil).responseJSON { (response) in
             UIApplication.shared.isNetworkActivityIndicatorVisible = false
             
 //            NetWorkingResponse.sharedInstance.showNetWorkingResPonse(response as AnyObject)

@@ -17,11 +17,15 @@ class BaseViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
-        self.setNavigationItemBack()
         self.setUpView()
+        self.viewControllerSetNavigationItemBack()
         self.setUpViewNavigationItem()
         self.setUpLogic()
         // Do any additional setup after loading the view.
+    }
+    
+    func viewControllerSetNavigationItemBack(){
+        self.setNavigationItemBack()
     }
     
     func setUpView(){

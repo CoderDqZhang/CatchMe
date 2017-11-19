@@ -132,7 +132,7 @@ func MainThreadAlertShow(_ msg:String,view:UIView){
 func MainThreanShowErrorMessage(_ error:AnyObject){
     if error is NSDictionary {
         DispatchQueue.main.async(execute: {
-//            _ = Tools.shareInstance.showErrorMessage(error)
+            _ = Tools.shareInstance.showErrorMessage(error)
         })
     }
 }
@@ -141,6 +141,16 @@ func MainThreanShowNetWorkError(_ error:AnyObject){
     DispatchQueue.main.async(execute: {
         _ = Tools.shareInstance.showNetWorkError(error)
     })
+}
+
+func GloableSetEvent(_ trackEvent:String, lable:String?, parameters:NSDictionary?) {
+//    if lable == nil {
+//        TalkingData.trackEvent(trackEvent)
+//    }else if parameters == nil {
+//        TalkingData.trackEvent(trackEvent, label: lable)
+//    }else{
+//        TalkingData.trackEvent(trackEvent, label: lable, parameters: parameters as! [AnyHashable: Any])
+//    }
 }
 
 

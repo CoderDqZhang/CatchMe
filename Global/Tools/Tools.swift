@@ -93,7 +93,16 @@ class Tools: NSObject {
         return hud
     }
     
-//    func showErrorMessage(_ errorDic:AnyObject) ->MBProgressHUD? {
+    func showErrorMessage(_ errorDic:AnyObject) ->MBProgressHUD? {
+        if (errorDic is NSDictionary) {
+            if (errorDic as! NSDictionary).object(forKey: "message") != nil {
+                return self.showMessage(KWINDOWDS(), msg:(errorDic as! NSDictionary).object(forKey: "message") as! String , autoHidder: true)
+            }else{
+                return self.showMessage(KWINDOWDS(), msg:"网络服务错误" , autoHidder: true)
+            }
+        }else{
+            return self.showMessage(KWINDOWDS(), msg:"网络服务错误" , autoHidder: true)
+        }
 //        let errorModel = ErrorModel.init(fromDictionary: errorDic as! NSDictionary)
 //        var errorMsg:String = ""
 //        if errorModel.code != nil {
@@ -111,7 +120,7 @@ class Tools: NSObject {
 //                return nil
 //            }
 //        }
-//    }
+    }
     
     func showNetWorkError(_ error:AnyObject) ->MBProgressHUD {
         let netWorkError = (error as! NSError)

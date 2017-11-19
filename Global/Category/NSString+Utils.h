@@ -20,5 +20,7 @@
 + (NSString*)DataTOjsonString:(id)object;
 
 + (id)DataToNSDiction:(id)object;
+    
+- (NSString *)urlEncode:(NSString *)url;
 
 @end

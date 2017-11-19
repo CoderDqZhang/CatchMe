@@ -41,4 +41,10 @@
     return objectDic;
 }
 
+- (NSString *)urlEncode:(NSString *)url {
+    NSString *charactersToEscape = @"?!@#$^&%*+,:;='\"`<>()[]{}/\\| ";
+    NSCharacterSet *allowedCharacters = [[NSCharacterSet characterSetWithCharactersInString:charactersToEscape] invertedSet];
+    return [url stringByAddingPercentEncodingWithAllowedCharacters:allowedCharacters];
+}
+    
 @end

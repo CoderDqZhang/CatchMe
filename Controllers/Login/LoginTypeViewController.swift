@@ -19,9 +19,13 @@ class LoginTypeViewController: BaseViewController {
         // Do any additional setup after loading the view.
     }
     
+    override func viewControllerSetNavigationItemBack(){
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem.init(title: "取消", style: .plain, target: self, action: #selector(LoginTypeViewController.leftBarButtonPress))
+    }
+    
     override func setUpView() {
         loginWithWeChat = CustomButton.init(frame: CGRect.init(x: 30, y: 130, width: SCREENWIDTH - 60, height: 40), title: "微信登录", tag: 0, titleFont: App_Theme_PinFan_R_15_Font!, type: CustomButtonType.withBackBoarder, pressClouse: { (tag) in
-            
+            self.loginWeiChat()
         })
         self.view.addSubview(loginWithWeChat)
         
@@ -31,8 +35,16 @@ class LoginTypeViewController: BaseViewController {
         self.view.addSubview(loginWithPhone)
     }
     
-    override func setUpViewNavigationItem() {
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem.init(title: "取消", style: .plain, target: self, action: #selector(LoginTypeViewController.leftBarButtonPress))
+    func loginWeiChat(){
+        if WXApi.isWXAppInstalled() {
+            let req = SendAuthReq()
+            req.scope = "snsapi_userinfo"
+            req.state = "App"
+            //第三方向微信终端发送一个SendAuthReq消息结构
+            if !WXApi.send(req) {
+                print("weixin sendreq failed")
+            }
+        }
     }
     
     @objc func leftBarButtonPress(){
