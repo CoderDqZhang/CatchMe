@@ -74,13 +74,13 @@ class CustomButton: UIButton {
     }
     
     func setWithNoBoarderButton(){
-        self.buttonSetTitleColor(App_Theme_F94856_Color, sTitleColor: App_Theme_40C6B7_Color)
+        self.buttonSetTitleColor(App_Theme_F94856_Color, sTitleColor: App_Theme_6D4033_Color)
     }
     
     func setWithBoarderButton(){
         self.layer.borderColor = UIColor.init(hexString: App_Theme_F94856_Color).cgColor
         self.layer.borderWidth = 1.0
-        self.buttonSetTitleColor(App_Theme_F94856_Color, sTitleColor: App_Theme_40C6B7_Color)
+        self.buttonSetTitleColor(App_Theme_F94856_Color, sTitleColor: App_Theme_6D4033_Color)
     }
     
     func setWithDisbleBoarderButton(){

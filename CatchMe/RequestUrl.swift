@@ -13,8 +13,7 @@ import Foundation
 //测试服
 //let BaseStr = "liangpiao.me/"
 //正式服
-let BaseURL = "http://192.168.167.177:8202/"
-
+let BaseURL = "http://39.106.137.21:8202/"
 
 //登录api
 let LoginUrl = "\(BaseURL)user/login"

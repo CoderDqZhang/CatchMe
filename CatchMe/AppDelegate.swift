@@ -42,6 +42,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WeiboSDKDelegate {
                 print("登录成功")
             }
         }
+        NIMSDK.shared().loginManager.autoLogin("lingwen2", token: "procedure".md5())
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

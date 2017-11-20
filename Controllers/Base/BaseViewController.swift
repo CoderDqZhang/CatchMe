@@ -16,7 +16,7 @@ class BaseViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
+        self.view.backgroundColor = UIColor.init(hexString: App_Theme_FAFAFA_Color)
         self.setUpView()
         self.viewControllerSetNavigationItemBack()
         self.setUpViewNavigationItem()
@@ -56,6 +56,7 @@ class BaseViewController: UIViewController {
         self.tableView.estimatedRowHeight = 0;
         self.tableView.estimatedSectionHeaderHeight = 0;
         self.tableView.estimatedSectionFooterHeight = 0;
+        self.tableView.separatorStyle = .none
         controller?.view.addSubview(tableView)
         tableView.delegate = viewModel as? UITableViewDelegate
         tableView.dataSource = viewModel as? UITableViewDataSource

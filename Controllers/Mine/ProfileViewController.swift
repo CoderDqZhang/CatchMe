@@ -13,9 +13,21 @@ class ProfileViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.bindViewModel(viewModel: ProfileViewModel(), controller: self)
+        self.setUpTableView(style: .grouped, cells: [ProfileHeaderTableViewCell.self,ProfielInfoTableViewCell.self], controller: self)
         // Do any additional setup after loading the view.
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.fd_prefersNavigationBarHidden = false
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+    }
+    
+    override func setUpViewNavigationItem() {
+        self.navigationItem.title = "个人信息"
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

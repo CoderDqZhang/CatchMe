@@ -31,7 +31,18 @@ class MineViewModel: BaseViewModel {
     
     func tableViewMineToolsTableViewCellSetData(_ indexPath:IndexPath, cell:MineToolsTableViewCell){
         cell.customViewButtonClouse = { tag in
-            print(tag)
+            switch tag {
+            case 1:
+                NavigationPushView(self.controller!, toConroller: MyCodeViewController())
+            case 2:
+                NavigationPushView(self.controller!, toConroller: MyJoysViewController())
+            case 3:
+                NavigationPushView(self.controller!, toConroller: MyCodeViewController())
+            case 4:
+                NavigationPushView(self.controller!, toConroller: QuestionViewController())
+            default:
+                NavigationPushView(self.controller!, toConroller: QuestionViewController())
+            }
         }
     }
     

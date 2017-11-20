@@ -37,35 +37,6 @@ class HomeViewController: BaseViewController {
         self.homeViewModel.controller = self
     }
 
-    override func setUpView(){
-        let button = UIButton.init(type: .custom)
-        button.frame = CGRect.init(x: 100, y: 100, width: 100, height: 40)
-        button.backgroundColor = UIColor.red
-        button.setTitle("播放", for: .normal)
-        button.reactive.controlEvents(.touchUpInside).observe { (action) in
-//            self.testNetWork()
-            NavigationPushView(self, toConroller: CacheMeViewController())
-        }
-        self.view.addSubview(button)
-        
-        let buttonShare = UIButton.init(type: .custom)
-        buttonShare.frame = CGRect.init(x: 100, y: 200, width: 100, height: 40)
-        buttonShare.backgroundColor = UIColor.red
-        buttonShare.setTitle("分享", for: .normal)
-        buttonShare.reactive.controlEvents(.touchUpInside).observe { (action) in
-            //            self.testNetWork()
-            self.shareItemPress()
-        }
-        self.view.addSubview(buttonShare)
-    }
-    
-    func testNetWork(){
-        let url = "\(TickeHot)"
-        BaseNetWorke.sharedInstance.getUrlWithString(url, parameters: nil).observe { (resultDic) in
-            
-        }
-    }
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -77,11 +48,7 @@ class HomeViewController: BaseViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    func shareItemPress() {
-        let url = "www.baidu.com"
-        KWINDOWDS().addSubview(ShareView.init(title: "推荐给好友", model: ShareModel.init(), image: nil, url: url))
-    }
+
     /*
     // MARK: - Navigation
 

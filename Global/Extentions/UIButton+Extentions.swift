@@ -20,7 +20,7 @@ extension UIButton {
     func buttonSetTitleColor(_ nTitleColor:String, sTitleColor:String?) {
         self.setTitleColor(UIColor.init(hexString: nTitleColor), for: UIControlState())
         if sTitleColor == nil {
-            self.setTitleColor(UIColor.init(hexString: UIColor.init(hexString: App_Theme_40C6B7_Color)), for: .highlighted)
+            self.setTitleColor(UIColor.init(hexString: UIColor.init(hexString: App_Theme_FFFFFF_Color)), for: .highlighted)
         }else{
             self.setTitleColor(UIColor.init(hexString: sTitleColor), for: .highlighted)
         }

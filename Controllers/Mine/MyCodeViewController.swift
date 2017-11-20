@@ -22,6 +22,11 @@ class MyCodeViewController: BaseViewController {
     }
     
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.fd_prefersNavigationBarHidden = false
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+    }
     /*
     // MARK: - Navigation
 

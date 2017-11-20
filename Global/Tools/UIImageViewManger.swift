@@ -15,7 +15,7 @@ typealias DownLoadImageCompletionBlock = (_ image:UIImage?, _ error:Error?, _ ur
 class UIImageViewManger: NSObject {
 
     override init() {
-        
+        super.init()
     }
     
     static let shareInstance = UIImageViewManger()

@@ -21,6 +21,20 @@ class JoysDetailViewController: BaseViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.fd_prefersNavigationBarHidden = false
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+    }
+    
+    override func setUpViewNavigationItem() {
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: "分享", style: .plain, target: self, action: #selector(JoysDetailViewController.rightBarItemPress))
+    }
+    
+    @objc func rightBarItemPress(){
+        let url = "www.baidu.com"
+        KWINDOWDS().addSubview(ShareView.init(title: "推荐给好友", model: ShareModel.init(), image: nil, url: url))
+    }
 
     /*
     // MARK: - Navigation
