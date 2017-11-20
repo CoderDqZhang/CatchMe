@@ -128,6 +128,10 @@
 		1F126ECD1FC2C04E006306D2 /* ProfielInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F126ECC1FC2C04E006306D2 /* ProfielInfoTableViewCell.swift */; };
 		1F126ECF1FC2C6BA006306D2 /* MyJoysViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F126ECE1FC2C6BA006306D2 /* MyJoysViewModel.swift */; };
 		1F126ED11FC2C6FE006306D2 /* MyJoyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F126ED01FC2C6FE006306D2 /* MyJoyTableViewCell.swift */; };
+		1F126ED31FC30349006306D2 /* TopViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F126ED21FC30349006306D2 /* TopViewModel.swift */; };
+		1F126ED51FC30399006306D2 /* TopDescTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F126ED41FC30399006306D2 /* TopDescTableViewCell.swift */; };
+		1F126ED71FC303B3006306D2 /* TopUserInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F126ED61FC303B2006306D2 /* TopUserInfoTableViewCell.swift */; };
+		1F126ED91FC303EC006306D2 /* TopAvatarTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F126ED81FC303EC006306D2 /* TopAvatarTableViewCell.swift */; };
 		54C665C6CE13906B598CBB0B /* Pods_CatchMe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 018F762371DA9CCCFF9892F6 /* Pods_CatchMe.framework */; };
 /* End PBXBuildFile section */
 
@@ -320,6 +324,10 @@
 		1F126ECC1FC2C04E006306D2 /* ProfielInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfielInfoTableViewCell.swift; sourceTree = "<group>"; };
 		1F126ECE1FC2C6BA006306D2 /* MyJoysViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyJoysViewModel.swift; sourceTree = "<group>"; };
 		1F126ED01FC2C6FE006306D2 /* MyJoyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyJoyTableViewCell.swift; sourceTree = "<group>"; };
+		1F126ED21FC30349006306D2 /* TopViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopViewModel.swift; sourceTree = "<group>"; };
+		1F126ED41FC30399006306D2 /* TopDescTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopDescTableViewCell.swift; sourceTree = "<group>"; };
+		1F126ED61FC303B2006306D2 /* TopUserInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TopUserInfoTableViewCell.swift; path = /Users/zhang/Desktop/CatchMe/Views/Top/TopUserInfoTableViewCell.swift; sourceTree = "<absolute>"; };
+		1F126ED81FC303EC006306D2 /* TopAvatarTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopAvatarTableViewCell.swift; sourceTree = "<group>"; };
 		599640648AD4571953B84782 /* Pods-CatchMe.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CatchMe.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CatchMe/Pods-CatchMe.debug.xcconfig"; sourceTree = "<group>"; };
 		66871A49004208702649CA5E /* Pods-CatchMe.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CatchMe.release.xcconfig"; path = "Pods/Target Support Files/Pods-CatchMe/Pods-CatchMe.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -740,6 +748,7 @@
 		1F126E3F1FC07C9D006306D2 /* Top */ = {
 			isa = PBXGroup;
 			children = (
+				1F126ED21FC30349006306D2 /* TopViewModel.swift */,
 			);
 			path = Top;
 			sourceTree = "<group>";
@@ -768,6 +777,9 @@
 		1F126E441FC07CEE006306D2 /* Top */ = {
 			isa = PBXGroup;
 			children = (
+				1F126ED41FC30399006306D2 /* TopDescTableViewCell.swift */,
+				1F126ED61FC303B2006306D2 /* TopUserInfoTableViewCell.swift */,
+				1F126ED81FC303EC006306D2 /* TopAvatarTableViewCell.swift */,
 			);
 			path = Top;
 			sourceTree = "<group>";
@@ -1069,6 +1081,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F126ED51FC30399006306D2 /* TopDescTableViewCell.swift in Sources */,
 				1F126DBD1FBFF391006306D2 /* UITableView+FDKeyedHeightCache.m in Sources */,
 				1F126E631FC0978E006306D2 /* MyCodeViewController.swift in Sources */,
 				1F126E3B1FC01EB9006306D2 /* BaseViewModel.swift in Sources */,
@@ -1084,7 +1097,9 @@
 				1F126DCB1FBFF3B9006306D2 /* UIViewController+NavigationBar.swift in Sources */,
 				1F126E301FC01D7F006306D2 /* BaseViewController.swift in Sources */,
 				1F126E9C1FC154A0006306D2 /* renderer_yuv420p.c in Sources */,
+				1F126ED91FC303EC006306D2 /* TopAvatarTableViewCell.swift in Sources */,
 				1F126E351FC01DA8006306D2 /* TopViewController.swift in Sources */,
+				1F126ED71FC303B3006306D2 /* TopUserInfoTableViewCell.swift in Sources */,
 				1F126E5B1FC0891D006306D2 /* LoginViewModel.swift in Sources */,
 				1F126D931FBFF36B006306D2 /* BaseNetWorke.swift in Sources */,
 				1F126D651FBFF024006306D2 /* ViewController.swift in Sources */,
@@ -1157,6 +1172,7 @@
 				1F126EB51FC180FC006306D2 /* JKDBModel.m in Sources */,
 				1F126DAD1FBFF387006306D2 /* SDCollectionViewCell.m in Sources */,
 				1F126E321FC01D8F006306D2 /* HomeViewController.swift in Sources */,
+				1F126ED31FC30349006306D2 /* TopViewModel.swift in Sources */,
 				1F126DAE1FBFF387006306D2 /* TADotView.m in Sources */,
 				1F126DB21FBFF387006306D2 /* ZHPickView.m in Sources */,
 				1F126E6B1FC097CE006306D2 /* JoysDetailViewController.swift in Sources */,

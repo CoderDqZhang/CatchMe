@@ -12,8 +12,17 @@ class TopViewController: BaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.bindViewModel(viewModel: TopViewModel(), controller: self)
+        self.setUpTableView(style: .plain, cells: [TopUserInfoTableViewCell.self,TopDescTableViewCell.self,TopAvatarTableViewCell.self], controller: self)
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewControllerSetNavigationItemBack() {
+        
+    }
+    
+    override func setUpViewNavigationItem() {
+        self.navigationItem.title = "大神榜"
     }
 
     override func didReceiveMemoryWarning() {

@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:/Users/zhang/Desktop/CatchMe/Models/Login/TopUserInfoTableViewCell.swift">
+   </FileRef>
+   <FileRef
       location = "group:CatchMe.xcodeproj">
    </FileRef>
    <FileRef
