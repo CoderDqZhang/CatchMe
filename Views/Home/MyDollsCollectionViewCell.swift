@@ -81,7 +81,7 @@ class MyDollsCollectionViewCell: UICollectionViewCell {
             })
             
             coinsNumber.snp.makeConstraints({ (make) in
-                make.bottom.equalTo(self.contentView.snp.bottom).offset(-31)
+                make.bottom.equalTo(self.contentView.snp.bottom).offset(-37)
                 make.left.equalTo(self.coinsImage.snp.right).offset(3)
             })
             
