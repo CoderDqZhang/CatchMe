@@ -43,7 +43,6 @@ class BaseViewController: UIViewController {
     
     func setUpTableView(style:UITableViewStyle, cells:[AnyClass], controller:UIViewController?){
         tableView = UITableView.init(frame: CGRect.zero, style: style)
-        print(cells[0])
         for cell in cells{
             tableView.register(cell.self, forCellReuseIdentifier: "\(cell.description())")
         }

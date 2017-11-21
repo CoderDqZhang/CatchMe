@@ -12,7 +12,8 @@ class SenderJoysViewController: BaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.bindViewModel(viewModel: SenderJoysViewModel(), controller: self)
+        self.setUpTableView(style: .grouped, cells: [SenderMuchTableViewCell.self,SendJoyInfoTableViewCell.self,SendAddressTableViewCell.self], controller: self)
         // Do any additional setup after loading the view.
     }
 

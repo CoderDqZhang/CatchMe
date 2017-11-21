@@ -84,7 +84,6 @@
 		1F126E501FC08792006306D2 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F126E4F1FC08792006306D2 /* LoginViewController.swift */; };
 		1F126E531FC087D0006306D2 /* Gloable+View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F126E521FC087D0006306D2 /* Gloable+View.swift */; };
 		1F126E551FC08824006306D2 /* UserProtocolViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F126E541FC08824006306D2 /* UserProtocolViewController.swift */; };
-		1F126E581FC088C4006306D2 /* LoginForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F126E571FC088C4006306D2 /* LoginForm.swift */; };
 		1F126E5B1FC0891D006306D2 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F126E5A1FC0891D006306D2 /* LoginViewModel.swift */; };
 		1F126E5D1FC089AA006306D2 /* LoginTypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F126E5C1FC089AA006306D2 /* LoginTypeViewController.swift */; };
 		1F126E5F1FC0976F006306D2 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F126E5E1FC0976F006306D2 /* ProfileViewController.swift */; };
@@ -132,6 +131,15 @@
 		1F126ED51FC30399006306D2 /* TopDescTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F126ED41FC30399006306D2 /* TopDescTableViewCell.swift */; };
 		1F126ED71FC303B3006306D2 /* TopUserInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F126ED61FC303B2006306D2 /* TopUserInfoTableViewCell.swift */; };
 		1F126ED91FC303EC006306D2 /* TopAvatarTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F126ED81FC303EC006306D2 /* TopAvatarTableViewCell.swift */; };
+		1F126EDB1FC3104A006306D2 /* SenderJoysViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F126EDA1FC31049006306D2 /* SenderJoysViewModel.swift */; };
+		1F126EDD1FC3109F006306D2 /* SendAddressTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F126EDC1FC3109F006306D2 /* SendAddressTableViewCell.swift */; };
+		1F126EDF1FC310B2006306D2 /* SendJoyInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F126EDE1FC310B2006306D2 /* SendJoyInfoTableViewCell.swift */; };
+		1F126EE11FC310CB006306D2 /* SenderMuchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F126EE01FC310CB006306D2 /* SenderMuchTableViewCell.swift */; };
+		1F126EE31FC3D89D006306D2 /* AddressViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F126EE21FC3D89D006306D2 /* AddressViewModel.swift */; };
+		1F126EE51FC3F3D5006306D2 /* GloableTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F126EE41FC3F3D5006306D2 /* GloableTableViewCell.swift */; };
+		1F126EE71FC3F715006306D2 /* SetNormalTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F126EE61FC3F715006306D2 /* SetNormalTableViewCell.swift */; };
+		1F126EEB1FC3FD65006306D2 /* AppForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F126EEA1FC3FD65006306D2 /* AppForm.swift */; };
+		1F126F001FC4063E006306D2 /* AddressModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F126EFF1FC4063E006306D2 /* AddressModel.m */; };
 		54C665C6CE13906B598CBB0B /* Pods_CatchMe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 018F762371DA9CCCFF9892F6 /* Pods_CatchMe.framework */; };
 /* End PBXBuildFile section */
 
@@ -257,7 +265,6 @@
 		1F126E4F1FC08792006306D2 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		1F126E521FC087D0006306D2 /* Gloable+View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Gloable+View.swift"; sourceTree = "<group>"; };
 		1F126E541FC08824006306D2 /* UserProtocolViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProtocolViewController.swift; sourceTree = "<group>"; };
-		1F126E571FC088C4006306D2 /* LoginForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginForm.swift; sourceTree = "<group>"; };
 		1F126E5A1FC0891D006306D2 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		1F126E5C1FC089AA006306D2 /* LoginTypeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginTypeViewController.swift; sourceTree = "<group>"; };
 		1F126E5E1FC0976F006306D2 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -328,6 +335,16 @@
 		1F126ED41FC30399006306D2 /* TopDescTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopDescTableViewCell.swift; sourceTree = "<group>"; };
 		1F126ED61FC303B2006306D2 /* TopUserInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TopUserInfoTableViewCell.swift; path = /Users/zhang/Desktop/CatchMe/Views/Top/TopUserInfoTableViewCell.swift; sourceTree = "<absolute>"; };
 		1F126ED81FC303EC006306D2 /* TopAvatarTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopAvatarTableViewCell.swift; sourceTree = "<group>"; };
+		1F126EDA1FC31049006306D2 /* SenderJoysViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SenderJoysViewModel.swift; sourceTree = "<group>"; };
+		1F126EDC1FC3109F006306D2 /* SendAddressTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendAddressTableViewCell.swift; sourceTree = "<group>"; };
+		1F126EDE1FC310B2006306D2 /* SendJoyInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendJoyInfoTableViewCell.swift; sourceTree = "<group>"; };
+		1F126EE01FC310CB006306D2 /* SenderMuchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SenderMuchTableViewCell.swift; sourceTree = "<group>"; };
+		1F126EE21FC3D89D006306D2 /* AddressViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressViewModel.swift; sourceTree = "<group>"; };
+		1F126EE41FC3F3D5006306D2 /* GloableTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GloableTableViewCell.swift; sourceTree = "<group>"; };
+		1F126EE61FC3F715006306D2 /* SetNormalTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetNormalTableViewCell.swift; sourceTree = "<group>"; };
+		1F126EEA1FC3FD65006306D2 /* AppForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppForm.swift; sourceTree = "<group>"; };
+		1F126EFE1FC4063E006306D2 /* AddressModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddressModel.h; sourceTree = "<group>"; };
+		1F126EFF1FC4063E006306D2 /* AddressModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddressModel.m; sourceTree = "<group>"; };
 		599640648AD4571953B84782 /* Pods-CatchMe.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CatchMe.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CatchMe/Pods-CatchMe.debug.xcconfig"; sourceTree = "<group>"; };
 		66871A49004208702649CA5E /* Pods-CatchMe.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CatchMe.release.xcconfig"; path = "Pods/Target Support Files/Pods-CatchMe/Pods-CatchMe.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -407,6 +424,8 @@
 		1F126D741FBFF21B006306D2 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				1F126EF81FC3FDE8006306D2 /* Mine */,
+				1F126EE91FC3FD4F006306D2 /* Form */,
 				1F126E561FC088B0006306D2 /* Login */,
 			);
 			path = Models;
@@ -741,6 +760,8 @@
 				1F126E411FC07CBF006306D2 /* MineViewModel.swift */,
 				1F126EC81FC2BFF6006306D2 /* ProfileViewModel.swift */,
 				1F126ECE1FC2C6BA006306D2 /* MyJoysViewModel.swift */,
+				1F126EDA1FC31049006306D2 /* SenderJoysViewModel.swift */,
+				1F126EE21FC3D89D006306D2 /* AddressViewModel.swift */,
 			);
 			path = Mine;
 			sourceTree = "<group>";
@@ -770,6 +791,10 @@
 				1F126ECA1FC2C03F006306D2 /* ProfileHeaderTableViewCell.swift */,
 				1F126ECC1FC2C04E006306D2 /* ProfielInfoTableViewCell.swift */,
 				1F126ED01FC2C6FE006306D2 /* MyJoyTableViewCell.swift */,
+				1F126EDC1FC3109F006306D2 /* SendAddressTableViewCell.swift */,
+				1F126EDE1FC310B2006306D2 /* SendJoyInfoTableViewCell.swift */,
+				1F126EE01FC310CB006306D2 /* SenderMuchTableViewCell.swift */,
+				1F126EE61FC3F715006306D2 /* SetNormalTableViewCell.swift */,
 			);
 			path = Mine;
 			sourceTree = "<group>";
@@ -816,6 +841,7 @@
 			isa = PBXGroup;
 			children = (
 				1F126E521FC087D0006306D2 /* Gloable+View.swift */,
+				1F126EE41FC3F3D5006306D2 /* GloableTableViewCell.swift */,
 				1F126E6E1FC15456006306D2 /* NTESGLView.h */,
 				1F126E6F1FC15457006306D2 /* NTESGLView.m */,
 				1F126EA71FC16212006306D2 /* ShareView.swift */,
@@ -826,7 +852,6 @@
 		1F126E561FC088B0006306D2 /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				1F126E571FC088C4006306D2 /* LoginForm.swift */,
 				1F126EAD1FC180B0006306D2 /* UserInfoModel.h */,
 				1F126EAE1FC180B0006306D2 /* UserInfoModel.m */,
 			);
@@ -923,6 +948,23 @@
 				1F126EB41FC180FC006306D2 /* JKDBHelper.h */,
 			);
 			path = DBModel;
+			sourceTree = "<group>";
+		};
+		1F126EE91FC3FD4F006306D2 /* Form */ = {
+			isa = PBXGroup;
+			children = (
+				1F126EEA1FC3FD65006306D2 /* AppForm.swift */,
+			);
+			path = Form;
+			sourceTree = "<group>";
+		};
+		1F126EF81FC3FDE8006306D2 /* Mine */ = {
+			isa = PBXGroup;
+			children = (
+				1F126EFE1FC4063E006306D2 /* AddressModel.h */,
+				1F126EFF1FC4063E006306D2 /* AddressModel.m */,
+			);
+			path = Mine;
 			sourceTree = "<group>";
 		};
 		AB92BE9F4E2397317A00B46E /* Frameworks */ = {
@@ -1097,6 +1139,7 @@
 				1F126DCB1FBFF3B9006306D2 /* UIViewController+NavigationBar.swift in Sources */,
 				1F126E301FC01D7F006306D2 /* BaseViewController.swift in Sources */,
 				1F126E9C1FC154A0006306D2 /* renderer_yuv420p.c in Sources */,
+				1F126F001FC4063E006306D2 /* AddressModel.m in Sources */,
 				1F126ED91FC303EC006306D2 /* TopAvatarTableViewCell.swift in Sources */,
 				1F126E351FC01DA8006306D2 /* TopViewController.swift in Sources */,
 				1F126ED71FC303B3006306D2 /* TopUserInfoTableViewCell.swift in Sources */,
@@ -1104,13 +1147,15 @@
 				1F126D931FBFF36B006306D2 /* BaseNetWorke.swift in Sources */,
 				1F126D651FBFF024006306D2 /* ViewController.swift in Sources */,
 				1F126E061FBFFD70006306D2 /* UIImage+PureColor.m in Sources */,
-				1F126E581FC088C4006306D2 /* LoginForm.swift in Sources */,
+				1F126EE51FC3F3D5006306D2 /* GloableTableViewCell.swift in Sources */,
+				1F126EDB1FC3104A006306D2 /* SenderJoysViewModel.swift in Sources */,
 				1F126E9E1FC154A0006306D2 /* shader.c in Sources */,
 				1F126DC61FBFF3AF006306D2 /* NSTimer.swift in Sources */,
 				1F126E701FC15457006306D2 /* NTESGLView.m in Sources */,
 				1F126DC91FBFF3AF006306D2 /* UIImage+Crop.swift in Sources */,
 				1F126DC71FBFF3AF006306D2 /* String+Size.swift in Sources */,
 				1F126E381FC01DBA006306D2 /* MineViewController.swift in Sources */,
+				1F126EE71FC3F715006306D2 /* SetNormalTableViewCell.swift in Sources */,
 				1F126E671FC097AE006306D2 /* SenderJoysViewController.swift in Sources */,
 				1F126E9D1FC154A0006306D2 /* renderer_yuv420sp.c in Sources */,
 				1F126D631FBFF024006306D2 /* AppDelegate.swift in Sources */,
@@ -1137,6 +1182,7 @@
 				1F126E651FC0979A006306D2 /* AddressViewController.swift in Sources */,
 				1F126E091FBFFD9C006306D2 /* UILabel+ChangeLineSpaceAndWordSpace.m in Sources */,
 				1F126DBE1FBFF391006306D2 /* UITableView+FDTemplateLayoutCellDebug.m in Sources */,
+				1F126EE11FC310CB006306D2 /* SenderMuchTableViewCell.swift in Sources */,
 				1F126E0C1FBFFDCB006306D2 /* NSDate+LSCore.m in Sources */,
 				1F126DBC1FBFF391006306D2 /* UITableView+FDTemplateLayoutCell.m in Sources */,
 				1F126E421FC07CBF006306D2 /* MineViewModel.swift in Sources */,
@@ -1158,6 +1204,7 @@
 				1F126DDA1FBFF3DE006306D2 /* UITextView+Placeholder.m in Sources */,
 				1F126EA61FC154A0006306D2 /* ijksdl_timer.c in Sources */,
 				1F126E031FBFFD5F006306D2 /* UIViewController+DismissKeyboard.m in Sources */,
+				1F126EDD1FC3109F006306D2 /* SendAddressTableViewCell.swift in Sources */,
 				1F126DD91FBFF3DE006306D2 /* UIViewController+hideExcessLine.m in Sources */,
 				1F126EA41FC154A0006306D2 /* color.c in Sources */,
 				1F126E981FC154A0006306D2 /* renderer_yuv444p10le.c in Sources */,
@@ -1168,6 +1215,7 @@
 				1F126EA31FC154A0006306D2 /* rgb.fsh.c in Sources */,
 				1F126EC71FC28A13006306D2 /* UITapGestureRecognizer+Extention.swift in Sources */,
 				1F126DD61FBFF3DE006306D2 /* UIColor+Hex.m in Sources */,
+				1F126EDF1FC310B2006306D2 /* SendJoyInfoTableViewCell.swift in Sources */,
 				1F126E2C1FC01D0A006306D2 /* MainTabBarViewController.swift in Sources */,
 				1F126EB51FC180FC006306D2 /* JKDBModel.m in Sources */,
 				1F126DAD1FBFF387006306D2 /* SDCollectionViewCell.m in Sources */,
@@ -1175,10 +1223,12 @@
 				1F126ED31FC30349006306D2 /* TopViewModel.swift in Sources */,
 				1F126DAE1FBFF387006306D2 /* TADotView.m in Sources */,
 				1F126DB21FBFF387006306D2 /* ZHPickView.m in Sources */,
+				1F126EE31FC3D89D006306D2 /* AddressViewModel.swift in Sources */,
 				1F126E6B1FC097CE006306D2 /* JoysDetailViewController.swift in Sources */,
 				1F126E001FBFFB76006306D2 /* RequestUrl.swift in Sources */,
 				1F126EA21FC154A0006306D2 /* yuv420sp.fsh.c in Sources */,
 				1F126E531FC087D0006306D2 /* Gloable+View.swift in Sources */,
+				1F126EEB1FC3FD65006306D2 /* AppForm.swift in Sources */,
 				1F126EBF1FC19A42006306D2 /* MyDollsCollectionViewCell.swift in Sources */,
 				1F126DFF1FBFFB76006306D2 /* AppThemeTool.swift in Sources */,
 			);

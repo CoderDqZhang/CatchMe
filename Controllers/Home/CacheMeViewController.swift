@@ -89,8 +89,10 @@ class CacheMeViewController: BaseViewController {
     }
     
     func setUpCountDown(isPlay:Bool, text:String) {
-        self.countDown.isHidden = !isPlay
-        self.countDown.text = text
+        if self.countDown != nil {
+            self.countDown.isHidden = !isPlay
+            self.countDown.text = text
+        }
     }
     
     //创建进来时本地加载界面 后期可能是显示自己的视频，前期显示加载
