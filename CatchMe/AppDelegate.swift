@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WeiboSDKDelegate {
         AppleThemeTool.setUpToolBarColor()
         AppleThemeTool.setUpKeyBoardManager()
         self.registerAPPKey()
-        ShareManager.init()
+        _ = ShareManager.init()
         
         self.window?.rootViewController = MainTabBarViewController()
         self.window?.makeKeyAndVisible()
@@ -31,19 +31,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WeiboSDKDelegate {
     func registerAPPKey(){
         let options = NIMSDKOption.init(appKey: WANGYIIMAPPKEY)
         NIMSDK.shared().register(with: options)
-        
         NIMSDKConfig.shared().enabledHttpsForInfo = true
-        self.login()
     }
     
-    func login(){
-        NIMSDK.shared().loginManager.login("lingwen2", token: "procedure".md5()) { (error) in
-            if error == nil {
-                print("登录成功")
-            }
-        }
-        NIMSDK.shared().loginManager.autoLogin("lingwen2", token: "procedure".md5())
-    }
 
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

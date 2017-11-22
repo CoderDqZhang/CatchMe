@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LoginViewController: UIViewController {
+class LoginViewController: BaseViewController {
 
     var phontTextField:UITextField!
     var confimCodeField:UITextField!
@@ -30,15 +30,13 @@ class LoginViewController: UIViewController {
     
     var timeDownLabel:CountDown!
     
-    var viewModel:LoginViewModel = LoginViewModel()
+    var loginViewModel = LoginViewModel()
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor.white
-        self.setUpView()
+        self.bindViewModel(viewModel: loginViewModel, controller: self)
         self.setupForDismissKeyboard()
-        self.setUpNavigationItem()
         // Do any additional setup after loading the view.
     }
     
@@ -46,7 +44,7 @@ class LoginViewController: UIViewController {
         timeDownLabel.destoryTimer()
     }
     
-    func setUpView() {
+    override func setUpView() {
         timeDownLabel = CountDown()
         
         lineLabel = GloabLineView(frame: CGRect(x: 15,y: 0,width: SCREENWIDTH - 30, height: 0.5))
@@ -98,7 +96,7 @@ class LoginViewController: UIViewController {
         senderCode.layer.masksToBounds = true
         
         senderCode.reactive.controlEvents(.touchUpInside).observe { (action) in
-            self.viewModel.requestLoginCode(self.loginForm.phone, controller: self)
+            self.loginViewModel.requestLoginCode(self.loginForm.phone)
         }
         self.view.addSubview(senderCode)
         
@@ -111,7 +109,7 @@ class LoginViewController: UIViewController {
         loginButton.layer.masksToBounds = true
         loginButton.setTitleColor(UIColor.init(hexString: App_Theme_FFFFFF_Color), for: UIControlState())
         loginButton.reactive.controlEvents(.touchUpInside).observe { (action) in
-            self.viewModel.requestLogin(self.loginForm, controller: self)
+            self.loginViewModel.requestLogin(self.loginForm)
         }
         self.view.addSubview(loginButton)
         
@@ -154,9 +152,8 @@ class LoginViewController: UIViewController {
         }
     }
     
-    func setUpNavigationItem() {
+    override func setUpViewNavigationItem() {
         self.navigationItem.title = "登录"
-        self.setNavigationItemBack()
     }
 
     func createLabel(_ frame:CGRect, text:String) ->UILabel {

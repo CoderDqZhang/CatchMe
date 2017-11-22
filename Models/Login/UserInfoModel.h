@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "JKDBModel.h"
 #import <MJExtension/MJExtension.h>
+#import <NIMSDK/NIMSDK.h>
 
 @interface UserInfoModel : JKDBModel
     
@@ -19,14 +20,14 @@
 @property (nonatomic, strong) NSObject * shareCode;
 @property (nonatomic, strong) NSObject * shareNum;
 @property (nonatomic, strong) NSObject * shareStatus;
-@property (nonatomic, strong) NSString * telephone;
-@property (nonatomic, strong) NSString * userName;
+@property (nonatomic, copy) NSString * telephone;
+@property (nonatomic, copy) NSString * userName;
 @property (nonatomic, strong) NSObject * wechatOpenid;
+@property (nonatomic, copy) NSString * neteaseAccountId;
+@property (nonatomic, copy) NSString * neteaseToken;
     
 + (instancetype)shareInstance;
-    
-+ (void)toUserInstance:(UserInfoModel *)userInfo;
-    
+        
 + (BOOL)logout;
     
 + (BOOL)isLoggedIn;

@@ -103,23 +103,6 @@ class Tools: NSObject {
         }else{
             return self.showMessage(KWINDOWDS(), msg:"网络服务错误" , autoHidder: true)
         }
-//        let errorModel = ErrorModel.init(fromDictionary: errorDic as! NSDictionary)
-//        var errorMsg:String = ""
-//        if errorModel.code != nil {
-//            for i in 0...errorModel.errors.count - 1 {
-//                let error = errorModel.errors[i]
-//                print("errorType = \(error.type)--->ErrorString=\(error.error[0])")
-//                errorMsg =  error.error[0]
-//            }
-//            return self.showMessage(KWINDOWDS(), msg:errorMsg , autoHidder: true)
-//        }else{
-//            let error = ErrorStatus.init(fromDictionary: errorDic as! NSDictionary)
-//            if error.status != nil && error.status == 500 {
-//                return self.showMessage(KWINDOWDS(), msg:"网络服务错误" , autoHidder: true)
-//            }else{
-//                return nil
-//            }
-//        }
     }
     
     func showNetWorkError(_ error:AnyObject) ->MBProgressHUD {

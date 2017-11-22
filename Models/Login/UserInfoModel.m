@@ -18,6 +18,8 @@ NSString *const kUserInfoShareStatus = @"shareStatus";
 NSString *const kUserInfoTelephone = @"telephone";
 NSString *const kUserInfoUserName = @"userName";
 NSString *const kUserInfoWechatOpenid = @"wechatOpenid";
+NSString *const kUserInfoNeteaseAccountId = @"neteaseAccountId";
+NSString *const kUserInfoNeteaseToken = @"neteaseToken";
 
 @interface UserInfoModel ()
 
@@ -74,6 +76,12 @@ static UserInfoModel *_instance = nil;
         if(self.wechatOpenid != nil){
             dictionary[kUserInfoWechatOpenid] = self.wechatOpenid;
         }
+        if(self.neteaseAccountId != nil){
+            dictionary[kUserInfoNeteaseAccountId] = self.neteaseAccountId;
+        }
+        if(self.neteaseToken != nil){
+            dictionary[kUserInfoNeteaseToken] = self.neteaseToken;
+        }
         return dictionary;
         
     }
@@ -110,6 +118,12 @@ static UserInfoModel *_instance = nil;
         if(self.wechatOpenid != nil){
             [aCoder encodeObject:self.wechatOpenid forKey:kUserInfoWechatOpenid];
         }
+        if(self.neteaseAccountId != nil){
+            [aCoder encodeObject:self.neteaseAccountId forKey:kUserInfoNeteaseAccountId];
+        }
+        if(self.neteaseToken != nil){
+            [aCoder encodeObject:self.neteaseToken forKey:kUserInfoNeteaseToken];
+        }
         
     }
     
@@ -129,6 +143,8 @@ static UserInfoModel *_instance = nil;
         self.telephone = [aDecoder decodeObjectForKey:kUserInfoTelephone];
         self.userName = [aDecoder decodeObjectForKey:kUserInfoUserName];
         self.wechatOpenid = [aDecoder decodeObjectForKey:kUserInfoWechatOpenid];
+        self.neteaseAccountId = [aDecoder decodeObjectForKey:kUserInfoNeteaseAccountId];
+        self.neteaseToken = [aDecoder decodeObjectForKey:kUserInfoNeteaseToken];
         return self;
         
     }
@@ -150,6 +166,8 @@ static UserInfoModel *_instance = nil;
         copy.telephone = [self.telephone copy];
         copy.userName = [self.userName copy];
         copy.wechatOpenid = [self.wechatOpenid copy];
+        copy.neteaseAccountId = [self.neteaseAccountId copy];
+        copy.neteaseToken = [self.neteaseToken copy];
         
         return copy;
     }
@@ -157,7 +175,7 @@ static UserInfoModel *_instance = nil;
 + (BOOL)isLoggedIn
     {
         NSObject *object = [[NSUserDefaults standardUserDefaults] objectForKey:@"telephone"];
-        if ([UserInfoModel findAll].count > 0 && [UserInfoModel findFirstByCriteria:[NSString stringWithFormat:@" where telephone = '%@'",object]] != nil){
+        if ([UserInfoModel findAll].count > 0 && [UserInfoModel findFirstByCriteria:[NSString stringWithFormat:@" where telephone = '%@'",object]] != nil && [[NIMSDK sharedSDK] loginManager].isLogined){
             return YES;
         }else{
             return NO;
@@ -175,6 +193,8 @@ static UserInfoModel *_instance = nil;
         [UserInfoModel shareInstance].shareStatus = nil;
         [UserInfoModel shareInstance].telephone = nil;
         [UserInfoModel shareInstance].userName = nil;
+        [UserInfoModel shareInstance].neteaseAccountId = nil;
+        [UserInfoModel shareInstance].neteaseToken = nil;
         return [UserInfoModel deleteObjectsByCriteria:[NSString stringWithFormat:@" where telephone = '%@'", [UserInfoModel shareInstance].telephone]];
     }
 
