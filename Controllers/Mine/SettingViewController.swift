@@ -24,6 +24,7 @@ class SettingViewController: BaseViewController {
     
     
     override func setUpViewNavigationItem() {
+        self.navigationItem.title = "设置"
         self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: "退出登录", style: .plain, target: self, action: #selector(SettingViewController.rightBarButtonPress))
     }
     

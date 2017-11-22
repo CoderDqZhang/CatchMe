@@ -23,6 +23,9 @@ class SenderJoysViewController: BaseViewController {
     }
     
 
+    override func setUpViewNavigationItem() {
+        self.navigationItem.title = "申请发货"
+    }
     /*
     // MARK: - Navigation
 

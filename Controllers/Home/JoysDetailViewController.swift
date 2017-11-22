@@ -28,6 +28,7 @@ class JoysDetailViewController: BaseViewController {
     }
     
     override func setUpViewNavigationItem() {
+        self.navigationItem.title = "娃娃详情"
         self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: "分享", style: .plain, target: self, action: #selector(JoysDetailViewController.rightBarItemPress))
     }
     

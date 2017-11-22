@@ -27,6 +27,9 @@ class QuestionViewController: BaseViewController {
         self.navigationController?.setNavigationBarHidden(false, animated: true)
     }
 
+    override func setUpViewNavigationItem() {
+        self.navigationItem.title = "问题反馈"
+    }
     /*
     // MARK: - Navigation
 

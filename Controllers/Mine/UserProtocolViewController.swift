@@ -26,6 +26,9 @@ class UserProtocolViewController: BaseViewController {
         self.navigationController?.fd_prefersNavigationBarHidden = false
         self.navigationController?.setNavigationBarHidden(false, animated: true)
     }
+    override func setUpViewNavigationItem() {
+        self.navigationItem.title = "使用协议"
+    }
 
     /*
     // MARK: - Navigation
