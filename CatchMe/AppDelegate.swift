@@ -32,6 +32,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WeiboSDKDelegate {
         let options = NIMSDKOption.init(appKey: WANGYIIMAPPKEY)
         NIMSDK.shared().register(with: options)
         NIMSDKConfig.shared().enabledHttpsForInfo = true
+        self.testLogin()
+    }
+    
+    func testLogin(){
+        NIMSDK.shared().loginManager.login("13899999999", token: "123456") { (error) in
+            if error == nil {
+                print("登录成功")
+            }
+        }
     }
     
 

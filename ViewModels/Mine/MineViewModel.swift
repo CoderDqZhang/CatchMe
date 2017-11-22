@@ -37,7 +37,7 @@ class MineViewModel: BaseViewModel {
             case 2:
                 NavigationPushView(self.controller!, toConroller: MyJoysViewController())
             case 3:
-                NavigationPushView(self.controller!, toConroller: MyCodeViewController())
+                NavigationPushView(self.controller!, toConroller: TopUpViewController())
             case 4:
                 NavigationPushView(self.controller!, toConroller: QuestionViewController())
             default:

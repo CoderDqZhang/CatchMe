@@ -11,21 +11,31 @@ import MJExtension
 import NIMSDK
 import MBProgressHUD
 
+typealias SenderCodeSuccessClouse = () ->Void
+
 class LoginViewModel: BaseViewModel {
     
     var loginHud:MBProgressHUD!
-    
+    var form = LoginForm()
+    var senderCodeSuccessClouse:SenderCodeSuccessClouse!
     override init() {
         super.init()
         NIMSDK.shared().loginManager.add(self)
+        form.phone = ""
+        form.code = ""
     }
+    
+    static let shareInstance = LoginViewModel()
     
     func requestLoginCode(_ number:String){
         let dic = ["phone":number]
         BaseNetWorke.sharedInstance.getUrlWithString(LoginCode, parameters: dic as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
-                let aMinutes:TimeInterval = 60
-                (self.controller as! LoginViewController).startWithStartDate(NSDate() as Date, finishDate: NSDate.init(timeIntervalSinceNow: aMinutes) as Date)
+                if self.senderCodeSuccessClouse != nil {
+                    self.senderCodeSuccessClouse()
+                }
+//                let aMinutes:TimeInterval = 60
+//                (self.controller as! LoginViewController).startWithStartDate(NSDate() as Date, finishDate: NSDate.init(timeIntervalSinceNow: aMinutes) as Date)
             }
         }
     }

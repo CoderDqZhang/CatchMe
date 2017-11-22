@@ -32,6 +32,7 @@ class CacheMeViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.bindViewModel(viewModel: cacheMeViewModel, controller: self)
         NIMAVChatSDK.shared().netCallManager.add(cacheMeViewModel)
         self.bindLogicViewModel()
         self.initRemoteGlView()
@@ -65,7 +66,6 @@ class CacheMeViewController: BaseViewController {
     func setUpPlayer(){
         NELivePlayerController.setLogLevel(NELPLogLevel.LOG_VERBOSE)
         do {
-            
             try self.liveplayer = NELivePlayerController.init(contentURL: URL.init(string: self.url))
             self.liveplayer.setScalingMode(NELPMovieScalingMode.init(0))
             self.liveplayer.setHardwareDecoder(true)
@@ -159,18 +159,16 @@ class CacheMeViewController: BaseViewController {
         if countDown == nil {
             countDown = UILabel.init()
             countDown.isHidden = false
-            countDown.backgroundColor = UIColor.init(hexString: App_Theme_000000_Color, andAlpha: 0.3)
-            countDown.layer.cornerRadius = 30
+            countDown.backgroundColor = UIColor.clear
             countDown.layer.masksToBounds = true
             countDown.textAlignment = .center
             countDown.textColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
-            countDown.font = App_Theme_PinFan_M_24_Font
+            countDown.font = App_Theme_PinFan_M_28_Font
             self.countDown.text = "36"
             self.view.addSubview(countDown)
             countDown.snp.makeConstraints { (make) in
-                make.right.equalTo(self.view.snp.right).offset(-10)
-                make.top.equalTo(self.switchCamera.snp.bottom).offset(17)
-                make.size.equalTo(CGSize.init(width: 60, height: 60))
+                make.right.equalTo(self.view.snp.right).offset(-61)
+                make.bottom.equalTo(self.view.snp.bottom).offset(-141)
             }
             if #available(iOS 10.0, *) {
                 if time == nil {
@@ -194,7 +192,7 @@ class CacheMeViewController: BaseViewController {
     //切换摄像头
     func setUpCameraView(){
         switchCamera = UIButton.init(type: .custom)
-        switchCamera.setTitle("相机", for: .normal)
+        switchCamera.setImage(UIImage.init(named: "camera"), for: .normal)
         switchCamera.backgroundColor = UIColor.init(hexString: App_Theme_000000_Color, andAlpha: 0.3)
         switchCamera.layer.cornerRadius = 30
         switchCamera.layer.masksToBounds = true
@@ -211,15 +209,18 @@ class CacheMeViewController: BaseViewController {
     }
     
     @objc func playGame(){
-        let option = NIMNetCallOption.init()
-        NIMAVChatSDK.shared().netCallManager.start(["lingwen5"], type: NIMNetCallMediaType.video, option: option) { (error, ret) in
-            if error == nil {
-                self.cacheMeViewModel.doDestroyPlay()
-                self.setUpCountDownView()
-            }else{
-                print(error!)
-            }
-        }
+        self.cacheMeViewModel.doDestroyPlay()
+        self.setUpCountDownView()
+        cacheMeViewModel.playGame()
+//        let option = NIMNetCallOption.init()
+//        NIMAVChatSDK.shared().netCallManager.start(["caiji"], type: NIMNetCallMediaType.video, option: option) { (error, ret) in
+//            if error == nil {
+//                self.cacheMeViewModel.doDestroyPlay()
+//                self.setUpCountDownView()
+//            }else{
+//                print(error!)
+//            }
+//        }
     }
     
     func doInitPlayerNotication(){

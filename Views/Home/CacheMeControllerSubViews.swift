@@ -23,9 +23,9 @@ class CacheMeTopView : UIView {
         backButton.layer.cornerRadius = 23
         backButton.layer.masksToBounds = true
         backButton.titleLabel?.textAlignment = .center
-        backButton.setTitle("X", for: .normal)
+        backButton.setImage(UIImage.init(named: "close_1"), for: .normal)
         backButton.setTitleColor(UIColor.init(hexString: App_Theme_FC4652_Color), for: .normal)
-        backButton.frame = CGRect.init(x: SCREENWIDTH - 50, y: 14, width: 46, height: 46)
+        backButton.frame = CGRect.init(x: SCREENWIDTH - 56, y: 34, width: 46, height: 46)
         backButton.reactive.controlEvents(.touchUpInside).observe { (action) in
             topViewBackButtonClouse()
         }
@@ -200,7 +200,7 @@ class GameToolsView : UIView {
         super.init(frame: frame)
         
         topBtn = UIButton.init(frame: CGRect.init(x: 100, y: 28, width: gameBtnWidht, height: gameBtnWidht))
-        topBtn.setTitle("上边", for: .normal)
+        topBtn.setImage(UIImage.init(named: "up"), for: .normal)
         self.setUpButtonTheme(button: topBtn)
         topBtn.reactive.controlEvents(.touchUpInside).observe { (action) in
             gameToolsViewClouse(2)
@@ -208,7 +208,7 @@ class GameToolsView : UIView {
         self.addSubview(topBtn)
         
         leftBtn = UIButton.init(frame: CGRect.init(x: 30, y: 78, width: gameBtnWidht, height: gameBtnWidht))
-        leftBtn.setTitle("左边", for: .normal)
+        leftBtn.setImage(UIImage.init(named: "left"), for: .normal)
         self.setUpButtonTheme(button: leftBtn)
         leftBtn.reactive.controlEvents(.touchUpInside).observe { (action) in
             gameToolsViewClouse(1)
@@ -218,7 +218,7 @@ class GameToolsView : UIView {
         
         bottomBtn = UIButton.init(frame: CGRect.init(x: 100, y: 128, width: gameBtnWidht, height: gameBtnWidht))
         self.setUpButtonTheme(button: bottomBtn)
-        bottomBtn.setTitle("下边", for: .normal)
+        bottomBtn.setImage(UIImage.init(named: "down"), for: .normal)
         bottomBtn.reactive.controlEvents(.touchUpInside).observe { (action) in
             gameToolsViewClouse(3)
         }
@@ -226,18 +226,17 @@ class GameToolsView : UIView {
         
         rightBtn = UIButton.init(frame: CGRect.init(x: 170, y: 78, width: gameBtnWidht, height: gameBtnWidht))
         self.setUpButtonTheme(button: rightBtn)
-        rightBtn.setTitle("右边", for: .normal)
+        rightBtn.setImage(UIImage.init(named: "right"), for: .normal)
         rightBtn.reactive.controlEvents(.touchUpInside).observe { (action) in
             gameToolsViewClouse(4)
         }
         self.addSubview(rightBtn)
         
-        goBtn = UIButton.init(frame: CGRect.init(x: SCREENWIDTH - 96 - 20, y: 76, width: 96, height: 60))
-        goBtn.backgroundColor = UIColor.init(hexString: App_Theme_000000_Color, andAlpha: 0.3)
+        goBtn = UIButton.init(frame: CGRect.init(x: SCREENWIDTH - 84 - 30, y: 64, width: 84, height: 88))
+        goBtn.backgroundColor = UIColor.clear
         goBtn.titleLabel?.textAlignment = .center
-        goBtn.layer.cornerRadius = 16
         goBtn.layer.masksToBounds = true
-        goBtn.setTitle("抓取", for: .normal)
+        goBtn.setImage(UIImage.init(named: "go"), for: .normal)
         goBtn.reactive.controlEvents(.touchUpInside).observe { (action) in
             gameToolsViewClouse(5)
         }

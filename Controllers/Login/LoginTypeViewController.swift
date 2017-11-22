@@ -12,10 +12,12 @@ class LoginTypeViewController: BaseViewController {
 
     var loginWithWeChat:UIButton!
     var loginWithPhone:UIButton!
+    var loginImage:UIImageView!
+    var loginLable:UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor.brown
+        self.view.backgroundColor = UIColor.init(hexString: App_Theme_FC4652_Color)
         // Do any additional setup after loading the view.
     }
     
@@ -25,7 +27,7 @@ class LoginTypeViewController: BaseViewController {
     
     override func setUpView() {
         loginWithWeChat = UIButton.init(type: .custom)
-        loginWithWeChat.setImage(UIImage.init(named: "male_me"), for: .normal)
+        loginWithWeChat.setImage(UIImage.init(named: "wechat"), for: .normal)
         loginWithWeChat.backgroundColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
         loginWithWeChat.setTitle("微信登录", for: .normal)
         loginWithWeChat.layer.cornerRadius = 25
@@ -47,12 +49,32 @@ class LoginTypeViewController: BaseViewController {
         loginWithPhone.titleLabel?.font = App_Theme_PinFan_R_16_Font
         loginWithPhone.setTitleColor(UIColor.init(hexString: App_Theme_FFFFFF_Color), for: .normal)
         loginWithPhone.reactive.controlEvents(.touchUpInside).observe { (active) in
-            NavigationPushView(self, toConroller: LoginViewController())
+            NavigationPushView(self, toConroller: LoginSetPhoneViewController())
         }
         self.view.addSubview(loginWithPhone)
         loginWithPhone.snp.makeConstraints { (make) in
             make.top.equalTo(self.loginWithWeChat.snp.bottom).offset(15)
             make.centerX.equalTo(self.view.snp.centerX).offset(0)
+        }
+        
+        loginLable = UILabel.init()
+        loginLable.text = "主人\n带我回家吧"
+        loginLable.font = App_Theme_PinFan_R_65_Font
+        loginLable.numberOfLines = 0
+        loginLable.textColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
+        self.view.addSubview(loginLable)
+        loginLable.snp.makeConstraints { (make) in
+            make.centerX.equalTo(self.view.snp.centerX).offset(0)
+            make.centerY.equalTo(self.view.snp.centerY).offset(-190)
+        }
+        
+        loginImage = UIImageView.init()
+        loginImage.image = UIImage.init(named: "pic_login")
+        self.view.addSubview(loginImage)
+        loginImage.snp.makeConstraints { (make) in
+            make.centerX.equalTo(self.view.snp.centerX).offset(0)
+            make.size.equalTo(CGSize.init(width: SCREENWIDTH, height: SCREENWIDTH * 207/375))
+            make.bottom.equalTo(self.view.snp.bottom).offset(0)
         }
     }
     

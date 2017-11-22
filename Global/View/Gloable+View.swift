@@ -74,7 +74,7 @@ class CustomButton: UIButton {
     }
     
     func setWithNoBoarderButton(){
-        self.buttonSetTitleColor(App_Theme_F94856_Color, sTitleColor: App_Theme_6D4033_Color)
+        self.buttonSetTitleColor(App_Theme_CCCCCC_Color, sTitleColor: App_Theme_6D4033_Color)
     }
     
     func setWithBoarderButton(){

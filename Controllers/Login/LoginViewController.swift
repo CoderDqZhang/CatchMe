@@ -25,11 +25,8 @@ class LoginViewController: BaseViewController {
     
     var comfigLabel:UILabel!
     var proBtn:CustomButton!
-    
     let loginForm = LoginForm()
-    
     var timeDownLabel:CountDown!
-    
     var loginViewModel = LoginViewModel()
 
     
@@ -266,8 +263,6 @@ extension LoginViewController : UITextFieldDelegate {
                 }
             }
         }
-        
-        
         return true
     }
 }
