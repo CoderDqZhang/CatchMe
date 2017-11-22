@@ -28,17 +28,14 @@ let AnimationTime = 0.3
 
 let TitleLineSpace:Float = 3.0
 
-//搜索历史保存文件地址
-let SearchHistoryDataPath = "SearchHistory.data"
-
 let WeiXinPayStatues = "WeiXinPayStatuesChange"
 let AliPayStatues = "AliPayStatuesChange"
 
-let DidRegisterRemoteNotification = "DidRegisterRemoteNotification"
-let DidRegisterRemoteURLNotification = "DidRegisterRemoteURLNotification"
-let DidRegisterRemoteDiviceToken = "DidRegisterRemoteDiviceToken"
+//let DidRegisterRemoteNotification = "DidRegisterRemoteNotification"
+//let DidRegisterRemoteURLNotification = "DidRegisterRemoteURLNotification"
+//let DidRegisterRemoteDiviceToken = "DidRegisterRemoteDiviceToken"
 
-let WANGYIIMAPPKEY = "6f49e3f759ccd47810b445444eebc090"
+let WANGYIIMAPPKEY = "04fdcc5868d168349f86a52c04a9d426"
 
 let WeiXinAppID = "wx6c6b940e660449a2"
 let QQAppID = "1105914312"
@@ -48,15 +45,13 @@ let WeiboApiKey   =    "3220687526"
 let WeiboApiSecret =   "97f3d51f3a1017cf54268accf9b83391"
 let WeiboRedirectUrl = "http://sns.whalecloud.com/sina2/callback"
 
-let JPushApiKey = "35d49a6e7dd7d1e678d1f7a6"
-
 let GaoDeApiKey = "36cf817a65c10eff954c24c3a9edcb3d"
 
 
 let ToolViewNotifacationName = "ToolsViewNotification"
 let LoginStatuesChange = "LoginStatuesChange"
 
-let OrderStatuesChange = "OrderStatusChange"
+let PayStatusChange = "PayStatusChange"
 
 let UserTopUpWall = "UserTopUpWall"
 

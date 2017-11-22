@@ -45,9 +45,9 @@ class TopUserInfoTableViewCell: UITableViewCell {
         self.contentView.addSubview(userName)
         
         numberCache = UILabel.init()
-        numberCache.text = "共抓中109次"
+        numberCache.text = "109"
         numberCache.textColor = UIColor.init(hexString: App_Theme_333333_Color)
-        numberCache.font = App_Theme_PinFan_M_13_Font
+        numberCache.font = App_Theme_PinFan_M_28_Font
         self.contentView.addSubview(numberCache)
         
         self.updateConstraints()
@@ -59,19 +59,29 @@ class TopUserInfoTableViewCell: UITableViewCell {
         switch indexPath.row {
         case 2:
             self.setUpViewsColor(color: UIColor.init(hexString: App_Theme_FFC107_Color))
+            avaterBack.image = UIImage.init(named: "crown_1")
+            medalImage.image = UIImage.init(named: "medal_1")
+            medalImage.isHidden = false
         case 3:
             self.setUpViewsColor(color: UIColor.init(hexString: App_Theme_AAAAAA_Color))
-        default:
+            avaterBack.image = UIImage.init(named: "crown_2")
+            medalImage.image = UIImage.init(named: "medal_2")
+            medalImage.isHidden = false
+        case 4:
             self.setUpViewsColor(color: UIColor.init(hexString: App_Theme_FC4652_Color))
+            avaterBack.image = UIImage.init(named: "crown_3")
+            medalImage.image = UIImage.init(named: "medal_3")
+            medalImage.isHidden = false
+        default:
+            self.setUpViewsColor(color: UIColor.init(hexString: App_Theme_333333_Color))
+            medalImage.isHidden = true
         }
     }
     
     func setUpViewsColor(color:UIColor) {
         userName.textColor = color
-        numberCache.textColor = color
-        avaterBack.backgroundColor = color
         avaterImage.backgroundColor = color
-        medalImage.backgroundColor = color
+        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -87,8 +97,8 @@ class TopUserInfoTableViewCell: UITableViewCell {
             })
             
             avaterBack.snp.makeConstraints({ (make) in
-                make.left.equalTo(self.contentView.snp.left).offset(52)
-                make.top.equalTo(self.contentView.snp.top).offset(7)
+                make.left.equalTo(self.contentView.snp.left).offset(53)
+                make.top.equalTo(self.contentView.snp.top).offset(10)
                 make.size.equalTo(CGSize.init(width: 56, height: 46))
             })
             
@@ -99,21 +109,19 @@ class TopUserInfoTableViewCell: UITableViewCell {
             })
             
             userName.snp.makeConstraints({ (make) in
-                make.top.equalTo(self.contentView.snp.top).offset(25)
+                make.centerY.equalTo(self.contentView.snp.centerY).offset(0)
                 make.left.equalTo(self.avaterImage.snp.right).offset(13)
-                make.right.equalTo(self.contentView.snp.right).offset(-15)
             })
             
             medalImage.snp.makeConstraints({ (make) in
-                make.left.equalTo(self.avaterImage.snp.right).offset(13)
-                make.top.equalTo(self.userName.snp.bottom).offset(16)
+                make.left.equalTo(self.userName.snp.right).offset(3)
+                make.centerY.equalTo(self.contentView.snp.centerY).offset(0)
                 make.size.equalTo(CGSize.init(width: 9, height: 9))
             })
             
             numberCache.snp.makeConstraints({ (make) in
-                make.top.equalTo(self.userName.snp.bottom).offset(13)
-                make.left.equalTo(self.medalImage.snp.right).offset(5)
-                make.right.equalTo(self.contentView.snp.right).offset(-15)
+                make.centerY.equalTo(self.contentView.snp.centerY).offset(0)
+                make.right.equalTo(self.contentView.snp.right).offset(-29)
             })
             
             didMakeConstraints = true

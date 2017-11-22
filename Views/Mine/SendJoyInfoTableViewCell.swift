@@ -25,7 +25,6 @@ class SendJoyInfoTableViewCell: UITableViewCell {
     
     func setUpView(){
         selectImage = UIImageView.init()
-        selectImage.backgroundColor = UIColor.red
         self.contentView.addSubview(selectImage)
         
         joyImageView = UIImageView.init()
@@ -53,9 +52,9 @@ class SendJoyInfoTableViewCell: UITableViewCell {
     func changeSelectData(isSelect:Bool){
         self.isSelect = isSelect
         if isSelect {
-            selectImage.backgroundColor = UIColor.red
+            selectImage.image = UIImage.init(named: "check")
         }else{
-            selectImage.backgroundColor = UIColor.blue
+            selectImage.image = nil
         }
         self.updateConstraintsIfNeeded()
     }

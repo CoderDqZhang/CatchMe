@@ -22,7 +22,6 @@ class SetNormalTableViewCell: UITableViewCell {
     
     func setUpView(){
         normalImage = UIImageView.init()
-        normalImage.backgroundColor = UIColor.red
         self.contentView.addSubview(normalImage)
         
         titleLabel = UILabel.init()
@@ -37,9 +36,9 @@ class SetNormalTableViewCell: UITableViewCell {
     func normaleImageSelect(isSelect:Bool) {
         self.isSelect = isSelect
         if isSelect {
-            normalImage.backgroundColor = UIColor.red
+            normalImage.image = UIImage.init(named: "check")
         }else{
-            normalImage.backgroundColor = UIColor.blue
+            normalImage.image = nil
         }
         self.updateConstraintsIfNeeded()
     }

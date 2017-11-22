@@ -62,7 +62,7 @@ class BaseViewController: UIViewController {
         controller?.view.addSubview(tableView)
         tableView.delegate = viewModel as? UITableViewDelegate
         tableView.dataSource = viewModel as? UITableViewDataSource
-        
+        self.tableView.backgroundColor = UIColor.init(hexString: App_Theme_FAFAFA_Color)
         tableView.keyboardDismissMode = .onDrag
         tableView.snp.makeConstraints { (make) in
             make.top.equalTo((controller?.view.snp.top)!).offset(0)

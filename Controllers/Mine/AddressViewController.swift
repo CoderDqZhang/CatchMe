@@ -25,7 +25,9 @@ class AddressViewController: BaseViewController {
     }
 
     func bindLoginViewModel(){
-        (self.viewModel as! AddressViewModel).model = self.model
+        if self.model != nil {
+            (self.viewModel as! AddressViewModel).model = self.model
+        }
     }
     
     override func didReceiveMemoryWarning() {

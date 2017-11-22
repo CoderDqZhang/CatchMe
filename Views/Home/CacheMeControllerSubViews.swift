@@ -23,8 +23,9 @@ class CacheMeTopView : UIView {
         backButton.layer.cornerRadius = 23
         backButton.layer.masksToBounds = true
         backButton.titleLabel?.textAlignment = .center
-        backButton.setTitle("取消", for: .normal)
-        backButton.frame = CGRect.init(x: 20, y: 14, width: 46, height: 46)
+        backButton.setTitle("X", for: .normal)
+        backButton.setTitleColor(UIColor.init(hexString: App_Theme_FC4652_Color), for: .normal)
+        backButton.frame = CGRect.init(x: SCREENWIDTH - 50, y: 14, width: 46, height: 46)
         backButton.reactive.controlEvents(.touchUpInside).observe { (action) in
             topViewBackButtonClouse()
         }
@@ -99,16 +100,15 @@ class ToolsView: UIView {
         self.addSubview(label)
         
         if blance == nil {
-            imageView = UIImageView.init(frame: CGRect.init(x: (frame.size.width  - 22 )/2, y: 9, width: 22, height: 22))
-            imageView.backgroundColor = UIColor.red
+            imageView = UIImageView.init(frame: CGRect.init(x: (frame.size.width  - 22 )/2, y: 9, width: 26, height: 21))
+            imageView.image = image
             self.addSubview(imageView)
-            
             label.textColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
 
         }else{
             let width = ((blance! as NSString).width(with: App_Theme_PinFan_M_20_Font, constrainedToHeight: 24)) + 22
-            imageView = UIImageView.init(frame: CGRect.init(x: (frame.size.width  - width )/2, y: 9, width: 22, height: 22))
-            imageView.backgroundColor = UIColor.red
+            imageView = UIImageView.init(frame: CGRect.init(x: (frame.size.width  - width )/2, y: 9, width: 26, height: 21))
+            imageView.image = image
             self.addSubview(imageView)
             
             blanceLabel = UILabel.init(frame: CGRect.init(x: imageView.frame.maxX + 4, y: 9, width: width - 22, height: 20))
@@ -151,21 +151,21 @@ class CacheMeToolsView: UIView {
     //(2x + 75/48x)
     func setUpView(){
         let toolsWidth = (SCREENWIDTH - 36) / (2 + 75/47.5)
-        toolsDesc =  ToolsView.init(frame: CGRect.init(x: 10, y: 0, width: toolsWidth, height: 60), title: "详情", blance: nil, image: UIImage.init(named: "check")!, tag: 1) {
+        toolsDesc =  ToolsView.init(frame: CGRect.init(x: 10, y: 0, width: toolsWidth, height: 60), title: "详情", blance: nil, image: UIImage.init(named: "toys")!, tag: 1) {
             if self.cacheMeToolsViewClouse != nil {
                 self.cacheMeToolsViewClouse(1)
             }
         }
         self.addSubview(toolsDesc)
         
-        playGame = ToolsView.init(frame: CGRect.init(x: toolsDesc.frame.maxX + 8, y: 0, width: toolsWidth * 75 / 48, height: 60), title: "开始抓娃娃", blance: "30", image: UIImage.init(named: "check")!,tag:2) {
+        playGame = ToolsView.init(frame: CGRect.init(x: toolsDesc.frame.maxX + 8, y: 0, width: toolsWidth * 75 / 48, height: 60), title: "开始抓娃娃", blance: "30", image: UIImage.init(named: "recharge")!,tag:2) {
             if self.cacheMeToolsViewClouse != nil {
                 self.cacheMeToolsViewClouse(2)
             }
         }
         self.addSubview(playGame)
         
-        topUp = ToolsView.init(frame: CGRect.init(x: playGame.frame.maxX + 8, y: 0, width: toolsWidth, height: 60), title: "充值", blance: nil, image: UIImage.init(named: "check")!,tag:3) {
+        topUp = ToolsView.init(frame: CGRect.init(x: playGame.frame.maxX + 8, y: 0, width: toolsWidth, height: 60), title: "充值", blance: nil, image: UIImage.init(named: "recharge")!,tag:3) {
             if self.cacheMeToolsViewClouse != nil {
                 self.cacheMeToolsViewClouse(3)
             }

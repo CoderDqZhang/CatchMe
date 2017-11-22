@@ -11,6 +11,7 @@ import UIKit
 class MyDollsCollectionViewCell: UICollectionViewCell {
  
     var statusImage:UIImageView!
+    var statusLabel:UILabel!
     var dollsImage:UIImageView!
     var coinsImage:UIImageView!
     var coinsNumber:UILabel!
@@ -29,7 +30,7 @@ class MyDollsCollectionViewCell: UICollectionViewCell {
     
     func setUpView(){
         statusImage = UIImageView.init()
-        statusImage.backgroundColor = UIColor.red
+        statusImage.image = UIImage.init(named: "tag_vacant")
         self.contentView.addSubview(statusImage)
         
         dollsImage = UIImageView.init()
@@ -37,12 +38,12 @@ class MyDollsCollectionViewCell: UICollectionViewCell {
         self.contentView.addSubview(dollsImage)
         
         coinsImage = UIImageView.init()
-        coinsImage.backgroundColor = UIColor.blue
+        coinsImage.image = UIImage.init(named: "recharge")
         self.contentView.addSubview(coinsImage)
         
         isHaveDolls = UIImageView.init()
         isHaveDolls.clipsToBounds = true
-        isHaveDolls.backgroundColor = UIColor.brown
+        isHaveDolls.image = UIImage.init(named: "stamp")
         self.contentView.addSubview(isHaveDolls)
         
         coinsNumber = UILabel.init()
@@ -50,6 +51,11 @@ class MyDollsCollectionViewCell: UICollectionViewCell {
         coinsNumber.textColor = UIColor.init(hexString: App_Theme_FB1531_Color)
         coinsNumber.font = App_Theme_PinFan_M_18_Font
         self.contentView.addSubview(coinsNumber)
+        
+        statusLabel = UILabel.init()
+        statusLabel.textColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
+        statusLabel.font = App_Theme_PinFan_M_11_Font
+        self.contentView.addSubview(statusLabel)
         
         dollsName = UILabel.init()
         dollsName.text = "布朗熊变身长颈鹿"
@@ -66,6 +72,8 @@ class MyDollsCollectionViewCell: UICollectionViewCell {
         UIImageViewManger.shareInstance.sd_imageView(url: model.imageAddress, imageView: dollsImage, placeholderImage: nil) { (image, error, cahce, url) in
             
         }
+        statusImage.image = model.free == 1 ? UIImage.init(named: "tag_vacant") : UIImage.init(named: "tag_hot")
+        statusLabel.text = model.free == 1 ? "有空闲" : "热抓中"
     }
     
     override func updateConstraints() {
@@ -74,6 +82,11 @@ class MyDollsCollectionViewCell: UICollectionViewCell {
                 make.top.equalTo(self.contentView.snp.top).offset(15)
                 make.left.equalTo(self.contentView.snp.left).offset(15)
                 make.size.equalTo(CGSize.init(width: 50, height: 20))
+            })
+            
+            statusLabel.snp.makeConstraints({ (make) in
+                make.top.equalTo(self.contentView.snp.top).offset(18)
+                make.left.equalTo(self.contentView.snp.left).offset(23)
             })
 
             dollsImage.snp.makeConstraints({ (make) in
@@ -99,9 +112,9 @@ class MyDollsCollectionViewCell: UICollectionViewCell {
             })
             
             isHaveDolls.snp.makeConstraints({ (make) in
-                make.right.equalTo(self.contentView.snp.right).offset(10)
+                make.right.equalTo(self.contentView.snp.right).offset(0)
                 make.bottom.equalTo(self.contentView.snp.bottom).offset(0)
-                make.size.equalTo(CGSize.init(width: 60, height: 60))
+                make.size.equalTo(CGSize.init(width: 49, height: 59))
             })
             
             didMakeConstraints = true

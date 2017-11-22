@@ -109,7 +109,6 @@ class CustomViewButton: UIView {
         super.init(frame: frame)
         
         imageView = UIImageView.init(frame: CGRect.init(x: 10, y: 0, width: 68, height: 68))
-        imageView.backgroundColor = UIColor.red
         imageView.image = image
         self.addSubview(imageView)
         

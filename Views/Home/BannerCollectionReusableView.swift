@@ -17,7 +17,7 @@ class BannerCollectionReusableView: UICollectionReusableView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = UIColor.clear
+        self.backgroundColor = UIColor.init(hexString: App_Theme_FAFAFA_Color)
         self.setUpView()
     }
     

@@ -15,6 +15,7 @@ class AddressViewModel: BaseViewModel {
     var model = AddressModel.init()
     override init() {
         super.init()
+        
     }
     
     func saveAddress(){
@@ -68,7 +69,7 @@ class AddressViewModel: BaseViewModel {
     }
     
     func tableViewSetNormalTableViewCellSetData(_ indexPath:IndexPath, cell:SetNormalTableViewCell) {
-//        cell.
+        cell.normaleImageSelect(isSelect: true)
     }
     
     func updateCellString(_ tableView:UITableView, str:String, tag:Int) {
@@ -79,6 +80,9 @@ class AddressViewModel: BaseViewModel {
     func tableViewDidSelect(_ indexPath:IndexPath, tableView:UITableView) {
         if indexPath.row == 2 {
             (self.controller as! AddressViewController).showCityPickerView()
+        }else if indexPath.row == 4 {
+            let cell = tableView.cellForRow(at: indexPath) as! SetNormalTableViewCell
+            cell.normaleImageSelect(isSelect: !cell.isSelect)
         }
     }
 }

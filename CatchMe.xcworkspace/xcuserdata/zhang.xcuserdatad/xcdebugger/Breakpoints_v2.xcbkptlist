@@ -51,28 +51,12 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ViewModels/Mine/AddressViewModel.swift"
-            timestampString = "532944810.339821"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "22"
-            endingLineNumber = "22"
-            landmarkName = "saveAddress()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "Controllers/Mine/AddressViewController.swift"
-            timestampString = "532944810.340017"
+            timestampString = "533037357.845879"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "76"
-            endingLineNumber = "76"
+            startingLineNumber = "78"
+            endingLineNumber = "78"
             landmarkName = "toobarDonBtnHaveClick(_:resultString:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -84,11 +68,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ViewModels/Login/LoginViewModel.swift"
-            timestampString = "532971890.287421"
+            timestampString = "533037357.84594"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "23"
-            endingLineNumber = "23"
+            startingLineNumber = "28"
+            endingLineNumber = "28"
             landmarkName = "requestLoginCode(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -100,42 +84,42 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ViewModels/Login/LoginViewModel.swift"
-            timestampString = "532971890.287483"
+            timestampString = "533037357.845993"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "20"
-            endingLineNumber = "20"
-            landmarkName = "init()"
+            startingLineNumber = "25"
+            endingLineNumber = "25"
+            landmarkName = "requestLoginCode(_:)"
             landmarkType = "7">
             <Locations>
                <Location
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "CatchMe.LoginViewModel.requestLoginCode(Swift.String, controller: CatchMe.LoginViewController) -&gt; ()"
+                  symbolName = "CatchMe.LoginViewModel.requestLoginCode(Swift.String) -&gt; ()"
                   moduleName = "CatchMe"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/zhang/Desktop/CatchMe/ViewModels/Login/LoginViewModel.swift"
-                  timestampString = "532969177.221224"
+                  timestampString = "533037358.185226"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "20"
-                  endingLineNumber = "20"
-                  offsetFromSymbolStart = "223">
+                  startingLineNumber = "25"
+                  endingLineNumber = "25"
+                  offsetFromSymbolStart = "215">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (ReactiveSwift.Signal&lt;Any, __ObjC.NSError&gt;.Event) -&gt; () in CatchMe.LoginViewModel.requestLoginCode(Swift.String, controller: CatchMe.LoginViewController) -&gt; ()"
+                  symbolName = "closure #1 (ReactiveSwift.Signal&lt;Any, __ObjC.NSError&gt;.Event) -&gt; () in CatchMe.LoginViewModel.requestLoginCode(Swift.String) -&gt; ()"
                   moduleName = "CatchMe"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/zhang/Desktop/CatchMe/ViewModels/Login/LoginViewModel.swift"
-                  timestampString = "532969177.224395"
+                  timestampString = "533037358.1888"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "21"
-                  endingLineNumber = "21"
+                  startingLineNumber = "26"
+                  endingLineNumber = "26"
                   offsetFromSymbolStart = "21">
                </Location>
             </Locations>
@@ -148,12 +132,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ViewModels/Login/LoginViewModel.swift"
-            timestampString = "532971890.287529"
+            timestampString = "533037357.846039"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "31"
-            endingLineNumber = "31"
-            landmarkName = "requestLoginCode(_:)"
+            startingLineNumber = "36"
+            endingLineNumber = "36"
+            landmarkName = "requestLogin(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -164,7 +148,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Global/Net/BaseNetWorke.swift"
-            timestampString = "532971890.287573"
+            timestampString = "533037357.846087"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "71"
@@ -180,7 +164,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Global/Net/BaseNetWorke.swift"
-            timestampString = "532971890.287616"
+            timestampString = "533037357.846131"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "74"
@@ -196,7 +180,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Global/Net/BaseNetWorke.swift"
-            timestampString = "532971890.287657"
+            timestampString = "533037357.846172"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "85"
@@ -212,7 +196,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Global/Net/BaseNetWorke.swift"
-            timestampString = "532971890.287696"
+            timestampString = "533037357.846231"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "72"
@@ -228,13 +212,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ViewModels/Login/LoginViewModel.swift"
-            timestampString = "532971890.287734"
+            timestampString = "533037357.846272"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "32"
-            endingLineNumber = "32"
-            landmarkName = "LoginViewModel"
-            landmarkType = "3">
+            startingLineNumber = "37"
+            endingLineNumber = "37"
+            landmarkName = "requestLogin(_:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

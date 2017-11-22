@@ -39,7 +39,7 @@ class Address: UIView {
     
     func setUpView(){
         locationImage = UIImageView.init()
-        locationImage.backgroundColor = UIColor.red
+        locationImage.image = UIImage.init(named: "location")
         self.addSubview(locationImage)
         locationImage.snp.makeConstraints { (make) in
             make.centerY.equalTo(self.snp.centerY).offset(0)
@@ -116,11 +116,13 @@ class SendAddressTableViewCell: UITableViewCell {
         self.updateConstraints()
     }
     
-    func cellSetData(isHaveAddress:Bool,model:AddressModel) {
+    func cellSetData(isHaveAddress:Bool,model:AddressModel?) {
         addressView.isHidden = !isHaveAddress
         noneAddressView.isHidden = isHaveAddress
         if isHaveAddress {
-            addressView.setData(model: model)
+            if model != nil {
+                addressView.setData(model: model!)
+            }
         }
     }
     

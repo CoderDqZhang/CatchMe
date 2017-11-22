@@ -16,11 +16,12 @@ class MineToolsTableViewCell: UITableViewCell {
     var didMakeConstraints = false
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        self.contentView.backgroundColor = UIColor.init(hexString: App_Theme_FAFAFA_Color)
         self.setUpView()
     }
     
     func setUpView(){
-        let myCoins = CustomViewButton.init(frame: CGRect.init(x: (SCREENWIDTH - 180) / 2, y: 40, width: 90, height: 96), title: "我的娃娃币70", image: UIImage.init(named: "toys")!, tag:1)
+        let myCoins = CustomViewButton.init(frame: CGRect.init(x: (SCREENWIDTH - 180) / 2, y: 40, width: 90, height: 96), title: "我的娃娃币70", image: UIImage.init(named: "coins")!, tag:1)
         self.setUpSingTap(myCoins)
         self.contentView.addSubview(myCoins)
         
@@ -28,16 +29,16 @@ class MineToolsTableViewCell: UITableViewCell {
         self.setUpSingTap(myMoppet)
         self.contentView.addSubview(myMoppet)
         
-        let myCode = CustomViewButton.init(frame: CGRect.init(x: (SCREENWIDTH - 270) / 2, y: 40 + 96 + 32, width: 90, height: 96), title: "邀请码", image: UIImage.init(named: "toys")!, tag:3)
+        let myCode = CustomViewButton.init(frame: CGRect.init(x: (SCREENWIDTH - 270) / 2, y: 40 + 96 + 32, width: 90, height: 96), title: "邀请码", image: UIImage.init(named: "invite")!, tag:3)
         self.setUpSingTap(myCode)
         self.contentView.addSubview(myCode)
         
         
-        let myQuestion = CustomViewButton.init(frame: CGRect.init(x: SCREENWIDTH / 2 - 45, y: 40 + 96 + 32, width: 90, height: 96), title: "问题反馈", image: UIImage.init(named: "toys")!, tag:4)
+        let myQuestion = CustomViewButton.init(frame: CGRect.init(x: SCREENWIDTH / 2 - 45, y: 40 + 96 + 32, width: 90, height: 96), title: "问题反馈", image: UIImage.init(named: "question")!, tag:4)
         self.setUpSingTap(myQuestion)
         self.contentView.addSubview(myQuestion)
         
-        let contactUs = CustomViewButton.init(frame: CGRect.init(x: SCREENWIDTH / 2 + 45, y: 40 + 96 + 32, width: 90, height: 96), title: "联系我们", image: UIImage.init(named: "toys")!, tag:5)
+        let contactUs = CustomViewButton.init(frame: CGRect.init(x: SCREENWIDTH / 2 + 45, y: 40 + 96 + 32, width: 90, height: 96), title: "联系我们", image: UIImage.init(named: "contacr")!, tag:5)
         self.setUpSingTap(contactUs)
         self.contentView.addSubview(contactUs)
         

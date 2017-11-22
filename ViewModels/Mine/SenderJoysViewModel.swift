@@ -14,7 +14,9 @@ class SenderJoysViewModel: BaseViewModel {
     var model:AddressModel!
     override init() {
         super.init()
-        model = AddressModel.findLastObject()
+        if AddressModel.findAll().count > 0 {
+            model = AddressModel.findLastObject()
+        }
         isHaveAddress = model == nil ? false : true
     }
     

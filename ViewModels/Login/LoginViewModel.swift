@@ -25,7 +25,7 @@ class LoginViewModel: BaseViewModel {
         BaseNetWorke.sharedInstance.getUrlWithString(LoginCode, parameters: dic as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
                 let aMinutes:TimeInterval = 60
-                (self.controller as LoginViewController).startWithStartDate(NSDate() as Date, finishDate: NSDate.init(timeIntervalSinceNow: aMinutes) as Date)
+                (self.controller as! LoginViewController).startWithStartDate(NSDate() as Date, finishDate: NSDate.init(timeIntervalSinceNow: aMinutes) as Date)
             }
         }
     }

@@ -44,13 +44,12 @@ class MineViewController: BaseViewController {
         rightButton.reactive.controlEvents(.touchUpInside).observe { (action) in
             self.rightBarItemPress()
         }
-        rightButton.setTitle("设置", for: .normal)
-        rightButton.backgroundColor = UIColor.red
+        rightButton.setImage(UIImage.init(named: "settings"), for: .normal)
         self.view.addSubview(rightButton)
         rightButton.snp.makeConstraints { (make) in
             make.right.equalTo(self.view.snp.right).offset(-20)
-            make.top.equalTo(self.view.snp.top).offset(8)
-            make.size.equalTo(CGSize.init(width: 40, height: 40))
+            make.top.equalTo(self.view.snp.top).offset(16)
+            make.size.equalTo(CGSize.init(width: 36, height: 36))
         }
     }
     

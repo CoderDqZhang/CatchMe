@@ -41,7 +41,7 @@ class SenderMuchTableViewCell: UITableViewCell {
         self.contentView.addSubview(muchLabel)
         
         muchImage = UIImageView.init()
-        muchImage.backgroundColor = UIColor.red
+        muchImage.image = UIImage.init(named: "coin")
         self.contentView.addSubview(muchImage)
         
         self.updateConstraints()

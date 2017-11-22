@@ -31,7 +31,6 @@ class MineHeaderTableViewCell: UITableViewCell {
         
         genderImage = UIImageView.init()
         genderImage.layer.masksToBounds = true
-        genderImage.backgroundColor = UIColor.red
         self.contentView.addSubview(genderImage)
         
         userName = UILabel.init()
@@ -54,6 +53,8 @@ class MineHeaderTableViewCell: UITableViewCell {
                 
             }
         }
+        
+        genderImage.image = model.gender == 0 ? UIImage.init(named: "female_me") : UIImage.init(named: "male_me")
         
         userName.text = model.userName
     }

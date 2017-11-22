@@ -21,9 +21,9 @@ class MainTabBarViewController: UITabBarController {
         
         self.delegate = self
         
-        self.setNavigationControllerTitleAndImage(image: UIImage.init(named: "home_gray")!, title: "抓我", selectImage: nil, controller: homeViewController)
-        self.setNavigationControllerTitleAndImage(image: UIImage.init(named: "v_gray")!, title: "大神榜", selectImage: nil, controller: topViewController)
-        self.setNavigationControllerTitleAndImage(image:  UIImage.init(named: "v_gray")!, title: "我的", selectImage: nil, controller: mineViewController)
+        self.setNavigationControllerTitleAndImage(image: UIImage.init(named: "home_gray")!, title: "抓我", selectImage: UIImage.init(named: "home_red")!, controller: homeViewController)
+        self.setNavigationControllerTitleAndImage(image: UIImage.init(named: "v_gray")!, title: "大神榜", selectImage: UIImage.init(named: "v_red")!,  controller: topViewController)
+        self.setNavigationControllerTitleAndImage(image:  UIImage.init(named: "me_gray")!, title: "我的", selectImage: UIImage.init(named: "me_red")!,  controller: mineViewController)
         
         let controllers = [createNavigationController(controller: homeViewController),createNavigationController(controller: topViewController),createNavigationController(controller: mineViewController)]
         
@@ -39,10 +39,10 @@ class MainTabBarViewController: UITabBarController {
     }
     
     func setNavigationControllerTitleAndImage(image:UIImage, title:String, selectImage:UIImage?, controller:UIViewController?) {
-        controller?.tabBarItem.image = image
+        controller?.tabBarItem.image = image.withRenderingMode(.alwaysOriginal)
         controller?.tabBarItem.title = title
         controller?.navigationItem.title = title
-        controller?.tabBarItem.selectedImage = selectImage
+        controller?.tabBarItem.selectedImage = selectImage?.withRenderingMode(.alwaysOriginal)
     }
     
     func createNavigationController(controller:UIViewController?) -> UINavigationController {
