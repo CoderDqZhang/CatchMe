@@ -17,7 +17,7 @@ let IPHONE_VERSION_LAST10 = IPHONE_VERSION >= 10 ? 1:0
 let IPHONE4 = SCREENHEIGHT == 480 ? true:false
 let IPHONE5 = SCREENHEIGHT == 568 ? true:false
 let IPHONE6 = SCREENWIDTH == 344 ? true:false
-let IPHONE6P = SCREENWIDTH == 344 ? true:false
+let IPHONE6P = SCREENWIDTH == 414 ? true:false
 
 let IPHONEX = SCREENHEIGHT == 812.0 ? true : false
 

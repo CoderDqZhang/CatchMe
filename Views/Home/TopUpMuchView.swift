@@ -27,7 +27,7 @@ class MuchView: UIView {
         self.layer.masksToBounds = true
 
         imageView = UIImageView.init()
-        imageView.image = UIImage.init(named: "rechang_choosen")
+        imageView.image = UIImage.init(named: "rechang_choosen")?.resizableImage(withCapInsets: UIEdgeInsets.init(top: 0, left: 90, bottom: 0, right: 64), resizingMode: .stretch)
         self.addSubview(imageView)
         
         muchLable = UILabel.init()
@@ -43,6 +43,7 @@ class MuchView: UIView {
         imageView.snp.makeConstraints { (make) in
             make.left.equalTo(self.snp.left).offset(0)
             make.top.equalTo(self.snp.top).offset(0)
+            make.right.equalTo(self.snp.right).offset(0)
         }
         
         muchLable.snp.makeConstraints { (make) in
