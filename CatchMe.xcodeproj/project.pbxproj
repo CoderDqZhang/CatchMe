@@ -140,6 +140,7 @@
 		1F126EE71FC3F715006306D2 /* SetNormalTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F126EE61FC3F715006306D2 /* SetNormalTableViewCell.swift */; };
 		1F126EEB1FC3FD65006306D2 /* AppForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F126EEA1FC3FD65006306D2 /* AppForm.swift */; };
 		1F126F001FC4063E006306D2 /* AddressModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F126EFF1FC4063E006306D2 /* AddressModel.m */; };
+		1FCA1FFF1FC47CB50008BF07 /* HomeLables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCA1FFE1FC47CB50008BF07 /* HomeLables.swift */; };
 		54C665C6CE13906B598CBB0B /* Pods_CatchMe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 018F762371DA9CCCFF9892F6 /* Pods_CatchMe.framework */; };
 /* End PBXBuildFile section */
 
@@ -345,6 +346,7 @@
 		1F126EEA1FC3FD65006306D2 /* AppForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppForm.swift; sourceTree = "<group>"; };
 		1F126EFE1FC4063E006306D2 /* AddressModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddressModel.h; sourceTree = "<group>"; };
 		1F126EFF1FC4063E006306D2 /* AddressModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddressModel.m; sourceTree = "<group>"; };
+		1FCA1FFE1FC47CB50008BF07 /* HomeLables.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeLables.swift; sourceTree = "<group>"; };
 		599640648AD4571953B84782 /* Pods-CatchMe.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CatchMe.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CatchMe/Pods-CatchMe.debug.xcconfig"; sourceTree = "<group>"; };
 		66871A49004208702649CA5E /* Pods-CatchMe.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CatchMe.release.xcconfig"; path = "Pods/Target Support Files/Pods-CatchMe/Pods-CatchMe.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -424,6 +426,7 @@
 		1F126D741FBFF21B006306D2 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				1FCA1FFD1FC47C9C0008BF07 /* Home */,
 				1F126EF81FC3FDE8006306D2 /* Mine */,
 				1F126EE91FC3FD4F006306D2 /* Form */,
 				1F126E561FC088B0006306D2 /* Login */,
@@ -967,6 +970,14 @@
 			path = Mine;
 			sourceTree = "<group>";
 		};
+		1FCA1FFD1FC47C9C0008BF07 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				1FCA1FFE1FC47CB50008BF07 /* HomeLables.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
 		AB92BE9F4E2397317A00B46E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -1223,6 +1234,7 @@
 				1F126ED31FC30349006306D2 /* TopViewModel.swift in Sources */,
 				1F126DAE1FBFF387006306D2 /* TADotView.m in Sources */,
 				1F126DB21FBFF387006306D2 /* ZHPickView.m in Sources */,
+				1FCA1FFF1FC47CB50008BF07 /* HomeLables.swift in Sources */,
 				1F126EE31FC3D89D006306D2 /* AddressViewModel.swift in Sources */,
 				1F126E6B1FC097CE006306D2 /* JoysDetailViewController.swift in Sources */,
 				1F126E001FBFFB76006306D2 /* RequestUrl.swift in Sources */,

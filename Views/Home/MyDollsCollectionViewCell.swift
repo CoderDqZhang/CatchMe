@@ -60,6 +60,14 @@ class MyDollsCollectionViewCell: UICollectionViewCell {
         self.updateConstraints()
     }
     
+    func cellSetData(model:Labels){
+        dollsName.text = model.skuName
+        coinsNumber.text = "\(model.timeCost!)"
+        UIImageViewManger.shareInstance.sd_imageView(url: model.imageAddress, imageView: dollsImage, placeholderImage: nil) { (image, error, cahce, url) in
+            
+        }
+    }
+    
     override func updateConstraints() {
         if !didMakeConstraints {
             statusImage.snp.makeConstraints({ (make) in

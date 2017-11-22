@@ -49,7 +49,7 @@ class MineHeaderTableViewCell: UITableViewCell {
     }
     
     func cellSetData(model:UserInfoModel){
-        if model.photo! is String {
+        if model.photo != nil && model.photo! is String {
             UIImageViewManger.shareInstance.sd_imageView(url: model.photo != nil ? model.photo as! String : "", imageView: headerImage, placeholderImage: nil) { (image, error, cacheType, url) in
                 
             }

@@ -8,6 +8,7 @@
 
 import UIKit
 import ReactiveCocoa
+import MJRefresh
 
 class HomeViewController: BaseViewController {
 
@@ -17,6 +18,7 @@ class HomeViewController: BaseViewController {
         super.viewDidLoad()
         self.bindLogicViewModel()
         self.setUpCollectView()
+        self.setUpCollectViewRefreshData()
         // Do any additional setup after loading the view.
     }
     
@@ -37,6 +39,16 @@ class HomeViewController: BaseViewController {
         self.homeViewModel.controller = self
     }
 
+    func setUpCollectViewRefreshData(){
+        self.collectView.mj_header = MJRefreshNormalHeader.init(refreshingBlock: {
+            self.homeViewModel.refreshData()
+        })
+        
+        self.collectView.mj_footer = MJRefreshAutoNormalFooter.init(refreshingBlock: {
+            self.homeViewModel.loadMoreData()
+        })
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         

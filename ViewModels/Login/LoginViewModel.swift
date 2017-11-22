@@ -16,8 +16,8 @@ class LoginViewModel: BaseViewModel {
     }
     
     func requestLoginCode(_ number:String, controller:LoginViewController){
-        let dic = ["telephone":number]
-        BaseNetWorke.sharedInstance.postUrlWithString(LoginCode, parameters: dic as AnyObject).observe { (resultDic) in
+        let dic = ["phone":number]
+        BaseNetWorke.sharedInstance.getUrlWithString(LoginCode, parameters: dic as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
                 let aMinutes:TimeInterval = 60
                 controller.startWithStartDate(NSDate() as Date, finishDate: NSDate.init(timeIntervalSinceNow: aMinutes) as Date)
@@ -30,7 +30,7 @@ class LoginViewModel: BaseViewModel {
         BaseNetWorke.sharedInstance.postUrlWithString(LoginUrl, parameters: dic as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
                 UserDefaultsSetSynchronize(form.phone as AnyObject, key: "telephone")
-                let model = UserInfoModel.mj_object(withKeyValues: (resultDic.value as! NSDictionary).object(forKey: "data"))
+                let model = UserInfoModel.mj_object(withKeyValues: resultDic.value)
                 model?.saveOrUpdate()
                 Notification(LoginStatuesChange, value: nil)
                 controller.navigationController?.dismiss(animated: true, completion: {

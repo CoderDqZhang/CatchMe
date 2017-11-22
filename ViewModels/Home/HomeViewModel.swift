@@ -10,13 +10,16 @@ import UIKit
 
 class HomeViewModel: BaseViewModel {
 
+    var pageIndex:String = "0"
+    var models:HomeLabels!
     override init() {
         super.init()
+        self.requestRooms(pageIndex: self.pageIndex)
     }
     
     //MARK: UICollectionCellSetData
     func collectViewMyDollsCollectionViewCellSetData(_ indexPath:IndexPath, cell:MyDollsCollectionViewCell) {
-        
+        cell.cellSetData(model:models.data[indexPath.row])
     }
     
     func collectDidSelect(_ indexPath:IndexPath) {
@@ -27,6 +30,33 @@ class HomeViewModel: BaseViewModel {
         let imageUrls = NSMutableArray.init(array: ["https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1511699910&di=4dab0c873fc8e22e5a9a831b3ece86de&imgtype=jpg&er=1&src=http%3A%2F%2Fimg.pconline.com.cn%2Fimages%2Fupload%2Fupc%2Ftx%2Fphotoblog%2F1205%2F22%2Fc8%2F11710213_11710213_1337684443710.jpg","https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1511699935&di=5e94a2bd7dbd3a28f9fe22c31bb8bca2&imgtype=jpg&er=1&src=http%3A%2F%2Fimg.pconline.com.cn%2Fimages%2Fupload%2Fupc%2Ftx%2Fphotoblog%2F1205%2F22%2Fc8%2F11710213_11710213_1337684441789.jpg"])
         headerView.setcycleScrollerViewData(imageUrls.mutableCopy() as! NSArray)
         headerView.cyCleScrollerViewClouse = { index in
+        }
+    }
+    
+    func loadMoreData(){
+        let pageIndex = (self.pageIndex as NSString).integerValue + 1
+        self.pageIndex = "\(pageIndex)"
+        self.requestRooms(pageIndex: self.pageIndex)
+    }
+    
+    func refreshData(){
+        self.pageIndex = "0"
+        self.requestRooms(pageIndex: self.pageIndex)
+    }
+    
+    //MARK: RequestNetWorking
+    func requestRooms(pageIndex:String){
+        let url = HomeRooms
+        let parameters = ["offset":pageIndex,"limit":"20","userId":"111"] as [String : Any]
+        BaseNetWorke.sharedInstance.getUrlWithString(url, parameters: parameters as AnyObject).observe { (resultDic) in
+            if !resultDic.isCompleted {
+                if resultDic.value != nil {
+                    self.models = HomeLabels.init(fromDictionary: resultDic.value as! NSDictionary)
+                }
+                (self.controller as! HomeViewController).collectView.reloadData()
+            }
+            (self.controller as! HomeViewController).collectView.mj_header.endRefreshing()
+            (self.controller as! HomeViewController).collectView.mj_footer.endRefreshing()
         }
     }
 }
@@ -54,7 +84,7 @@ extension HomeViewModel : UICollectionViewDelegate {
 
 extension HomeViewModel : UICollectionViewDataSource {
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return models == nil ? 0 : models.data.count
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int

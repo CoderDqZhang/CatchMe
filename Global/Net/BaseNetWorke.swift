@@ -38,7 +38,11 @@ class BaseNetWorke {
     func getUrlWithString(_ url:String, parameters:AnyObject?) -> Signal<Any, NSError> {
         return Signal.init({ (subscriber, liftTime) in
             self.httpRequest(.get, url: url, parameters: parameters, success: { (responseObject) in
-                subscriber.send(value: responseObject)
+                if (responseObject as! NSDictionary).object(forKey: "code")! as! Int == 0 {
+                    subscriber.send(value: (responseObject as! NSDictionary).object(forKey: "data") ?? "")
+                }else{
+                    _ = Tools.shareInstance.showMessage(KWINDOWDS(), msg: (responseObject as! NSDictionary).object(forKey: "message") as! String, autoHidder: true)
+                }
                 subscriber.sendCompleted()
             }, failure: { (responseError) in
                 if responseError is NSDictionary {
@@ -64,7 +68,11 @@ class BaseNetWorke {
     func postUrlWithString(_ url:String, parameters:AnyObject?) -> Signal<Any, NSError> {
         return Signal.init({ (subscriber, liftTime) in
             self.httpRequest(.post, url: url, parameters: parameters, success: { (responseObject) in
-                subscriber.send(value: responseObject)
+                if (responseObject as! NSDictionary).object(forKey: "code")! as! Int == 0 {
+                    subscriber.send(value: (responseObject as! NSDictionary).object(forKey: "data") ?? "")
+                }else{
+                    _ = Tools.shareInstance.showMessage(KWINDOWDS(), msg: (responseObject as! NSDictionary).object(forKey: "message") as! String, autoHidder: true)
+                }
                 subscriber.sendCompleted()
                 }, failure: { (responseError) in
                     if responseError is NSDictionary {
@@ -88,7 +96,11 @@ class BaseNetWorke {
     func putUrlWithString(_ url:String, parameters:AnyObject?) -> Signal<Any, NSError> {
         return Signal.init({ (subscriber, liftTime) in
             self.httpRequest(.put, url: url, parameters: parameters, success: { (responseObject) in
-                subscriber.send(value: responseObject)
+                if (responseObject as! NSDictionary).object(forKey: "code")! as! Int == 0 {
+                    subscriber.send(value: (responseObject as! NSDictionary).object(forKey: "data") ?? "")
+                }else{
+                    _ = Tools.shareInstance.showMessage(KWINDOWDS(), msg: (responseObject as! NSDictionary).object(forKey: "message") as! String, autoHidder: true)
+                }
                 subscriber.sendCompleted()
                 }, failure: { (responseError) in
                     if responseError is NSDictionary {
@@ -111,7 +123,11 @@ class BaseNetWorke {
     func deleteUrlWithString(_ url:String, parameters:AnyObject?) -> Signal<Any, NSError> {
         return Signal.init({ (subscriber, liftTime) in
             self.httpRequest(.delete, url: url, parameters: parameters, success: { (responseObject) in
-                subscriber.send(value: responseObject)
+                if (responseObject as! NSDictionary).object(forKey: "code")! as! Int == 0 {
+                    subscriber.send(value: (responseObject as! NSDictionary).object(forKey: "data") ?? "")
+                }else{
+                    _ = Tools.shareInstance.showMessage(KWINDOWDS(), msg: (responseObject as! NSDictionary).object(forKey: "message") as! String, autoHidder: true)
+                }
                 subscriber.sendCompleted()
                 }, failure: { (responseError) in
                     if responseError is NSDictionary {

@@ -13,14 +13,14 @@ import Foundation
 //测试服
 //let BaseStr = "liangpiao.me/"
 //正式服
-let BaseURL = "http://39.106.137.21:8202/"
+let BaseURL = "http://39.106.137.21:8201/"
 
 //登录api
 let LoginUrl = "\(BaseURL)user/login"
 //验证码
-let LoginCode = "\(BaseURL)user/login_code/"
-//用户头像
-let UserAvatar = "\(BaseURL)user/avatar/"
+let LoginCode = "\(BaseURL)captcha"
+//首页房间
+let HomeRooms = "\(BaseURL)rooms"
 //修改用户信息
 let UserInfoChange = "\(BaseURL)user/"
 //添加地址
