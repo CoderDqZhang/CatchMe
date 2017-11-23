@@ -114,4 +114,6 @@ class Tools: NSObject {
     func showAliPathError(_ error:String) ->MBProgressHUD {
         return self.showMessage(KWINDOWDS(), msg: error, autoHidder: true)
     }
+    
+   
 }

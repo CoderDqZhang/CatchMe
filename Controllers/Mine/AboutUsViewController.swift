@@ -97,15 +97,27 @@ class AboutUsViewController: BaseViewController {
         KWINDOWDS().addSubview(GloabelShareAndConnectUs.init(type: .connectUs, clickClouse: { (type) in
             switch type {
             case .weChatService:
+                UIPasteboard.general.string = "111"
+                _ = Tools.shareInstance.showMessage(KWINDOWDS(), msg: "已帮您复制微信号，请打开微信联系微信客服", autoHidder: true)
                 break;
             case .phoneCall:
                 AppCallViewShow(KWINDOWDS(), phone: "4006005355")
             case .QQService:
+                self.openQQChat(str: "769839948")
                 break;
             default:
                 break;
             }
         }))
+    }
+    
+    func openQQChat(str:String){
+        let webView = UIWebView.init(frame: CGRect.zero)
+        let url = URL.init(string: "mqq://im/chat?chat_type=wpa&uin=\(str)&version=1&src_type=web")
+        let request = NSURLRequest.init(url: url!)
+        webView.delegate = self
+        webView.loadRequest(request as URLRequest)
+        self.view.addSubview(webView)
     }
     
     override func didReceiveMemoryWarning() {
@@ -124,4 +136,8 @@ class AboutUsViewController: BaseViewController {
     }
     */
 
+}
+
+extension AboutUsViewController : UIWebViewDelegate {
+    
 }
