@@ -8,18 +8,18 @@
 
 #import "UserInfoModel.h"
 
-NSString *const kUserInfoGender = @"gender";
-NSString *const kUserInfoIdField = @"id";
-NSString *const kUserInfoPhoto = @"photo";
-NSString *const kUserInfoRegisterType = @"registerType";
-NSString *const kUserInfoShareCode = @"shareCode";
-NSString *const kUserInfoShareNum = @"shareNum";
-NSString *const kUserInfoShareStatus = @"shareStatus";
-NSString *const kUserInfoTelephone = @"telephone";
-NSString *const kUserInfoUserName = @"userName";
-NSString *const kUserInfoWechatOpenid = @"wechatOpenid";
-NSString *const kUserInfoNeteaseAccountId = @"neteaseAccountId";
-NSString *const kUserInfoNeteaseToken = @"neteaseToken";
+NSString *const kHomeLabelsGender = @"gender";
+NSString *const kHomeLabelsIdField = @"id";
+NSString *const kHomeLabelsNeteaseAccountId = @"neteaseAccountId";
+NSString *const kHomeLabelsPhoto = @"photo";
+NSString *const kHomeLabelsRegisterType = @"registerType";
+NSString *const kHomeLabelsShareCode = @"shareCode";
+NSString *const kHomeLabelsShareNum = @"shareNum";
+NSString *const kHomeLabelsShareStatus = @"shareStatus";
+NSString *const kHomeLabelsTelephone = @"telephone";
+NSString *const kHomeLabelsToken = @"token";
+NSString *const kHomeLabelsUserName = @"userName";
+NSString *const kHomeLabelsWechatOpenid = @"wechatOpenid";
 
 @interface UserInfoModel ()
 
@@ -47,131 +47,171 @@ static UserInfoModel *_instance = nil;
 }
 
     
+-(instancetype)initWithDictionary:(NSDictionary *)dictionary
+{
+    self = [super init];
+    if(![dictionary[kHomeLabelsGender] isKindOfClass:[NSNull class]]){
+        self.gender = [dictionary[kHomeLabelsGender] integerValue];
+    }
+    
+    if(![dictionary[kHomeLabelsIdField] isKindOfClass:[NSNull class]]){
+        self.idField = [dictionary[kHomeLabelsIdField] integerValue];
+    }
+    
+    if(![dictionary[kHomeLabelsNeteaseAccountId] isKindOfClass:[NSNull class]]){
+        self.neteaseAccountId = dictionary[kHomeLabelsNeteaseAccountId];
+    }
+    if(![dictionary[kHomeLabelsPhoto] isKindOfClass:[NSNull class]]){
+        self.photo = dictionary[kHomeLabelsPhoto];
+    }
+    if(![dictionary[kHomeLabelsRegisterType] isKindOfClass:[NSNull class]]){
+        self.registerType = [dictionary[kHomeLabelsRegisterType] integerValue];
+    }
+    
+    if(![dictionary[kHomeLabelsShareCode] isKindOfClass:[NSNull class]]){
+        self.shareCode = dictionary[kHomeLabelsShareCode];
+    }
+    if(![dictionary[kHomeLabelsShareNum] isKindOfClass:[NSNull class]]){
+        self.shareNum = dictionary[kHomeLabelsShareNum];
+    }
+    if(![dictionary[kHomeLabelsShareStatus] isKindOfClass:[NSNull class]]){
+        self.shareStatus = [dictionary[kHomeLabelsShareStatus] integerValue];
+    }
+    
+    if(![dictionary[kHomeLabelsTelephone] isKindOfClass:[NSNull class]]){
+        self.telephone = dictionary[kHomeLabelsTelephone];
+    }
+    if(![dictionary[kHomeLabelsToken] isKindOfClass:[NSNull class]]){
+        self.token = dictionary[kHomeLabelsToken];
+    }
+    if(![dictionary[kHomeLabelsUserName] isKindOfClass:[NSNull class]]){
+        self.userName = dictionary[kHomeLabelsUserName];
+    }
+    if(![dictionary[kHomeLabelsWechatOpenid] isKindOfClass:[NSNull class]]){
+        self.wechatOpenid = dictionary[kHomeLabelsWechatOpenid];
+    }
+    return self;
+}
+
+
+/**
+ * Returns all the available property values in the form of NSDictionary object where the key is the approperiate json key and the value is the value of the corresponding property
+ */
 -(NSDictionary *)toDictionary
-    {
-        NSMutableDictionary * dictionary = [NSMutableDictionary dictionary];
-        dictionary[kUserInfoGender] = @(self.gender);
-        dictionary[kUserInfoIdField] = @(self.idField);
-        if(self.photo != nil){
-            dictionary[kUserInfoPhoto] = self.photo;
-        }
-        if(self.registerType != nil){
-            dictionary[kUserInfoRegisterType] = self.registerType;
-        }
-        if(self.shareCode != nil){
-            dictionary[kUserInfoShareCode] = self.shareCode;
-        }
-        if(self.shareNum != nil){
-            dictionary[kUserInfoShareNum] = self.shareNum;
-        }
-        if(self.shareStatus != nil){
-            dictionary[kUserInfoShareStatus] = self.shareStatus;
-        }
-        if(self.telephone != nil){
-            dictionary[kUserInfoTelephone] = self.telephone;
-        }
-        if(self.userName != nil){
-            dictionary[kUserInfoUserName] = self.userName;
-        }
-        if(self.wechatOpenid != nil){
-            dictionary[kUserInfoWechatOpenid] = self.wechatOpenid;
-        }
-        if(self.neteaseAccountId != nil){
-            dictionary[kUserInfoNeteaseAccountId] = self.neteaseAccountId;
-        }
-        if(self.neteaseToken != nil){
-            dictionary[kUserInfoNeteaseToken] = self.neteaseToken;
-        }
-        return dictionary;
-        
+{
+    NSMutableDictionary * dictionary = [NSMutableDictionary dictionary];
+    dictionary[kHomeLabelsGender] = @(self.gender);
+    dictionary[kHomeLabelsIdField] = @(self.idField);
+    if(self.neteaseAccountId != nil){
+        dictionary[kHomeLabelsNeteaseAccountId] = self.neteaseAccountId;
     }
+    if(self.photo != nil){
+        dictionary[kHomeLabelsPhoto] = self.photo;
+    }
+    dictionary[kHomeLabelsRegisterType] = @(self.registerType);
+    if(self.shareCode != nil){
+        dictionary[kHomeLabelsShareCode] = self.shareCode;
+    }
+    if(self.shareNum != nil){
+        dictionary[kHomeLabelsShareNum] = self.shareNum;
+    }
+    dictionary[kHomeLabelsShareStatus] = @(self.shareStatus);
+    if(self.telephone != nil){
+        dictionary[kHomeLabelsTelephone] = self.telephone;
+    }
+    if(self.token != nil){
+        dictionary[kHomeLabelsToken] = self.token;
+    }
+    if(self.userName != nil){
+        dictionary[kHomeLabelsUserName] = self.userName;
+    }
+    if(self.wechatOpenid != nil){
+        dictionary[kHomeLabelsWechatOpenid] = self.wechatOpenid;
+    }
+    return dictionary;
     
-    /**
-     * Implementation of NSCoding encoding method
-     */
-    /**
-     * Returns all the available property values in the form of NSDictionary object where the key is the approperiate json key and the value is the value of the corresponding property
-     */
+}
+
+/**
+ * Implementation of NSCoding encoding method
+ */
+/**
+ * Returns all the available property values in the form of NSDictionary object where the key is the approperiate json key and the value is the value of the corresponding property
+ */
 - (void)encodeWithCoder:(NSCoder *)aCoder
-    {
-        [aCoder encodeObject:@(self.gender) forKey:kUserInfoGender];    [aCoder encodeObject:@(self.idField) forKey:kUserInfoIdField];    if(self.photo != nil){
-            [aCoder encodeObject:self.photo forKey:kUserInfoPhoto];
-        }
-        if(self.registerType != nil){
-            [aCoder encodeObject:self.registerType forKey:kUserInfoRegisterType];
-        }
-        if(self.shareCode != nil){
-            [aCoder encodeObject:self.shareCode forKey:kUserInfoShareCode];
-        }
-        if(self.shareNum != nil){
-            [aCoder encodeObject:self.shareNum forKey:kUserInfoShareNum];
-        }
-        if(self.shareStatus != nil){
-            [aCoder encodeObject:self.shareStatus forKey:kUserInfoShareStatus];
-        }
-        if(self.telephone != nil){
-            [aCoder encodeObject:self.telephone forKey:kUserInfoTelephone];
-        }
-        if(self.userName != nil){
-            [aCoder encodeObject:self.userName forKey:kUserInfoUserName];
-        }
-        if(self.wechatOpenid != nil){
-            [aCoder encodeObject:self.wechatOpenid forKey:kUserInfoWechatOpenid];
-        }
-        if(self.neteaseAccountId != nil){
-            [aCoder encodeObject:self.neteaseAccountId forKey:kUserInfoNeteaseAccountId];
-        }
-        if(self.neteaseToken != nil){
-            [aCoder encodeObject:self.neteaseToken forKey:kUserInfoNeteaseToken];
-        }
-        
+{
+    [aCoder encodeObject:@(self.gender) forKey:kHomeLabelsGender];    [aCoder encodeObject:@(self.idField) forKey:kHomeLabelsIdField];    if(self.neteaseAccountId != nil){
+        [aCoder encodeObject:self.neteaseAccountId forKey:kHomeLabelsNeteaseAccountId];
+    }
+    if(self.photo != nil){
+        [aCoder encodeObject:self.photo forKey:kHomeLabelsPhoto];
+    }
+    [aCoder encodeObject:@(self.registerType) forKey:kHomeLabelsRegisterType];    if(self.shareCode != nil){
+        [aCoder encodeObject:self.shareCode forKey:kHomeLabelsShareCode];
+    }
+    if(self.shareNum != nil){
+        [aCoder encodeObject:self.shareNum forKey:kHomeLabelsShareNum];
+    }
+    [aCoder encodeObject:@(self.shareStatus) forKey:kHomeLabelsShareStatus];    if(self.telephone != nil){
+        [aCoder encodeObject:self.telephone forKey:kHomeLabelsTelephone];
+    }
+    if(self.token != nil){
+        [aCoder encodeObject:self.token forKey:kHomeLabelsToken];
+    }
+    if(self.userName != nil){
+        [aCoder encodeObject:self.userName forKey:kHomeLabelsUserName];
+    }
+    if(self.wechatOpenid != nil){
+        [aCoder encodeObject:self.wechatOpenid forKey:kHomeLabelsWechatOpenid];
     }
     
-    /**
-     * Implementation of NSCoding initWithCoder: method
-     */
+}
+
+/**
+ * Implementation of NSCoding initWithCoder: method
+ */
 - (instancetype)initWithCoder:(NSCoder *)aDecoder
-    {
-        self = [super init];
-        self.gender = [[aDecoder decodeObjectForKey:kUserInfoGender] integerValue];
-        self.idField = [[aDecoder decodeObjectForKey:kUserInfoIdField] integerValue];
-        self.photo = [aDecoder decodeObjectForKey:kUserInfoPhoto];
-        self.registerType = [aDecoder decodeObjectForKey:kUserInfoRegisterType];
-        self.shareCode = [aDecoder decodeObjectForKey:kUserInfoShareCode];
-        self.shareNum = [aDecoder decodeObjectForKey:kUserInfoShareNum];
-        self.shareStatus = [aDecoder decodeObjectForKey:kUserInfoShareStatus];
-        self.telephone = [aDecoder decodeObjectForKey:kUserInfoTelephone];
-        self.userName = [aDecoder decodeObjectForKey:kUserInfoUserName];
-        self.wechatOpenid = [aDecoder decodeObjectForKey:kUserInfoWechatOpenid];
-        self.neteaseAccountId = [aDecoder decodeObjectForKey:kUserInfoNeteaseAccountId];
-        self.neteaseToken = [aDecoder decodeObjectForKey:kUserInfoNeteaseToken];
-        return self;
-        
-    }
+{
+    self = [super init];
+    self.gender = [[aDecoder decodeObjectForKey:kHomeLabelsGender] integerValue];
+    self.idField = [[aDecoder decodeObjectForKey:kHomeLabelsIdField] integerValue];
+    self.neteaseAccountId = [aDecoder decodeObjectForKey:kHomeLabelsNeteaseAccountId];
+    self.photo = [aDecoder decodeObjectForKey:kHomeLabelsPhoto];
+    self.registerType = [[aDecoder decodeObjectForKey:kHomeLabelsRegisterType] integerValue];
+    self.shareCode = [aDecoder decodeObjectForKey:kHomeLabelsShareCode];
+    self.shareNum = [aDecoder decodeObjectForKey:kHomeLabelsShareNum];
+    self.shareStatus = [[aDecoder decodeObjectForKey:kHomeLabelsShareStatus] integerValue];
+    self.telephone = [aDecoder decodeObjectForKey:kHomeLabelsTelephone];
+    self.token = [aDecoder decodeObjectForKey:kHomeLabelsToken];
+    self.userName = [aDecoder decodeObjectForKey:kHomeLabelsUserName];
+    self.wechatOpenid = [aDecoder decodeObjectForKey:kHomeLabelsWechatOpenid];
+    return self;
     
-    /**
-     * Implementation of NSCopying copyWithZone: method
-     */
+}
+
+/**
+ * Implementation of NSCopying copyWithZone: method
+ */
 - (instancetype)copyWithZone:(NSZone *)zone
-    {
-        UserInfoModel *copy = [UserInfoModel new];
-        
-        copy.gender = self.gender;
-        copy.idField = self.idField;
-        copy.photo = [self.photo copy];
-        copy.registerType = [self.registerType copy];
-        copy.shareCode = [self.shareCode copy];
-        copy.shareNum = [self.shareNum copy];
-        copy.shareStatus = [self.shareStatus copy];
-        copy.telephone = [self.telephone copy];
-        copy.userName = [self.userName copy];
-        copy.wechatOpenid = [self.wechatOpenid copy];
-        copy.neteaseAccountId = [self.neteaseAccountId copy];
-        copy.neteaseToken = [self.neteaseToken copy];
-        
-        return copy;
-    }
+{
+    UserInfoModel *copy = [UserInfoModel new];
     
+    copy.gender = self.gender;
+    copy.idField = self.idField;
+    copy.neteaseAccountId = [self.neteaseAccountId copy];
+    copy.photo = [self.photo copy];
+    copy.registerType = self.registerType;
+    copy.shareCode = [self.shareCode copy];
+    copy.shareNum = [self.shareNum copy];
+    copy.shareStatus = self.shareStatus;
+    copy.telephone = [self.telephone copy];
+    copy.token = [self.token copy];
+    copy.userName = [self.userName copy];
+    copy.wechatOpenid = [self.wechatOpenid copy];
+    
+    return copy;
+}
+
 + (BOOL)isLoggedIn
     {
         NSObject *object = [[NSUserDefaults standardUserDefaults] objectForKey:@"telephone"];
@@ -194,7 +234,7 @@ static UserInfoModel *_instance = nil;
         [UserInfoModel shareInstance].telephone = nil;
         [UserInfoModel shareInstance].userName = nil;
         [UserInfoModel shareInstance].neteaseAccountId = nil;
-        [UserInfoModel shareInstance].neteaseToken = nil;
+        [UserInfoModel shareInstance].token = nil;
         return [UserInfoModel deleteObjectsByCriteria:[NSString stringWithFormat:@" where telephone = '%@'", [UserInfoModel shareInstance].telephone]];
     }
 

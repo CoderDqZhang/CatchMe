@@ -97,8 +97,8 @@ class LoginSetPhoneViewController: BaseViewController {
         loginButton.setTitleColor(UIColor.init(hexString: App_Theme_FFFFFF_Color), for: .normal)
         loginButton.titleLabel?.font = App_Theme_PinFan_M_17_Font
         loginButton.reactive.controlEvents(.touchUpInside).observe { (active) in
-            NavigationPushView(self, toConroller: LoginPhoneCodeViewController())
-//            self.loginViewModel.requestLoginCode(self.loginViewModel.form.phone)
+//            NavigationPushView(self, toConroller: LoginPhoneCodeViewController())
+            self.loginViewModel.requestLoginCode(self.loginViewModel.form.phone)
         }
         self.loginViewModel.senderCodeSuccessClouse = {
             NavigationPushView(self, toConroller: LoginPhoneCodeViewController())

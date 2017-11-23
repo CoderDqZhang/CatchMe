@@ -41,7 +41,7 @@ class MineViewModel: BaseViewModel {
             case 4:
                 NavigationPushView(self.controller!, toConroller: QuestionViewController())
             default:
-                NavigationPushView(self.controller!, toConroller: QuestionViewController())
+                NavigationPushView(self.controller!, toConroller: AboutUsViewController())
             }
         }
     }

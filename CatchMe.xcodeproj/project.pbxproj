@@ -147,6 +147,7 @@
 		1FCA20091FC57D2A0008BF07 /* TopUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCA20081FC57D2A0008BF07 /* TopUpViewModel.swift */; };
 		1FCA200B1FC5C0E20008BF07 /* LoginSetPhoneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCA200A1FC5C0E20008BF07 /* LoginSetPhoneViewController.swift */; };
 		1FCA200D1FC5CB870008BF07 /* LoginPhoneCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCA200C1FC5CB870008BF07 /* LoginPhoneCodeViewController.swift */; };
+		1FCA200F1FC720470008BF07 /* AboutUsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCA200E1FC720470008BF07 /* AboutUsViewController.swift */; };
 		54C665C6CE13906B598CBB0B /* Pods_CatchMe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 018F762371DA9CCCFF9892F6 /* Pods_CatchMe.framework */; };
 /* End PBXBuildFile section */
 
@@ -359,6 +360,7 @@
 		1FCA20081FC57D2A0008BF07 /* TopUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopUpViewModel.swift; sourceTree = "<group>"; };
 		1FCA200A1FC5C0E20008BF07 /* LoginSetPhoneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginSetPhoneViewController.swift; sourceTree = "<group>"; };
 		1FCA200C1FC5CB870008BF07 /* LoginPhoneCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPhoneCodeViewController.swift; sourceTree = "<group>"; };
+		1FCA200E1FC720470008BF07 /* AboutUsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutUsViewController.swift; sourceTree = "<group>"; };
 		599640648AD4571953B84782 /* Pods-CatchMe.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CatchMe.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CatchMe/Pods-CatchMe.debug.xcconfig"; sourceTree = "<group>"; };
 		66871A49004208702649CA5E /* Pods-CatchMe.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CatchMe.release.xcconfig"; path = "Pods/Target Support Files/Pods-CatchMe/Pods-CatchMe.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -758,6 +760,7 @@
 				1F126E661FC097AE006306D2 /* SenderJoysViewController.swift */,
 				1F126E681FC097BC006306D2 /* MyJoysViewController.swift */,
 				1FCA20001FC5202D0008BF07 /* SettingViewController.swift */,
+				1FCA200E1FC720470008BF07 /* AboutUsViewController.swift */,
 			);
 			path = Mine;
 			sourceTree = "<group>";
@@ -1228,6 +1231,7 @@
 				1F126E491FC07F1B006306D2 /* MineToolsTableViewCell.swift in Sources */,
 				1F126E9F1FC154A0006306D2 /* renderer.c in Sources */,
 				1F126E9A1FC154A0006306D2 /* mvp.vsh.c in Sources */,
+				1FCA200F1FC720470008BF07 /* AboutUsViewController.swift in Sources */,
 				1F126EAF1FC180B0006306D2 /* UserInfoModel.m in Sources */,
 				1F126E501FC08792006306D2 /* LoginViewController.swift in Sources */,
 				1F126EAA1FC16C50006306D2 /* ShareManager.swift in Sources */,

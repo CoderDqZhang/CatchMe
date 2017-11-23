@@ -54,8 +54,8 @@ class LoginViewModel: BaseViewModel {
     
     func loginNetNetease(){
         let loginData = NIMAutoLoginData.init()
-        loginData.token = ""
-        loginData.account = ""
+        loginData.token = UserInfoModel.shareInstance().token
+        loginData.account = UserInfoModel.shareInstance().neteaseAccountId
         loginData.forcedMode = true
         NIMSDK.shared().loginManager.autoLogin(loginData)
     }

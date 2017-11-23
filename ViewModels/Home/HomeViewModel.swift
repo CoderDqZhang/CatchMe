@@ -47,7 +47,7 @@ class HomeViewModel: BaseViewModel {
     //MARK: RequestNetWorking
     func requestRooms(pageIndex:String){
         let url = HomeRooms
-        let parameters = ["offset":pageIndex,"limit":"20","userId":"111"] as [String : Any]
+        let parameters = ["offset":pageIndex,"limit":"20","userId":UserInfoModel.shareInstance().idField] as [String : Any]
         BaseNetWorke.sharedInstance.getUrlWithString(url, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
                 if resultDic.value != nil {

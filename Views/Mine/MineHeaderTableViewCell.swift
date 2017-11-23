@@ -48,8 +48,8 @@ class MineHeaderTableViewCell: UITableViewCell {
     }
     
     func cellSetData(model:UserInfoModel){
-        if model.photo != nil && model.photo! is String {
-            UIImageViewManger.shareInstance.sd_imageView(url: model.photo != nil ? model.photo as! String : "", imageView: headerImage, placeholderImage: nil) { (image, error, cacheType, url) in
+        if model.photo != nil && model.photo != "" {
+            UIImageViewManger.shareInstance.sd_imageView(url: model.photo, imageView: headerImage, placeholderImage: nil) { (image, error, cacheType, url) in
                 
             }
         }
@@ -68,8 +68,8 @@ class MineHeaderTableViewCell: UITableViewCell {
                 make.size.equalTo(CGSize.init(width: 88, height: 88))
             })
             genderImage.snp.makeConstraints({ (make) in
-                make.left.equalTo(headerImage.snp.left).offset(35)
-                make.top.equalTo(headerImage.snp.top).offset(35)
+                make.left.equalTo(headerImage.snp.left).offset(70)
+                make.top.equalTo(headerImage.snp.top).offset(70)
                 make.size.equalTo(CGSize.init(width: 18, height: 18))
             })
             userName.snp.makeConstraints({ (make) in

@@ -38,7 +38,7 @@ class MineToolsTableViewCell: UITableViewCell {
         self.setUpSingTap(myQuestion)
         self.contentView.addSubview(myQuestion)
         
-        let contactUs = CustomViewButton.init(frame: CGRect.init(x: SCREENWIDTH / 2 + 45, y: 40 + 96 + 32, width: 90, height: 96), title: "联系我们", image: UIImage.init(named: "contacr")!, tag:5)
+        let contactUs = CustomViewButton.init(frame: CGRect.init(x: SCREENWIDTH / 2 + 45, y: 40 + 96 + 32, width: 90, height: 96), title: "关于我们", image: UIImage.init(named: "contacr")!, tag:5)
         self.setUpSingTap(contactUs)
         self.contentView.addSubview(contactUs)
         

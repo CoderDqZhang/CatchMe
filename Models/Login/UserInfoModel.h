@@ -15,16 +15,16 @@
     
 @property (nonatomic, assign) NSInteger gender;
 @property (nonatomic, assign) NSInteger idField;
-@property (nonatomic, strong) NSObject * photo;
-@property (nonatomic, strong) NSObject * registerType;
-@property (nonatomic, strong) NSObject * shareCode;
-@property (nonatomic, strong) NSObject * shareNum;
-@property (nonatomic, strong) NSObject * shareStatus;
-@property (nonatomic, copy) NSString * telephone;
-@property (nonatomic, copy) NSString * userName;
-@property (nonatomic, strong) NSObject * wechatOpenid;
 @property (nonatomic, copy) NSString * neteaseAccountId;
-@property (nonatomic, copy) NSString * neteaseToken;
+@property (nonatomic, copy) NSString * photo;
+@property (nonatomic, assign) NSInteger registerType;
+@property (nonatomic, copy) NSString * shareCode;
+@property (nonatomic, copy) NSString * shareNum;
+@property (nonatomic, assign) NSInteger shareStatus;
+@property (nonatomic, copy) NSString * telephone;
+@property (nonatomic, copy) NSString * token;
+@property (nonatomic, copy) NSString * userName;
+@property (nonatomic, copy) NSString * wechatOpenid;
     
 + (instancetype)shareInstance;
         

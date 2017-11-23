@@ -36,7 +36,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WeiboSDKDelegate {
     }
     
     func testLogin(){
-        NIMSDK.shared().loginManager.login("13899999999", token: "123456") { (error) in
+        NIMSDK.shared().loginManager.login("1891109127327744", token: "12e144008778692785158eaa4313a791") { (error) in
             if error == nil {
                 print("登录成功")
             }
