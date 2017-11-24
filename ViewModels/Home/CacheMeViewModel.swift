@@ -70,20 +70,36 @@ class CacheMeViewModel: BaseViewModel {
     
     //MARK: Logic
     func playGameLogic(tag:Int){
-        UIAlertController.shwoAlertControl(self.cacheMeController, style: .alert, title: "很遗憾", message: nil, cancel: "确定", doneTitle: "再来一次", cancelAction: {
-            
-        }) {
-            self.playGame()
-        }
+        //抓取失败
+        KWINDOWDS().addSubview(GloableAlertView.init(title: "好可惜，就差一点了", btnTop: "再试一次5s", btnBottom: "无力再试", image: UIImage.init(named: "pic_fail_1")!, type: GloableAlertViewType.catchfail, clickClouse: { (tag) in
+            if tag == 100 {
+                self.playGame()
+            }else{
+                self.handUpConnect()
+            }
+        }))
     }
     
     func playGameGo(){
-        UIAlertController.shwoAlertControl(self.cacheMeController, style: .alert, title: "恭喜您抓到了", message: nil, cancel: "确定", doneTitle: "分享", cancelAction: {
-            
-        }) {
-            let url = "www.baidu.com"
-            KWINDOWDS().addSubview(ShareView.init(title: "推荐给好友", model: ShareModel.init(), image: nil, url: url))
-        }
+        //抓到成功
+        KWINDOWDS().addSubview(GloableAlertView.init(title: "好棒，活捉一只娃娃", btnTop: "查看我的娃娃", btnBottom: "炫耀一下", image: UIImage.init(named: "pic_success")!, type: GloableAlertViewType.success, clickClouse: { (tag) in
+            if tag == 100 {
+                NavigationPushView(self.cacheMeController, toConroller: MyJoysViewController())
+            }else{
+                KWINDOWDS().addSubview(GloabelShareAndConnectUs.init(type: GloabelShareAndConnectUsType.share, clickClouse: { (type) in
+                    switch type {
+                    case .QQChat:
+                        ShareTools.shareInstance.shareQQSessionWebUrl("测试", webTitle: "", imageUrl: "", webDescription: "", webUrl: "")
+                    case .weChatChat:
+                        ShareTools.shareInstance.shareWeChatSession("", description: "", image: UIImage.init(named: "pic_about")!, url: nil)
+                    case .weChatSession:
+                        ShareTools.shareInstance.shareWeChatTimeLine("", description: "", image: UIImage.init(named: "pic_about")!, url: nil)
+                    default:
+                        break
+                    }
+                }))
+            }
+        }))
     }
 }
 

@@ -319,4 +319,156 @@ class GloabelShareAndConnectUs: UIView {
     
 }
 
+enum GloableAlertViewType {
+    case success
+    case catchfail
+    case topupfail
+}
+
+typealias GloableAlertViewClouse = (_ tag:Int) ->Void
+
+class GloableAlertView: UIView {
+    
+    var detailView:UIView!
+    var topImage:UIImageView!
+    var time:Timer!
+    
+    var gloableAlertViewClouse:GloableAlertViewClouse!
+    init(title:String, btnTop:String, btnBottom:String, image:UIImage, type:GloableAlertViewType, clickClouse:GloableAlertViewClouse!) {
+        super.init(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: SCREENHEIGHT))
+        self.gloableAlertViewClouse = clickClouse
+        self.backgroundColor = UIColor.init(hexString: App_Theme_000000_Color, andAlpha: 0.5)
+        detailView = UIView.init()
+        detailView.layer.cornerRadius = 10
+        detailView.backgroundColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
+        self.addSubview(detailView)
+        
+        detailView.snp.makeConstraints { (make) in
+            make.centerX.equalTo(self.snp.centerX).offset(0)
+            make.centerY.equalTo(self.snp.centerY).offset(10)
+            make.size.equalTo(CGSize.init(width: 240, height: 230))
+        }
+        
+        topImage = UIImageView.init()
+        topImage.image = image
+        self.addSubview(topImage)
+        topImage.snp.makeConstraints { (make) in
+            make.centerX.equalTo(self.snp.centerX).offset(0)
+            make.bottom.equalTo(self.detailView.snp.top).offset(10)
+        }
+        
+        let titleLabel = UILabel.init()
+        titleLabel.font = App_Theme_PinFan_M_18_Font
+        titleLabel.textColor = UIColor.init(hexString: App_Theme_333333_Color)
+        titleLabel.text = title
+        titleLabel.textAlignment = .center
+        titleLabel.numberOfLines = 0
+        detailView.addSubview(titleLabel)
+        
+        titleLabel.snp.makeConstraints { (make) in
+            make.centerX.equalTo(self.detailView.snp.centerX).offset(0)
+            make.top.equalTo(self.detailView.snp.top).offset(26)
+        }
+        
+        let leftLabel = self.createLabel()
+        detailView.addSubview(leftLabel)
+        
+        leftLabel.snp.makeConstraints { (make) in
+            make.left.equalTo(self.detailView.snp.left).offset(-9)
+            make.size.equalTo(CGSize.init(width: 18, height: 18))
+            make.top.equalTo(self.detailView.snp.top).offset(162)
+        }
+        
+        let rightLabel = self.createLabel()
+        detailView.addSubview(rightLabel)
+        
+        rightLabel.snp.makeConstraints { (make) in
+            make.right.equalTo(self.detailView.snp.right).offset(9)
+            make.size.equalTo(CGSize.init(width: 18, height: 18))
+            make.top.equalTo(self.detailView.snp.top).offset(26)
+        }
+        
+        self.setUpView(btnTop: btnTop, btnBottom: btnBottom, type: type)
+    }
+    
+    func setUpView(btnTop:String, btnBottom:String, type:GloableAlertViewType) {
+        let topButton = self.createButton(title: btnTop)
+        topButton.reactive.controlEvents(.touchUpInside).observe { (active) in
+            self.gloableAlertViewClouse(100)
+            self.removeSelf()
+        }
+        detailView.addSubview(topButton)
+        
+        topButton.snp.makeConstraints { (make) in
+            make.centerX.equalTo(self.detailView.snp.centerX).offset(0)
+            make.top.equalTo(self.detailView.snp.top).offset(92)
+            make.size.equalTo(CGSize.init(width: 150, height: 42))
+        }
+        
+        let btn = self.createButton(title: btnBottom)
+        btn.reactive.controlEvents(.touchUpInside).observe { (active) in
+            if type == .success {
+                self.gloableAlertViewClouse(200)
+            }
+            self.removeSelf()
+        }
+        detailView.addSubview(btn)
+        
+        btn.snp.makeConstraints { (make) in
+            make.centerX.equalTo(self.detailView.snp.centerX).offset(0)
+            make.bottom.equalTo(self.detailView.snp.bottom).offset(-32)
+            make.size.equalTo(CGSize.init(width: 150, height: 42))
+        }
+        
+        if type == .catchfail {
+            var number = 5
+            if #available(iOS 10.0, *) {
+                time = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { (time) in
+                    number = number - 1
+                    if number == 0 {
+                        self.removeSelf()
+                        self.gloableAlertViewClouse(300)
+                        self.time.invalidate()
+                    }
+                    topButton.setTitle("再试一次\(number)s", for: .normal)
+                })
+            } else {
+                // Fallback on earlier versions
+            }
+        }else if type == .topupfail{
+            btn.backgroundColor = UIColor.init(hexString: App_Theme_CCCCCC_Color)
+        }
+    }
+    
+    deinit {
+        time.invalidate()
+    }
+    
+    func removeSelf(){
+        self.removeFromSuperview()
+    }
+    
+    func createButton(title:String) ->UIButton{
+        let button = UIButton.init(type: .custom)
+        button.setTitle(title, for: .normal)
+        button.setTitleColor(UIColor.init(hexString: App_Theme_FFFFFF_Color), for: .normal)
+        button.titleLabel?.font = App_Theme_PinFan_M_16_Font
+        button.layer.cornerRadius = 21
+        button.backgroundColor = UIColor.init(hexString: App_Theme_FC4652_Color)
+        return button
+    }
+    
+    func createLabel() ->UILabel {
+        let label = UILabel.init()
+        label.backgroundColor = UIColor.init(hexString: App_Theme_FC4652_Color)
+        label.layer.cornerRadius = 9
+        label.layer.masksToBounds = true
+        return label
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
 

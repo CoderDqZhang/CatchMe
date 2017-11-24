@@ -19,11 +19,22 @@ class HomeViewModel: BaseViewModel {
     
     //MARK: UICollectionCellSetData
     func collectViewMyDollsCollectionViewCellSetData(_ indexPath:IndexPath, cell:MyDollsCollectionViewCell) {
-        cell.cellSetData(model:models.data[indexPath.row])
+//        cell.cellSetData(model:models.data[indexPath.row])
     }
     
     func collectDidSelect(_ indexPath:IndexPath) {
-        NavigationPushView(self.controller!, toConroller: CacheMeViewController())
+        switch indexPath.row {
+        case 0:
+            
+            break
+        case 1:
+            
+            break
+        default:
+            
+            break
+        }
+//        NavigationPushView(self.controller!, toConroller: CacheMeViewController())
     }
     
     func cellBanner(headerView:BannerCollectionReusableView){
@@ -84,7 +95,7 @@ extension HomeViewModel : UICollectionViewDelegate {
 
 extension HomeViewModel : UICollectionViewDataSource {
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return models == nil ? 0 : models.data.count
+        return models == nil ? 10 : models.data.count
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int
