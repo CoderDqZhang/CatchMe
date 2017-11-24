@@ -27,7 +27,7 @@ class LoginTypeViewController: BaseViewController {
     
     override func setUpView() {
         loginWithWeChat = UIButton.init(type: .custom)
-        loginWithWeChat.setImage(UIImage.init(named: "wechat"), for: .normal)
+        loginWithWeChat.setImage(UIImage.init(named: "wechat_login"), for: .normal)
         loginWithWeChat.backgroundColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
         loginWithWeChat.setTitle("微信登录", for: .normal)
         loginWithWeChat.layer.cornerRadius = 25
