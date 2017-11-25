@@ -227,6 +227,7 @@ class BaseNetWorke {
     ///
     /// - returns: 一个信号
     func httpRequest(_ type:HttpRequestType,url:String, parameters:AnyObject?, success:@escaping SuccessClouse, failure:@escaping FailureClouse) {
+        
         var methods:HTTPMethod
         switch type {
             case .post:
@@ -237,13 +238,10 @@ class BaseNetWorke {
                 methods = HTTPMethod.delete
             default:
                 methods = HTTPMethod.put
-        };
-        
+        }
+        let headers:HTTPHeaders = url != LoginUrl && url != LoginCode ? ["X-ui":UserInfoModel.shareInstance().idField,"X-di":"","X-token":UserInfoModel.shareInstance().token] as! [String:String] : [:]
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
-        
-        
-//        let urlString = (url as NSString).urlEncode(url)
-        Alamofire.request(url, method: methods, parameters: parameters as? [String: Any], encoding: URLEncoding.default, headers: nil).responseJSON { (response) in
+        Alamofire.request(url, method: methods , parameters: parameters as? [String: Any], encoding: URLEncoding.default, headers: headers).responseJSON { (response) in
             UIApplication.shared.isNetworkActivityIndicatorVisible = false
             
 //            NetWorkingResponse.sharedInstance.showNetWorkingResPonse(response as AnyObject)

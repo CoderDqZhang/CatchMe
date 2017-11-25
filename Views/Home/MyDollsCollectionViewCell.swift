@@ -34,7 +34,6 @@ class MyDollsCollectionViewCell: UICollectionViewCell {
         self.contentView.addSubview(statusImage)
         
         dollsImage = UIImageView.init()
-        dollsImage.backgroundColor = UIColor.black
         self.contentView.addSubview(dollsImage)
         
         coinsImage = UIImageView.init()
@@ -68,12 +67,14 @@ class MyDollsCollectionViewCell: UICollectionViewCell {
     
     func cellSetData(model:Labels){
         dollsName.text = model.skuName
-        coinsNumber.text = "\(model.timeCost!)"
-        UIImageViewManger.shareInstance.sd_imageView(url: model.imageAddress, imageView: dollsImage, placeholderImage: nil) { (image, error, cahce, url) in
-            
+        coinsNumber.text = "\(model.price!)"
+        
+        UIImageViewManger.shareInstance.sd_imageView(url: model.skuImageAddress, imageView: dollsImage, placeholderImage: nil) { (image, error, cahce, url) in
+            self.dollsImage.image = image
         }
-        statusImage.image = model.free == 1 ? UIImage.init(named: "tag_vacant") : UIImage.init(named: "tag_hot")
-        statusLabel.text = model.free == 1 ? "有空闲" : "热抓中"
+        statusImage.image = model.freeStatus == 1 ? UIImage.init(named: "tag_vacant") : UIImage.init(named: "tag_hot")
+        statusLabel.text = model.freeStatus == 1 ? "有空闲" : "热抓中"
+        isHaveDolls.isHidden = model.ownStatus == 0 ? false : true
     }
     
     override func updateConstraints() {

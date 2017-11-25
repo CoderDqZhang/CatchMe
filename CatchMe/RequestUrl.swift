@@ -21,75 +21,39 @@ let LoginUrl = "\(BaseURL)user/login"
 let LoginCode = "\(BaseURL)captcha"
 //首页房间
 let HomeRooms = "\(BaseURL)rooms"
-//修改用户信息
-let UserInfoChange = "\(BaseURL)user/"
-//添加地址
-let AddAddress = "\(BaseURL)user/address/"
-//编辑地址
-let EditAddress = "\(BaseURL)user/address/"
+//进入房间
+let EnterRooms = "\(BaseURL)room/enter"
+//退出房间
+let ExitRoom = "\(BaseURL)exit"
+//心跳
+let Heartbeat = "\(BaseURL)heartbeat"
+//停止游戏
+let StopGame = "\(BaseURL)stop"
+//开始游戏
+let StartGame = "\(BaseURL)start"
+//游戏逻辑
+let MoveGame = "\(BaseURL)move"
+//游戏Go
+let ShootGame = "\(BaseURL)shoot"
+//游戏结果
+let GameStatus = "\(BaseURL)status"
 
-//演出分类 api
-let TicketCategory = "\(BaseURL)show/category/"
-//热门演出
-let TickeHot = "\(BaseURL)show/hot/"
+//9.106.137.21:8201/rooms?offset=1&limit=20&userId=1
+////首页房间李彪，offset从1开始
+//http://39.106.137.21:8201/room/enter?roomId=1&userId=1
+////用户进入房间
+//http://39.106.137.21:8201/machine/exit?userId=1&machineId=1
+////用户退出房间
+//http://39.106.137.21:8201/machine/heartbeat?userId=1&machineId=1
+////当前机器维护房间用户的心跳接口
+//http://39.106.137.21:8201/machine/stop?userId=1&machineId=1
+////用于调试，如果当前机器被其他用户占住，可以用这个接口清除
+//http://39.106.137.21:8201/machine/start?userId=1&machineId=1
+////开始游戏接口
+//http://39.106.137.21:8201/machine/move?userId=1&machineId=1&type=4
+////type 1上 2下 3左 4右
+//http://39.106.137.21:8201/machine/shoot?userId=1&machineId=1
+////抓取接口
+//http://39.106.137.21:8201/game/status?gameId=6
+//获取游戏结果的接口
 
-let TickeCategoty = "\(BaseURL)show/category/"
-//分类列表
-let TickeCategotyList = "\(BaseURL)show/list/"
-//首页banner
-let HomeBanner = "\(BaseURL)banner/"
-//演出场次
-let TickeSession = "\(BaseURL)show/"
-//演出详细信息
-let TickeDescription = "\(BaseURL)show/"
-//http://api.liangpiao.me/show/3535216735/session/3535216726/
-//订单付款信息
-let OrderPayInfo = "\(BaseURL)order/pay_info/"
-//创建订单
-let OrderCreate = "\(BaseURL)order/create/"
-//订单列表
-let OrderListUrl = "\(BaseURL)order/list/"
-//修改订单状态
-let OrderChangeShatus = "\(BaseURL)order/"
-//搜索
-let TicketSearchUrl = "\(BaseURL)show/search/"
-//http://api.liangpiao.me?kw=%E7%BE%BD%E6%B3%89
-
-//挂票区域
-let TicketSellRegion = "\(BaseURL)supplier/ticket/"
-
-//收藏
-let TicketFavorite = "\(BaseURL)user/favorite/"
-//卖家订单列表
-let SupplierOrderList = "\(BaseURL)supplier/order/"
-//卖家挂票列表
-let SupplierTicketList = "\(BaseURL)supplier/ticket/"
-//提现余额
-let WallBlance = "\(BaseURL)account/"
-//提现详情
-let WallHistory = "\(BaseURL)account/history/"
-//提现
-let WallWithDraw = "\(BaseURL)account/withdraw/"
-//卖家卖票
-let SellTicket = "\(BaseURL)supplier/show/"
-//卖票状态
-let SellTicketStatus = "\(BaseURL)supplier/ticket/"
-//热门卖票
-let HotSellURl = "\(BaseURL)show/hot_sell/"
-//搜索卖票
-let SearchSellURl = "\(BaseURL)/show/search/sell/"
-//待完善当个场次
-let OneShowTicketUrl = "\(BaseURL)supplier/show/"
-//订单快递信息
-let OrderExpress = "\(BaseURL)supplier/order"
-//分享
-//let ShareUrl = "http://www.\(BaseStr)show/"
-//let UserProtocol = "http://www.\(BaseStr)protocol/"
-
-//充值
-let TopUpUrl = "\(BaseURL)account/recharge/"
-
-//TEST
-let ExpressDeliveryUrl = "http://testapi.kdniao.cc:8081/api/dist"
-
-let ExpressOrderHandleUrl = "http://api.kdniao.cc/Ebusiness/EbusinessOrderHandle.aspx"

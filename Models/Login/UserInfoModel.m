@@ -55,7 +55,7 @@ static UserInfoModel *_instance = nil;
     }
     
     if(![dictionary[kHomeLabelsIdField] isKindOfClass:[NSNull class]]){
-        self.idField = [dictionary[kHomeLabelsIdField] integerValue];
+        self.idField = [dictionary[kHomeLabelsIdField] stringValue];
     }
     
     if(![dictionary[kHomeLabelsNeteaseAccountId] isKindOfClass:[NSNull class]]){
@@ -101,7 +101,7 @@ static UserInfoModel *_instance = nil;
 {
     NSMutableDictionary * dictionary = [NSMutableDictionary dictionary];
     dictionary[kHomeLabelsGender] = @(self.gender);
-    dictionary[kHomeLabelsIdField] = @(self.idField);
+    dictionary[kHomeLabelsIdField] = self.idField;
     if(self.neteaseAccountId != nil){
         dictionary[kHomeLabelsNeteaseAccountId] = self.neteaseAccountId;
     }
@@ -140,7 +140,7 @@ static UserInfoModel *_instance = nil;
  */
 - (void)encodeWithCoder:(NSCoder *)aCoder
 {
-    [aCoder encodeObject:@(self.gender) forKey:kHomeLabelsGender];    [aCoder encodeObject:@(self.idField) forKey:kHomeLabelsIdField];    if(self.neteaseAccountId != nil){
+    [aCoder encodeObject:@(self.gender) forKey:kHomeLabelsGender];    [aCoder encodeObject:self.idField forKey:kHomeLabelsIdField];    if(self.neteaseAccountId != nil){
         [aCoder encodeObject:self.neteaseAccountId forKey:kHomeLabelsNeteaseAccountId];
     }
     if(self.photo != nil){
@@ -174,7 +174,7 @@ static UserInfoModel *_instance = nil;
 {
     self = [super init];
     self.gender = [[aDecoder decodeObjectForKey:kHomeLabelsGender] integerValue];
-    self.idField = [[aDecoder decodeObjectForKey:kHomeLabelsIdField] integerValue];
+    self.idField = [[aDecoder decodeObjectForKey:kHomeLabelsIdField] stringValue];
     self.neteaseAccountId = [aDecoder decodeObjectForKey:kHomeLabelsNeteaseAccountId];
     self.photo = [aDecoder decodeObjectForKey:kHomeLabelsPhoto];
     self.registerType = [[aDecoder decodeObjectForKey:kHomeLabelsRegisterType] integerValue];
@@ -215,7 +215,7 @@ static UserInfoModel *_instance = nil;
 + (BOOL)isLoggedIn
     {
         NSObject *object = [[NSUserDefaults standardUserDefaults] objectForKey:@"telephone"];
-        if ([UserInfoModel findAll].count > 0 && [UserInfoModel findFirstByCriteria:[NSString stringWithFormat:@" where telephone = '%@'",object]] != nil && [[NIMSDK sharedSDK] loginManager].isLogined){
+        if ([UserInfoModel findAll].count > 0 && [UserInfoModel findFirstByCriteria:[NSString stringWithFormat:@" where telephone = '%@'",object]] != nil){
             return YES;
         }else{
             return NO;
@@ -225,7 +225,7 @@ static UserInfoModel *_instance = nil;
 + (BOOL)logout
     {
         [UserInfoModel shareInstance].gender = 0;
-        [UserInfoModel shareInstance].idField = 0;
+        [UserInfoModel shareInstance].idField = nil;
         [UserInfoModel shareInstance].photo = nil;
         [UserInfoModel shareInstance].registerType = nil;
         [UserInfoModel shareInstance].shareCode = nil;

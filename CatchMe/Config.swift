@@ -33,7 +33,7 @@ let App_Theme_DDDDDD_Color = "DDDDDD"
 let App_Theme_41B035_Color = "41B035"
 let App_Theme_009FE8_Color = "009FE8"
 let App_Theme_CCCCCC_Color = "CCCCCC"
-
+let App_Theme_D8D8D8_Color = "D8D8D8"
 
 
 let App_Theme_PinFan_L_11_Font = IPHONE_VERSION > 9 ? UIFont.init(name:".SFUIText-Light", size: 11.0):UIFont.init(name: ".HelveticaNeueInterface-Light", size: 11)

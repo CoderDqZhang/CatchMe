@@ -93,43 +93,45 @@ class HomeLabels : NSObject, NSCoding{
 
 class Labels : NSObject, NSCoding{
     
-    var free : Int!
-    var hadSku : Int!
-    var imageAddress : String!
-    var labels : [String]!
+    var freeStatus : Int!
+    var id : Int!
+    var ownStatus : Int!
+    var skuImageAddress : String!
+    var price : Int!
     var skuId : Int!
     var skuName : String!
-    var timeCost : Int!
+    
     
     /**
      * Instantiate the instance using the passed dictionary values to set the properties values
      */
     init(fromDictionary dictionary: NSDictionary){
-        free = dictionary["free"] as? Int
-        hadSku = dictionary["hadSku"] as? Int
-        imageAddress = dictionary["imageAddress"] as? String
-        labels = dictionary["labels"] as? [String]
+        freeStatus = dictionary["freeStatus"] as? Int
+        id = dictionary["id"] as? Int
+        ownStatus = dictionary["ownStatus"] as? Int
+        price = dictionary["price"] as? Int
         skuId = dictionary["skuId"] as? Int
         skuName = dictionary["skuName"] as? String
-        timeCost = dictionary["timeCost"] as? Int
+        skuImageAddress = dictionary["skuImageAddress"] as? String
     }
+    
     /**
      * Returns all the available property values in the form of NSDictionary object where the key is the approperiate json key and the value is the value of the corresponding property
      */
     func toDictionary() -> NSDictionary
     {
         let dictionary = NSMutableDictionary()
-        if free != nil{
-            dictionary["free"] = free
+        if freeStatus != nil{
+            dictionary["freeStatus"] = freeStatus
         }
-        if hadSku != nil{
-            dictionary["hadSku"] = hadSku
+        if id != nil{
+            dictionary["id"] = id
         }
-        if imageAddress != nil{
-            dictionary["imageAddress"] = imageAddress
+        if ownStatus != nil{
+            dictionary["ownStatus"] = ownStatus
         }
-        if labels != nil{
-            dictionary["labels"] = labels
+        if price != nil{
+            dictionary["price"] = price
         }
         if skuId != nil{
             dictionary["skuId"] = skuId
@@ -137,8 +139,8 @@ class Labels : NSObject, NSCoding{
         if skuName != nil{
             dictionary["skuName"] = skuName
         }
-        if timeCost != nil{
-            dictionary["timeCost"] = timeCost
+        if skuImageAddress != nil{
+            dictionary["skuImageAddress"] = skuName
         }
         return dictionary
     }
@@ -149,33 +151,32 @@ class Labels : NSObject, NSCoding{
      */
     @objc required init(coder aDecoder: NSCoder)
     {
-        free = aDecoder.decodeObject(forKey: "free") as? Int
-        hadSku = aDecoder.decodeObject(forKey: "hadSku") as? Int
-        imageAddress = aDecoder.decodeObject(forKey: "imageAddress") as? String
-        labels = aDecoder.decodeObject(forKey: "labels") as? [String]
+        freeStatus = aDecoder.decodeObject(forKey: "freeStatus") as? Int
+        id = aDecoder.decodeObject(forKey: "id") as? Int
+        ownStatus = aDecoder.decodeObject(forKey: "ownStatus") as? Int
+        price = aDecoder.decodeObject(forKey: "price") as? Int
         skuId = aDecoder.decodeObject(forKey: "skuId") as? Int
         skuName = aDecoder.decodeObject(forKey: "skuName") as? String
-        timeCost = aDecoder.decodeObject(forKey: "timeCost") as? Int
-        
+        skuImageAddress = aDecoder.decodeObject(forKey: "skuImageAddress") as? String
     }
     
     /**
      * NSCoding required method.
      * Encodes mode properties into the decoder
      */
-    @objc func encode(with aCoder: NSCoder)
+    @objc func encode(with aCoder: NSCoder) 
     {
-        if free != nil{
-            aCoder.encode(free, forKey: "free")
+        if freeStatus != nil{
+            aCoder.encode(freeStatus, forKey: "freeStatus")
         }
-        if hadSku != nil{
-            aCoder.encode(hadSku, forKey: "hadSku")
+        if id != nil{
+            aCoder.encode(id, forKey: "id")
         }
-        if imageAddress != nil{
-            aCoder.encode(imageAddress, forKey: "imageAddress")
+        if ownStatus != nil{
+            aCoder.encode(ownStatus, forKey: "ownStatus")
         }
-        if labels != nil{
-            aCoder.encode(labels, forKey: "labels")
+        if price != nil{
+            aCoder.encode(price, forKey: "price")
         }
         if skuId != nil{
             aCoder.encode(skuId, forKey: "skuId")
@@ -183,8 +184,8 @@ class Labels : NSObject, NSCoding{
         if skuName != nil{
             aCoder.encode(skuName, forKey: "skuName")
         }
-        if timeCost != nil{
-            aCoder.encode(timeCost, forKey: "timeCost")
+        if skuImageAddress != nil{
+            aCoder.encode(skuImageAddress, forKey: "skuImageAddress")
         }
         
     }

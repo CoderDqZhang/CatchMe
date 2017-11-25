@@ -471,4 +471,37 @@ class GloableAlertView: UIView {
     }
 }
 
+class GLoabelViewLabel:UIView {
+    class func addLabel(label:UILabel,view:UIView){
+        GLoabelViewLabel.setUpLeftLabel(label: label, view: view)
+        GLoabelViewLabel.setUpRightLabel(label: label, view: view)
+    }
+    
+    class func setUpLeftLabel(label:UILabel,view:UIView){
+        let leftLabel = UIImageView.init()
+        leftLabel.image = UIImage.init(named: "left_label")
+        leftLabel.backgroundColor = UIColor.init(hexString: App_Theme_D8D8D8_Color)
+        view.addSubview(leftLabel)
+        leftLabel.snp.makeConstraints { (make) in
+            make.right.equalTo(label.snp.left).offset(-3)
+            make.centerY.equalTo(label.snp.centerY).offset(0)
+            make.size.equalTo(CGSize.init(width: 9, height: 9))
+        }
+        view.updateConstraintsIfNeeded()
+    }
+    
+    class func setUpRightLabel(label:UILabel,view:UIView){
+        let rightLabel = UIImageView.init()
+        rightLabel.image = UIImage.init(named: "left_label")
+        rightLabel.backgroundColor = UIColor.init(hexString: App_Theme_D8D8D8_Color)
+        view.addSubview(rightLabel)
+        rightLabel.snp.makeConstraints { (make) in
+            make.left.equalTo(label.snp.right).offset(3)
+            make.centerY.equalTo(label.snp.centerY).offset(0)
+            make.size.equalTo(CGSize.init(width: 9, height: 9))
+        }
+        view.updateConstraintsIfNeeded()
+    }
+}
+
 

@@ -12,8 +12,22 @@ class CacheMeViewModel: BaseViewModel {
 
     var cacheMeController:CacheMeViewController!
     var callID:UInt64!
+    var model:Labels!
+    var catchMeModel:CatchMeModel!
+    var time:Timer!
+    var timeHeader:Timer!
+    
     override init() {
         super.init()
+    }
+    
+    deinit {
+        if time != nil {
+            time.invalidate()
+        }
+        if timeHeader != nil {
+            timeHeader.invalidate()
+        }
     }
     //MARK: GameTools
     //断开拉流
@@ -67,21 +81,106 @@ class CacheMeViewModel: BaseViewModel {
             NIMAVChatSDK.shared().netCallManager.hangup(self.callID)
         }
     }
-    
-    //MARK: Logic
-    func playGameLogic(tag:Int){
-        //抓取失败
-        KWINDOWDS().addSubview(GloableAlertView.init(title: "好可惜，就差一点了", btnTop: "再试一次5s", btnBottom: "无力再试", image: UIImage.init(named: "pic_fail_1")!, type: GloableAlertViewType.catchfail, clickClouse: { (tag) in
-            if tag == 100 {
-                self.playGame()
-            }else{
-                self.handUpConnect()
-            }
-        }))
+    //改变摄像头
+    func changeCamera(){
+        if cacheMeController.liveplayer.isPlaying(){
+            //切换拉流地址
+            NIMAVChatSDK.shared().netCallManager.switchBypassStreamingUrl("")
+        }else{
+            NIMAVChatSDK.shared().netCallManager.control(self.callID, type: NIMNetCallControlType.noCamera)
+        }
     }
     
+    //MARK: Networking
+
+    //进入房间
+    func requestEntRooms(){
+        let parameters = ["roomId":model.id,"userId":UserInfoModel.shareInstance().idField] as [String : Any]
+        BaseNetWorke.sharedInstance.getUrlWithString(EnterRooms, parameters: parameters as AnyObject).observe { (resultDic) in
+            if !resultDic.isCompleted {
+                self.catchMeModel = CatchMeModel.init(fromDictionary: resultDic.value as! NSDictionary)
+                //心跳接口
+                self.requestHeader()
+            }
+        }
+    }
+    
+    //退出房间
+    func requestExitRooms(){
+        let parameters = ["machineId":model.id,"userId":UserInfoModel.shareInstance().idField] as [String : Any]
+        BaseNetWorke.sharedInstance.getUrlWithString(ExitRoom, parameters: parameters as AnyObject).observe { (resultDic) in
+            if !resultDic.isCompleted {
+                
+            }
+        }
+    }
+    
+    //心跳
+    func requestHeader(){
+        let parameters = ["machineId":model.id,"userId":UserInfoModel.shareInstance().idField] as [String : Any]
+        BaseNetWorke.sharedInstance.getUrlWithString(Heartbeat, parameters: parameters as AnyObject).observe { (resultDic) in
+            if !resultDic.isCompleted {
+                
+            }
+        }
+    }
+    
+    //查看排队情况
+    func gameStart(){
+        let parameters = ["machineId":model.id,"userId":UserInfoModel.shareInstance().idField] as [String : Any]
+        BaseNetWorke.sharedInstance.getUrlWithString(ExitRoom, parameters: parameters as AnyObject).observe { (resultDic) in
+            if !resultDic.isCompleted {
+                //排队成功调用
+//                self.doDestroyPlay()
+//                self.cacheMeController.setUpCountDownView()
+//                cacheMeViewModel.playGame()
+            }
+        }
+    }
+    
+    //点击上下左右
+    func playGameLogic(tag:Int){
+        let parameters = ["roomId":self.catchMeModel.id,"userId":UserInfoModel.shareInstance().idField,"type":tag] as [String : Any]
+        BaseNetWorke.sharedInstance.getUrlWithString(MoveGame, parameters: parameters as AnyObject).observe { (resultDic) in
+            if !resultDic.isCompleted {
+                
+            }
+        }
+    }
+    
+    //抓取
     func playGameGo(){
-        //抓到成功
+        let parameters = ["machineId":self.catchMeModel.id,"userId":UserInfoModel.shareInstance().idField] as [String : Any]
+        BaseNetWorke.sharedInstance.getUrlWithString(ShootGame, parameters: parameters as AnyObject).observe { (resultDic) in
+            if !resultDic.isCompleted {
+                
+            }
+        }
+        
+        if #available(iOS 10.0, *) {
+            time = Timer.scheduledTimer(withTimeInterval: 5, repeats: true, block: { (time) in
+                self.getGameStaus()
+            })
+        } else {
+            // Fallback on earlier versions
+        }
+        
+    }
+    
+    //获取游戏结果
+    func getGameStaus(){
+        let parameters = ["gameId":model.id] as [String : Any]
+        BaseNetWorke.sharedInstance.getUrlWithString(GameStatus, parameters: parameters as AnyObject).observe { (resultDic) in
+            if !resultDic.isCompleted {
+               //抓取成功调用
+                self.time.invalidate()
+//                self.shootSuccess()
+//                self.shootFail()
+            }
+        }
+    }
+    
+    func shootSuccess(){
         KWINDOWDS().addSubview(GloableAlertView.init(title: "好棒，活捉一只娃娃", btnTop: "查看我的娃娃", btnBottom: "炫耀一下", image: UIImage.init(named: "pic_success")!, type: GloableAlertViewType.success, clickClouse: { (tag) in
             if tag == 100 {
                 NavigationPushView(self.cacheMeController, toConroller: MyJoysViewController())
@@ -98,6 +197,17 @@ class CacheMeViewModel: BaseViewModel {
                         break
                     }
                 }))
+            }
+        }))
+    }
+    
+    func shootFail(){
+        //抓取失败
+        KWINDOWDS().addSubview(GloableAlertView.init(title: "好可惜，就差一点了", btnTop: "再试一次5s", btnBottom: "无力再试", image: UIImage.init(named: "pic_fail_1")!, type: GloableAlertViewType.catchfail, clickClouse: { (tag) in
+            if tag == 100 {
+                self.playGame()
+            }else{
+                self.handUpConnect()
             }
         }))
     }

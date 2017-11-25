@@ -34,8 +34,6 @@ class LoginViewModel: BaseViewModel {
                 if self.senderCodeSuccessClouse != nil {
                     self.senderCodeSuccessClouse()
                 }
-//                let aMinutes:TimeInterval = 60
-//                (self.controller as! LoginViewController).startWithStartDate(NSDate() as Date, finishDate: NSDate.init(timeIntervalSinceNow: aMinutes) as Date)
             }
         }
     }
@@ -46,6 +44,7 @@ class LoginViewModel: BaseViewModel {
             if !resultDic.isCompleted {
                 UserDefaultsSetSynchronize(form.phone as AnyObject, key: "telephone")
                 let model = UserInfoModel.mj_object(withKeyValues: resultDic.value)
+                model?.idField = "\((resultDic.value as! NSDictionary).object(forKey: "id")!)"
                 model?.saveOrUpdate(byColumnName: "telephone", andColumnValue: "'\(form.phone)'")
                 self.loginNetNetease()
             }
@@ -54,14 +53,14 @@ class LoginViewModel: BaseViewModel {
     
     func loginNetNetease(){
         let loginData = NIMAutoLoginData.init()
-        loginData.token = UserInfoModel.shareInstance().token
-        loginData.account = UserInfoModel.shareInstance().neteaseAccountId
+        loginData.token = UserInfoModel.shareInstance().neteaseAccountId
+        loginData.account = "\(UserInfoModel.shareInstance().idField)"
         loginData.forcedMode = true
-        NIMSDK.shared().loginManager.autoLogin(loginData)
-    }
-    
-    func login(){
-        
+        NIMSDK.shared().loginManager.login(UserInfoModel.shareInstance().idField!, token: UserInfoModel.shareInstance().neteaseAccountId) { (error) in
+            if error == nil {
+                print("登录成功")
+            }
+        }
     }
     
 //    func savePhotoImage(){
@@ -121,15 +120,14 @@ extension LoginViewModel : NIMLoginManagerDelegate {
         if step == .loginOK {
             loginHud.hide(animated: true)
             Notification(LoginStatuesChange, value: nil)
-            self.controller?.navigationController?.dismiss(animated: true, completion: {
-                
-            })
+            KWINDOWDS().rootViewController = MainTabBarViewController()
         }
     }
     
     //自动登录失败回调
     func onAutoLoginFailed(_ error: Error) {
          _ = Tools.shareInstance.showMessage(KWINDOWDS(), msg: "自动登录失败", autoHidder: true)
+        loginHud.hide(animated: true)
     }
 }
 

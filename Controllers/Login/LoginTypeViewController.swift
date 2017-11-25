@@ -22,7 +22,6 @@ class LoginTypeViewController: BaseViewController {
     }
     
     override func viewControllerSetNavigationItemBack(){
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem.init(title: "取消", style: .plain, target: self, action: #selector(LoginTypeViewController.leftBarButtonPress))
     }
     
     override func setUpView() {
@@ -88,12 +87,6 @@ class LoginTypeViewController: BaseViewController {
                 print("weixin sendreq failed")
             }
         }
-    }
-    
-    @objc func leftBarButtonPress(){
-        self.navigationController?.dismiss(animated: true, completion: {
-            
-        })
     }
 
     override func didReceiveMemoryWarning() {

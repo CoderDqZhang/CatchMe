@@ -120,7 +120,7 @@ class LoginPhoneCodeViewController: BaseViewController {
             make.centerX.equalTo(self.view.snp.centerX).offset(0)
             make.left.equalTo(self.view.snp.left).offset(10)
             make.right.equalTo(self.view.snp.right).offset(-30)
-            make.bottom.equalTo(self.view.snp.bottom).offset(0)
+            make.bottom.equalTo(self.view.snp.bottom).offset(30)
         }
         
         

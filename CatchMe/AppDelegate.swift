@@ -13,26 +13,35 @@ import NIMSDK
 class AppDelegate: UIResponder, UIApplicationDelegate, WeiboSDKDelegate {
 
     var window: UIWindow?
-
-
+    var manager: NeteaseManager!
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
+        self.window?.makeKeyAndVisible()
         AppleThemeTool.setUpToolBarColor()
         AppleThemeTool.setUpKeyBoardManager()
-        self.registerAPPKey()
+        //分享控制器
         _ = ShareManager.init()
+        //网易云控制器
+        manager = NeteaseManager.init()
+        self.setUpMainViewContr()
         
-        self.window?.rootViewController = MainTabBarViewController()
-        self.window?.makeKeyAndVisible()
         // Override point for customization after application launch.
         return true
     }
     
-    func registerAPPKey(){
-        let options = NIMSDKOption.init(appKey: WANGYIIMAPPKEY)
-        NIMSDK.shared().register(with: options)
-        NIMSDKConfig.shared().enabledHttpsForInfo = true
-        self.testLogin()
+    func setUpMainViewContr(){
+        if UserInfoModel.isLoggedIn() {
+            manager.setAutoLogin()
+            self.window?.rootViewController = MainTabBarViewController()
+        }else{
+            self.setUpLoginViewController()
+        }
+    }
+    
+    func setUpLoginViewController(){
+        let loginVC = UINavigationController.init(rootViewController: LoginTypeViewController())
+        self.window?.rootViewController = loginVC
     }
     
     func testLogin(){

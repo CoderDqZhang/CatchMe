@@ -48,6 +48,8 @@ class HomeViewController: BaseViewController {
     
     func bindLogicViewModel(){
         self.homeViewModel.controller = self
+        self.homeViewModel.requestRooms(pageIndex: "1")
+
     }
 
     func setUpCollectViewRefreshData(){

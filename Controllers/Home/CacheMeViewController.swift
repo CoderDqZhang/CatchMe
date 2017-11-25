@@ -22,6 +22,8 @@ class CacheMeViewController: BaseViewController {
     var gameToolsView:GameToolsView!
     var switchCamera:UIButton!
     
+    var roomModel:Labels!
+    
     var countDown:UILabel!
     
     var time:Timer!
@@ -36,7 +38,6 @@ class CacheMeViewController: BaseViewController {
         NIMAVChatSDK.shared().netCallManager.add(cacheMeViewModel)
         self.bindLogicViewModel()
         self.initRemoteGlView()
-        self.setUpPlayer()
         self.doInitPlayerNotication()
         self.setUpPlayGameView()
         self.setUpToolsView()
@@ -57,13 +58,14 @@ class CacheMeViewController: BaseViewController {
         self.navigationController?.setNavigationBarHidden(true, animated: true)
     }
     
-    
-    
     func bindLogicViewModel(){
         cacheMeViewModel.cacheMeController = self
+        cacheMeViewModel.model = self.roomModel
+        cacheMeViewModel.requestEntRooms()
     }
     
-    func setUpPlayer(){
+    //拉流地址
+    func setUpPlayer(url:String){
         NELivePlayerController.setLogLevel(NELPLogLevel.LOG_VERBOSE)
         do {
             try self.liveplayer = NELivePlayerController.init(contentURL: URL.init(string: self.url))
@@ -129,6 +131,7 @@ class CacheMeViewController: BaseViewController {
     func setUpCacheMeTopView(){
         cacheMeTopView = CacheMeTopView.init(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: 60), topViewBackButtonClouse: {
             self.cacheMeViewModel.handUpConnect()
+            self.cacheMeViewModel.requestExitRooms()
             self.navigationController?.popViewController({
                 
             })
@@ -176,8 +179,7 @@ class CacheMeViewController: BaseViewController {
                         let count = (self.countDown.text! as NSString).integerValue
                         let now = count -  1
                         if now == 0 {
-                            //执行go
-                            return
+                            self.cacheMeViewModel.playGameGo()
                         }
                         self.countDown.text = "\(now)"
                     }
@@ -198,7 +200,7 @@ class CacheMeViewController: BaseViewController {
         switchCamera.layer.masksToBounds = true
         switchCamera.titleLabel?.textAlignment = .center
         switchCamera.reactive.controlEvents(.touchUpInside).observe { (action) in
-            
+            self.cacheMeViewModel.changeCamera()
         }
         self.view.addSubview(switchCamera)
         switchCamera.snp.makeConstraints { (make) in
@@ -209,18 +211,7 @@ class CacheMeViewController: BaseViewController {
     }
     
     @objc func playGame(){
-        self.cacheMeViewModel.doDestroyPlay()
-        self.setUpCountDownView()
-        cacheMeViewModel.playGame()
-//        let option = NIMNetCallOption.init()
-//        NIMAVChatSDK.shared().netCallManager.start(["caiji"], type: NIMNetCallMediaType.video, option: option) { (error, ret) in
-//            if error == nil {
-//                self.cacheMeViewModel.doDestroyPlay()
-//                self.setUpCountDownView()
-//            }else{
-//                print(error!)
-//            }
-//        }
+        cacheMeViewModel.gameStart()
     }
     
     func doInitPlayerNotication(){

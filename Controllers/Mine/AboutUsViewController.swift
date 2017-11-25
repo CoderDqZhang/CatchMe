@@ -40,6 +40,8 @@ class AboutUsViewController: BaseViewController {
         aboutLabel.textColor = UIColor.init(hexString: App_Theme_333333_Color)
         aboutLabel.text = "主人，带我回家吧"
         self.view.addSubview(aboutLabel)
+        GLoabelViewLabel.addLabel(label: aboutLabel, view: self.view)
+
         
         bottomImage = UIImageView.init()
         bottomImage.image = UIImage.init(named: "pic_about")
@@ -72,6 +74,7 @@ class AboutUsViewController: BaseViewController {
             make.top.equalTo(self.logoImage.snp.bottom).offset(14)
             make.centerX.equalTo(self.view.snp.centerX).offset(0)
         }
+
         
         bottomImage.snp.makeConstraints { (make) in
             make.bottom.equalTo(self.view.snp.bottom).offset(0)

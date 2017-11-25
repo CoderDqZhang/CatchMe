@@ -10,11 +10,10 @@ import UIKit
 
 class HomeViewModel: BaseViewModel {
 
-    var pageIndex:String = "0"
+    var pageIndex:String = "1"
     var models:HomeLabels!
     override init() {
         super.init()
-        self.requestRooms(pageIndex: self.pageIndex)
     }
     
     //MARK: UICollectionCellSetData
@@ -23,13 +22,18 @@ class HomeViewModel: BaseViewModel {
     }
     
     func collectDidSelect(_ indexPath:IndexPath) {
-        NavigationPushView(self.controller!, toConroller: CacheMeViewController())
+        let controllerVC = CacheMeViewController()
+        controllerVC.roomModel = models.data[indexPath.row]
+        NavigationPushView(self.controller!, toConroller: controllerVC)
     }
     
     func cellBanner(headerView:BannerCollectionReusableView){
         let imageUrls = NSMutableArray.init(array: ["https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1511699910&di=4dab0c873fc8e22e5a9a831b3ece86de&imgtype=jpg&er=1&src=http%3A%2F%2Fimg.pconline.com.cn%2Fimages%2Fupload%2Fupc%2Ftx%2Fphotoblog%2F1205%2F22%2Fc8%2F11710213_11710213_1337684443710.jpg","https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1511699935&di=5e94a2bd7dbd3a28f9fe22c31bb8bca2&imgtype=jpg&er=1&src=http%3A%2F%2Fimg.pconline.com.cn%2Fimages%2Fupload%2Fupc%2Ftx%2Fphotoblog%2F1205%2F22%2Fc8%2F11710213_11710213_1337684441789.jpg"])
         headerView.setcycleScrollerViewData(imageUrls.mutableCopy() as! NSArray)
         headerView.cyCleScrollerViewClouse = { index in
+            let controllerVC = BaseWebViewController()
+            controllerVC.url = "http://www.baidu.com"
+            NavigationPushView(self.controller!, toConroller: controllerVC)
         }
     }
     
@@ -40,7 +44,7 @@ class HomeViewModel: BaseViewModel {
     }
     
     func refreshData(){
-        self.pageIndex = "0"
+        self.pageIndex = "1"
         self.requestRooms(pageIndex: self.pageIndex)
     }
     
@@ -76,7 +80,8 @@ extension HomeViewModel : UICollectionViewDelegate {
             return kindView
         }else{
             let kindView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: BannerCollectionReusableView.description(), for: indexPath)
-            kindView.backgroundColor = UIColor.brown
+            kindView.frame = CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: 0)
+            kindView.backgroundColor = UIColor.white
             return kindView
         }
     }

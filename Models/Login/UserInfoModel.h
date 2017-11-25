@@ -14,7 +14,7 @@
 @interface UserInfoModel : JKDBModel
     
 @property (nonatomic, assign) NSInteger gender;
-@property (nonatomic, assign) NSInteger idField;
+@property (nonatomic, copy) NSString * idField;
 @property (nonatomic, copy) NSString * neteaseAccountId;
 @property (nonatomic, copy) NSString * photo;
 @property (nonatomic, assign) NSInteger registerType;
