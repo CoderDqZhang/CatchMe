@@ -16,9 +16,11 @@ class NoneAddress: UIView {
         label = UILabel.init(frame: CGRect.init(x: 0, y: 0, width: frame.size.width, height: frame.size.height))
         label.text = "添加收货人信息"
         label.textAlignment = .center
+        
         label.font = App_Theme_PinFan_M_18_Font
         label.textColor = UIColor.init(hexString: App_Theme_DDDDDD_Color)
         self.addSubview(label)
+        GLoabelViewLabel.addLabel(label: label, view: self)
     }
     
     required init?(coder aDecoder: NSCoder) {

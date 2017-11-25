@@ -10,15 +10,21 @@ import UIKit
 
 class QuestionViewController: BaseViewController {
 
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.bindViewModel(viewModel: QuestionViewModel(), controller: self)
+        self.setUpTableView(style: .grouped, cells: [QuestionDetailTableViewCell.self, QuestionPhoneTableViewCell.self, UITableViewCell.self], controller: self)
         // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    override func setUpView() {
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {

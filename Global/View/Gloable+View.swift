@@ -56,13 +56,13 @@ class CustomButton: UIButton {
         case .withNoBoarder:
             self.setWithNoBoarderButton()
         case .withBoarder:
-            self.layer.cornerRadius = 2.0
+            self.layer.cornerRadius = frame.height / 2
             self.setWithBoarderButton()
         case .withBackBoarder:
-            self.layer.cornerRadius = 2.0
+            self.layer.cornerRadius = frame.height / 2
             self.setwithonBoarderButton()
         default:
-            self.layer.cornerRadius = 2.0
+            self.layer.cornerRadius = frame.height / 2
             self.setWithDisbleBoarderButton()
         }
         self.reactive.controlEvents(.touchUpInside).observe { (action) in
@@ -480,12 +480,11 @@ class GLoabelViewLabel:UIView {
     class func setUpLeftLabel(label:UILabel,view:UIView){
         let leftLabel = UIImageView.init()
         leftLabel.image = UIImage.init(named: "left_label")
-        leftLabel.backgroundColor = UIColor.init(hexString: App_Theme_D8D8D8_Color)
         view.addSubview(leftLabel)
         leftLabel.snp.makeConstraints { (make) in
-            make.right.equalTo(label.snp.left).offset(-3)
+            make.right.equalTo(label.snp.left).offset(-4)
             make.centerY.equalTo(label.snp.centerY).offset(0)
-            make.size.equalTo(CGSize.init(width: 9, height: 9))
+            make.size.equalTo(CGSize.init(width: 12, height: 12))
         }
         view.updateConstraintsIfNeeded()
     }
@@ -493,12 +492,11 @@ class GLoabelViewLabel:UIView {
     class func setUpRightLabel(label:UILabel,view:UIView){
         let rightLabel = UIImageView.init()
         rightLabel.image = UIImage.init(named: "left_label")
-        rightLabel.backgroundColor = UIColor.init(hexString: App_Theme_D8D8D8_Color)
         view.addSubview(rightLabel)
         rightLabel.snp.makeConstraints { (make) in
-            make.left.equalTo(label.snp.right).offset(3)
+            make.left.equalTo(label.snp.right).offset(4)
             make.centerY.equalTo(label.snp.centerY).offset(0)
-            make.size.equalTo(CGSize.init(width: 9, height: 9))
+            make.size.equalTo(CGSize.init(width: 12, height: 12))
         }
         view.updateConstraintsIfNeeded()
     }

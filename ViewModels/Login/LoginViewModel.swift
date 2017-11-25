@@ -120,8 +120,8 @@ extension LoginViewModel : NIMLoginManagerDelegate {
         if step == .loginOK {
             loginHud.hide(animated: true)
             Notification(LoginStatuesChange, value: nil)
-            KWINDOWDS().rootViewController = MainTabBarViewController()
         }
+        KWINDOWDS().rootViewController = MainTabBarViewController()
     }
     
     //自动登录失败回调

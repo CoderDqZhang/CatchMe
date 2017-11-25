@@ -41,6 +41,7 @@ class TopUpViewController: BaseViewController {
         attributedString.addAttributes([NSAttributedStringKey.font:App_Theme_PinFan_R_24_Font!,NSAttributedStringKey.foregroundColor:UIColor.init(hexString: App_Theme_FC4652_Color)!], range: NSRange.init(location: strArray![0].count + 1, length: strArray![1].count))
         balance.attributedText = attributedString
         self.view.addSubview(balance)
+        GLoabelViewLabel.addLabel(label: balance, view: self.view)
         balance.snp.makeConstraints { (make) in
             make.centerX.equalTo(self.view.snp.centerX).offset(0)
             make.top.equalTo(self.view.snp.top).offset(30)

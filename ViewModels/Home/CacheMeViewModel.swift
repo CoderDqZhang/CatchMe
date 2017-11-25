@@ -14,6 +14,7 @@ class CacheMeViewModel: BaseViewModel {
     var callID:UInt64!
     var model:Labels!
     var catchMeModel:CatchMeModel!
+    var headerModel:HeaderModel!
     var time:Timer!
     var timeHeader:Timer!
     
@@ -107,7 +108,7 @@ class CacheMeViewModel: BaseViewModel {
     
     //退出房间
     func requestExitRooms(){
-        let parameters = ["machineId":model.id,"userId":UserInfoModel.shareInstance().idField] as [String : Any]
+        let parameters = ["machineId":catchMeModel.machineDTO.id,"userId":UserInfoModel.shareInstance().idField] as [String : Any]
         BaseNetWorke.sharedInstance.getUrlWithString(ExitRoom, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
                 
@@ -117,30 +118,37 @@ class CacheMeViewModel: BaseViewModel {
     
     //心跳
     func requestHeader(){
-        let parameters = ["machineId":model.id,"userId":UserInfoModel.shareInstance().idField] as [String : Any]
+        let parameters = ["machineId":catchMeModel.machineDTO.id,"userId":UserInfoModel.shareInstance().idField] as [String : Any]
         BaseNetWorke.sharedInstance.getUrlWithString(Heartbeat, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
-                
+                self.headerModel = HeaderModel.init(fromDictionary: resultDic.value as! NSDictionary)
             }
         }
     }
     
     //查看排队情况
     func gameStart(){
-        let parameters = ["machineId":model.id,"userId":UserInfoModel.shareInstance().idField] as [String : Any]
-        BaseNetWorke.sharedInstance.getUrlWithString(ExitRoom, parameters: parameters as AnyObject).observe { (resultDic) in
-            if !resultDic.isCompleted {
-                //排队成功调用
-//                self.doDestroyPlay()
-//                self.cacheMeController.setUpCountDownView()
-//                cacheMeViewModel.playGame()
+        if NIMSDK.shared().loginManager.isLogined() {
+            if self.catchMeModel.currentPlayerId != 1 || self.headerModel.currentPlayerId != 1 {
+                let parameters = ["machineId":catchMeModel.machineDTO.id,"userId":UserInfoModel.shareInstance().idField] as [String : Any]
+                BaseNetWorke.sharedInstance.getUrlWithString(ExitRoom, parameters: parameters as AnyObject).observe { (resultDic) in
+                    if !resultDic.isCompleted {
+                        //排队成功调用
+                        //                self.doDestroyPlay()
+                        //                self.cacheMeController.setUpCountDownView()
+                        //                cacheMeViewModel.playGame()
+                    }
+                }
             }
+        }else{
+            _ = Tools.shareInstance.showMessage(KWINDOWDS(), msg: "用户未登录", autoHidder: true)
+            NeteaseManager.shareInstance.setAutoLogin()
         }
     }
     
     //点击上下左右
     func playGameLogic(tag:Int){
-        let parameters = ["roomId":self.catchMeModel.id,"userId":UserInfoModel.shareInstance().idField,"type":tag] as [String : Any]
+        let parameters = ["machineId":catchMeModel.machineDTO.id,"userId":UserInfoModel.shareInstance().idField,"type":tag] as [String : Any]
         BaseNetWorke.sharedInstance.getUrlWithString(MoveGame, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
                 

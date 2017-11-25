@@ -33,7 +33,7 @@ class TopDescTableViewCell: UITableViewCell {
         timeLable.textAlignment = .center
         timeLable.text = "第64周 11.06~11.12"
         self.contentView.addSubview(timeLable)
-        
+        GLoabelViewLabel.addLabel(label: timeLable, view: self.contentView)
         self.updateConstraints()
     }
     

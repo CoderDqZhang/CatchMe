@@ -151,6 +151,9 @@
 		1FCA200D1FC5CB870008BF07 /* LoginPhoneCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCA200C1FC5CB870008BF07 /* LoginPhoneCodeViewController.swift */; };
 		1FCA200F1FC720470008BF07 /* AboutUsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCA200E1FC720470008BF07 /* AboutUsViewController.swift */; };
 		1FE1A2C61FC964AE00B715D8 /* CatchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE1A2C51FC964AE00B715D8 /* CatchModel.swift */; };
+		1FE1A2C81FC9864B00B715D8 /* QuestionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE1A2C71FC9864B00B715D8 /* QuestionViewModel.swift */; };
+		1FE1A2CA1FC986C400B715D8 /* QuestionDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE1A2C91FC986C400B715D8 /* QuestionDetailTableViewCell.swift */; };
+		1FE1A2CC1FC986D100B715D8 /* QuestionPhoneTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE1A2CB1FC986D100B715D8 /* QuestionPhoneTableViewCell.swift */; };
 		54C665C6CE13906B598CBB0B /* Pods_CatchMe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 018F762371DA9CCCFF9892F6 /* Pods_CatchMe.framework */; };
 /* End PBXBuildFile section */
 
@@ -367,6 +370,9 @@
 		1FCA200C1FC5CB870008BF07 /* LoginPhoneCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPhoneCodeViewController.swift; sourceTree = "<group>"; };
 		1FCA200E1FC720470008BF07 /* AboutUsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutUsViewController.swift; sourceTree = "<group>"; };
 		1FE1A2C51FC964AE00B715D8 /* CatchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatchModel.swift; sourceTree = "<group>"; };
+		1FE1A2C71FC9864B00B715D8 /* QuestionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionViewModel.swift; sourceTree = "<group>"; };
+		1FE1A2C91FC986C400B715D8 /* QuestionDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionDetailTableViewCell.swift; sourceTree = "<group>"; };
+		1FE1A2CB1FC986D100B715D8 /* QuestionPhoneTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionPhoneTableViewCell.swift; sourceTree = "<group>"; };
 		599640648AD4571953B84782 /* Pods-CatchMe.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CatchMe.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CatchMe/Pods-CatchMe.debug.xcconfig"; sourceTree = "<group>"; };
 		66871A49004208702649CA5E /* Pods-CatchMe.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CatchMe.release.xcconfig"; path = "Pods/Target Support Files/Pods-CatchMe/Pods-CatchMe.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -789,6 +795,7 @@
 				1F126ECE1FC2C6BA006306D2 /* MyJoysViewModel.swift */,
 				1F126EDA1FC31049006306D2 /* SenderJoysViewModel.swift */,
 				1F126EE21FC3D89D006306D2 /* AddressViewModel.swift */,
+				1FE1A2C71FC9864B00B715D8 /* QuestionViewModel.swift */,
 			);
 			path = Mine;
 			sourceTree = "<group>";
@@ -823,6 +830,8 @@
 				1F126EDE1FC310B2006306D2 /* SendJoyInfoTableViewCell.swift */,
 				1F126EE01FC310CB006306D2 /* SenderMuchTableViewCell.swift */,
 				1F126EE61FC3F715006306D2 /* SetNormalTableViewCell.swift */,
+				1FE1A2C91FC986C400B715D8 /* QuestionDetailTableViewCell.swift */,
+				1FE1A2CB1FC986D100B715D8 /* QuestionPhoneTableViewCell.swift */,
 			);
 			path = Mine;
 			sourceTree = "<group>";
@@ -1186,6 +1195,7 @@
 				1FCA20071FC56BBF0008BF07 /* TopUpMuchView.swift in Sources */,
 				1F126E351FC01DA8006306D2 /* TopViewController.swift in Sources */,
 				1F126ED71FC303B3006306D2 /* TopUserInfoTableViewCell.swift in Sources */,
+				1FE1A2C81FC9864B00B715D8 /* QuestionViewModel.swift in Sources */,
 				1F126E5B1FC0891D006306D2 /* LoginViewModel.swift in Sources */,
 				1F126D931FBFF36B006306D2 /* BaseNetWorke.swift in Sources */,
 				1F126D651FBFF024006306D2 /* ViewController.swift in Sources */,
@@ -1197,6 +1207,7 @@
 				1F126DC61FBFF3AF006306D2 /* NSTimer.swift in Sources */,
 				1F126E701FC15457006306D2 /* NTESGLView.m in Sources */,
 				1F126DC91FBFF3AF006306D2 /* UIImage+Crop.swift in Sources */,
+				1FE1A2CC1FC986D100B715D8 /* QuestionPhoneTableViewCell.swift in Sources */,
 				1F126DC71FBFF3AF006306D2 /* String+Size.swift in Sources */,
 				1F126E381FC01DBA006306D2 /* MineViewController.swift in Sources */,
 				1F126EE71FC3F715006306D2 /* SetNormalTableViewCell.swift in Sources */,
@@ -1228,6 +1239,7 @@
 				1F126E651FC0979A006306D2 /* AddressViewController.swift in Sources */,
 				1F24A32F1FC8050F007D0C18 /* MyInvitationCodeViewController.swift in Sources */,
 				1F126E091FBFFD9C006306D2 /* UILabel+ChangeLineSpaceAndWordSpace.m in Sources */,
+				1FE1A2CA1FC986C400B715D8 /* QuestionDetailTableViewCell.swift in Sources */,
 				1F126DBE1FBFF391006306D2 /* UITableView+FDTemplateLayoutCellDebug.m in Sources */,
 				1F126EE11FC310CB006306D2 /* SenderMuchTableViewCell.swift in Sources */,
 				1F126E0C1FBFFDCB006306D2 /* NSDate+LSCore.m in Sources */,

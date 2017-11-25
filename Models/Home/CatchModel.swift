@@ -10,6 +10,8 @@ import UIKit
 
 class CatchMeModel : NSObject, NSCoding{
     
+    var currentPlayStatus : Int!
+    var currentPlayerId : Int!
     var id : Int!
     var machineDTO : MachineDTO!
     var onlineUserList : [Int]!
@@ -19,6 +21,8 @@ class CatchMeModel : NSObject, NSCoding{
      * Instantiate the instance using the passed dictionary values to set the properties values
      */
     init(fromDictionary dictionary: NSDictionary){
+        currentPlayStatus = dictionary["currentPlayStatus"] as? Int
+        currentPlayerId = dictionary["currentPlayerId"] as? Int
         id = dictionary["id"] as? Int
         if let machineDTOData = dictionary["machineDTO"] as? NSDictionary{
             machineDTO = MachineDTO(fromDictionary: machineDTOData)
@@ -32,6 +36,12 @@ class CatchMeModel : NSObject, NSCoding{
     func toDictionary() -> NSDictionary
     {
         let dictionary = NSMutableDictionary()
+        if currentPlayStatus != nil{
+            dictionary["currentPlayStatus"] = currentPlayStatus
+        }
+        if currentPlayerId != nil{
+            dictionary["currentPlayerId"] = currentPlayerId
+        }
         if id != nil{
             dictionary["id"] = id
         }
@@ -50,9 +60,11 @@ class CatchMeModel : NSObject, NSCoding{
      */
     @objc required init(coder aDecoder: NSCoder)
     {
-        id = aDecoder.decodeObject(forKey: "id") as? Int
-        machineDTO = aDecoder.decodeObject(forKey: "machineDTO") as? MachineDTO
-        onlineUserList = aDecoder.decodeObject(forKey: "onlineUserList") as? [Int]
+        currentPlayStatus = aDecoder.decodeObject(forKey:"currentPlayStatus") as? Int
+        currentPlayerId = aDecoder.decodeObject(forKey:"currentPlayerId") as? Int
+        id = aDecoder.decodeObject(forKey:"id") as? Int
+        machineDTO = aDecoder.decodeObject(forKey:"machineDTO") as? MachineDTO
+        onlineUserList = aDecoder.decodeObject(forKey:"onlineUserList") as? [Int]
         
     }
     
@@ -62,6 +74,12 @@ class CatchMeModel : NSObject, NSCoding{
      */
     @objc func encode(with aCoder: NSCoder)
     {
+        if currentPlayStatus != nil{
+            aCoder.encode(currentPlayStatus, forKey: "currentPlayStatus")
+        }
+        if currentPlayerId != nil{
+            aCoder.encode(currentPlayerId, forKey: "currentPlayerId")
+        }
         if id != nil{
             aCoder.encode(id, forKey: "id")
         }
@@ -78,22 +96,20 @@ class CatchMeModel : NSObject, NSCoding{
 
 class MachineDTO : NSObject, NSCoding{
     
-    var cameraDTOList : [CameraDTOList]!
+    var audiencePullAddressA : String!
+    var audiencePullAddressB : String!
     var id : Int!
+    var playerAccountId : String!
     
     
     /**
      * Instantiate the instance using the passed dictionary values to set the properties values
      */
     init(fromDictionary dictionary: NSDictionary){
-        cameraDTOList = [CameraDTOList]()
-        if let cameraDTOListArray = dictionary["cameraDTOList"] as? [NSDictionary]{
-            for dic in cameraDTOListArray{
-                let value = CameraDTOList(fromDictionary: dic)
-                cameraDTOList.append(value)
-            }
-        }
+        audiencePullAddressA = dictionary["audiencePullAddressA"] as? String
+        audiencePullAddressB = dictionary["audiencePullAddressB"] as? String
         id = dictionary["id"] as? Int
+        playerAccountId = dictionary["playerAccountId"] as? String
     }
     
     /**
@@ -102,15 +118,17 @@ class MachineDTO : NSObject, NSCoding{
     func toDictionary() -> NSDictionary
     {
         let dictionary = NSMutableDictionary()
-        if cameraDTOList != nil{
-            var dictionaryElements = [NSDictionary]()
-            for cameraDTOListElement in cameraDTOList {
-                dictionaryElements.append(cameraDTOListElement.toDictionary())
-            }
-            dictionary["cameraDTOList"] = dictionaryElements
+        if audiencePullAddressA != nil{
+            dictionary["audiencePullAddressA"] = audiencePullAddressA
+        }
+        if audiencePullAddressB != nil{
+            dictionary["audiencePullAddressB"] = audiencePullAddressB
         }
         if id != nil{
             dictionary["id"] = id
+        }
+        if playerAccountId != nil{
+            dictionary["playerAccountId"] = playerAccountId
         }
         return dictionary
     }
@@ -121,8 +139,10 @@ class MachineDTO : NSObject, NSCoding{
      */
     @objc required init(coder aDecoder: NSCoder)
     {
-        cameraDTOList = aDecoder.decodeObject(forKey: "cameraDTOList") as? [CameraDTOList]
-        id = aDecoder.decodeObject(forKey: "id") as? Int
+        audiencePullAddressA = aDecoder.decodeObject(forKey: "audiencePullAddressA") as? String
+        audiencePullAddressB = aDecoder.decodeObject(forKey:"audiencePullAddressB") as? String
+        id = aDecoder.decodeObject(forKey:"id") as? Int
+        playerAccountId = aDecoder.decodeObject(forKey:"playerAccountId") as? String
         
     }
     
@@ -132,35 +152,44 @@ class MachineDTO : NSObject, NSCoding{
      */
     @objc func encode(with aCoder: NSCoder)
     {
-        if cameraDTOList != nil{
-            aCoder.encode(cameraDTOList, forKey: "cameraDTOList")
+        if audiencePullAddressA != nil{
+            aCoder.encode(audiencePullAddressA, forKey: "audiencePullAddressA")
+        }
+        if audiencePullAddressB != nil{
+            aCoder.encode(audiencePullAddressB, forKey: "audiencePullAddressB")
         }
         if id != nil{
             aCoder.encode(id, forKey: "id")
         }
+        if playerAccountId != nil{
+            aCoder.encode(playerAccountId, forKey: "playerAccountId")
+        }
         
     }
-    
 }
 
-class CameraDTOList : NSObject, NSCoding{
+class HeaderModel : NSObject, NSCoding{
     
-    var id : Int!
-    var neteaseAccountId : String!
-    var neteaseChannelId : String!
-    var neteasePullAddress : String!
-    var type : Int!
+    var currentPlayStatus : Int!
+    var currentPlayerId : Int!
+    var userList : [Int]!
+    var headerModel : HeaderModel!
+    var code : Int!
+    var message : String!
     
     
     /**
      * Instantiate the instance using the passed dictionary values to set the properties values
      */
     init(fromDictionary dictionary: NSDictionary){
-        id = dictionary["id"] as? Int
-        neteaseAccountId = dictionary["neteaseAccountId"] as? String
-        neteaseChannelId = dictionary["neteaseChannelId"] as? String
-        neteasePullAddress = dictionary["neteasePullAddress"] as? String
-        type = dictionary["type"] as? Int
+        currentPlayStatus = dictionary["currentPlayStatus"] as? Int
+        currentPlayerId = dictionary["currentPlayerId"] as? Int
+        userList = dictionary["userList"] as? [Int]
+        if let headerModelData = dictionary["HeaderModel"] as? NSDictionary{
+            headerModel = HeaderModel(fromDictionary: headerModelData)
+        }
+        code = dictionary["code"] as? Int
+        message = dictionary["message"] as? String
     }
     
     /**
@@ -169,20 +198,23 @@ class CameraDTOList : NSObject, NSCoding{
     func toDictionary() -> NSDictionary
     {
         let dictionary = NSMutableDictionary()
-        if id != nil{
-            dictionary["id"] = id
+        if currentPlayStatus != nil{
+            dictionary["currentPlayStatus"] = currentPlayStatus
         }
-        if neteaseAccountId != nil{
-            dictionary["neteaseAccountId"] = neteaseAccountId
+        if currentPlayerId != nil{
+            dictionary["currentPlayerId"] = currentPlayerId
         }
-        if neteaseChannelId != nil{
-            dictionary["neteaseChannelId"] = neteaseChannelId
+        if userList != nil{
+            dictionary["userList"] = userList
         }
-        if neteasePullAddress != nil{
-            dictionary["neteasePullAddress"] = neteasePullAddress
+        if headerModel != nil{
+            dictionary["HeaderModel"] = headerModel.toDictionary()
         }
-        if type != nil{
-            dictionary["type"] = type
+        if code != nil{
+            dictionary["code"] = code
+        }
+        if message != nil{
+            dictionary["message"] = message
         }
         return dictionary
     }
@@ -193,11 +225,12 @@ class CameraDTOList : NSObject, NSCoding{
      */
     @objc required init(coder aDecoder: NSCoder)
     {
-        id = aDecoder.decodeObject(forKey: "id") as? Int
-        neteaseAccountId = aDecoder.decodeObject(forKey: "neteaseAccountId") as? String
-        neteaseChannelId = aDecoder.decodeObject(forKey: "neteaseChannelId") as? String
-        neteasePullAddress = aDecoder.decodeObject(forKey: "neteasePullAddress") as? String
-        type = aDecoder.decodeObject(forKey: "type") as? Int
+        currentPlayStatus = aDecoder.decodeObject(forKey: "currentPlayStatus") as? Int
+        currentPlayerId = aDecoder.decodeObject(forKey: "currentPlayerId") as? Int
+        userList = aDecoder.decodeObject(forKey: "userList") as? [Int]
+        headerModel = aDecoder.decodeObject(forKey: "HeaderModel") as? HeaderModel
+        code = aDecoder.decodeObject(forKey: "code") as? Int
+        message = aDecoder.decodeObject(forKey: "message") as? String
         
     }
     
@@ -207,20 +240,23 @@ class CameraDTOList : NSObject, NSCoding{
      */
     @objc func encode(with aCoder: NSCoder)
     {
-        if id != nil{
-            aCoder.encode(id, forKey: "id")
+        if currentPlayStatus != nil{
+            aCoder.encode(currentPlayStatus, forKey: "currentPlayStatus")
         }
-        if neteaseAccountId != nil{
-            aCoder.encode(neteaseAccountId, forKey: "neteaseAccountId")
+        if currentPlayerId != nil{
+            aCoder.encode(currentPlayerId, forKey: "currentPlayerId")
         }
-        if neteaseChannelId != nil{
-            aCoder.encode(neteaseChannelId, forKey: "neteaseChannelId")
+        if userList != nil{
+            aCoder.encode(userList, forKey: "userList")
         }
-        if neteasePullAddress != nil{
-            aCoder.encode(neteasePullAddress, forKey: "neteasePullAddress")
+        if headerModel != nil{
+            aCoder.encode(headerModel, forKey: "HeaderModel")
         }
-        if type != nil{
-            aCoder.encode(type, forKey: "type")
+        if code != nil{
+            aCoder.encode(code, forKey: "code")
+        }
+        if message != nil{
+            aCoder.encode(message, forKey: "message")
         }
         
     }

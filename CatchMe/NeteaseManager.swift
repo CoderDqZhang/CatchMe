@@ -20,6 +20,8 @@ class NeteaseManager: NSObject {
         self.registerAPPKey()
     }
     
+    static let shareInstance = NeteaseManager.init()
+    
     func registerAPPKey(){
         let options = NIMSDKOption.init(appKey: WANGYIIMAPPKEY)
         NIMSDK.shared().register(with: options)

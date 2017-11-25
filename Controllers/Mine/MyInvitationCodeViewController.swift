@@ -73,7 +73,7 @@ class MyInvitationCodeViewController: BaseViewController {
         myInvitation.font = App_Theme_PinFan_M_16_Font
         myInvitation.textColor = UIColor.init(hexString: App_Theme_000000_Color)
         self.view.addSubview(myInvitation)
-        
+        GLoabelViewLabel.addLabel(label: myInvitation, view: self.view)
         myInvitation.snp.makeConstraints { (make) in
             make.centerX.equalTo(self.view.snp.centerX).offset(0)
             make.top.equalTo(self.conversionBtn.snp.bottom).offset(96)

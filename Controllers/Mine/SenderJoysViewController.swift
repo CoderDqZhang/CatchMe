@@ -10,6 +10,8 @@ import UIKit
 
 class SenderJoysViewController: BaseViewController {
 
+    var bottomView:UIView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.bindViewModel(viewModel: SenderJoysViewModel(), controller: self)
@@ -20,6 +22,23 @@ class SenderJoysViewController: BaseViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    override func setUpView() {
+        bottomView = UIView.init()
+        bottomView.backgroundColor = UIColor.init(hexString: App_Theme_FAFAFA_Color)
+        self.view.addSubview(bottomView)
+        
+        bottomView.snp.makeConstraints { (make) in
+            make.bottom.equalTo(self.view.snp.bottom).offset(0)
+            make.size.equalTo(CGSize.init(width: SCREENWIDTH, height: 80))
+            make.centerX.equalTo(self.view.snp.centerX).offset(0)
+        }
+        
+        let button = CustomButton.init(frame: CGRect.init(x: (SCREENWIDTH - 200)/2, y: 0, width: 200, height: 46), title: "支付并发货", tag: 10, titleFont: App_Theme_PinFan_M_17_Font!, type: CustomButtonType.withBackBoarder) { (tag) in
+            
+        }
+        bottomView.addSubview(button)
     }
     
 
