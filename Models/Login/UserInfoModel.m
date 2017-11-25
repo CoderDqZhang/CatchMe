@@ -11,6 +11,7 @@
 NSString *const kHomeLabelsGender = @"gender";
 NSString *const kHomeLabelsIdField = @"id";
 NSString *const kHomeLabelsNeteaseAccountId = @"neteaseAccountId";
+NSString *const kHomeLabelsNeteaseToken = @"neteaseToken";
 NSString *const kHomeLabelsPhoto = @"photo";
 NSString *const kHomeLabelsRegisterType = @"registerType";
 NSString *const kHomeLabelsShareCode = @"shareCode";
@@ -60,6 +61,9 @@ static UserInfoModel *_instance = nil;
     
     if(![dictionary[kHomeLabelsNeteaseAccountId] isKindOfClass:[NSNull class]]){
         self.neteaseAccountId = dictionary[kHomeLabelsNeteaseAccountId];
+    }
+    if(![dictionary[kHomeLabelsToken] isKindOfClass:[NSNull class]]){
+        self.neteaseToken = dictionary[kHomeLabelsToken];
     }
     if(![dictionary[kHomeLabelsPhoto] isKindOfClass:[NSNull class]]){
         self.photo = dictionary[kHomeLabelsPhoto];
@@ -128,6 +132,9 @@ static UserInfoModel *_instance = nil;
     if(self.wechatOpenid != nil){
         dictionary[kHomeLabelsWechatOpenid] = self.wechatOpenid;
     }
+    if(self.neteaseToken != nil){
+        dictionary[kHomeLabelsToken] = self.neteaseToken;
+    }
     return dictionary;
     
 }
@@ -140,9 +147,14 @@ static UserInfoModel *_instance = nil;
  */
 - (void)encodeWithCoder:(NSCoder *)aCoder
 {
-    [aCoder encodeObject:@(self.gender) forKey:kHomeLabelsGender];    [aCoder encodeObject:self.idField forKey:kHomeLabelsIdField];    if(self.neteaseAccountId != nil){
+    [aCoder encodeObject:@(self.gender) forKey:kHomeLabelsGender];    [aCoder encodeObject:self.idField forKey:kHomeLabelsIdField];
+    if(self.neteaseAccountId != nil){
         [aCoder encodeObject:self.neteaseAccountId forKey:kHomeLabelsNeteaseAccountId];
     }
+    if(self.neteaseToken != nil){
+        [aCoder encodeObject:self.neteaseToken forKey:kHomeLabelsToken];
+    }
+    
     if(self.photo != nil){
         [aCoder encodeObject:self.photo forKey:kHomeLabelsPhoto];
     }
@@ -165,6 +177,7 @@ static UserInfoModel *_instance = nil;
         [aCoder encodeObject:self.wechatOpenid forKey:kHomeLabelsWechatOpenid];
     }
     
+    
 }
 
 /**
@@ -176,6 +189,7 @@ static UserInfoModel *_instance = nil;
     self.gender = [[aDecoder decodeObjectForKey:kHomeLabelsGender] integerValue];
     self.idField = [[aDecoder decodeObjectForKey:kHomeLabelsIdField] stringValue];
     self.neteaseAccountId = [aDecoder decodeObjectForKey:kHomeLabelsNeteaseAccountId];
+    self.neteaseToken = [aDecoder decodeObjectForKey:kHomeLabelsToken];
     self.photo = [aDecoder decodeObjectForKey:kHomeLabelsPhoto];
     self.registerType = [[aDecoder decodeObjectForKey:kHomeLabelsRegisterType] integerValue];
     self.shareCode = [aDecoder decodeObjectForKey:kHomeLabelsShareCode];
@@ -199,6 +213,7 @@ static UserInfoModel *_instance = nil;
     copy.gender = self.gender;
     copy.idField = self.idField;
     copy.neteaseAccountId = [self.neteaseAccountId copy];
+    copy.neteaseToken = [self.neteaseToken copy];
     copy.photo = [self.photo copy];
     copy.registerType = self.registerType;
     copy.shareCode = [self.shareCode copy];
@@ -227,10 +242,11 @@ static UserInfoModel *_instance = nil;
         [UserInfoModel shareInstance].gender = 0;
         [UserInfoModel shareInstance].idField = nil;
         [UserInfoModel shareInstance].photo = nil;
-        [UserInfoModel shareInstance].registerType = nil;
+        [UserInfoModel shareInstance].neteaseToken = nil;
+        [UserInfoModel shareInstance].registerType = 0;
         [UserInfoModel shareInstance].shareCode = nil;
         [UserInfoModel shareInstance].shareNum = nil;
-        [UserInfoModel shareInstance].shareStatus = nil;
+        [UserInfoModel shareInstance].shareStatus = 0;
         [UserInfoModel shareInstance].telephone = nil;
         [UserInfoModel shareInstance].userName = nil;
         [UserInfoModel shareInstance].neteaseAccountId = nil;

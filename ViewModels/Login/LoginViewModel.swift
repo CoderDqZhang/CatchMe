@@ -53,10 +53,10 @@ class LoginViewModel: BaseViewModel {
     
     func loginNetNetease(){
         let loginData = NIMAutoLoginData.init()
-        loginData.token = UserInfoModel.shareInstance().neteaseAccountId
-        loginData.account = "\(UserInfoModel.shareInstance().idField)"
+        loginData.account = UserInfoModel.shareInstance().neteaseAccountId
+        loginData.token = UserInfoModel.shareInstance().neteaseToken
         loginData.forcedMode = true
-        NIMSDK.shared().loginManager.login(UserInfoModel.shareInstance().idField!, token: UserInfoModel.shareInstance().neteaseAccountId) { (error) in
+        NIMSDK.shared().loginManager.login(UserInfoModel.shareInstance().neteaseAccountId!, token: UserInfoModel.shareInstance().neteaseToken) { (error) in
             if error == nil {
                 print("登录成功")
             }

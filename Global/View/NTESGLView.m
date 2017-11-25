@@ -29,7 +29,6 @@
         _overlay.is_private = 0;
         _overlay.sar_num = 0;
         _overlay.sar_den = 0;
-        
     }
     return self;
 }

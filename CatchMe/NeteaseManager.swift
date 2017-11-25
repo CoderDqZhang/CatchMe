@@ -34,8 +34,8 @@ class NeteaseManager: NSObject {
     
     func setAutoLogin(){
         let loginData = NIMAutoLoginData.init()
-        loginData.account = UserInfoModel.shareInstance().idField!
-        loginData.token = UserInfoModel.shareInstance().neteaseAccountId!
+        loginData.token = UserInfoModel.shareInstance().neteaseToken!
+        loginData.account = UserInfoModel.shareInstance().neteaseAccountId!
         NIMSDK.shared().loginManager.autoLogin(loginData)
     }
 }
@@ -95,7 +95,9 @@ extension NeteaseManager : NIMLoginManagerDelegate {
     //自动登录失败回调
     func onAutoLoginFailed(_ error: Error) {
         _ = Tools.shareInstance.showMessage(KWINDOWDS(), msg: "自动登录失败", autoHidder: true)
-        loginHud.hide(animated: true)
+        if loginHud != nil {
+            loginHud.hide(animated: true)
+        }
     }
 }
 

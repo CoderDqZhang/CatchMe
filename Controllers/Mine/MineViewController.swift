@@ -54,7 +54,7 @@ class MineViewController: BaseViewController {
     }
     
     @objc func rightBarItemPress(){
-        
+        UserInfoModel.logout()
     }
 
     override func didReceiveMemoryWarning() {

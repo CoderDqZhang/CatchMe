@@ -10,6 +10,8 @@
 
 @interface NTESGLView : NTESIJKSDLGLView
 
+@property (nonatomic, strong) UIImageView *imageView;
+
 - (void) render: (NSData *)yuvData
           width:(NSUInteger)width
          height:(NSUInteger)height;

@@ -135,7 +135,7 @@ class CacheMeViewModel: BaseViewModel {
                     if !resultDic.isCompleted {
                         //排队成功调用
                         //                self.doDestroyPlay()
-                        //                self.cacheMeController.setUpCountDownView()
+//                                        self.cacheMeController.setUpCountDownView()
                         //                cacheMeViewModel.playGame()
                     }
                 }
@@ -165,13 +165,13 @@ class CacheMeViewModel: BaseViewModel {
             }
         }
         
-        if #available(iOS 10.0, *) {
-            time = Timer.scheduledTimer(withTimeInterval: 5, repeats: true, block: { (time) in
-                self.getGameStaus()
-            })
-        } else {
-            // Fallback on earlier versions
-        }
+//        if #available(iOS 10.0, *) {
+//            time = Timer.scheduledTimer(withTimeInterval: 5, repeats: true, block: { (time) in
+//                self.getGameStaus()
+//            })
+//        } else {
+//            // Fallback on earlier versions
+//        }
         
     }
     
@@ -231,18 +231,22 @@ extension CacheMeViewModel : NIMNetCallManagerDelegate {
     }
     
     func onRemoteImageReady(_ image: CGImage) {
-        
+        if cacheMeController.remoteGLView == nil {
+            cacheMeController.initRemoteGlView()
+        }
+        self.cacheMeController.remoteGLView.image = UIImage.init(cgImage: image)
     }
     
     func onAudioMixTaskCompleted() {
         
     }
     
+    //YUVdata数据直接渲染
     func onRemoteYUVReady(_ yuvData: Data, width: UInt, height: UInt, from user: String) {
-        if cacheMeController.remoteGLView == nil {
-            cacheMeController.initRemoteGlView()
-        }
-        cacheMeController.remoteGLView.render(yuvData, width: width, height: height)
+//        if cacheMeController.remoteGLView == nil {
+//            cacheMeController.initRemoteGlView()
+//        }
+//        cacheMeController.remoteGLView.render(yuvData, width: width, height: height)
     }
     
     func onControl(_ callID: UInt64, from user: String, type control: NIMNetCallControlType) {

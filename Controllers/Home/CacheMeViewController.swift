@@ -14,13 +14,14 @@ class CacheMeViewController: BaseViewController {
 
     var liveplayer:NELivePlayer!
     var player:NELivePlayerController!
-    var remoteGLView:NTESGLView!
 
     var localPreView:LocalPreView!
     var bottomToolsView:CacheMeToolsView!
     var cacheMeTopView:CacheMeTopView!
     var gameToolsView:GameToolsView!
     var switchCamera:UIButton!
+    
+    var remoteGLView:UIImageView!
     
     var roomModel:Labels!
     
@@ -40,11 +41,11 @@ class CacheMeViewController: BaseViewController {
         self.initRemoteGlView()
         self.doInitPlayerNotication()
         self.setUpPlayGameView()
+        self.setUpPlayer(url: url)
         self.setUpToolsView()
         self.setUpCacheMeTopView()
         self.setUpCameraView()
         self.setUpGameView()
-        
         // Do any additional setup after loading the view.
     }
     
@@ -105,8 +106,7 @@ class CacheMeViewController: BaseViewController {
     
     //创建游戏者视频界面
     func initRemoteGlView(){
-        remoteGLView = NTESGLView.init(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: SCREENHEIGHT))
-        remoteGLView.backgroundColor = UIColor.init(hexString: App_Theme_000000_Color, andAlpha: 0.01)
+        remoteGLView = UIImageView.init(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: SCREENHEIGHT))
         remoteGLView.isHidden = true
         self.view.addSubview(remoteGLView)
     }
@@ -180,6 +180,8 @@ class CacheMeViewController: BaseViewController {
                         let now = count -  1
                         if now == 0 {
                             self.cacheMeViewModel.playGameGo()
+                            self.time.invalidate()
+                            self.time = nil
                         }
                         self.countDown.text = "\(now)"
                     }
@@ -211,7 +213,42 @@ class CacheMeViewController: BaseViewController {
     }
     
     @objc func playGame(){
-        cacheMeViewModel.gameStart()
+        let option = NIMNetCallOption.init()
+        self.fillUserSetting(option)
+        NIMAVChatSDK.shared().netCallManager.start(["caiji"], type: NIMNetCallMediaType.video, option: option) { (error, nil) in
+            if error == nil {
+                self.setUpCountDownView()
+                self.cacheMeViewModel.playGame()
+                self.cacheMeViewModel.doDestroyPlay()
+            }
+        }
+        
+//        cacheMeViewModel.gameStart()
+    }
+    
+    func fillUserSetting(_ options:NIMNetCallOption) {
+//        options.autoRotateRemoteVideo = true
+
+        options.preferredVideoEncoder = NIMNetCallVideoCodec.default
+        options.preferredVideoDecoder = NIMNetCallVideoCodec.default
+//        options.videoMaxEncodeBitrate = 10000
+//        options.autoDeactivateAudioSession = true
+//        options.audioDenoise = true
+//        options.voiceDetect = true
+//        options.audioHowlingSuppress = false
+//        options.scene = NIMAVChatScene.default
+//        options.stopVideoCaptureOnLeave = true
+//        
+//        let captureParam = NIMNetCallVideoCaptureParam.init()
+//        self.fillVideoCaptureSetting(captureParam)
+//        options.videoCaptureParam = captureParam
+    }
+    
+    func fillVideoCaptureSetting(_ param:NIMNetCallVideoCaptureParam) {
+        
+        param.preferredVideoQuality = .qualityLow
+        param.format = NIMNetCallVideoCaptureFormat.format420v
+        param.videoCrop = NIMNetCallVideoCrop.crop1x1
     }
     
     func doInitPlayerNotication(){
