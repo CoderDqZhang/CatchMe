@@ -92,6 +92,30 @@ class CacheMeViewModel: BaseViewModel {
         }
     }
     
+    //配置属性
+    func fillUserSetting(_ options:NIMNetCallOption) {
+        options.preferredVideoEncoder = NIMNetCallVideoCodec.default
+        options.preferredVideoDecoder = NIMNetCallVideoCodec.default
+    }
+    //配置属性
+    func fillVideoCaptureSetting(_ param:NIMNetCallVideoCaptureParam) {
+        
+        param.preferredVideoQuality = .qualityLow
+        param.format = NIMNetCallVideoCaptureFormat.format420v
+        param.videoCrop = NIMNetCallVideoCrop.crop1x1
+    }
+    //建立点对点连接
+    func makeGameToUser(){
+        let option = NIMNetCallOption.init()
+        self.fillUserSetting(option)
+        NIMAVChatSDK.shared().netCallManager.start([self.catchMeModel.machineDTO.playerAccountId], type: NIMNetCallMediaType.video, option: option) { (error, nil) in
+            if error == nil {
+                self.cacheMeController.setUpCountDownView()
+                self.playGame()
+            }
+        }
+    }
+    
     //MARK: Networking
 
     //进入房间
@@ -101,7 +125,9 @@ class CacheMeViewModel: BaseViewModel {
             if !resultDic.isCompleted {
                 self.catchMeModel = CatchMeModel.init(fromDictionary: resultDic.value as! NSDictionary)
                 //心跳接口
-                self.requestHeader()
+                self.timeHeader = Timer.every(1, {
+                    self.requestHeader()
+                })
             }
         }
     }
@@ -134,9 +160,8 @@ class CacheMeViewModel: BaseViewModel {
                 BaseNetWorke.sharedInstance.getUrlWithString(ExitRoom, parameters: parameters as AnyObject).observe { (resultDic) in
                     if !resultDic.isCompleted {
                         //排队成功调用
-                        //                self.doDestroyPlay()
-//                                        self.cacheMeController.setUpCountDownView()
-                        //                cacheMeViewModel.playGame()
+                        self.makeGameToUser()
+                        self.doDestroyPlay()
                     }
                 }
             }
@@ -165,14 +190,9 @@ class CacheMeViewModel: BaseViewModel {
             }
         }
         
-//        if #available(iOS 10.0, *) {
-//            time = Timer.scheduledTimer(withTimeInterval: 5, repeats: true, block: { (time) in
-//                self.getGameStaus()
-//            })
-//        } else {
-//            // Fallback on earlier versions
-//        }
-        
+        time = Timer.every(3, {
+            self.getGameStaus()
+        })
     }
     
     //获取游戏结果

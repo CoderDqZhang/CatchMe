@@ -422,19 +422,15 @@ class GloableAlertView: UIView {
         
         if type == .catchfail {
             var number = 5
-            if #available(iOS 10.0, *) {
-                time = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { (time) in
-                    number = number - 1
-                    if number == 0 {
-                        self.removeSelf()
-                        self.gloableAlertViewClouse(300)
-                        self.time.invalidate()
-                    }
-                    topButton.setTitle("再试一次\(number)s", for: .normal)
-                })
-            } else {
-                // Fallback on earlier versions
-            }
+            time = Timer.every(1, {
+                number = number - 1
+                if number == 0 {
+                    self.removeSelf()
+                    self.gloableAlertViewClouse(300)
+                    self.time.invalidate()
+                }
+                topButton.setTitle("再试一次\(number)s", for: .normal)
+            })
         }else if type == .topupfail{
             btn.backgroundColor = UIColor.init(hexString: App_Theme_CCCCCC_Color)
         }

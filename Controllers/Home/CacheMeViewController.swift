@@ -173,22 +173,16 @@ class CacheMeViewController: BaseViewController {
                 make.right.equalTo(self.view.snp.right).offset(-61)
                 make.bottom.equalTo(self.view.snp.bottom).offset(-141)
             }
-            if #available(iOS 10.0, *) {
-                if time == nil {
-                    time = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { (time) in
-                        let count = (self.countDown.text! as NSString).integerValue
-                        let now = count -  1
-                        if now == 0 {
-                            self.cacheMeViewModel.playGameGo()
-                            self.time.invalidate()
-                            self.time = nil
-                        }
-                        self.countDown.text = "\(now)"
-                    }
+            time = Timer.every(1, {
+                let count = (self.countDown.text! as NSString).integerValue
+                let now = count -  1
+                if now == 0 {
+                    self.cacheMeViewModel.playGameGo()
+                    self.time.invalidate()
+                    self.time = nil
                 }
-            } else {
-                // Fallback on earlier versions
-            }
+                self.countDown.text = "\(now)"
+            })
         }
         
     }
@@ -213,43 +207,10 @@ class CacheMeViewController: BaseViewController {
     }
     
     @objc func playGame(){
-        let option = NIMNetCallOption.init()
-        self.fillUserSetting(option)
-        NIMAVChatSDK.shared().netCallManager.start(["caiji"], type: NIMNetCallMediaType.video, option: option) { (error, nil) in
-            if error == nil {
-                self.setUpCountDownView()
-                self.cacheMeViewModel.playGame()
-                self.cacheMeViewModel.doDestroyPlay()
-            }
-        }
-        
-//        cacheMeViewModel.gameStart()
+        cacheMeViewModel.gameStart()
     }
     
-    func fillUserSetting(_ options:NIMNetCallOption) {
-//        options.autoRotateRemoteVideo = true
-
-        options.preferredVideoEncoder = NIMNetCallVideoCodec.default
-        options.preferredVideoDecoder = NIMNetCallVideoCodec.default
-//        options.videoMaxEncodeBitrate = 10000
-//        options.autoDeactivateAudioSession = true
-//        options.audioDenoise = true
-//        options.voiceDetect = true
-//        options.audioHowlingSuppress = false
-//        options.scene = NIMAVChatScene.default
-//        options.stopVideoCaptureOnLeave = true
-//        
-//        let captureParam = NIMNetCallVideoCaptureParam.init()
-//        self.fillVideoCaptureSetting(captureParam)
-//        options.videoCaptureParam = captureParam
-    }
     
-    func fillVideoCaptureSetting(_ param:NIMNetCallVideoCaptureParam) {
-        
-        param.preferredVideoQuality = .qualityLow
-        param.format = NIMNetCallVideoCaptureFormat.format420v
-        param.videoCrop = NIMNetCallVideoCrop.crop1x1
-    }
     
     func doInitPlayerNotication(){
 //        NotificationCenter.default.addObserver(self, selector: #selector(NELivePlayerDidPreparedToPlay(notification:)), name: NELivePlayerDidPreparedToPlayNotification, object: self.liveplayer)

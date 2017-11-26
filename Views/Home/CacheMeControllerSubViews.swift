@@ -15,6 +15,8 @@ class CacheMeControllerSubViews: NSObject {
 typealias TopViewBackButtonClouse = () ->Void
 class CacheMeTopView : UIView {
     var backButton:UIButton!
+    var playUser:UIView!
+    var roomsUser:UIView!
     
     init(frame: CGRect,topViewBackButtonClouse:@escaping TopViewBackButtonClouse) {
         super.init(frame: frame)
@@ -25,11 +27,113 @@ class CacheMeTopView : UIView {
         backButton.titleLabel?.textAlignment = .center
         backButton.setImage(UIImage.init(named: "close_1"), for: .normal)
         backButton.setTitleColor(UIColor.init(hexString: App_Theme_FC4652_Color), for: .normal)
-        backButton.frame = CGRect.init(x: SCREENWIDTH - 56, y: 34, width: 46, height: 46)
+        backButton.frame = CGRect.init(x: SCREENWIDTH - 56, y: 39, width: 46, height: 46)
         backButton.reactive.controlEvents(.touchUpInside).observe { (action) in
             topViewBackButtonClouse()
         }
         self.addSubview(backButton)
+        
+        self.setUpPlayUser()
+        self.setUpRoomsUsers()
+    }
+    
+    func setUpPlayUser(){
+        playUser = UIView.init()
+        playUser.backgroundColor = UIColor.init(hexString: App_Theme_000000_Color, andAlpha: 0.4)
+        playUser.layer.cornerRadius = 28.5
+        self.addSubview(playUser)
+        
+        playUser.snp.makeConstraints { (make) in
+            make.top.equalTo(self.snp.top).offset(34)
+            make.left.equalTo(self.snp.left).offset(-30)
+            make.right.equalTo(self.snp.left).offset(162)
+            make.height.equalTo(57)
+        }
+        
+        let avatar = UIImageView.init()
+        avatar.layer.cornerRadius = 22.5
+        avatar.backgroundColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
+        playUser.addSubview(avatar)
+        avatar.snp.makeConstraints { (make) in
+            make.left.equalTo(self.snp.left).offset(10)
+            make.centerY.equalTo(playUser.snp.centerY).offset(0)
+            make.size.equalTo(CGSize.init(width: 45, height: 45))
+        }
+        
+        let userName = UILabel.init()
+        userName.font = App_Theme_PinFan_M_14_Font
+        userName.text = "北京小分子"
+        userName.textColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
+        playUser.addSubview(userName)
+        userName.snp.makeConstraints { (make) in
+            make.left.equalTo(avatar.snp.right).offset(7)
+            make.top.equalTo(playUser.snp.top).offset(12)
+            make.right.equalTo(playUser.snp.right).offset(-7)
+        }
+        
+        let detail = UILabel.init()
+        detail.text = "正在抓..."
+        detail.font = App_Theme_PinFan_M_14_Font
+        detail.textColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
+        playUser.addSubview(detail)
+        detail.snp.makeConstraints { (make) in
+            make.left.equalTo(avatar.snp.right).offset(7)
+            make.top.equalTo(userName.snp.bottom).offset(1)
+            make.right.equalTo(playUser.snp.right).offset(-7)
+        }
+    }
+    
+    func setUpRoomsUsers(){
+        roomsUser = UIView.init()
+        roomsUser.backgroundColor = UIColor.clear
+        self.addSubview(roomsUser)
+        
+        roomsUser.snp.makeConstraints { (make) in
+            make.top.equalTo(self.snp.top).offset(34)
+            make.left.equalTo(self.playUser.snp.right).offset(29)
+            make.right.equalTo(backButton.snp.left).offset(-15)
+            make.height.equalTo(57)
+        }
+        
+        let avatar1 = UIImageView.init()
+        avatar1.layer.cornerRadius = 22.5
+        avatar1.backgroundColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
+        roomsUser.addSubview(avatar1)
+        avatar1.snp.makeConstraints { (make) in
+            make.right.equalTo(self.roomsUser.snp.right).offset(0)
+            make.centerY.equalTo(roomsUser.snp.centerY).offset(0)
+            make.size.equalTo(CGSize.init(width: 45, height: 45))
+        }
+        
+        let avatar2 = UIImageView.init()
+        avatar2.layer.cornerRadius = 22.5
+        avatar2.backgroundColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
+        roomsUser.addSubview(avatar2)
+        avatar2.snp.makeConstraints { (make) in
+            make.right.equalTo(avatar1.snp.centerX).offset(0)
+            make.centerY.equalTo(roomsUser.snp.centerY).offset(0)
+            make.size.equalTo(CGSize.init(width: 45, height: 45))
+        }
+        
+        let avatar3 = UIImageView.init()
+        avatar3.layer.cornerRadius = 22.5
+        avatar3.backgroundColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
+        roomsUser.addSubview(avatar3)
+        avatar3.snp.makeConstraints { (make) in
+            make.right.equalTo(avatar2.snp.centerX).offset(0)
+            make.centerY.equalTo(roomsUser.snp.centerY).offset(0)
+            make.size.equalTo(CGSize.init(width: 45, height: 45))
+        }
+        
+        let userName = UILabel.init()
+        userName.font = App_Theme_PinFan_M_20_Font
+        userName.text = "21"
+        userName.textColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
+        playUser.addSubview(userName)
+        userName.snp.makeConstraints { (make) in
+            make.right.equalTo(avatar3.snp.left).offset(-2)
+            make.centerY.equalTo(roomsUser.snp.centerY).offset(0)
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {
