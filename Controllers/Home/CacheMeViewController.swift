@@ -183,6 +183,15 @@ class CacheMeViewController: BaseViewController {
                 }
                 self.countDown.text = "\(now)"
             })
+            let seconds = UILabel.init()
+            seconds.text = "s"
+            seconds.font = App_Theme_PinFan_R_11_Font
+            seconds.textColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
+            self.view.addSubview(seconds)
+            seconds.snp.makeConstraints { (make) in
+                make.left.equalTo(self.countDown.snp.right).offset(2)
+                make.bottom.equalTo(self.countDown.snp.bottom).offset(0)
+            }
         }
         
     }

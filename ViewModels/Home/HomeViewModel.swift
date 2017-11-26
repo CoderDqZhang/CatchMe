@@ -55,7 +55,14 @@ class HomeViewModel: BaseViewModel {
         BaseNetWorke.sharedInstance.getUrlWithString(url, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
                 if resultDic.value != nil {
-                    self.models = HomeLabels.init(fromDictionary: resultDic.value as! NSDictionary)
+                    if pageIndex != "1" {
+                        let models = HomeLabels.init(fromDictionary: resultDic.value as! NSDictionary)
+                        for model in models.data {
+                            self.models.data.append(model)
+                        }
+                    }else{
+                        self.models = HomeLabels.init(fromDictionary: resultDic.value as! NSDictionary)
+                    }
                 }
                 (self.controller as! HomeViewController).collectView.reloadData()
             }
