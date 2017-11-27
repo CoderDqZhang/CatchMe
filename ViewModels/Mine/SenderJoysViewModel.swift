@@ -57,6 +57,15 @@ class SenderJoysViewModel: BaseViewModel {
             break
         }
     }
+    
+    func requestApplySenderJoy(){
+        BaseNetWorke.sharedInstance.postUrlWithString(ApplyShipments, parameters: nil).observe { (resultDic) in
+            if !resultDic.isCompleted {
+                self.model = MyCatchDollsModel.init(fromDictionary: resultDic.value! as! NSDictionary)
+                self.controller?.tableView.reloadData()
+            }
+        }
+    }
 }
 
 extension SenderJoysViewModel: UITableViewDelegate {

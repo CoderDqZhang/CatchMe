@@ -191,3 +191,78 @@ class Labels : NSObject, NSCoding{
     }
     
 }
+
+class BannerModel : NSObject, NSCoding{
+    
+    var bannerAddress : String!
+    var id : Int!
+    var sequence : Int!
+    var title : String!
+    
+    
+    /**
+     * Instantiate the instance using the passed dictionary values to set the properties values
+     */
+    init(fromDictionary dictionary: NSDictionary){
+        bannerAddress = dictionary["bannerAddress"] as? String
+        id = dictionary["id"] as? Int
+        sequence = dictionary["sequence"] as? Int
+        title = dictionary["title"] as? String
+    }
+    
+    /**
+     * Returns all the available property values in the form of NSDictionary object where the key is the approperiate json key and the value is the value of the corresponding property
+     */
+    func toDictionary() -> NSDictionary
+    {
+        let dictionary = NSMutableDictionary()
+        if bannerAddress != nil{
+            dictionary["bannerAddress"] = bannerAddress
+        }
+        if id != nil{
+            dictionary["id"] = id
+        }
+        if sequence != nil{
+            dictionary["sequence"] = sequence
+        }
+        if title != nil{
+            dictionary["title"] = title
+        }
+        return dictionary
+    }
+    
+    /**
+     * NSCoding required initializer.
+     * Fills the data from the passed decoder
+     */
+    @objc required init(coder aDecoder: NSCoder)
+    {
+        bannerAddress = aDecoder.decodeObject(forKey: "bannerAddress") as? String
+        id = aDecoder.decodeObject(forKey: "id") as? Int
+        sequence = aDecoder.decodeObject(forKey: "sequence") as? Int
+        title = aDecoder.decodeObject(forKey: "title") as? String
+        
+    }
+    
+    /**
+     * NSCoding required method.
+     * Encodes mode properties into the decoder
+     */
+    @objc func encode(with aCoder: NSCoder)
+    {
+        if bannerAddress != nil{
+            aCoder.encode(bannerAddress, forKey: "bannerAddress")
+        }
+        if id != nil{
+            aCoder.encode(id, forKey: "id")
+        }
+        if sequence != nil{
+            aCoder.encode(sequence, forKey: "sequence")
+        }
+        if title != nil{
+            aCoder.encode(title, forKey: "title")
+        }
+        
+    }
+    
+}

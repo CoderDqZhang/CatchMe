@@ -61,6 +61,15 @@ class MyJoyTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func cellSetData(model:Doll){
+        cacheTime.text = model.date
+        dollsName.text = model.skuName
+        UIImageViewManger.shareInstance.sd_imageView(url: model.imgAddress, imageView: dollsImage, placeholderImage: nil) { (image, error, cacheType, url) in
+            
+        }
+        
+    }
+    
     
     override func updateConstraints() {
         if !didMakeConstraints {

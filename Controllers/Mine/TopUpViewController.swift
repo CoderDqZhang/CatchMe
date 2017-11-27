@@ -20,9 +20,8 @@ class TopUpViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.bindViewModel(viewModel: TopUpViewModel.init(), controller: self)
-        self.setUpTopView()
         self.setUpPayButton()
-        
+        self.setUpBindLogic()
         // Do any additional setup after loading the view.
     }
 
@@ -31,9 +30,13 @@ class TopUpViewController: BaseViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    func setUpBindLogic(){
+        (self.viewModel as! TopUpViewModel).requestTopUp()
+    }
+    
     override func setUpView() {
         balance = UILabel.init()
-        balance.text = "账户余额 30 币"
+        balance.text = "账户余额 \(UserInfoModel.shareInstance().coinAmount!) 币"
         let strArray = balance.text?.components(separatedBy: " ")
         let attributedString = NSMutableAttributedString.init(string: balance.text!)
         attributedString.addAttributes([NSAttributedStringKey.font:App_Theme_PinFan_R_20_Font!,NSAttributedStringKey.foregroundColor:UIColor.init(hexString: App_Theme_333333_Color)!], range: NSRange.init(location: 0, length: strArray![0].count))
@@ -51,7 +54,7 @@ class TopUpViewController: BaseViewController {
     func setUpPayButton(){
         let payView = UIView.init(frame: CGRect.init(x: 0, y: 382, width: SCREENWIDTH, height: SCREENHEIGHT - 382))
         self.view.addSubview(payView)
-        if !WXApi.isWXAppInstalled() {
+        if WXApi.isWXAppInstalled() {
             let weixinPay = UIButton.init(type: .custom)
             weixinPay.setImage(UIImage.init(named: "wechat_pay"), for: .normal)
             weixinPay.backgroundColor = UIColor.init(hexString: App_Theme_41B035_Color)
@@ -88,7 +91,7 @@ class TopUpViewController: BaseViewController {
     }
     
     func setUpTopView(){
-        topUpMuchView = TopUpMuchView.init(frame: CGRect.init(x: 0, y: 96, width: SCREENWIDTH, height: 220))
+        topUpMuchView = TopUpMuchView.init(frame: CGRect.init(x: 0, y: 96, width: SCREENWIDTH, height: 220), models:(self.viewModel as! TopUpViewModel).models)
         topUpMuchView.topUpMuchViewClouse = { tag in
             (self.viewModel as! TopUpViewModel).topUpMuch = tag
         }

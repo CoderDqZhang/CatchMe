@@ -26,7 +26,8 @@
 @property (nonatomic, copy) NSString * token;
 @property (nonatomic, copy) NSString * userName;
 @property (nonatomic, copy) NSString * wechatOpenid;
-    
+@property (nonatomic, copy) NSString * coinAmount;
+
 + (instancetype)shareInstance;
         
 + (BOOL)logout;

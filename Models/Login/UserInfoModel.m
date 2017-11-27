@@ -21,6 +21,7 @@ NSString *const kHomeLabelsTelephone = @"telephone";
 NSString *const kHomeLabelsToken = @"token";
 NSString *const kHomeLabelsUserName = @"userName";
 NSString *const kHomeLabelsWechatOpenid = @"wechatOpenid";
+NSString *const kHomeLabelsCoinAmount = @"coinAmount";
 
 @interface UserInfoModel ()
 
@@ -57,6 +58,9 @@ static UserInfoModel *_instance = nil;
     
     if(![dictionary[kHomeLabelsIdField] isKindOfClass:[NSNull class]]){
         self.idField = [dictionary[kHomeLabelsIdField] stringValue];
+    }
+    if(![dictionary[kHomeLabelsCoinAmount] isKindOfClass:[NSNull class]]){
+        self.coinAmount = [dictionary[kHomeLabelsCoinAmount] stringValue];
     }
     
     if(![dictionary[kHomeLabelsNeteaseAccountId] isKindOfClass:[NSNull class]]){
@@ -106,6 +110,7 @@ static UserInfoModel *_instance = nil;
     NSMutableDictionary * dictionary = [NSMutableDictionary dictionary];
     dictionary[kHomeLabelsGender] = @(self.gender);
     dictionary[kHomeLabelsIdField] = self.idField;
+    dictionary[kHomeLabelsCoinAmount] = self.coinAmount;
     if(self.neteaseAccountId != nil){
         dictionary[kHomeLabelsNeteaseAccountId] = self.neteaseAccountId;
     }
@@ -155,6 +160,10 @@ static UserInfoModel *_instance = nil;
         [aCoder encodeObject:self.neteaseToken forKey:kHomeLabelsToken];
     }
     
+    if(self.coinAmount != nil){
+        [aCoder encodeObject:self.coinAmount forKey:kHomeLabelsCoinAmount];
+    }
+    
     if(self.photo != nil){
         [aCoder encodeObject:self.photo forKey:kHomeLabelsPhoto];
     }
@@ -197,6 +206,7 @@ static UserInfoModel *_instance = nil;
     self.shareStatus = [[aDecoder decodeObjectForKey:kHomeLabelsShareStatus] integerValue];
     self.telephone = [aDecoder decodeObjectForKey:kHomeLabelsTelephone];
     self.token = [aDecoder decodeObjectForKey:kHomeLabelsToken];
+    self.coinAmount = [aDecoder decodeObjectForKey:kHomeLabelsCoinAmount];
     self.userName = [aDecoder decodeObjectForKey:kHomeLabelsUserName];
     self.wechatOpenid = [aDecoder decodeObjectForKey:kHomeLabelsWechatOpenid];
     return self;
@@ -223,7 +233,7 @@ static UserInfoModel *_instance = nil;
     copy.token = [self.token copy];
     copy.userName = [self.userName copy];
     copy.wechatOpenid = [self.wechatOpenid copy];
-    
+    copy.coinAmount = [self.coinAmount copy];
     return copy;
 }
 
@@ -251,6 +261,7 @@ static UserInfoModel *_instance = nil;
         [UserInfoModel shareInstance].userName = nil;
         [UserInfoModel shareInstance].neteaseAccountId = nil;
         [UserInfoModel shareInstance].token = nil;
+        [UserInfoModel shareInstance].coinAmount = nil;
         return [UserInfoModel deleteObjectsByCriteria:[NSString stringWithFormat:@" where telephone = '%@'", [UserInfoModel shareInstance].telephone]];
     }
 

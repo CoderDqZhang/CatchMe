@@ -21,6 +21,8 @@ let LoginUrl = "\(BaseURL)user/login"
 let LoginCode = "\(BaseURL)captcha"
 //首页房间
 let HomeRooms = "\(BaseURL)rooms"
+//首页Banner
+let Banner = "\(BaseURL)banners"
 //进入房间
 let EnterRooms = "\(BaseURL)room/enter"
 //退出房间
@@ -37,6 +39,18 @@ let MoveGame = "\(BaseURL)move"
 let ShootGame = "\(BaseURL)shoot"
 //游戏结果
 let GameStatus = "\(BaseURL)status"
+//充值接口
+let TopUp = "\(BaseURL)recharge/findRechargeRateRuleDTOList"
+//获取支付宝充值信息
+let AliPayInfo = "\(BaseURL)recharge/getRechargeAliPayInfo"
+//问题反馈
+let FeedBack = "\(BaseURL)feedback"
+//兑换邀请码
+let ShareCode = "\(BaseURL)shareCode"
+//我抓到的娃娃
+let CatchedDolls = "\(BaseURL)myCatchedDolls"
+//申请发货
+let ApplyShipments = "\(BaseURL)apply/shipments"
 
 //9.106.137.21:8201/rooms?offset=1&limit=20&userId=1
 ////首页房间李彪，offset从1开始

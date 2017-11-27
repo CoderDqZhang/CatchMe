@@ -20,6 +20,7 @@ class MyInvitationCodeViewController: BaseViewController {
     var invitationLabel:UILabel!
     var sharBtn:UIButton!
     
+    var shareCode:String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,7 +39,7 @@ class MyInvitationCodeViewController: BaseViewController {
         textField.keyboardType = .numberPad
         textField.font = App_Theme_PinFan_R_14_Font
         textField.reactive.continuousTextValues.observeValues { (str) in
-            
+            self.shareCode = str!
         }
         textField.textColor = UIColor.init(hexString: App_Theme_333333_Color)
         self.view.addSubview(textField)
@@ -127,6 +128,15 @@ class MyInvitationCodeViewController: BaseViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func requestShareCode(){
+        let parameters = ["shareCode":self.shareCode]
+        BaseNetWorke.sharedInstance.postUrlWithString(shareCode, parameters: parameters as AnyObject).observe { (resultDic) in
+            if !resultDic.isCompleted {
+                _ = Tools.shareInstance.showMessage(KWINDOWDS(), msg: "兑换成功", autoHidder: true)
+            }
+        }
     }
     
 

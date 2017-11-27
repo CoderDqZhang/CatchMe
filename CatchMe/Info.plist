@@ -25,7 +25,7 @@
 			<string>alipay</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>LiangPiaoAlipay</string>
+				<string>CatchMeAlipay</string>
 			</array>
 		</dict>
 		<dict>

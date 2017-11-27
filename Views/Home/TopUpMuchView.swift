@@ -107,20 +107,24 @@ typealias TopUpMuchViewClouse = (_ tag:Int) -> Void
 class TopUpMuchView: UIView {
 
     var topUpMuchViewClouse:TopUpMuchViewClouse!
-    override init(frame: CGRect) {
+    var models:NSMutableArray!
+    
+    init(frame: CGRect,models:NSMutableArray) {
         super.init(frame: frame)
-        self.setUpView()
+        self.models = models
+        self.setUpView(models:models)
     }
     
-    func setUpView(){
-        let icon = ["100币","230币","590币","1200币","2420币","6100币"]
-        let much = ["￥10.00","￥20.00","￥50.00","￥100.00","￥200.00","￥500.00"]
-        for i in 1...6 {
+    func setUpView(models:NSMutableArray){
+//        let icon = ["100币","230币","590币","1200币","2420币","6100币"]
+//        let much = ["￥10.00","￥20.00","￥50.00","￥100.00","￥200.00","￥500.00"]
+        for i in 1...models.count {
             let frame = CGRect.init(x: (i - 1) % 2 == 0 ? 20 : SCREENWIDTH/2 + 7.5, y: CGFloat((i-1) / 2 * 80), width: (SCREENWIDTH - 40 - 15)/2, height: 60)
             let muchView = MuchView.init(frame: frame)
             muchView.tag = i
             self.setUpSingleTap(muchView: muchView)
-            muchView.setUpMuchViewData(much: much[i - 1], icon: icon[i - 1])
+            let model = TopUpModel.init(fromDictionary: models[i - 1] as! NSDictionary)
+            muchView.setUpMuchViewData(much: "￥\(model.rechargeMoney!)", icon: "\(model.rechargeCoin!)币")
             if i == 1 {
                 muchView.changeType(type: .select)
             }else{
@@ -139,7 +143,7 @@ class TopUpMuchView: UIView {
     
     @objc func singTap(tag:UITapGestureRecognizer){
         let viewTag = tag.view?.tag
-        for i in 1...6 {
+        for i in 1...self.models.count {
             let muchView = self.viewWithTag(i) as! MuchView
             if i == viewTag {
                 muchView.changeType(type: .select)

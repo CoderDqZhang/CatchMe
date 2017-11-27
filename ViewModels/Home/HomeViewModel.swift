@@ -12,8 +12,11 @@ class HomeViewModel: BaseViewModel {
 
     var pageIndex:String = "1"
     var models:HomeLabels!
+    var banners:NSMutableArray!
+    var headerView:BannerCollectionReusableView!
     override init() {
         super.init()
+        self.requestBanner()
     }
     
     //MARK: UICollectionCellSetData
@@ -28,12 +31,36 @@ class HomeViewModel: BaseViewModel {
     }
     
     func cellBanner(headerView:BannerCollectionReusableView){
-        let imageUrls = NSMutableArray.init(array: ["https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1511699910&di=4dab0c873fc8e22e5a9a831b3ece86de&imgtype=jpg&er=1&src=http%3A%2F%2Fimg.pconline.com.cn%2Fimages%2Fupload%2Fupc%2Ftx%2Fphotoblog%2F1205%2F22%2Fc8%2F11710213_11710213_1337684443710.jpg","https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1511699935&di=5e94a2bd7dbd3a28f9fe22c31bb8bca2&imgtype=jpg&er=1&src=http%3A%2F%2Fimg.pconline.com.cn%2Fimages%2Fupload%2Fupc%2Ftx%2Fphotoblog%2F1205%2F22%2Fc8%2F11710213_11710213_1337684441789.jpg"])
-        headerView.setcycleScrollerViewData(imageUrls.mutableCopy() as! NSArray)
-        headerView.cyCleScrollerViewClouse = { index in
-            let controllerVC = BaseWebViewController()
-            controllerVC.url = "http://www.baidu.com"
-            NavigationPushView(self.controller!, toConroller: controllerVC)
+        self.headerView = headerView
+        if self.banners != nil {
+            let imageUrls = NSMutableArray.init()
+            for model in self.banners {
+                let banner =  BannerModel.init(fromDictionary: model as! NSDictionary)
+                imageUrls.add(banner.bannerAddress)
+            }
+            self.headerView.setcycleScrollerViewData(imageUrls.mutableCopy() as! NSArray)
+            self.headerView.cyCleScrollerViewClouse = { index in
+                let controllerVC = BaseWebViewController()
+                controllerVC.url = "http://www.baidu.com"
+                NavigationPushView(self.controller!, toConroller: controllerVC)
+            }
+        }
+        
+    }
+    
+    func cellSetBanner(){
+        let imageUrls = NSMutableArray.init()
+        for model in self.banners {
+            let banner =  BannerModel.init(fromDictionary: model as! NSDictionary)
+            imageUrls.add(banner.bannerAddress)
+        }
+        if self.headerView != nil {
+            self.headerView.setcycleScrollerViewData(imageUrls.mutableCopy() as! NSArray)
+            self.headerView.cyCleScrollerViewClouse = { index in
+                let controllerVC = BaseWebViewController()
+                controllerVC.url = "http://www.baidu.com"
+                NavigationPushView(self.controller!, toConroller: controllerVC)
+            }
         }
     }
     
@@ -68,6 +95,16 @@ class HomeViewModel: BaseViewModel {
             }
             (self.controller as! HomeViewController).collectView.mj_header.endRefreshing()
             (self.controller as! HomeViewController).collectView.mj_footer.endRefreshing()
+        }
+    }
+    
+    //首页banner
+    func requestBanner(){
+        BaseNetWorke.sharedInstance.getUrlWithString(Banner, parameters: nil).observe { (resultDic) in
+            if !resultDic.isCompleted {
+                self.banners = NSMutableArray.mj_objectArray(withKeyValuesArray: resultDic.value)
+                self.cellSetBanner()
+            }
         }
     }
 }

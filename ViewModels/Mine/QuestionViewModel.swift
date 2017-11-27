@@ -10,6 +10,8 @@ import UIKit
 
 class QuestionViewModel: BaseViewModel {
 
+    var content:String = ""
+    var contact:String = ""
     override init() {
         super.init()
     }
@@ -19,11 +21,15 @@ class QuestionViewModel: BaseViewModel {
     }
     
     func tableViewQuestionDetailTableViewCellSetData(_ indexPath:IndexPath, cell:QuestionDetailTableViewCell) {
-        
+        cell.textView.reactive.continuousTextValues.observeValues { (str) in
+            self.content = str!
+        }
     }
     
     func tableViewQuestionPhoneTableViewCellSetData(_ indexPath:IndexPath, cell:QuestionPhoneTableViewCell) {
-        
+        cell.textField.reactive.continuousTextValues.observeValues { (str) in
+            self.contact = str!
+        }
     }
 }
 
@@ -46,6 +52,16 @@ extension QuestionViewModel: UITableViewDelegate {
             return 175
         default:
             return 54
+        }
+    }
+    
+    func requestFeedBack(){
+        let parameters = ["userId":UserInfoModel.shareInstance().idField,"content":content,"contact":contact]
+        BaseNetWorke.sharedInstance.postUrlWithString(FeedBack, parameters: parameters as AnyObject).observe { (resultDic) in
+            if !resultDic.isCompleted {
+                _ = Tools.shareInstance.showMessage(KWINDOWDS(), msg: "反馈成功", autoHidder: true)
+                self.controller?.navigationController?.popViewController()
+            }
         }
     }
 }
