@@ -14,10 +14,12 @@ class CacheMeViewModel: BaseViewModel {
     var callID:UInt64!
     var model:Labels!
     var catchMeModel:CatchMeModel!
-    var headerModel:HeaderModel!
+    var headerModel:HeartModel!
+    var gameStatus:GameStatusModel!
+    var prepareModel:PrepareGameModel!
     var time:Timer!
     var timeHeader:Timer!
-    
+    var timeCount:Int = 0
     override init() {
         super.init()
     }
@@ -124,6 +126,7 @@ class CacheMeViewModel: BaseViewModel {
         BaseNetWorke.sharedInstance.getUrlWithString(EnterRooms, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
                 self.catchMeModel = CatchMeModel.init(fromDictionary: resultDic.value as! NSDictionary)
+                self.cacheMeController.cacheMeTopView.setData(model: self.catchMeModel.basicUserDTO)
                 //心跳接口
                 self.timeHeader = Timer.every(1, {
                     self.requestHeader()
@@ -134,7 +137,7 @@ class CacheMeViewModel: BaseViewModel {
     
     //退出房间
     func requestExitRooms(){
-        let parameters = ["machineId":catchMeModel.machineDTO.id,"userId":UserInfoModel.shareInstance().idField] as [String : Any]
+        let parameters = ["machineId":catchMeModel.machineDTO.id == nil ? "" : catchMeModel.machineDTO.id,"userId":UserInfoModel.shareInstance().idField] as [String : Any]
         BaseNetWorke.sharedInstance.getUrlWithString(ExitRoom, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
                 
@@ -147,7 +150,9 @@ class CacheMeViewModel: BaseViewModel {
         let parameters = ["machineId":catchMeModel.machineDTO.id,"userId":UserInfoModel.shareInstance().idField] as [String : Any]
         BaseNetWorke.sharedInstance.getUrlWithString(Heartbeat, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
-                self.headerModel = HeaderModel.init(fromDictionary: resultDic.value as! NSDictionary)
+                self.headerModel = HeartModel.init(fromDictionary: resultDic.value as! NSDictionary)
+                self.catchMeModel.basicUserDTO = self.headerModel.basicUserDTO
+                self.cacheMeController.cacheMeTopView.setData(model: self.catchMeModel.basicUserDTO)
             }
         }
     }
@@ -155,19 +160,32 @@ class CacheMeViewModel: BaseViewModel {
     //查看排队情况
     func gameStart(){
         if NIMSDK.shared().loginManager.isLogined() {
-            if self.catchMeModel.currentPlayerId != 1 || self.headerModel.currentPlayerId != 1 {
-                let parameters = ["machineId":catchMeModel.machineDTO.id,"userId":UserInfoModel.shareInstance().idField] as [String : Any]
-                BaseNetWorke.sharedInstance.getUrlWithString(ExitRoom, parameters: parameters as AnyObject).observe { (resultDic) in
+            if self.catchMeModel.currentPlayStatus != 1 || self.headerModel.currentPlayerId != nil {
+                let parameters = ["machineId":catchMeModel.machineDTO.id,"userId":UserInfoModel.shareInstance().idField,"roomId":self.model.id] as [String : Any]
+                BaseNetWorke.sharedInstance.getUrlWithString(GamePrepa, parameters: parameters as AnyObject).observe { (resultDic) in
                     if !resultDic.isCompleted {
                         //排队成功调用
+                        self.prepareModel = PrepareGameModel.init(fromDictionary: resultDic.value as! NSDictionary)
                         self.makeGameToUser()
                         self.doDestroyPlay()
+                        self.gameStarts()
                     }
                 }
             }
         }else{
             _ = Tools.shareInstance.showMessage(KWINDOWDS(), msg: "用户未登录", autoHidder: true)
             NeteaseManager.shareInstance.setAutoLogin()
+        }
+    }
+    
+    //开始游戏
+    func gameStarts(){
+        let parameters = ["machineId":catchMeModel.machineDTO.id,"userId":UserInfoModel.shareInstance().idField] as [String : Any]
+        BaseNetWorke.sharedInstance.getUrlWithString(StartGame, parameters: parameters as AnyObject).observe { (resultDic) in
+            if !resultDic.isCompleted {
+                //排队成功调用
+                
+            }
         }
     }
     
@@ -186,24 +204,30 @@ class CacheMeViewModel: BaseViewModel {
         let parameters = ["machineId":self.catchMeModel.id,"userId":UserInfoModel.shareInstance().idField] as [String : Any]
         BaseNetWorke.sharedInstance.getUrlWithString(ShootGame, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
-                
             }
         }
+        //测试
         
         time = Timer.every(3, {
+            self.timeCount = self.timeCount + 1
             self.getGameStaus()
         })
     }
     
     //获取游戏结果
     func getGameStaus(){
-        let parameters = ["gameId":model.id] as [String : Any]
+        let parameters = ["gameId":self.prepareModel.gameId] as [String : Any]
         BaseNetWorke.sharedInstance.getUrlWithString(GameStatus, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
                //抓取成功调用
-                self.time.invalidate()
-//                self.shootSuccess()
-//                self.shootFail()
+                self.gameStatus = GameStatusModel.init(fromDictionary: resultDic.value as! NSDictionary)
+                if self.gameStatus.status == 2 || self.timeCount > 30{
+                    self.shootFail()
+                    self.time.invalidate()
+                }else if self.gameStatus.status == 3 {
+                    self.time.invalidate()
+                    self.shootSuccess()
+                }
             }
         }
     }

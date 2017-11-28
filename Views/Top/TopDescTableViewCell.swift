@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwifterSwift
 
 class TopDescTableViewCell: UITableViewCell {
 
@@ -39,6 +40,11 @@ class TopDescTableViewCell: UITableViewCell {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func cellSetData(model:TopWeeklyModel){
+        let startTime = "\(Date.init(unixTimestamp: Double(model.firstDayOfWeek / 1000)).dateString()) ~ \(Date.init(unixTimestamp: Double(model.lastDayOfWeek / 1000)).dateString())"
+        timeLable.text = "第\(model.weekth!)周 \(startTime)"
     }
     
     

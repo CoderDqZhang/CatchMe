@@ -37,7 +37,7 @@ class MyDollsCollectionViewCell: UICollectionViewCell {
         self.contentView.addSubview(dollsImage)
         
         coinsImage = UIImageView.init()
-        coinsImage.image = UIImage.init(named: "recharge")
+        coinsImage.image = UIImage.init(named: "coin")
         self.contentView.addSubview(coinsImage)
         
         isHaveDolls = UIImageView.init()

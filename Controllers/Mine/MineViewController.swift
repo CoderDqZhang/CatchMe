@@ -54,7 +54,9 @@ class MineViewController: BaseViewController {
     }
     
     @objc func rightBarItemPress(){
-        UserInfoModel.logout()
+        if UserInfoModel.logout() {
+            KWINDOWDS().rootViewController = UINavigationController.init(rootViewController: LoginViewController())
+        }
     }
 
     override func didReceiveMemoryWarning() {

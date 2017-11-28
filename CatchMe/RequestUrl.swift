@@ -26,19 +26,21 @@ let Banner = "\(BaseURL)banners"
 //进入房间
 let EnterRooms = "\(BaseURL)room/enter"
 //退出房间
-let ExitRoom = "\(BaseURL)exit"
+let ExitRoom = "\(BaseURL)machine/exit"
 //心跳
-let Heartbeat = "\(BaseURL)heartbeat"
+let Heartbeat = "\(BaseURL)machine/heartbeat"
 //停止游戏
-let StopGame = "\(BaseURL)stop"
+let StopGame = "\(BaseURL)machine/stop"
 //开始游戏
-let StartGame = "\(BaseURL)start"
+let StartGame = "\(BaseURL)machine/start"
+//准备开始游戏
+let GamePrepa = "\(BaseURL)machine/prepare"
 //游戏逻辑
-let MoveGame = "\(BaseURL)move"
+let MoveGame = "\(BaseURL)machine/move"
 //游戏Go
-let ShootGame = "\(BaseURL)shoot"
+let ShootGame = "\(BaseURL)machine/shoot"
 //游戏结果
-let GameStatus = "\(BaseURL)status"
+let GameStatus = "\(BaseURL)game/status"
 //充值接口
 let TopUp = "\(BaseURL)recharge/findRechargeRateRuleDTOList"
 //获取支付宝充值信息
@@ -51,6 +53,8 @@ let ShareCode = "\(BaseURL)shareCode"
 let CatchedDolls = "\(BaseURL)myCatchedDolls"
 //申请发货
 let ApplyShipments = "\(BaseURL)apply/shipments"
+//大神榜
+let TopWeekly = "\(BaseURL)top/weekly"
 
 //9.106.137.21:8201/rooms?offset=1&limit=20&userId=1
 ////首页房间李彪，offset从1开始

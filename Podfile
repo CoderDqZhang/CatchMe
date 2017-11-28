@@ -19,5 +19,6 @@ target 'CatchMe' do
   pod 'NJKWebViewProgress'
   pod 'IQKeyboardManagerSwift'
   pod 'NIMSDK'
+  pod 'ESTabBarController-swift'
 
 end

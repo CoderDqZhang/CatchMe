@@ -53,9 +53,14 @@ class TopUserInfoTableViewCell: UITableViewCell {
         self.updateConstraints()
     }
     
-    func cellSetData(indexPath:IndexPath){
+    func cellSetData(indexPath:IndexPath, model:GameStatistic){
         let numberText = indexPath.row - 1
         numberLable.text = "\(numberText)"
+        userName.text = model.name
+        UIImageViewManger.shareInstance.sd_imageView(url: model.photo is String ? model.photo as! String : "", imageView: avaterImage, placeholderImage: nil) { (image, error, cacheType, url) in
+            
+        }
+        numberCache.text = "\(model.count!)"
         switch indexPath.row {
         case 2:
             self.setUpViewsColor(color: UIColor.init(hexString: App_Theme_FFC107_Color))

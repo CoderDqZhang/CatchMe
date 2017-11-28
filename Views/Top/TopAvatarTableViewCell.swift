@@ -34,8 +34,11 @@ class TopAvatarTableViewCell: UITableViewCell {
         self.updateConstraints()
     }
     
-    func cellSetData(){
-        
+    func cellSetData(model:TopWeeklyModel){
+        UIImageViewManger.shareInstance.sd_imageView(url: model.gameStatistics[0].photo is String ? model.gameStatistics[0].photo as! String : "", imageView: avatarImage, placeholderImage: nil) { (image, error, cacheType, url) in
+            
+        }
+        titleLable.text = model.gameStatistics[0].name
     }
     
     required init?(coder aDecoder: NSCoder) {

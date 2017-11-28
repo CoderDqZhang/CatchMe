@@ -10,21 +10,33 @@ import UIKit
 
 class TopViewModel: BaseViewModel {
 
+    var model:TopWeeklyModel!
     override init() {
         super.init()
+        self.requestTopWeelky()
     }
     
     //MARK: UITableViewCellSetData
     func tableViewTopAvatarTableViewCellSetData(_ indexPath:IndexPath, cell:TopAvatarTableViewCell) {
-        
+        cell.cellSetData(model: self.model)
     }
     
     func tableViewTopDescTableViewCellSetData(_ indexPath:IndexPath, cell:TopDescTableViewCell) {
-        
+        cell.cellSetData(model: self.model)
     }
     
     func tableViewTopUserInfoTableViewCellSetData(_ indexPath:IndexPath, cell:TopUserInfoTableViewCell) {
-        cell.cellSetData(indexPath: indexPath)
+        cell.cellSetData(indexPath: indexPath, model:self.model.gameStatistics[indexPath.row - 2])
+    }
+    
+    //RequestTopWeelky
+    func requestTopWeelky(){
+        BaseNetWorke.sharedInstance.getUrlWithString(TopWeekly, parameters: nil).observe { (resultDic) in
+            if !resultDic.isCompleted {
+                self.model = TopWeeklyModel.init(fromDictionary: resultDic.value as! NSDictionary)
+                self.controller?.tableView.reloadData()
+            }
+        }
     }
     
 }
@@ -60,7 +72,7 @@ extension TopViewModel: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return self.model == nil ? 0 : self.model.gameStatistics.count + 2
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

@@ -17,24 +17,27 @@ class CacheMeTopView : UIView {
     var backButton:UIButton!
     var playUser:UIView!
     var roomsUser:UIView!
+    var userName:UILabel!
+    var avatar:UIImageView!
+    
+    var detail:UILabel!
     
     init(frame: CGRect,topViewBackButtonClouse:@escaping TopViewBackButtonClouse) {
         super.init(frame: frame)
         backButton = UIButton.init(type: .custom)
-        backButton.backgroundColor = UIColor.init(hexString: App_Theme_000000_Color, andAlpha: 0.3)
-        backButton.layer.cornerRadius = 23
+        backButton.isUserInteractionEnabled = true
         backButton.layer.masksToBounds = true
         backButton.titleLabel?.textAlignment = .center
         backButton.setImage(UIImage.init(named: "close_1"), for: .normal)
         backButton.setTitleColor(UIColor.init(hexString: App_Theme_FC4652_Color), for: .normal)
-        backButton.frame = CGRect.init(x: SCREENWIDTH - 56, y: 39, width: 46, height: 46)
+        backButton.frame = CGRect.init(x: SCREENWIDTH - 56, y: 10, width: 46, height: 46)
         backButton.reactive.controlEvents(.touchUpInside).observe { (action) in
             topViewBackButtonClouse()
         }
         self.addSubview(backButton)
         
         self.setUpPlayUser()
-        self.setUpRoomsUsers()
+//        self.setUpRoomsUsers()
     }
     
     func setUpPlayUser(){
@@ -44,13 +47,13 @@ class CacheMeTopView : UIView {
         self.addSubview(playUser)
         
         playUser.snp.makeConstraints { (make) in
-            make.top.equalTo(self.snp.top).offset(34)
+            make.top.equalTo(self.snp.top).offset(4)
             make.left.equalTo(self.snp.left).offset(-30)
             make.right.equalTo(self.snp.left).offset(162)
             make.height.equalTo(57)
         }
         
-        let avatar = UIImageView.init()
+        avatar = UIImageView.init()
         avatar.layer.cornerRadius = 22.5
         avatar.backgroundColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
         playUser.addSubview(avatar)
@@ -60,7 +63,7 @@ class CacheMeTopView : UIView {
             make.size.equalTo(CGSize.init(width: 45, height: 45))
         }
         
-        let userName = UILabel.init()
+        userName = UILabel.init()
         userName.font = App_Theme_PinFan_M_14_Font
         userName.text = "北京小分子"
         userName.textColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
@@ -71,7 +74,7 @@ class CacheMeTopView : UIView {
             make.right.equalTo(playUser.snp.right).offset(-7)
         }
         
-        let detail = UILabel.init()
+        detail = UILabel.init()
         detail.text = "正在抓..."
         detail.font = App_Theme_PinFan_M_14_Font
         detail.textColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
@@ -83,13 +86,26 @@ class CacheMeTopView : UIView {
         }
     }
     
+    func setData(model:BasicUserDTO?){
+        playUser.isHidden = model == nil ? true : false
+        if model == nil {
+            detail.text = "空闲中..."
+        }else{
+            detail.text = "正在抓..."
+            userName.text = model?.userName
+            UIImageViewManger.shareInstance.sd_imageView(url: model?.photo is String ? model?.photo as! String : "", imageView: avatar, placeholderImage: nil) { (image, error, cachtType, url) in
+                
+            }
+        }
+    }
+    
     func setUpRoomsUsers(){
         roomsUser = UIView.init()
         roomsUser.backgroundColor = UIColor.clear
         self.addSubview(roomsUser)
         
         roomsUser.snp.makeConstraints { (make) in
-            make.top.equalTo(self.snp.top).offset(34)
+            make.top.equalTo(self.snp.top).offset(4)
             make.left.equalTo(self.playUser.snp.right).offset(29)
             make.right.equalTo(backButton.snp.left).offset(-15)
             make.height.equalTo(57)
@@ -262,14 +278,14 @@ class CacheMeToolsView: UIView {
         }
         self.addSubview(toolsDesc)
         
-        playGame = ToolsView.init(frame: CGRect.init(x: toolsDesc.frame.maxX + 8, y: 0, width: toolsWidth * 75 / 48, height: 60), title: "开始抓娃娃", blance: "30", image: UIImage.init(named: "recharge")!,tag:2) {
+        playGame = ToolsView.init(frame: CGRect.init(x: toolsDesc.frame.maxX + 8, y: 0, width: toolsWidth * 75 / 48, height: 60), title: "开始抓娃娃", blance: "30", image: UIImage.init(named: "coin")!,tag:2) {
             if self.cacheMeToolsViewClouse != nil {
                 self.cacheMeToolsViewClouse(2)
             }
         }
         self.addSubview(playGame)
         
-        topUp = ToolsView.init(frame: CGRect.init(x: playGame.frame.maxX + 8, y: 0, width: toolsWidth, height: 60), title: "充值", blance: nil, image: UIImage.init(named: "recharge")!,tag:3) {
+        topUp = ToolsView.init(frame: CGRect.init(x: playGame.frame.maxX + 8, y: 0, width: toolsWidth, height: 60), title: "充值", blance: nil, image: UIImage.init(named: "coin")!,tag:3) {
             if self.cacheMeToolsViewClouse != nil {
                 self.cacheMeToolsViewClouse(3)
             }

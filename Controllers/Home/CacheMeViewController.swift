@@ -129,7 +129,7 @@ class CacheMeViewController: BaseViewController {
     
     //创建顶部导航栏
     func setUpCacheMeTopView(){
-        cacheMeTopView = CacheMeTopView.init(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: 60), topViewBackButtonClouse: {
+        cacheMeTopView = CacheMeTopView.init(frame: CGRect.init(x: 0, y: 20, width: SCREENWIDTH, height: 68), topViewBackButtonClouse: {
             self.cacheMeViewModel.handUpConnect()
             self.cacheMeViewModel.requestExitRooms()
             self.navigationController?.popViewController({
@@ -146,7 +146,6 @@ class CacheMeViewController: BaseViewController {
             case 1,2,3,4:
                 //上//左//下//右
                 self.cacheMeViewModel.playGameLogic(tag: tag)
-                break
             default:
                 //go
                 self.cacheMeViewModel.playGameGo()
@@ -167,7 +166,7 @@ class CacheMeViewController: BaseViewController {
             countDown.textAlignment = .center
             countDown.textColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
             countDown.font = App_Theme_PinFan_M_28_Font
-            self.countDown.text = "36"
+            self.countDown.text = "\(self.cacheMeViewModel.prepareModel.maxTime)"
             self.view.addSubview(countDown)
             countDown.snp.makeConstraints { (make) in
                 make.right.equalTo(self.view.snp.right).offset(-61)
@@ -185,7 +184,7 @@ class CacheMeViewController: BaseViewController {
             })
             let seconds = UILabel.init()
             seconds.text = "s"
-            seconds.font = App_Theme_PinFan_R_11_Font
+            seconds.font = App_Theme_PinFan_R_22_Font
             seconds.textColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
             self.view.addSubview(seconds)
             seconds.snp.makeConstraints { (make) in

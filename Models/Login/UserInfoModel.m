@@ -262,7 +262,8 @@ static UserInfoModel *_instance = nil;
         [UserInfoModel shareInstance].neteaseAccountId = nil;
         [UserInfoModel shareInstance].token = nil;
         [UserInfoModel shareInstance].coinAmount = nil;
-        return [UserInfoModel deleteObjectsByCriteria:[NSString stringWithFormat:@" where telephone = '%@'", [UserInfoModel shareInstance].telephone]];
+        NSObject *object = [[NSUserDefaults standardUserDefaults] objectForKey:@"telephone"];
+        return [UserInfoModel deleteObjectsByCriteria:[NSString stringWithFormat:@" where telephone = '%@'", object]];
     }
 
 @end
