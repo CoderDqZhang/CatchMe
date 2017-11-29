@@ -49,7 +49,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WeiboSDKDelegate {
         let parameters = ["key":"SWITCH_IOS_PAY"]
         BaseNetWorke.sharedInstance.getUrlWithString(Config, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
-                let model = ConfigModel.init(fromDictionary: resultDic.value as! NSDictionary)
+//                let model = ConfigModel.init(fromDictionary: resultDic.value as! NSDictionary)
                 UserDefaultsSetSynchronize((resultDic.value as! NSDictionary).object(forKey: "value") as AnyObject, key: APPCONFIGSTATUS)
             }
         }

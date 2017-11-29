@@ -33,6 +33,8 @@ class CacheMeViewController: BaseViewController {
     var url:String = "rtmp://vbd0442e6.live.126.net/live/0567baeb9b0d4780a06ac394f2f26d9e"
     var addToCacth:UIButton!
     
+    var isQuickEnter:Bool = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.bindViewModel(viewModel: cacheMeViewModel, controller: self)
@@ -50,7 +52,9 @@ class CacheMeViewController: BaseViewController {
     }
     
     deinit {
-        time.invalidate()
+        if time != nil {
+            time.invalidate()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -62,7 +66,11 @@ class CacheMeViewController: BaseViewController {
     func bindLogicViewModel(){
         cacheMeViewModel.cacheMeController = self
         cacheMeViewModel.model = self.roomModel
-        cacheMeViewModel.requestEntRooms()
+        if isQuickEnter {
+            cacheMeViewModel.requestQuickEntRooms()
+        }else{
+            cacheMeViewModel.requestEntRooms()
+        }
     }
     
     //拉流地址

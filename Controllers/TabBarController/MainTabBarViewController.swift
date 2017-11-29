@@ -145,6 +145,7 @@ class MainTabBarViewController: ESTabBarController {
     var homeViewController = HomeViewController()
     var topViewController = TopViewController()
     var mineViewController = MineViewController()
+    var currentViewController:UIViewController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -161,18 +162,7 @@ class MainTabBarViewController: ESTabBarController {
             return false
         }
         
-        self.didHijackHandler = {
-            [weak tabBarController] tabbarController, viewController, index in
-
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                UIAlertController.shwoAlertControl(self, style: .actionSheet, title: nil, message: nil, cancel: "取消", doneTitle: "确定", cancelAction: {
-                    
-                }, doneAction: {
-                    
-                })
-                
-            }
-        }
+        
         
         homeViewController.tabBarItem = ESTabBarItem.init(CustomContentView(), title: "首页", image: UIImage.init(named: "home_gray")!.withRenderingMode(.alwaysOriginal), selectedImage: UIImage.init(named: "home_red")!.withRenderingMode(.alwaysOriginal), tag: 0)
         topViewController.tabBarItem = ESTabBarItem.init(ExampleIrregularityContentView(), title: "快速开始", image: UIImage.init(named: "photo_verybig_1")!.withRenderingMode(.alwaysOriginal), selectedImage: UIImage.init(named: "photo_verybig_1")!.withRenderingMode(.alwaysOriginal), tag: 1)
@@ -183,6 +173,13 @@ class MainTabBarViewController: ESTabBarController {
 //        self.setNavigationControllerTitleAndImage(image:  UIImage.init(named: "me_gray")!, title: "我的", selectImage: UIImage.init(named: "me_red")!,  controller: mineViewController)
         
         let controllers = [createNavigationController(controller: homeViewController),createNavigationController(controller: topViewController),createNavigationController(controller: mineViewController)]
+        
+        self.didHijackHandler = {
+            [weak tabBarController] tabbarController, viewController, index in
+            let controllerVC = CacheMeViewController()
+            controllerVC.isQuickEnter = true
+            NavigationPushView(self.currentViewController, toConroller: controllerVC)
+        }
         
         self.viewControllers = controllers
         
@@ -228,5 +225,6 @@ class MainTabBarViewController: ESTabBarController {
 extension MainTabBarViewController : UITabBarControllerDelegate {
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
         viewController.tabBarItem.badgeValue = nil
+        currentViewController = viewController.childViewControllers[0]
     }
 }

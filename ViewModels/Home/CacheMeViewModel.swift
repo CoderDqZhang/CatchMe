@@ -135,6 +135,21 @@ class CacheMeViewModel: BaseViewModel {
         }
     }
     
+    //快速进入房间
+    func requestQuickEntRooms(){
+        let parameters = ["userId":UserInfoModel.shareInstance().idField] as [String : Any]
+        BaseNetWorke.sharedInstance.getUrlWithString(QuictEnter, parameters: parameters as AnyObject).observe { (resultDic) in
+            if !resultDic.isCompleted {
+                self.catchMeModel = CatchMeModel.init(fromDictionary: resultDic.value as! NSDictionary)
+                self.cacheMeController.cacheMeTopView.setData(model: self.catchMeModel.basicUserDTO)
+                //心跳接口
+                self.timeHeader = Timer.every(1, {
+                    self.requestHeader()
+                })
+            }
+        }
+    }
+    
     //退出房间
     func requestExitRooms(){
         let parameters = ["machineId":catchMeModel.machineDTO.id == nil ? "" : catchMeModel.machineDTO.id,"userId":UserInfoModel.shareInstance().idField] as [String : Any]
