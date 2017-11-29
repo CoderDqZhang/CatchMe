@@ -52,11 +52,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CatchMe/AppDelegate.swift"
-            timestampString = "533576046.455588"
+            timestampString = "533650826.106219"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "92"
-            endingLineNumber = "92"
+            startingLineNumber = "99"
+            endingLineNumber = "99"
             landmarkName = "application(_:open:options:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -68,13 +68,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CatchMe/AppDelegate.swift"
-            timestampString = "533576046.455662"
+            timestampString = "533650826.106404"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "90"
-            endingLineNumber = "90"
-            landmarkName = "application(_:open:options:)"
-            landmarkType = "7">
+            startingLineNumber = "97"
+            endingLineNumber = "97"
+            landmarkName = "AppDelegate"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -84,13 +84,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CatchMe/AppDelegate.swift"
-            timestampString = "533576046.455704"
+            timestampString = "533650826.106509"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "113"
-            endingLineNumber = "113"
-            landmarkName = "application(_:open:sourceApplication:annotation:)"
-            landmarkType = "7">
+            startingLineNumber = "120"
+            endingLineNumber = "120"
+            landmarkName = "AppDelegate"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -452,7 +452,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Controllers/Mine/InPurchaseViewController.swift"
-            timestampString = "533629943.039723"
+            timestampString = "533650826.107327"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "240"
@@ -468,7 +468,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Controllers/Mine/InPurchaseViewController.swift"
-            timestampString = "533629943.040295"
+            timestampString = "533650826.107751"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "256"
@@ -484,13 +484,29 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Controllers/Mine/InPurchaseViewController.swift"
-            timestampString = "533629943.040686"
+            timestampString = "533650826.108379"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "196"
             endingLineNumber = "196"
             landmarkName = "InPurchaseViewController"
             landmarkType = "21">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Controllers/TabBarController/MainTabBarViewController.swift"
+            timestampString = "533650826.109236"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "110"
+            endingLineNumber = "110"
+            landmarkName = "dehighlightAnimation(animated:completion:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

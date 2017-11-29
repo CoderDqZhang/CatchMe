@@ -45,6 +45,10 @@ class ProfielInfoTableViewCell: UITableViewCell {
         detailLabel.text = desc
     }
     
+    func updateCellDesc(desc:String){
+        detailLabel.text = desc
+    }
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

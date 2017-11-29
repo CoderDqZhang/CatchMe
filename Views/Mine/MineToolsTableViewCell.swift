@@ -21,11 +21,15 @@ class MineToolsTableViewCell: UITableViewCell {
     }
     
     func setUpView(){
-        let myCoins = CustomViewButton.init(frame: CGRect.init(x: (SCREENWIDTH - 180) / 2, y: 40, width: 90, height: 96), title: "我的娃娃币70", image: UIImage.init(named: "coins")!, tag:1)
+        let myCoins = CustomViewButton.init(frame: CGRect.init(x: (SCREENWIDTH - 270) / 2, y: 40, width: 90, height: 96), title: "我的娃娃币", image: UIImage.init(named: "coins")!, tag:1)
         self.setUpSingTap(myCoins)
         self.contentView.addSubview(myCoins)
         
-        let myMoppet = CustomViewButton.init(frame: CGRect.init(x: SCREENWIDTH / 2, y: 40, width: 90, height: 96), title: "抓到的娃娃", image: UIImage.init(named: "toys")!, tag:2)
+        let top = CustomViewButton.init(frame: CGRect.init(x: SCREENWIDTH / 2  - 45, y: 40, width: 90, height: 96), title: "大神榜", image: UIImage.init(named: "top")!, tag:2)
+        self.setUpSingTap(top)
+        self.contentView.addSubview(top)
+        
+        let myMoppet = CustomViewButton.init(frame: CGRect.init(x: SCREENWIDTH / 2  + 45, y: 40, width: 90, height: 96), title: "抓到的娃娃", image: UIImage.init(named: "toys")!, tag:3)
         self.setUpSingTap(myMoppet)
         self.contentView.addSubview(myMoppet)
         
@@ -75,7 +79,7 @@ class MineToolsTableViewCell: UITableViewCell {
         if !didMakeConstraints {
             version.snp.makeConstraints({ (make) in
                 make.centerX.equalTo(self.contentView.snp.centerX).offset(0)
-                make.bottom.equalTo(self.contentView.snp.bottom).offset(13)
+                make.bottom.equalTo(self.contentView.snp.bottom).offset(IPHONEX ? 33 : 13)
             })
             didMakeConstraints = true
         }

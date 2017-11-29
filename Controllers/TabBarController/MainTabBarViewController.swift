@@ -35,8 +35,8 @@ class ExampleIrregularityContentView: ESTabBarItemContentView {
         super.init(frame: frame)
         
         self.imageView.backgroundColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
-        self.imageView.layer.borderWidth = 3.0
-        self.imageView.layer.borderColor = UIColor.init(white: 235 / 255.0, alpha: 1.0).cgColor
+        self.imageView.layer.borderWidth = 1.0
+        self.imageView.layer.borderColor = UIColor.init(hexString: App_Theme_000000_Color)?.cgColor
         self.imageView.layer.cornerRadius = 35
         self.insets = UIEdgeInsetsMake(-32, 0, 0, 0)
         let transform = CGAffineTransform.identity
@@ -79,31 +79,36 @@ class ExampleIrregularityContentView: ESTabBarItemContentView {
 //        })
     }
     
-//    public override func reselectAnimation(animated: Bool, completion: (() -> ())?) {
-//        completion?()
-//    }
-//
-//    public override func deselectAnimation(animated: Bool, completion: (() -> ())?) {
-//        completion?()
-//    }
-//
-//    public override func highlightAnimation(animated: Bool, completion: (() -> ())?) {
-//        UIView.beginAnimations("small", context: nil)
-//        UIView.setAnimationDuration(0.2)
-//        let transform = self.imageView.transform.scaledBy(x: 0.8, y: 0.8)
-//        self.imageView.transform = transform
-//        UIView.commitAnimations()
-//        completion?()
-//    }
-//
-//    public override func dehighlightAnimation(animated: Bool, completion: (() -> ())?) {
-//        UIView.beginAnimations("big", context: nil)
-//        UIView.setAnimationDuration(0.2)
-//        let transform = CGAffineTransform.identity
-//        self.imageView.transform = transform
-//        UIView.commitAnimations()
-//        completion?()
-//    }
+    public override func reselectAnimation(animated: Bool, completion: (() -> ())?) {
+        completion?()
+    }
+
+    public override func deselectAnimation(animated: Bool, completion: (() -> ())?) {
+        completion?()
+    }
+
+    public override func highlightAnimation(animated: Bool, completion: (() -> ())?) {
+        UIView.beginAnimations("small", context: nil)
+        UIView.setAnimationDuration(0.2)
+        let transform = self.imageView.transform.scaledBy(x: 0.8, y: 0.8)
+        self.imageView.transform = transform
+        textColor = UIColor.init(hexString: App_Theme_BBBBBB_Color)
+        highlightTextColor = UIColor.init(hexString: App_Theme_BBBBBB_Color)
+        iconColor = UIColor.init(hexString: App_Theme_BBBBBB_Color)
+        highlightIconColor = UIColor.init(hexString: App_Theme_BBBBBB_Color)
+        
+        UIView.commitAnimations()
+        completion?()
+    }
+
+    public override func dehighlightAnimation(animated: Bool, completion: (() -> ())?) {
+        UIView.beginAnimations("big", context: nil)
+        UIView.setAnimationDuration(0.2)
+        let transform = CGAffineTransform.identity
+        self.imageView.transform = transform
+        UIView.commitAnimations()
+        completion?()
+    }
 //
 //    private func playMaskAnimation(animateView view: UIView, target: UIView, completion: (() -> ())?) {
 //        view.center = CGPoint.init(x: target.frame.origin.x + target.frame.size.width / 2.0, y: target.frame.origin.y + target.frame.size.height / 2.0)
@@ -148,27 +153,26 @@ class MainTabBarViewController: ESTabBarController {
         
         self.delegate = delegate
         
-//        self.shouldHijackHandler = {
-//            tabbarController, viewController, index in
-//            if index == 1 {
-//                return true
-//            }
-//            return false
-//        }
-//        self.didHijackHandler = {
-//            [weak tabBarController] tabbarController, viewController, index in
-//
-//            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-//                let alertController = UIAlertController.init(title: nil, message: nil, preferredStyle: .actionSheet)
-//                let takePhotoAction = UIAlertAction(title: "Take a photo", style: .default, handler: nil)
-//                alertController.addAction(takePhotoAction)
-//                let selectFromAlbumAction = UIAlertAction(title: "Select from album", style: .default, handler: nil)
-//                alertController.addAction(selectFromAlbumAction)
-//                let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-//                alertController.addAction(cancelAction)
-////                self.present(alertController, animated: true, completion: nil)
-//            }
-//        }
+        self.shouldHijackHandler = {
+            tabbarController, viewController, index in
+            if index == 1 {
+                return true
+            }
+            return false
+        }
+        
+        self.didHijackHandler = {
+            [weak tabBarController] tabbarController, viewController, index in
+
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                UIAlertController.shwoAlertControl(self, style: .actionSheet, title: nil, message: nil, cancel: "取消", doneTitle: "确定", cancelAction: {
+                    
+                }, doneAction: {
+                    
+                })
+                
+            }
+        }
         
         homeViewController.tabBarItem = ESTabBarItem.init(CustomContentView(), title: "首页", image: UIImage.init(named: "home_gray")!.withRenderingMode(.alwaysOriginal), selectedImage: UIImage.init(named: "home_red")!.withRenderingMode(.alwaysOriginal), tag: 0)
         topViewController.tabBarItem = ESTabBarItem.init(ExampleIrregularityContentView(), title: "快速开始", image: UIImage.init(named: "photo_verybig_1")!.withRenderingMode(.alwaysOriginal), selectedImage: UIImage.init(named: "photo_verybig_1")!.withRenderingMode(.alwaysOriginal), tag: 1)

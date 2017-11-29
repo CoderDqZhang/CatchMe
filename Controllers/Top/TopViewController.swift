@@ -21,6 +21,12 @@ class TopViewController: BaseViewController {
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.fd_prefersNavigationBarHidden = false
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+    }
+    
     override func setUpViewNavigationItem() {
         self.navigationItem.title = "大神榜"
     }

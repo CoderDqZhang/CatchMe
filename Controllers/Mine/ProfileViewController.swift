@@ -10,11 +10,13 @@ import UIKit
 
 class ProfileViewController: BaseViewController {
 
+    var sexPickerView:ZHPickView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.bindViewModel(viewModel: ProfileViewModel(), controller: self)
-        self.setUpTableView(style: .grouped, cells: [ProfileHeaderTableViewCell.self,ProfielInfoTableViewCell.self], controller: self)
+        self.setUpTableView(style: .grouped, cells: [ProfileHeaderTableViewCell.self,GloabTitleAndFieldCell.self,ProfielInfoTableViewCell.self], controller: self)
         // Do any additional setup after loading the view.
     }
 
@@ -33,6 +35,20 @@ class ProfileViewController: BaseViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    func showSexPickerView(){
+        if sexPickerView == nil {
+            sexPickerView = ZHPickView(pickviewWith: ["男","女"], isHaveNavControler: false)
+            sexPickerView.setPickViewColer(UIColor.white)
+            sexPickerView.setTintColor(UIColor.white)
+            sexPickerView.tag = 2
+            sexPickerView.setToolbarTintColor(UIColor.init(hexString: App_Theme_FC4652_Color))
+            sexPickerView.setTintFont(App_Theme_PinFan_R_13_Font, color: UIColor.init(hexString: App_Theme_FFFFFF_Color))
+            sexPickerView.delegate = self
+        }
+        
+        sexPickerView.show()
+    }
+    
 
     /*
     // MARK: - Navigation
@@ -44,4 +60,14 @@ class ProfileViewController: BaseViewController {
     }
     */
 
+}
+
+extension ProfileViewController : ZHPickViewDelegate {
+    func toobarDonBtnHaveClick(_ pickView: ZHPickView!, resultString: String!) {
+        print(resultString)
+        if resultString != nil {
+            UserInfoModel.shareInstance().gender = resultString == "男" ? 1 : 0
+            (viewModel as! ProfileViewModel).updateCellString(self.tableView, str: resultString, tag: pickView.tag)
+        }
+    }
 }

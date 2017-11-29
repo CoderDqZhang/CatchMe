@@ -55,6 +55,8 @@ let CatchedDolls = "\(BaseURL)myCatchedDolls"
 let ApplyShipments = "\(BaseURL)apply/shipments"
 //大神榜
 let TopWeekly = "\(BaseURL)top/weekly"
+//全局配置
+let Config = "\(BaseURL)config"
 
 //9.106.137.21:8201/rooms?offset=1&limit=20&userId=1
 ////首页房间李彪，offset从1开始

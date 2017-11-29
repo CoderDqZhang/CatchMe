@@ -31,12 +31,30 @@ class ProfileViewModel: BaseViewModel {
         }
     }
     
+    func tableViewGloabTitleAndFieldCellSetData(_ indexPath:IndexPath, cell:GloabTitleAndFieldCell) {
+        cell.setData(titleStr[indexPath.row], detail: (detailStr[indexPath.row] as? String)!)
+        cell.textField.reactive.continuousTextValues.observeValues { (str) in
+            UserInfoModel.shareInstance().userName = str
+        }
+    }
+    
+    func updateCellString(_ tableView:UITableView, str:String, tag:Int) {
+        let cell = tableView.cellForRow(at: IndexPath.init(row: 1, section: 1)) as! ProfielInfoTableViewCell
+        cell.detailLabel.text = str
+    }
+    
     func tableViewProfielInfoTableViewCellSetData(_ indexPath:IndexPath, cell:ProfielInfoTableViewCell) {
         cell.cellSetData(title: titleStr[indexPath.row], desc: detailStr[indexPath.row] as! String)
     }
     
     func tableViewDidSelect(_ indexPath:IndexPath) {
-        
+        if indexPath.section == 0 {
+            
+        }else{
+            if indexPath.row == 1 {
+                (self.controller as! ProfileViewController).showSexPickerView()
+            }
+        }
     }
 }
 
@@ -82,11 +100,19 @@ extension ProfileViewModel: UITableViewDataSource {
             cell.selectionStyle = .none
             return cell
         default:
-            let cell = tableView.dequeueReusableCell(withIdentifier: ProfielInfoTableViewCell.description(), for: indexPath)
-            self.tableViewProfielInfoTableViewCellSetData(indexPath, cell: cell as! ProfielInfoTableViewCell)
-            cell.accessoryType = .disclosureIndicator
-            cell.selectionStyle = .none
-            return cell
+            if indexPath.row == 0 {
+                let cell = tableView.dequeueReusableCell(withIdentifier: GloabTitleAndFieldCell.description(), for: indexPath)
+                self.tableViewGloabTitleAndFieldCellSetData(indexPath, cell: cell as! GloabTitleAndFieldCell)
+                cell.accessoryType = .disclosureIndicator
+                cell.selectionStyle = .none
+                return cell
+            }else{
+                let cell = tableView.dequeueReusableCell(withIdentifier: ProfielInfoTableViewCell.description(), for: indexPath)
+                self.tableViewProfielInfoTableViewCellSetData(indexPath, cell: cell as! ProfielInfoTableViewCell)
+                cell.accessoryType = .disclosureIndicator
+                cell.selectionStyle = .none
+                return cell
+            }
         }
     }
 }
