@@ -67,7 +67,7 @@ class BaseViewController: UIViewController {
         self.tableView.backgroundColor = UIColor.init(hexString: App_Theme_FAFAFA_Color)
         tableView.keyboardDismissMode = .onDrag
         tableView.snp.makeConstraints { (make) in
-            make.top.equalTo((controller?.view.snp.top)!).offset(0)
+            make.top.equalTo((controller?.view.snp.top)!).offset(IPHONEX ? -24 : 0)
             make.left.equalTo((controller?.view.snp.left)!).offset(0)
             make.right.equalTo((controller?.view.snp.right)!).offset(0)
             make.bottom.equalTo((controller?.view.snp.bottom)!).offset(0)

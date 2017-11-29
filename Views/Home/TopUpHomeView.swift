@@ -20,7 +20,7 @@ class TopUpHomeView: UIView {
             topUpHomeViewClouse()
         }
         imageView = UIImageView.init()
-        self.imageView.image = UIImage.init(named: "recharge")
+        self.imageView.image = UIImage.init(named: "recharge_home")
         self.addSubview(imageView)
         
         imageView.snp.makeConstraints { (make) in
