@@ -25,7 +25,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WeiboSDKDelegate {
         //网易云控制器
         manager = NeteaseManager.init()
         self.setUpMainViewContr()
-        
+        self.getConfig()
+
         // Override point for customization after application launch.
         return true
     }
@@ -44,18 +45,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WeiboSDKDelegate {
         self.window?.rootViewController = loginVC
     }
     
-    func testLogin(){
-        NIMSDK.shared().loginManager.login("1891109127327744", token: "12e144008778692785158eaa4313a791") { (error) in
-            if error == nil {
-                print("登录成功")
-            }
-        }
-    }
-    
     func getConfig(){
-        BaseNetWorke.sharedInstance.getUrlWithString(Config, parameters: nil).observe { (resultDic) in
+        let parameters = ["key":"SWITCH_IOS_PAY"]
+        BaseNetWorke.sharedInstance.getUrlWithString(Config, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
-                
+                let model = ConfigModel.init(fromDictionary: resultDic.value as! NSDictionary)
+                UserDefaultsSetSynchronize((resultDic.value as! NSDictionary).object(forKey: "value") as AnyObject, key: APPCONFIGSTATUS)
             }
         }
     }

@@ -139,6 +139,7 @@
 		1F126EE71FC3F715006306D2 /* SetNormalTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F126EE61FC3F715006306D2 /* SetNormalTableViewCell.swift */; };
 		1F126EEB1FC3FD65006306D2 /* AppForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F126EEA1FC3FD65006306D2 /* AppForm.swift */; };
 		1F126F001FC4063E006306D2 /* AddressModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F126EFF1FC4063E006306D2 /* AddressModel.m */; };
+		1F22927C1FCF219C00089174 /* ConfigModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F22927B1FCF219C00089174 /* ConfigModel.swift */; };
 		1F24A32F1FC8050F007D0C18 /* MyInvitationCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F24A32E1FC8050F007D0C18 /* MyInvitationCodeViewController.swift */; };
 		1F24A3311FC92207007D0C18 /* BaseWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F24A3301FC92207007D0C18 /* BaseWebViewController.swift */; };
 		1FCA1FFF1FC47CB50008BF07 /* HomeLables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCA1FFE1FC47CB50008BF07 /* HomeLables.swift */; };
@@ -364,6 +365,7 @@
 		1F126EEA1FC3FD65006306D2 /* AppForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppForm.swift; sourceTree = "<group>"; };
 		1F126EFE1FC4063E006306D2 /* AddressModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddressModel.h; sourceTree = "<group>"; };
 		1F126EFF1FC4063E006306D2 /* AddressModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddressModel.m; sourceTree = "<group>"; };
+		1F22927B1FCF219C00089174 /* ConfigModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigModel.swift; sourceTree = "<group>"; };
 		1F24A32E1FC8050F007D0C18 /* MyInvitationCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInvitationCodeViewController.swift; sourceTree = "<group>"; };
 		1F24A3301FC92207007D0C18 /* BaseWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseWebViewController.swift; sourceTree = "<group>"; };
 		1FCA1FFE1FC47CB50008BF07 /* HomeLables.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeLables.swift; sourceTree = "<group>"; };
@@ -1031,6 +1033,7 @@
 			children = (
 				1FCA1FFE1FC47CB50008BF07 /* HomeLables.swift */,
 				1FE1A2C51FC964AE00B715D8 /* CatchModel.swift */,
+				1F22927B1FCF219C00089174 /* ConfigModel.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -1252,6 +1255,7 @@
 				1F126D631FBFF024006306D2 /* AppDelegate.swift in Sources */,
 				1F126DD71FBFF3DE006306D2 /* NSString+Utils.m in Sources */,
 				1F126D911FBFF354006306D2 /* Tools.swift in Sources */,
+				1F22927C1FCF219C00089174 /* ConfigModel.swift in Sources */,
 				1F126E471FC07D13006306D2 /* MineHeaderTableViewCell.swift in Sources */,
 				1F126E991FC154A0006306D2 /* common.c in Sources */,
 				1F126DAF1FBFF387006306D2 /* TAPageControl.m in Sources */,

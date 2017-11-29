@@ -121,7 +121,11 @@ class CacheMeViewController: BaseViewController {
             case 2:
                 self.playGame()
             default:
-                NavigationPushView(self, toConroller: TopUpViewController())
+                if !COFIGVALUE {
+                    NavigationPushView(self, toConroller: InPurchaseViewController())
+                }else{
+                    NavigationPushView(self, toConroller: TopUpViewController())
+                }
             }
         }
         self.view.addSubview(bottomToolsView)

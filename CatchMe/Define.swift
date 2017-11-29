@@ -31,6 +31,8 @@ let TitleLineSpace:Float = 3.0
 let WeiXinPayStatues = "WeiXinPayStatuesChange"
 let AliPayStatues = "AliPayStatuesChange"
 
+let APPCONFIGSTATUS = "APPCONFIGSTATUS"
+
 //let DidRegisterRemoteNotification = "DidRegisterRemoteNotification"
 //let DidRegisterRemoteURLNotification = "DidRegisterRemoteURLNotification"
 //let DidRegisterRemoteDiviceToken = "DidRegisterRemoteDiviceToken"
@@ -68,6 +70,7 @@ let ExpressDelivierEBusinessID = "1281351"
 
 let deverliyDic:NSDictionary = ["顺丰":"SF","EMS":"EMS","圆通":"YTO","中通":"ZTO","申通":"STO","宅急送":"ZJS","韵达":"YD"]
 
+
 let APPVERSION = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
 
 func KWINDOWDS() -> UIWindow{
@@ -91,12 +94,17 @@ func UserDefaultsSetSynchronize(_ value:AnyObject,key:String) {
     UserDefaults.standard.synchronize()
 }
 
+
+
 func UserDefaultsGetSynchronize(_ key:String) -> AnyObject{
     if UserDefaults.standard.object(forKey: key) == nil {
         return "nil" as AnyObject
     }
     return UserDefaults.standard.object(forKey: key)! as AnyObject
 }
+
+let COFIGVALUE:Bool = (UserDefaultsGetSynchronize(APPCONFIGSTATUS) as! String) == "false" ? false : true
+
 
 func Storyboard(_ name:String,controllerid:String) -> UIViewController{
     return UIStoryboard.init(name: name, bundle: nil).instantiateViewController(withIdentifier: controllerid)
