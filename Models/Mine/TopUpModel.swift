@@ -23,6 +23,9 @@ class TopUpModel : NSObject, NSCoding{
     var validFlag : Int!
     var version : AnyObject!
     
+    override init() {
+        super.init()
+    }
     
     /**
      * Instantiate the instance using the passed dictionary values to set the properties values

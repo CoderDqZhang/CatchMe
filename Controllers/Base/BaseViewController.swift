@@ -24,6 +24,8 @@ class BaseViewController: UIViewController {
         self.viewControllerSetNavigationItemBack()
         self.setUpViewNavigationItem()
         self.setUpLogic()
+        self.navigationController?.fd_fullscreenPopGestureRecognizer.isEnabled = true
+
         // Do any additional setup after loading the view.
     }
     

@@ -170,12 +170,13 @@ class MainTabBarViewController: ESTabBarController {
 //            }
 //        }
         
-        homeViewController.tabBarItem = ESTabBarItem.init(CustomContentView(), title: "首页", image: UIImage.init(named: "home_gray")!.withRenderingMode(.alwaysOriginal), selectedImage: UIImage.init(named: "home_red")!.withRenderingMode(.alwaysOriginal), tag: 0)
-        topViewController.tabBarItem = ESTabBarItem.init(ExampleIrregularityContentView(), title: "快速开始", image: UIImage.init(named: "photo_verybig_1")!.withRenderingMode(.alwaysOriginal), selectedImage: UIImage.init(named: "photo_verybig_1")!.withRenderingMode(.alwaysOriginal), tag: 1)
-        mineViewController.tabBarItem = ESTabBarItem.init(CustomContentView(), title: "我的", image: UIImage.init(named: "me_gray")!.withRenderingMode(.alwaysOriginal), selectedImage: UIImage.init(named: "me_red")!.withRenderingMode(.alwaysOriginal), tag: 2)
+//        homeViewController.tabBarItem = ESTabBarItem.init(CustomContentView(), title: "首页", image: UIImage.init(named: "home_gray")!.withRenderingMode(.alwaysOriginal), selectedImage: UIImage.init(named: "home_red")!.withRenderingMode(.alwaysOriginal), tag: 0)
+//        topViewController.tabBarItem = ESTabBarItem.init(ExampleIrregularityContentView(), title: "快速开始", image: UIImage.init(named: "photo_verybig_1")!.withRenderingMode(.alwaysOriginal), selectedImage: UIImage.init(named: "photo_verybig_1")!.withRenderingMode(.alwaysOriginal), tag: 1)
+//        mineViewController.tabBarItem = ESTabBarItem.init(CustomContentView(), title: "我的", image: UIImage.init(named: "me_gray")!.withRenderingMode(.alwaysOriginal), selectedImage: UIImage.init(named: "me_red")!.withRenderingMode(.alwaysOriginal), tag: 2)
         
-//        self.setNavigationControllerTitleAndImage(image: UIImage.init(named: "home_gray")!, title: "抓我", selectImage: UIImage.init(named: "home_red")!, controller: homeViewController)
-//        self.setNavigationControllerTitleAndImage(image:  UIImage.init(named: "me_gray")!, title: "我的", selectImage: UIImage.init(named: "me_red")!,  controller: mineViewController)
+        self.setNavigationControllerTitleAndImage(image: UIImage.init(named: "home_gray")!, title: "抓我", selectImage: UIImage.init(named: "home_red")!, controller: homeViewController)
+        self.setNavigationControllerTitleAndImage(image: UIImage.init(named: "v_gray")!, title: "大神榜", selectImage: UIImage.init(named: "v_red")!, controller: topViewController)
+        self.setNavigationControllerTitleAndImage(image:  UIImage.init(named: "me_gray")!, title: "我的", selectImage: UIImage.init(named: "me_red")!,  controller: mineViewController)
         
         let controllers = [createNavigationController(controller: homeViewController),createNavigationController(controller: topViewController),createNavigationController(controller: mineViewController)]
         

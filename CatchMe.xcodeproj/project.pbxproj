@@ -151,6 +151,8 @@
 		1FCA200D1FC5CB870008BF07 /* LoginPhoneCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCA200C1FC5CB870008BF07 /* LoginPhoneCodeViewController.swift */; };
 		1FCA200F1FC720470008BF07 /* AboutUsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCA200E1FC720470008BF07 /* AboutUsViewController.swift */; };
 		1FD729091FCD9A87005CF939 /* TopWeeklyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD729081FCD9A87005CF939 /* TopWeeklyModel.swift */; };
+		1FD7290B1FCE545E005CF939 /* InPurchaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD7290A1FCE545E005CF939 /* InPurchaseViewController.swift */; };
+		1FD7290D1FCE5E7F005CF939 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FD7290C1FCE5E7F005CF939 /* StoreKit.framework */; };
 		1FE1A2C61FC964AE00B715D8 /* CatchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE1A2C51FC964AE00B715D8 /* CatchModel.swift */; };
 		1FE1A2C81FC9864B00B715D8 /* QuestionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE1A2C71FC9864B00B715D8 /* QuestionViewModel.swift */; };
 		1FE1A2CA1FC986C400B715D8 /* QuestionDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE1A2C91FC986C400B715D8 /* QuestionDetailTableViewCell.swift */; };
@@ -374,6 +376,8 @@
 		1FCA200C1FC5CB870008BF07 /* LoginPhoneCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPhoneCodeViewController.swift; sourceTree = "<group>"; };
 		1FCA200E1FC720470008BF07 /* AboutUsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutUsViewController.swift; sourceTree = "<group>"; };
 		1FD729081FCD9A87005CF939 /* TopWeeklyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopWeeklyModel.swift; sourceTree = "<group>"; };
+		1FD7290A1FCE545E005CF939 /* InPurchaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InPurchaseViewController.swift; sourceTree = "<group>"; };
+		1FD7290C1FCE5E7F005CF939 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		1FE1A2C51FC964AE00B715D8 /* CatchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatchModel.swift; sourceTree = "<group>"; };
 		1FE1A2C71FC9864B00B715D8 /* QuestionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionViewModel.swift; sourceTree = "<group>"; };
 		1FE1A2C91FC986C400B715D8 /* QuestionDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionDetailTableViewCell.swift; sourceTree = "<group>"; };
@@ -393,6 +397,7 @@
 				1F126DF11FBFF86B006306D2 /* libresolv.tbd in Frameworks */,
 				1F126DF31FBFF873006306D2 /* libz.tbd in Frameworks */,
 				1F126E291FC01BC6006306D2 /* CoreMotion.framework in Frameworks */,
+				1FD7290D1FCE5E7F005CF939 /* StoreKit.framework in Frameworks */,
 				1F126E271FC01B96006306D2 /* CoreTelephony.framework in Frameworks */,
 				1F126E251FC01B48006306D2 /* SystemConfiguration.framework in Frameworks */,
 				1F126E221FC01AC4006306D2 /* CFNetwork.framework in Frameworks */,
@@ -785,6 +790,7 @@
 				1F126E681FC097BC006306D2 /* MyJoysViewController.swift */,
 				1FCA20001FC5202D0008BF07 /* SettingViewController.swift */,
 				1FCA200E1FC720470008BF07 /* AboutUsViewController.swift */,
+				1FD7290A1FCE545E005CF939 /* InPurchaseViewController.swift */,
 			);
 			path = Mine;
 			sourceTree = "<group>";
@@ -1040,6 +1046,7 @@
 		AB92BE9F4E2397317A00B46E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1FD7290C1FCE5E7F005CF939 /* StoreKit.framework */,
 				1F126E281FC01BBC006306D2 /* CoreMotion.framework */,
 				1F126E261FC01B87006306D2 /* CoreTelephony.framework */,
 				1F126E241FC01B15006306D2 /* Security.framework */,
@@ -1101,6 +1108,11 @@
 					1F126D5E1FBFF024006306D2 = {
 						CreatedOnToolsVersion = 9.1;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.InAppPurchase = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -1196,6 +1208,7 @@
 			files = (
 				1F126ED51FC30399006306D2 /* TopDescTableViewCell.swift in Sources */,
 				1F126DBD1FBFF391006306D2 /* UITableView+FDKeyedHeightCache.m in Sources */,
+				1FD7290B1FCE545E005CF939 /* InPurchaseViewController.swift in Sources */,
 				1F126E3B1FC01EB9006306D2 /* BaseViewModel.swift in Sources */,
 				1F126EBD1FC198D6006306D2 /* HomeViewModel.swift in Sources */,
 				1F126EBB1FC18CCB006306D2 /* UIImageViewManger.swift in Sources */,
@@ -1473,7 +1486,7 @@
 					"$(PROJECT_DIR)/Global/Utli/NELivePlayer/libs",
 					"$(PROJECT_DIR)/Global/Utli/libWeiboSDK",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.zhuawo.catchdoll;
+				PRODUCT_BUNDLE_IDENTIFIER = com.zhuawo.catchdolldev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "CatchMe/CatchMe-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
@@ -1503,7 +1516,7 @@
 					"$(PROJECT_DIR)/Global/Utli/NELivePlayer/libs",
 					"$(PROJECT_DIR)/Global/Utli/libWeiboSDK",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.zhuawo.catchdoll;
+				PRODUCT_BUNDLE_IDENTIFIER = com.zhuawo.catchdolldev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "CatchMe/CatchMe-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;

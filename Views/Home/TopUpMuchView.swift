@@ -123,7 +123,12 @@ class TopUpMuchView: UIView {
             let muchView = MuchView.init(frame: frame)
             muchView.tag = i
             self.setUpSingleTap(muchView: muchView)
-            let model = TopUpModel.init(fromDictionary: models[i - 1] as! NSDictionary)
+            var model:TopUpModel!
+            if models[i - 1] is NSDictionary {
+                model = TopUpModel.init(fromDictionary: models[i - 1] as! NSDictionary)
+            }else{
+                model = models[i - 1] as! TopUpModel
+            }
             muchView.setUpMuchViewData(much: "￥\(model.rechargeMoney!)", icon: "\(model.rechargeCoin!)币")
             if i == 1 {
                 muchView.changeType(type: .select)

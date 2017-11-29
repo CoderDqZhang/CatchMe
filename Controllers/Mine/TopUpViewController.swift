@@ -36,8 +36,8 @@ class TopUpViewController: BaseViewController {
     
     override func setUpView() {
         balance = UILabel.init()
-//        balance.text = "账户余额 \(UserInfoModel.shareInstance().coinAmount!) 币"
-         balance.text = "账户余额 30 币"
+        let str = UserInfoModel.shareInstance().coinAmount == nil ? UserInfoModel.shareInstance().coinAmount : "0"
+        balance.text = "账户余额 \(str!) 币"
         let strArray = balance.text?.components(separatedBy: " ")
         let attributedString = NSMutableAttributedString.init(string: balance.text!)
         attributedString.addAttributes([NSAttributedStringKey.font:App_Theme_PinFan_R_20_Font!,NSAttributedStringKey.foregroundColor:UIColor.init(hexString: App_Theme_333333_Color)!], range: NSRange.init(location: 0, length: strArray![0].count))
