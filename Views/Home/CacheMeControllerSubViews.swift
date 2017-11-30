@@ -160,7 +160,7 @@ class CacheMeTopView : UIView {
 class LocalPreView: UIView {
     
     var label:UILabel!
-    
+    var imageView:UIImageView!
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = UIColor.init(hexString: App_Theme_000000_Color, andAlpha: 0.1)
@@ -169,18 +169,29 @@ class LocalPreView: UIView {
     
     func setUpView(){
         
-        let effect = UIBlurEffect.init(style: UIBlurEffectStyle.dark)
-        let effectView = UIVisualEffectView.init(effect: effect)
-        effectView.frame = CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: SCREENHEIGHT)
-        self.addSubview(effectView)
+        imageView = UIImageView.init()
+        imageView.image = UIImage.init(named: "背景图")
+        self.addSubview(imageView)
+        imageView.snp.makeConstraints { (make) in
+            make.left.equalTo(self.snp.left).offset(0)
+            make.top.equalTo(self.snp.top).offset(0)
+            make.bottom.equalTo(self.snp.bottom).offset(0)
+            make.right.equalTo(self.snp.right).offset(0)
+        }
+        
+//        let effect = UIBlurEffect.init(style: UIBlurEffectStyle.dark)
+//        let effectView = UIVisualEffectView.init(effect: effect)
+//        effectView.frame = CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: SCREENHEIGHT)
+//        self.addSubview(effectView)
         
         label = UILabel.init()
         label.frame = CGRect.init(x: 0, y: SCREENHEIGHT/2, width: SCREENWIDTH, height: 22)
         label.text = "页面加载中..."
         label.textAlignment = .center
-        label.textColor = UIColor.init(hexString: App_Theme_000000_Color)
+        label.textColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
         label.font = App_Theme_PinFan_M_20_Font
         self.addSubview(label)
+        
         
         
     }

@@ -21,7 +21,9 @@ class MyJoysViewModel: BaseViewModel {
     }
     
     func tableViewDidSelect(_ indexPath:IndexPath) {
-        NavigationPushView(self.controller!, toConroller: JoysDetailViewController())
+        let toViewController = JoysDetailViewController()
+        toViewController.url = "\(DollsDetail)?\(self.model.data[indexPath.section].catchdollId)"
+        NavigationPushView(self.controller!, toConroller: toViewController)
     }
     
     func requestMyDolls(){

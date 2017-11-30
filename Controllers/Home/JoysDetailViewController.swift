@@ -10,6 +10,7 @@ import UIKit
 
 class JoysDetailViewController: BaseViewController {
 
+    var url:String = ""
     override func viewDidLoad() {
         super.viewDidLoad()
 

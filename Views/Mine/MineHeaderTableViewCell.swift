@@ -14,17 +14,23 @@ class MineHeaderTableViewCell: UITableViewCell {
     var headerImage:UIImageView!
     var genderImage:UIImageView!
     var userName:UILabel!
+    var backImage:UIImageView!
     
     var didMakeConstraints = false
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        self.contentView.backgroundColor = UIColor.init(hexString: App_Theme_6D4033_Color)
         self.setUpView()
     }
     
     func setUpView(){
+        
+        backImage = UIImageView.init()
+        backImage.backgroundColor = UIColor.init(hexString: App_Theme_6D4033_Color)
+        self.contentView.addSubview(backImage)
+        
         headerImage = UIImageView.init()
         headerImage.layer.cornerRadius = 44
+        headerImage.image = UIImage.init(named: "默认头像_1")
         headerImage.layer.masksToBounds = true
         headerImage.backgroundColor = UIColor.red
         self.contentView.addSubview(headerImage)
@@ -49,8 +55,9 @@ class MineHeaderTableViewCell: UITableViewCell {
     
     func cellSetData(model:UserInfoModel){
         if model.photo != nil && model.photo != "" {
-            UIImageViewManger.shareInstance.sd_imageView(url: model.photo, imageView: headerImage, placeholderImage: nil) { (image, error, cacheType, url) in
-                
+            UIImageViewManger.shareInstance.sd_imageView(url: model.photo, imageView: headerImage, placeholderImage: UIImage.init(named: "默认头像_1")) { (image, error, cacheType, url) in
+                let inputImage =  image!.gaussianBlur(blurAmount: 0.3)
+                self.backImage.image = inputImage
             }
         }
         
@@ -67,6 +74,14 @@ class MineHeaderTableViewCell: UITableViewCell {
                 make.centerY.equalTo(self.contentView.snp.centerY).offset(0)
                 make.size.equalTo(CGSize.init(width: 88, height: 88))
             })
+            
+            backImage.snp.makeConstraints({ (make) in
+                make.left.equalTo(self.contentView.snp.left).offset(0)
+                make.right.equalTo(self.contentView.snp.right).offset(0)
+                make.bottom.equalTo(self.contentView.snp.bottom).offset(0)
+                make.top.equalTo(self.contentView.snp.top).offset(0)
+            })
+            
             genderImage.snp.makeConstraints({ (make) in
                 make.left.equalTo(headerImage.snp.left).offset(70)
                 make.top.equalTo(headerImage.snp.top).offset(70)

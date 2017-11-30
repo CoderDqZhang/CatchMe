@@ -125,7 +125,9 @@ class CacheMeViewController: BaseViewController {
         bottomToolsView.cacheMeToolsViewClouse = { tag in
             switch tag {
             case 1:
-                NavigationPushView(self, toConroller: JoysDetailViewController())
+                let toViewController = JoysDetailViewController()
+                toViewController.url = "\(DollsDetail)?\(self.roomModel.skuId)"
+                NavigationPushView(self, toConroller: toViewController)
             case 2:
                 self.playGame()
             default:

@@ -28,6 +28,11 @@ class ProfileViewController: BaseViewController {
     
     override func setUpViewNavigationItem() {
         self.navigationItem.title = "个人信息"
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: "保存", style: .plain, target: self, action: #selector(ProfileViewController.rightPress))
+    }
+    
+    @objc func rightPress(){
+        (self.viewModel as! ProfileViewModel).changeUserInfo()
     }
     
     override func didReceiveMemoryWarning() {
@@ -47,6 +52,42 @@ class ProfileViewController: BaseViewController {
         }
         
         sexPickerView.show()
+    }
+    
+    func presentImagePickerView(){
+        let controller = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let cancel = UIAlertAction(title: "取消", style: .cancel) { (cancelAction) in
+            
+        }
+        if (UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera)){
+            let cameraAction = UIAlertAction(title: "拍照", style: .default) { (cancelAction) in
+                let imagePicker = UIImagePickerController()
+                imagePicker.allowsEditing = true
+                imagePicker.sourceType = .camera
+                imagePicker.delegate = self
+                self.present(imagePicker, animated: true) {
+                    
+                }
+            }
+            controller.addAction(cameraAction)
+        }
+        
+        
+        let album = UIAlertAction(title: "相册", style: .default) { (cancelAction) in
+            let imagePicker = UIImagePickerController()
+            imagePicker.allowsEditing = true
+            imagePicker.sourceType = .photoLibrary
+            imagePicker.delegate = self
+            self.present(imagePicker, animated: true) {
+                
+            }
+        }
+        controller.addAction(cancel)
+        controller.addAction(album)
+        self.present(controller, animated: true) {
+            
+        }
+        
     }
     
 
@@ -71,3 +112,25 @@ extension ProfileViewController : ZHPickViewDelegate {
         }
     }
 }
+
+extension ProfileViewController : UIImagePickerControllerDelegate {
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true) {
+            
+        }
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        let image = info[UIImagePickerControllerEditedImage] as! UIImage
+        _ = SaveImageTools.sharedInstance.saveImage("photoImage.png", image: image, path: "headerImage")
+        let cell = self.tableView.cellForRow(at: IndexPath.init(row: 0, section: 0)) as! ProfileHeaderTableViewCell
+        cell.avatarImage.image = image
+        (viewModel as! ProfileViewModel).uploadImage(image: image)
+        picker.dismiss(animated: true, completion: nil)
+    }
+}
+
+extension ProfileViewController : UINavigationControllerDelegate {
+    
+}
+

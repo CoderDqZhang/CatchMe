@@ -155,7 +155,12 @@ class CacheMeViewModel: BaseViewModel {
         let parameters = ["machineId":catchMeModel.machineDTO.id == nil ? "" : catchMeModel.machineDTO.id,"userId":UserInfoModel.shareInstance().idField] as [String : Any]
         BaseNetWorke.sharedInstance.getUrlWithString(ExitRoom, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
-                
+                if self.timeHeader != nil {
+                    self.timeHeader.invalidate()
+                }
+                if self.time != nil {
+                    self.time.invalidate()
+                }
             }
         }
     }
@@ -176,7 +181,7 @@ class CacheMeViewModel: BaseViewModel {
     func gameStart(){
         if NIMSDK.shared().loginManager.isLogined() {
             if self.catchMeModel.currentPlayStatus != 1 || self.headerModel.currentPlayerId != nil {
-                let parameters = ["machineId":catchMeModel.machineDTO.id,"userId":UserInfoModel.shareInstance().idField,"roomId":self.model.id] as [String : Any]
+                let parameters = ["machineId":catchMeModel.machineDTO.id,"userId":UserInfoModel.shareInstance().idField,"roomId":self.catchMeModel.id] as [String : Any]
                 BaseNetWorke.sharedInstance.getUrlWithString(GamePrepa, parameters: parameters as AnyObject).observe { (resultDic) in
                     if !resultDic.isCompleted {
                         //排队成功调用
@@ -255,11 +260,11 @@ class CacheMeViewModel: BaseViewModel {
                 KWINDOWDS().addSubview(GloabelShareAndConnectUs.init(type: GloabelShareAndConnectUsType.share, clickClouse: { (type) in
                     switch type {
                     case .QQChat:
-                        ShareTools.shareInstance.shareQQSessionWebUrl("测试", webTitle: "", imageUrl: "", webDescription: "", webUrl: "")
+                        ShareTools.shareInstance.shareQQSessionWebUrl("测试", webTitle: "", imageUrl: "\(ShareCatchDoll)\(self.gameStatus.id)", webDescription: "", webUrl: "")
                     case .weChatChat:
-                        ShareTools.shareInstance.shareWeChatSession("", description: "", image: UIImage.init(named: "pic_about")!, url: nil)
+                        ShareTools.shareInstance.shareWeChatSession("", description: "", image: UIImage.init(named: "pic_about")!, url: "\(ShareCatchDoll)\(self.gameStatus.id)")
                     case .weChatSession:
-                        ShareTools.shareInstance.shareWeChatTimeLine("", description: "", image: UIImage.init(named: "pic_about")!, url: nil)
+                        ShareTools.shareInstance.shareWeChatTimeLine("", description: "", image: UIImage.init(named: "pic_about")!, url: "\(ShareCatchDoll)\(self.gameStatus.id)")
                     default:
                         break
                     }

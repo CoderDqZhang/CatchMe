@@ -59,6 +59,14 @@ let TopWeekly = "\(BaseURL)top/weekly"
 let Config = "\(BaseURL)config"
 //快速进入
 let QuictEnter = "\(BaseURL)room/quick/enter"
+//娃娃详情
+let DollsDetail = "\(BaseURL)catch-me/#/toyDetail?skuSubId="
+//抓到娃娃分享
+let ShareCatchDoll = "\(BaseURL)catch-me/#/shareLanding?gameId="
+//修改用户信息
+let ChangeUserInfo = "\(BaseURL)user/updateInfo"
+//上传文件
+let UploadImage = "\(BaseURL)uploadImage"
 
 //9.106.137.21:8201/rooms?offset=1&limit=20&userId=1
 ////首页房间李彪，offset从1开始

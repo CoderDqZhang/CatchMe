@@ -56,6 +56,36 @@ class ProfileViewModel: BaseViewModel {
             }
         }
     }
+    
+    //MARK: RequestNet
+    func changeUserInfo(){
+        let parameters = ["id":UserInfoModel.shareInstance().idField,
+                          "userName":UserInfoModel.shareInstance().userName,
+                          "photo":UserInfoModel.shareInstance().photo,
+                          "telephone":UserInfoModel.shareInstance().telephone]
+        BaseNetWorke.sharedInstance.postUrlWithString(ChangeUserInfo, parameters: parameters as AnyObject).observe { (resultDic) in
+            if !resultDic.isCompleted {
+                
+            }
+        }
+    }
+    
+    func uploadImage(image:UIImage) {
+        let hud = Tools.shareInstance.showLoading(KWINDOWDS(), msg: "上传中...")
+        let parameters = ["file":image.compressedData()]
+        BaseNetWorke.sharedInstance.uploadDataFile(UploadImage, parameters: parameters as NSDictionary, images: nil, hud: hud).observe { (resultDic) in
+            if !resultDic.isCompleted {
+                print(resultDic.value)
+            }
+        }
+        
+//        uploadImage(image: image, fileName: "thumbnail/collection", success: { (resultDic) in
+//            self.imageType == 0 ? (UserInfoModel.shareInstance().tails.userInfo.photo = resultDic as! String)
+//                : (UserInfoModel.shareInstance().tails.userInfo.qrCode = resultDic as! String)
+//        }) { (failure) in
+//
+//        }
+    }
 }
 
 extension ProfileViewModel: UITableViewDelegate {

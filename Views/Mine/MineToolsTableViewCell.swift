@@ -25,13 +25,13 @@ class MineToolsTableViewCell: UITableViewCell {
         self.setUpSingTap(myCoins)
         self.contentView.addSubview(myCoins)
         
-        let top = CustomViewButton.init(frame: CGRect.init(x: SCREENWIDTH / 2  - 45, y: 40, width: 90, height: 96), title: "大神榜", image: UIImage.init(named: "top")!, tag:2)
-        self.setUpSingTap(top)
-        self.contentView.addSubview(top)
-        
-        let myMoppet = CustomViewButton.init(frame: CGRect.init(x: SCREENWIDTH / 2  + 45, y: 40, width: 90, height: 96), title: "抓到的娃娃", image: UIImage.init(named: "toys")!, tag:3)
+        let myMoppet = CustomViewButton.init(frame: CGRect.init(x: SCREENWIDTH / 2  - 45, y: 40, width: 90, height: 96), title: "抓到的娃娃", image: UIImage.init(named: "toys")!, tag:2)
         self.setUpSingTap(myMoppet)
         self.contentView.addSubview(myMoppet)
+        
+        let top = CustomViewButton.init(frame: CGRect.init(x: SCREENWIDTH / 2  + 45, y: 40, width: 90, height: 96), title: "大神榜", image: UIImage.init(named: "top")!, tag:3)
+        self.setUpSingTap(top)
+        self.contentView.addSubview(top)
         
         let myCode = CustomViewButton.init(frame: CGRect.init(x: (SCREENWIDTH - 270) / 2, y: 40 + 96 + 32, width: 90, height: 96), title: "邀请码", image: UIImage.init(named: "invite")!, tag:3)
         self.setUpSingTap(myCode)

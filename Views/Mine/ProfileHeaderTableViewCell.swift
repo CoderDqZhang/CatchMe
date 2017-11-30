@@ -27,7 +27,7 @@ class ProfileHeaderTableViewCell: UITableViewCell {
         self.contentView.addSubview(titleLabel)
         
         avatarImage = UIImageView.init()
-        avatarImage.backgroundColor = UIColor.red
+        avatarImage.image = UIImage.init(named: "默认头像_1")
         avatarImage.layer.cornerRadius = 19
         avatarImage.layer.masksToBounds = true
         self.contentView.addSubview(avatarImage)
@@ -36,7 +36,7 @@ class ProfileHeaderTableViewCell: UITableViewCell {
     }
     
     func cellSetData(imageUrl:String){
-        UIImageViewManger.shareInstance.sd_imageView(url: imageUrl, imageView: avatarImage, placeholderImage: nil) { (image, error, cacheType, url) in
+        UIImageViewManger.shareInstance.sd_imageView(url: imageUrl, imageView: avatarImage, placeholderImage:  UIImage.init(named: "默认头像_1")) { (image, error, cacheType, url) in
             
         }
     }

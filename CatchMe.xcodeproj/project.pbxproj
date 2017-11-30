@@ -140,6 +140,9 @@
 		1F126EEB1FC3FD65006306D2 /* AppForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F126EEA1FC3FD65006306D2 /* AppForm.swift */; };
 		1F126F001FC4063E006306D2 /* AddressModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F126EFF1FC4063E006306D2 /* AddressModel.m */; };
 		1F22927C1FCF219C00089174 /* ConfigModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F22927B1FCF219C00089174 /* ConfigModel.swift */; };
+		1F22927E1FCFBC6700089174 /* Address.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1F22927D1FCFBC6600089174 /* Address.plist */; };
+		1F2292801FD00F3C00089174 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F22927F1FD00F2500089174 /* Accelerate.framework */; };
+		1F2292821FD01A7C00089174 /* CacheTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2292811FD01A7C00089174 /* CacheTools.swift */; };
 		1F24A32F1FC8050F007D0C18 /* MyInvitationCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F24A32E1FC8050F007D0C18 /* MyInvitationCodeViewController.swift */; };
 		1F24A3311FC92207007D0C18 /* BaseWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F24A3301FC92207007D0C18 /* BaseWebViewController.swift */; };
 		1FCA1FFF1FC47CB50008BF07 /* HomeLables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCA1FFE1FC47CB50008BF07 /* HomeLables.swift */; };
@@ -366,6 +369,9 @@
 		1F126EFE1FC4063E006306D2 /* AddressModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddressModel.h; sourceTree = "<group>"; };
 		1F126EFF1FC4063E006306D2 /* AddressModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddressModel.m; sourceTree = "<group>"; };
 		1F22927B1FCF219C00089174 /* ConfigModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigModel.swift; sourceTree = "<group>"; };
+		1F22927D1FCFBC6600089174 /* Address.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Address.plist; sourceTree = "<group>"; };
+		1F22927F1FD00F2500089174 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		1F2292811FD01A7C00089174 /* CacheTools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheTools.swift; sourceTree = "<group>"; };
 		1F24A32E1FC8050F007D0C18 /* MyInvitationCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInvitationCodeViewController.swift; sourceTree = "<group>"; };
 		1F24A3301FC92207007D0C18 /* BaseWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseWebViewController.swift; sourceTree = "<group>"; };
 		1FCA1FFE1FC47CB50008BF07 /* HomeLables.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeLables.swift; sourceTree = "<group>"; };
@@ -396,6 +402,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F2292801FD00F3C00089174 /* Accelerate.framework in Frameworks */,
 				1F126DF11FBFF86B006306D2 /* libresolv.tbd in Frameworks */,
 				1F126DF31FBFF873006306D2 /* libz.tbd in Frameworks */,
 				1F126E291FC01BC6006306D2 /* CoreMotion.framework in Frameworks */,
@@ -457,6 +464,7 @@
 				1F126DFB1FBFFB76006306D2 /* CatchMe-Bridging-Header.h */,
 				1F126DFA1FBFFB76006306D2 /* RequestUrl.swift */,
 				1F126DF61FBFFB74006306D2 /* city.plist */,
+				1F22927D1FCFBC6600089174 /* Address.plist */,
 				1F126D661FBFF024006306D2 /* Main.storyboard */,
 				1F126D691FBFF024006306D2 /* Assets.xcassets */,
 				1FE1A2D11FCD095200B715D8 /* Default-568.jpg */,
@@ -627,6 +635,7 @@
 				1F126D8E1FBFF354006306D2 /* ShareTools.swift */,
 				1F126D8F1FBFF354006306D2 /* Tools.swift */,
 				1F126EBA1FC18CCB006306D2 /* UIImageViewManger.swift */,
+				1F2292811FD01A7C00089174 /* CacheTools.swift */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -1049,6 +1058,7 @@
 		AB92BE9F4E2397317A00B46E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1F22927F1FD00F2500089174 /* Accelerate.framework */,
 				1FD7290C1FCE5E7F005CF939 /* StoreKit.framework */,
 				1F126E281FC01BBC006306D2 /* CoreMotion.framework */,
 				1F126E261FC01B87006306D2 /* CoreTelephony.framework */,
@@ -1151,6 +1161,7 @@
 				1F126D681FBFF024006306D2 /* Main.storyboard in Resources */,
 				1FE1A2D21FCD095300B715D8 /* Default-568.jpg in Resources */,
 				1F126E1B1FBFFE35006306D2 /* WeiboSDK.bundle in Resources */,
+				1F22927E1FCFBC6700089174 /* Address.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1289,6 +1300,7 @@
 				1F126DB01FBFF387006306D2 /* TAAnimatedDotView.m in Sources */,
 				1F126E3D1FC021B5006306D2 /* CacheMeViewController.swift in Sources */,
 				1F126EC51FC268BF006306D2 /* CacheMeControllerSubViews.swift in Sources */,
+				1F2292821FD01A7C00089174 /* CacheTools.swift in Sources */,
 				1F126E611FC0977F006306D2 /* QuestionViewController.swift in Sources */,
 				1F126DAC1FBFF387006306D2 /* UIView+SDExtension.m in Sources */,
 				1F126E491FC07F1B006306D2 /* MineToolsTableViewCell.swift in Sources */,

@@ -27,7 +27,7 @@ class BannerCollectionReusableView: UICollectionReusableView {
     
     func setUpView() {
         if cycleScrollView == nil {
-            cycleScrollView = SDCycleScrollView(frame: CGRect(x: 0, y: 0, width: SCREENWIDTH, height: SCREENWIDTH * 162/375), delegate: self, placeholderImage: UIImage.init(named: "Banner_Default_Cover"))
+            cycleScrollView = SDCycleScrollView(frame: CGRect(x: 0, y: 0, width: SCREENWIDTH, height: SCREENWIDTH * 162/375), delegate: self, placeholderImage: UIImage.init(named: "banner"))
             cycleScrollView.pageDotImage = UIImage.init(named: "banner_normal")
             cycleScrollView.currentPageDotImage = UIImage.init(named: "banner_select")
             cycleScrollView.pageControlStyle = SDCycleScrollViewPageContolStyleAnimated;
