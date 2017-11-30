@@ -62,20 +62,29 @@ class ProfileViewModel: BaseViewModel {
         let parameters = ["id":UserInfoModel.shareInstance().idField,
                           "userName":UserInfoModel.shareInstance().userName,
                           "photo":UserInfoModel.shareInstance().photo,
-                          "telephone":UserInfoModel.shareInstance().telephone]
+                          "telephone":UserInfoModel.shareInstance().telephone,
+                          "gender":UserInfoModel.shareInstance().gender] as [String : Any]
         BaseNetWorke.sharedInstance.postUrlWithString(ChangeUserInfo, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
-                
+                print(resultDic.value)
             }
         }
     }
     
     func uploadImage(image:UIImage) {
         let hud = Tools.shareInstance.showLoading(KWINDOWDS(), msg: "上传中...")
-        let parameters = ["file":image.compressedData()]
-        BaseNetWorke.sharedInstance.uploadDataFile(UploadImage, parameters: parameters as NSDictionary, images: nil, hud: hud).observe { (resultDic) in
+        let fileUrl = SaveImageTools.sharedInstance.getCachesDirectory("photoImage.png", path: "headerImage", isSmall: false)
+        let parameters = ["file":fileUrl]
+        
+        BaseNetWorke.sharedInstance.uploadDataFile(UploadImage, parameters:nil, images: parameters as NSDictionary, hud: hud).observe { (resultDic) in
             if !resultDic.isCompleted {
-                print(resultDic.value)
+                if (resultDic.value is NSDictionary) {
+                    if (resultDic.value as! NSDictionary).object(forKey: "code")! as! Int != 0 {
+                        _  = Tools.shareInstance.showMessage(KWINDOWDS(), msg: (resultDic.value as! NSDictionary).object(forKey: "message") as! String, autoHidder: true)
+                    }
+                }else{
+                    
+                }
             }
         }
         

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class MyJoyTableViewCell: UITableViewCell {
 
@@ -31,7 +32,6 @@ class MyJoyTableViewCell: UITableViewCell {
         self.contentView.addSubview(dollsView)
         
         dollsImage = UIImageView.init()
-        dollsImage.backgroundColor = UIColor.red
         dollsView.addSubview(dollsImage)
         
         dollsName = UILabel.init()
@@ -61,11 +61,12 @@ class MyJoyTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func cellSetData(model:Doll){
-        cacheTime.text = model.date
-        dollsName.text = model.skuName
-        UIImageViewManger.shareInstance.sd_imageView(url: model.imgAddress, imageView: dollsImage, placeholderImage: nil) { (image, error, cacheType, url) in
-            
+    func cellSetData(model:MyCatchDollsModel){
+        cacheTime.text = "\(Date.init(unixTimestamp: Double(model.time / 1000)).dateString())"
+        dollsName.text = model.name
+        
+        UIImageViewManger.sd_imageView(url: model.images[0], imageView: dollsImage, placeholderImage: nil) { (image, error, cacheType, url) in
+
         }
         
     }

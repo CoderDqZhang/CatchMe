@@ -11,11 +11,14 @@ import UIKit
 class SenderJoysViewController: BaseViewController {
 
     var bottomView:UIView!
+    var models:NSMutableArray!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.bindViewModel(viewModel: SenderJoysViewModel(), controller: self)
         self.setUpTableView(style: .grouped, cells: [SenderMuchTableViewCell.self,SendJoyInfoTableViewCell.self,SendAddressTableViewCell.self], controller: self)
+        self.bindLogicViewModel()
+        self.setUpBottomView()
         // Do any additional setup after loading the view.
     }
 
@@ -24,7 +27,7 @@ class SenderJoysViewController: BaseViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    override func setUpView() {
+    func setUpBottomView() {
         bottomView = UIView.init()
         bottomView.backgroundColor = UIColor.init(hexString: App_Theme_FAFAFA_Color)
         self.view.addSubview(bottomView)
@@ -36,10 +39,17 @@ class SenderJoysViewController: BaseViewController {
         }
         
         let button = CustomButton.init(frame: CGRect.init(x: (SCREENWIDTH - 200)/2, y: 0, width: 200, height: 46), title: "支付并发货", tag: 10, titleFont: App_Theme_PinFan_M_17_Font!, type: CustomButtonType.withBackBoarder) { (tag) in
-            
+            (self.viewModel as! SenderJoysViewModel).senderJoys()
         }
         bottomView.addSubview(button)
     }
+    
+    func bindLogicViewModel(){
+        (self.viewModel as! SenderJoysViewModel).models = self.models
+        (self.viewModel as! SenderJoysViewModel).changeModels()
+    }
+    
+    
     
 
     override func setUpViewNavigationItem() {

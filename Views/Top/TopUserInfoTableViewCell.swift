@@ -57,7 +57,7 @@ class TopUserInfoTableViewCell: UITableViewCell {
         let numberText = indexPath.row - 1
         numberLable.text = "\(numberText)"
         userName.text = model.name
-        UIImageViewManger.shareInstance.sd_imageView(url: model.photo is String ? model.photo as! String : "", imageView: avaterImage, placeholderImage: nil) { (image, error, cacheType, url) in
+        UIImageViewManger.sd_imageView(url: model.photo is String ? model.photo as! String : "", imageView: avaterImage, placeholderImage: nil) { (image, error, cacheType, url) in
             
         }
         numberCache.text = "\(model.count!)"

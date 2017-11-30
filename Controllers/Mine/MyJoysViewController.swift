@@ -34,7 +34,9 @@ class MyJoysViewController: BaseViewController {
     }
     
     @objc func rightBarButtonPress(){
-        NavigationPushView(self, toConroller: SenderJoysViewController())
+        let toControllerVC = SenderJoysViewController()
+        toControllerVC.models = (self.viewModel as! MyJoysViewModel).model
+        NavigationPushView(self, toConroller: toControllerVC)
     }
     /*
     // MARK: - Navigation

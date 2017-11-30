@@ -10,27 +10,28 @@ import UIKit
 
 class MyJoysViewModel: BaseViewModel {
 
-    var model:MyCatchDollsModel!
+    var model = NSMutableArray.init()
     override init() {
         super.init()
         self.requestMyDolls()
     }
     //MARK: UITableViewCellSetData
     func tableViewMyJoyTableViewCellSetData(_ indexPath:IndexPath, cell:MyJoyTableViewCell) {
-        cell.cellSetData(model: model.data[indexPath.section])
+        cell.cellSetData(model: MyCatchDollsModel.init(fromDictionary: model[indexPath.section] as! NSDictionary) )
     }
     
     func tableViewDidSelect(_ indexPath:IndexPath) {
         let toViewController = JoysDetailViewController()
-        toViewController.url = "\(DollsDetail)?\(self.model.data[indexPath.section].catchdollId)"
+        toViewController.url = "\(DollsDetail)?\(MyCatchDollsModel.init(fromDictionary: model[indexPath.section] as! NSDictionary).skuId!)"
         NavigationPushView(self.controller!, toConroller: toViewController)
     }
     
     func requestMyDolls(){
-        let parameters = ["useId":UserInfoModel.shareInstance().idField]
+//        let parameters = ["useId":UserInfoModel.shareInstance().idField]
+        let parameters = ["userId":1]
         BaseNetWorke.sharedInstance.getUrlWithString(CatchedDolls, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
-                self.model = MyCatchDollsModel.init(fromDictionary: resultDic.value! as! NSDictionary)
+                self.model = NSMutableArray.mj_keyValuesArray(withObjectArray: resultDic.value as! [Any])
                 self.controller?.tableView.reloadData()
             }
         }
@@ -58,7 +59,7 @@ extension MyJoysViewModel: UITableViewDelegate {
 
 extension MyJoysViewModel: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return self.model == nil ? 0 : self.model.data.count
+        return self.model.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

@@ -36,7 +36,7 @@ class ProfileHeaderTableViewCell: UITableViewCell {
     }
     
     func cellSetData(imageUrl:String){
-        UIImageViewManger.shareInstance.sd_imageView(url: imageUrl, imageView: avatarImage, placeholderImage:  UIImage.init(named: "默认头像_1")) { (image, error, cacheType, url) in
+        UIImageViewManger.sd_imageView(url: imageUrl, imageView: avatarImage, placeholderImage:  UIImage.init(named: "默认头像_1")) { (image, error, cacheType, url) in
             
         }
     }

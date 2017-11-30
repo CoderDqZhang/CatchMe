@@ -55,7 +55,7 @@ class MineHeaderTableViewCell: UITableViewCell {
     
     func cellSetData(model:UserInfoModel){
         if model.photo != nil && model.photo != "" {
-            UIImageViewManger.shareInstance.sd_imageView(url: model.photo, imageView: headerImage, placeholderImage: UIImage.init(named: "默认头像_1")) { (image, error, cacheType, url) in
+            UIImageViewManger.sd_imageView(url: model.photo, imageView: headerImage, placeholderImage: UIImage.init(named: "默认头像_1")) { (image, error, cacheType, url) in
                 let inputImage =  image!.gaussianBlur(blurAmount: 0.3)
                 self.backImage.image = inputImage
             }

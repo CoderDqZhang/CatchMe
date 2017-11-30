@@ -93,7 +93,7 @@ class CacheMeTopView : UIView {
         }else{
             detail.text = "正在抓..."
             userName.text = model?.userName
-            UIImageViewManger.shareInstance.sd_imageView(url: model?.photo is String ? model?.photo as! String : "", imageView: avatar, placeholderImage: nil) { (image, error, cachtType, url) in
+            UIImageViewManger.sd_imageView(url: model?.photo is String ? model?.photo as! String : "", imageView: avatar, placeholderImage: nil) { (image, error, cachtType, url) in
                 
             }
         }

@@ -10,26 +10,28 @@ import UIKit
 
 class MyCatchDollsModel : NSObject, NSCoding{
     
-    var data : [Doll]!
-    var limit : Int!
-    var offset : Int!
-    var total : Int!
+    var deliveryStatus : Int!
+    var desc : String!
+    var id : Int!
+    var images : [String]!
+    var name : String!
+    var price : Int!
+    var skuId : Int!
+    var time : Int!
     
     
     /**
      * Instantiate the instance using the passed dictionary values to set the properties values
      */
     init(fromDictionary dictionary: NSDictionary){
-        data = [Doll]()
-        if let dataArray = dictionary["data"] as? [NSDictionary]{
-            for dic in dataArray{
-                let value = Doll(fromDictionary: dic)
-                data.append(value)
-            }
-        }
-        limit = dictionary["limit"] as? Int
-        offset = dictionary["offset"] as? Int
-        total = dictionary["total"] as? Int
+        deliveryStatus = dictionary["deliveryStatus"] as? Int
+        desc = dictionary["desc"] as? String
+        id = dictionary["id"] as? Int
+        images = dictionary["images"] as? [String]
+        name = dictionary["name"] as? String
+        price = dictionary["price"] as? Int
+        skuId = dictionary["skuId"] as? Int
+        time = dictionary["time"] as? Int
     }
     
     /**
@@ -38,21 +40,29 @@ class MyCatchDollsModel : NSObject, NSCoding{
     func toDictionary() -> NSDictionary
     {
         let dictionary = NSMutableDictionary()
-        if data != nil{
-            var dictionaryElements = [NSDictionary]()
-            for dataElement in data {
-                dictionaryElements.append(dataElement.toDictionary())
-            }
-            dictionary["data"] = dictionaryElements
+        if deliveryStatus != nil{
+            dictionary["deliveryStatus"] = deliveryStatus
         }
-        if limit != nil{
-            dictionary["limit"] = limit
+        if desc != nil{
+            dictionary["desc"] = desc
         }
-        if offset != nil{
-            dictionary["offset"] = offset
+        if id != nil{
+            dictionary["id"] = id
         }
-        if total != nil{
-            dictionary["total"] = total
+        if images != nil{
+            dictionary["images"] = images
+        }
+        if name != nil{
+            dictionary["name"] = name
+        }
+        if price != nil{
+            dictionary["price"] = price
+        }
+        if skuId != nil{
+            dictionary["skuId"] = skuId
+        }
+        if time != nil{
+            dictionary["time"] = time
         }
         return dictionary
     }
@@ -63,10 +73,14 @@ class MyCatchDollsModel : NSObject, NSCoding{
      */
     @objc required init(coder aDecoder: NSCoder)
     {
-        data = aDecoder.decodeObject(forKey: "data") as? [Doll]
-        limit = aDecoder.decodeObject(forKey: "limit") as? Int
-        offset = aDecoder.decodeObject(forKey: "offset") as? Int
-        total = aDecoder.decodeObject(forKey: "total") as? Int
+        deliveryStatus = aDecoder.decodeObject(forKey: "deliveryStatus") as? Int
+        desc = aDecoder.decodeObject(forKey: "desc") as? String
+        id = aDecoder.decodeObject(forKey: "id") as? Int
+        images = aDecoder.decodeObject(forKey: "images") as? [String]
+        name = aDecoder.decodeObject(forKey: "name") as? String
+        price = aDecoder.decodeObject(forKey: "price") as? Int
+        skuId = aDecoder.decodeObject(forKey: "skuId") as? Int
+        time = aDecoder.decodeObject(forKey: "time") as? Int
         
     }
     
@@ -76,94 +90,30 @@ class MyCatchDollsModel : NSObject, NSCoding{
      */
     @objc func encode(with aCoder: NSCoder)
     {
-        if data != nil{
-            aCoder.encode(data, forKey: "data")
+        if deliveryStatus != nil{
+            aCoder.encode(deliveryStatus, forKey: "deliveryStatus")
         }
-        if limit != nil{
-            aCoder.encode(limit, forKey: "limit")
+        if desc != nil{
+            aCoder.encode(desc, forKey: "desc")
         }
-        if offset != nil{
-            aCoder.encode(offset, forKey: "offset")
+        if id != nil{
+            aCoder.encode(id, forKey: "id")
         }
-        if total != nil{
-            aCoder.encode(total, forKey: "total")
+        if images != nil{
+            aCoder.encode(images, forKey: "images")
         }
-        
-    }
-    
-}
-
-class Doll : NSObject, NSCoding{
-    
-    var catchdollId : Int!
-    var date : String!
-    var imgAddress : String!
-    var skuName : String!
-    
-    
-    /**
-     * Instantiate the instance using the passed dictionary values to set the properties values
-     */
-    init(fromDictionary dictionary: NSDictionary){
-        catchdollId = dictionary["catchdollId"] as? Int
-        date = dictionary["date"] as? String
-        imgAddress = dictionary["imgAddress"] as? String
-        skuName = dictionary["skuName"] as? String
-    }
-    
-    /**
-     * Returns all the available property values in the form of NSDictionary object where the key is the approperiate json key and the value is the value of the corresponding property
-     */
-    func toDictionary() -> NSDictionary
-    {
-        let dictionary = NSMutableDictionary()
-        if catchdollId != nil{
-            dictionary["catchdollId"] = catchdollId
+        if name != nil{
+            aCoder.encode(name, forKey: "name")
         }
-        if date != nil{
-            dictionary["date"] = date
+        if price != nil{
+            aCoder.encode(price, forKey: "price")
         }
-        if imgAddress != nil{
-            dictionary["imgAddress"] = imgAddress
+        if skuId != nil{
+            aCoder.encode(skuId, forKey: "skuId")
         }
-        if skuName != nil{
-            dictionary["skuName"] = skuName
-        }
-        return dictionary
-    }
-    
-    /**
-     * NSCoding required initializer.
-     * Fills the data from the passed decoder
-     */
-    @objc required init(coder aDecoder: NSCoder)
-    {
-        catchdollId = aDecoder.decodeObject(forKey: "catchdollId") as? Int
-        date = aDecoder.decodeObject(forKey: "date") as? String
-        imgAddress = aDecoder.decodeObject(forKey: "imgAddress") as? String
-        skuName = aDecoder.decodeObject(forKey: "skuName") as? String
-        
-    }
-    
-    /**
-     * NSCoding required method.
-     * Encodes mode properties into the decoder
-     */
-    @objc func encode(with aCoder: NSCoder)
-    {
-        if catchdollId != nil{
-            aCoder.encode(catchdollId, forKey: "catchdollId")
-        }
-        if date != nil{
-            aCoder.encode(date, forKey: "date")
-        }
-        if imgAddress != nil{
-            aCoder.encode(imgAddress, forKey: "imgAddress")
-        }
-        if skuName != nil{
-            aCoder.encode(skuName, forKey: "skuName")
+        if time != nil{
+            aCoder.encode(time, forKey: "time")
         }
         
     }
-    
 }

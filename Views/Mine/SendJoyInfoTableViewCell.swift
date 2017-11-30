@@ -21,6 +21,7 @@ class SendJoyInfoTableViewCell: UITableViewCell {
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.setUpView()
+        self.changeSelectData(isSelect: self.isSelect)
     }
     
     func setUpView(){
@@ -57,6 +58,14 @@ class SendJoyInfoTableViewCell: UITableViewCell {
             selectImage.image = nil
         }
         self.updateConstraintsIfNeeded()
+    }
+    
+    func cellSetData(model:MyCatchDollsModel, count:Int){
+        joyName.text = model.name
+        UIImageViewManger.sd_imageView(url: model.images[0], imageView: joyImageView, placeholderImage: nil) { (image, error, cacheType, url) in
+            
+        }
+        joyNumber.text = "x\(count)"
     }
     
     required init?(coder aDecoder: NSCoder) {

@@ -49,12 +49,7 @@ class BaseNetWorke {
                     MainThreanShowErrorMessage(responseError)
                 }else{
                     MainThreanShowNetWorkError(responseError)
-                    if url == "http://api.niceticket.cc/show/hot/"{
-                        subscriber.send(value: ["error":"似乎已断开与互联网的连接"])
-                    }else{
-                        subscriber.sendCompleted()
-                        //                        subscriber.send(error: responseError as! NSError)
-                    }
+                    subscriber.sendCompleted()
                 }
                 subscriber.sendCompleted()
             })
@@ -177,7 +172,6 @@ class BaseNetWorke {
     
     func uploadDataFile(_ url:String, parameters:NSDictionary?, images:NSDictionary?, hud:MBProgressHUD?) ->Signal<Any, NSError> {
         return Signal.init({ (subscriber, liftTime) in
-            
             Alamofire.upload(multipartFormData: { (multipartFormData) in
                 if parameters != nil {
                     for i in 0...(parameters!).allValues.count - 1 {

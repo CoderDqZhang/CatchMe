@@ -12,6 +12,10 @@ class SenderJoysViewModel: BaseViewModel {
 
     var isHaveAddress:Bool = true
     var model:AddressModel!
+    var models:NSMutableArray!
+    var modelData:NSMutableArray!
+    var selectArrary = NSMutableArray.init()
+    
     override init() {
         super.init()
         if AddressModel.findAll().count > 0 {
@@ -26,13 +30,65 @@ class SenderJoysViewModel: BaseViewModel {
         }))
     }
     
+    func changeModels(){
+        modelData = NSMutableArray.init()
+        for i in self.models {
+            modelData.add((i as! NSDictionary).object(forKey: "skuId") as Any)
+        }
+        let set = NSSet.init(array: modelData as! [Any])
+        modelData.removeAllObjects()
+        for str in set.allObjects {
+            print(str)
+            let predicate = NSPredicate.init(format: "skuId = %@", str as! CVarArg)
+            let results = self.models.filtered(using: predicate)
+            modelData.add(results)
+            selectArrary.add(true)
+        }
+        self.controller?.tableView.reloadData()
+    }
+    
+    func senderJoys(){
+        var isNoneMuch:Bool = false
+        var count:Int = 0
+        for i in 0...self.selectArrary.count - 1 {
+            if self.selectArrary[i] as! Bool {
+                count = count + (self.modelData[i] as! NSArray).count
+                if count > 2 {
+                    isNoneMuch = true
+                    break
+                }
+            }
+        }
+        if count == 0 {
+            _ = Tools.shareInstance.showMessage(KWINDOWDS(), msg: "请选择发货娃娃", autoHidder: true)
+            return
+        }
+        if (UserInfoModel.shareInstance().coinAmount! as NSString).integerValue < 100 && !isNoneMuch {
+            KWINDOWDS().addSubview(GloableAlertView.init(title: "当前余额不足支付邮费\n请先充值", btnTop: "去充值", btnBottom: "取消", image: UIImage.init(named: "pic_fail_1")!, type: GloableAlertViewType.topupfail, clickClouse: { (tag) in
+                if tag == 100 {
+                    if !COFIGVALUE {
+                        NavigationPushView(self.controller!, toConroller: InPurchaseViewController())
+                    }else{
+                        NavigationPushView(self.controller!, toConroller: TopUpViewController())
+                    }
+                }
+            }))
+        }else{
+            if isHaveAddress {
+                self.requestApplySenderJoy()
+            }else{
+                _ = Tools.shareInstance.showMessage(KWINDOWDS(), msg: "请先填写地址", autoHidder: true)
+            }
+        }
+    }
+    
     //MARK: UItableViewCellSetData
     func tableViewSendAddressTableViewCellSetData(_ indexPath:IndexPath, cell:SendAddressTableViewCell) {
         cell.cellSetData(isHaveAddress: isHaveAddress, model:model)
     }
     
     func tableViewSendJoyInfoTableViewCellSetData(_ indexPath:IndexPath, cell:SendJoyInfoTableViewCell) {
-        
+        cell.cellSetData(model: MyCatchDollsModel.init(fromDictionary: (modelData[indexPath.row] as! NSArray)[0] as! NSDictionary), count:(modelData[indexPath.row] as! NSArray).count)
     }
     
     func tableViewSenderMuchTableViewCellSetData(_ indexPath:IndexPath, cell:SenderMuchTableViewCell) {
@@ -53,6 +109,7 @@ class SenderJoysViewModel: BaseViewModel {
         case 1:
             let cell = tableView.cellForRow(at: indexPath) as! SendJoyInfoTableViewCell
             cell.changeSelectData(isSelect: !cell.isSelect)
+            selectArrary.replaceObject(at: indexPath.row, with: cell.isSelect)
         default:
             break
         }
@@ -101,7 +158,7 @@ extension SenderJoysViewModel: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 1 {
-            return 2
+            return self.modelData == nil ? 0 : self.modelData.count
         }
         return 1
     }
