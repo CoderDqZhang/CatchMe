@@ -49,7 +49,7 @@ class ProfileViewModel: BaseViewModel {
     
     func tableViewDidSelect(_ indexPath:IndexPath) {
         if indexPath.section == 0 {
-            
+            (self.controller as! ProfileViewController).presentImagePickerView()
         }else{
             if indexPath.row == 1 {
                 (self.controller as! ProfileViewController).showSexPickerView()

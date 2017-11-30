@@ -282,7 +282,7 @@ class CacheMeToolsView: UIView {
     //(2x + 75/48x)
     func setUpView(){
         let toolsWidth = (SCREENWIDTH - 36) / (2 + 75/47.5)
-        toolsDesc =  ToolsView.init(frame: CGRect.init(x: 10, y: 0, width: toolsWidth, height: 60), title: "详情", blance: nil, image: UIImage.init(named: "toys")!, tag: 1) {
+        toolsDesc =  ToolsView.init(frame: CGRect.init(x: 10, y: 0, width: toolsWidth, height: 60), title: "详情", blance: nil, image: UIImage.init(named: "toy")!, tag: 1) {
             if self.cacheMeToolsViewClouse != nil {
                 self.cacheMeToolsViewClouse(1)
             }

@@ -152,15 +152,24 @@ class CacheMeViewModel: BaseViewModel {
     
     //退出房间
     func requestExitRooms(){
-        let parameters = ["machineId":catchMeModel.machineDTO.id == nil ? "" : catchMeModel.machineDTO.id,"userId":UserInfoModel.shareInstance().idField] as [String : Any]
-        BaseNetWorke.sharedInstance.getUrlWithString(ExitRoom, parameters: parameters as AnyObject).observe { (resultDic) in
-            if !resultDic.isCompleted {
-                if self.timeHeader != nil {
-                    self.timeHeader.invalidate()
+        if self.catchMeModel != nil {
+            let parameters = ["machineId":catchMeModel.machineDTO.id == nil ? "" : catchMeModel.machineDTO.id,"userId":UserInfoModel.shareInstance().idField] as [String : Any]
+            BaseNetWorke.sharedInstance.getUrlWithString(ExitRoom, parameters: parameters as AnyObject).observe { (resultDic) in
+                if !resultDic.isCompleted {
+                    if self.timeHeader != nil {
+                        self.timeHeader.invalidate()
+                    }
+                    if self.time != nil {
+                        self.time.invalidate()
+                    }
                 }
-                if self.time != nil {
-                    self.time.invalidate()
-                }
+            }
+        }else{
+            if self.timeHeader != nil {
+                self.timeHeader.invalidate()
+            }
+            if self.time != nil {
+                self.time.invalidate()
             }
         }
     }
@@ -257,18 +266,9 @@ class CacheMeViewModel: BaseViewModel {
             if tag == 100 {
                 NavigationPushView(self.cacheMeController, toConroller: MyJoysViewController())
             }else{
-                KWINDOWDS().addSubview(GloabelShareAndConnectUs.init(type: GloabelShareAndConnectUsType.share, clickClouse: { (type) in
-                    switch type {
-                    case .QQChat:
-                        ShareTools.shareInstance.shareQQSessionWebUrl("测试", webTitle: "", imageUrl: "\(ShareCatchDoll)\(self.gameStatus.id)", webDescription: "", webUrl: "")
-                    case .weChatChat:
-                        ShareTools.shareInstance.shareWeChatSession("", description: "", image: UIImage.init(named: "pic_about")!, url: "\(ShareCatchDoll)\(self.gameStatus.id)")
-                    case .weChatSession:
-                        ShareTools.shareInstance.shareWeChatTimeLine("", description: "", image: UIImage.init(named: "pic_about")!, url: "\(ShareCatchDoll)\(self.gameStatus.id)")
-                    default:
-                        break
-                    }
-                }))
+                let toControllerVC = BaseWebViewController()
+                toControllerVC.url = "\(ShareCatchDoll)\(self.gameStatus.id!)"
+                NavigationPushView(self.cacheMeController, toConroller: toControllerVC)
             }
         }))
     }

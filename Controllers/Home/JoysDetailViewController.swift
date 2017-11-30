@@ -7,13 +7,18 @@
 //
 
 import UIKit
+import WebKit
 
 class JoysDetailViewController: BaseViewController {
 
     var url:String = ""
+    var webView:WKWebView!
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.view.backgroundColor = UIColor.white
+        webView = WKWebView(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: SCREENHEIGHT - 64))
+        webView.load(URLRequest.init(url: URL.init(string: url)!))
+        self.view.addSubview(webView)
         // Do any additional setup after loading the view.
     }
 
@@ -34,8 +39,18 @@ class JoysDetailViewController: BaseViewController {
     }
     
     @objc func rightBarItemPress(){
-        let url = "www.baidu.com"
-        KWINDOWDS().addSubview(ShareView.init(title: "推荐给好友", model: ShareModel.init(), image: nil, url: url))
+        KWINDOWDS().addSubview(GloabelShareAndConnectUs.init(type: GloabelShareAndConnectUsType.share, clickClouse: { (type) in
+            switch type {
+            case .QQChat:
+                ShareTools.shareInstance.shareQQSessionWebUrl("", webTitle: "", imageUrl: self.url, webDescription: "", webUrl: "")
+            case .weChatChat:
+                ShareTools.shareInstance.shareWeChatSession("", description: "", image: UIImage.init(named: "pic_about")!, url: self.url)
+            case .weChatSession:
+                ShareTools.shareInstance.shareWeChatTimeLine("", description: "", image: UIImage.init(named: "pic_about")!, url: self.url)
+            default:
+                break
+            }
+        }))
     }
 
     /*

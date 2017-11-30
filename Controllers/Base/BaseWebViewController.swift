@@ -9,7 +9,7 @@
 import UIKit
 import WebKit
 
-class BaseWebViewController: UIViewController {
+class BaseWebViewController: BaseViewController {
 
     var webView:WKWebView!
     var url:String!
@@ -27,11 +27,32 @@ class BaseWebViewController: UIViewController {
         super.viewWillAppear(animated)
         self.navigationController?.fd_prefersNavigationBarHidden = false
         self.navigationController?.setNavigationBarHidden(false, animated: true)
+        
+    }
+    
+    override func setUpViewNavigationItem() {
+        self.navigationItem.title = "炫耀一下"
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: "分享", style: .plain, target: self, action: #selector(self.rightBarItemPress))
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    @objc func rightBarItemPress(){
+        KWINDOWDS().addSubview(GloabelShareAndConnectUs.init(type: GloabelShareAndConnectUsType.share, clickClouse: { (type) in
+            switch type {
+            case .QQChat:
+                ShareTools.shareInstance.shareQQSessionWebUrl("", webTitle: "", imageUrl: self.url, webDescription: "", webUrl: "")
+            case .weChatChat:
+                ShareTools.shareInstance.shareWeChatSession("", description: "", image: UIImage.init(named: "pic_about")!, url: self.url)
+            case .weChatSession:
+                ShareTools.shareInstance.shareWeChatTimeLine("", description: "", image: UIImage.init(named: "pic_about")!, url: self.url)
+            default:
+                break
+            }
+        }))
     }
     
 

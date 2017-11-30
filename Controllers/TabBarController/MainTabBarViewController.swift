@@ -7,140 +7,12 @@
 //
 
 import UIKit
-import ESTabBarController_swift
+import CYLTabBarController
 
 let SafeAreaBottomHeight = SCREENHEIGHT == 812.0 ? 34 : 0
 
 
-class CustomContentView: ESTabBarItemContentView {
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        
-        textColor = UIColor.init(hexString: App_Theme_BBBBBB_Color)
-        highlightTextColor = UIColor.init(hexString: App_Theme_FC4652_Color)
-        iconColor = UIColor.init(hexString: App_Theme_BBBBBB_Color)
-        highlightIconColor = UIColor.init(hexString: App_Theme_FC4652_Color)
-    }
-    
-    public required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-}
-
-class ExampleIrregularityContentView: ESTabBarItemContentView {
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        
-        self.imageView.backgroundColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
-        self.imageView.layer.borderWidth = 1.0
-        self.imageView.layer.borderColor = UIColor.init(hexString: App_Theme_000000_Color)?.cgColor
-        self.imageView.layer.cornerRadius = 35
-        self.insets = UIEdgeInsetsMake(-32, 0, 0, 0)
-        let transform = CGAffineTransform.identity
-        self.imageView.transform = transform
-        self.superview?.bringSubview(toFront: self)
-        
-        textColor = UIColor.init(hexString: App_Theme_BBBBBB_Color)
-        highlightTextColor = UIColor.init(hexString: App_Theme_FC4652_Color)
-        iconColor = UIColor.init(hexString: App_Theme_BBBBBB_Color)
-        highlightIconColor = UIColor.init(hexString: App_Theme_FC4652_Color)
-        backdropColor = .clear
-        highlightBackdropColor = .clear
-    }
-    
-    public required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
-        let p = CGPoint.init(x: point.x - imageView.frame.origin.x, y: point.y - imageView.frame.origin.y)
-        return sqrt(pow(imageView.bounds.size.width / 2.0 - p.x, 2) + pow(imageView.bounds.size.height / 2.0 - p.y, 2)) < imageView.bounds.size.width / 2.0
-    }
-    
-    override func updateLayout() {
-        super.updateLayout()
-        self.imageView.sizeToFit()
-        self.imageView.center = CGPoint.init(x: self.bounds.size.width / 2.0, y: self.bounds.size.height / 2.0)
-    }
-    
-    public override func selectAnimation(animated: Bool, completion: (() -> ())?) {
-        let view = UIView.init(frame: CGRect.init(origin: CGPoint.zero, size: CGSize(width: 2.0, height: 2.0)))
-        view.layer.cornerRadius = 1.0
-        view.layer.opacity = 0.5
-        view.backgroundColor = UIColor.init(red: 10/255.0, green: 66/255.0, blue: 91/255.0, alpha: 1.0)
-        self.addSubview(view)
-//        playMaskAnimation(animateView: view, target: self.imageView, completion: {
-//            [weak view] in
-//            view?.removeFromSuperview()
-//            completion?()
-//        })
-    }
-    
-    public override func reselectAnimation(animated: Bool, completion: (() -> ())?) {
-        completion?()
-    }
-
-    public override func deselectAnimation(animated: Bool, completion: (() -> ())?) {
-        completion?()
-    }
-
-    public override func highlightAnimation(animated: Bool, completion: (() -> ())?) {
-        UIView.beginAnimations("small", context: nil)
-        UIView.setAnimationDuration(0.2)
-        let transform = self.imageView.transform.scaledBy(x: 0.8, y: 0.8)
-        self.imageView.transform = transform
-        textColor = UIColor.init(hexString: App_Theme_BBBBBB_Color)
-        highlightTextColor = UIColor.init(hexString: App_Theme_BBBBBB_Color)
-        iconColor = UIColor.init(hexString: App_Theme_BBBBBB_Color)
-        highlightIconColor = UIColor.init(hexString: App_Theme_BBBBBB_Color)
-        
-        UIView.commitAnimations()
-        completion?()
-    }
-
-    public override func dehighlightAnimation(animated: Bool, completion: (() -> ())?) {
-        UIView.beginAnimations("big", context: nil)
-        UIView.setAnimationDuration(0.2)
-        let transform = CGAffineTransform.identity
-        self.imageView.transform = transform
-        UIView.commitAnimations()
-        completion?()
-    }
-//
-//    private func playMaskAnimation(animateView view: UIView, target: UIView, completion: (() -> ())?) {
-//        view.center = CGPoint.init(x: target.frame.origin.x + target.frame.size.width / 2.0, y: target.frame.origin.y + target.frame.size.height / 2.0)
-//
-//        let scale = POPBasicAnimation.init(propertyNamed: kPOPLayerScaleXY)
-//        scale?.fromValue = NSValue.init(cgSize: CGSize.init(width: 1.0, height: 1.0))
-//        scale?.toValue = NSValue.init(cgSize: CGSize.init(width: 36.0, height: 36.0))
-//        scale?.beginTime = CACurrentMediaTime()
-//        scale?.duration = 0.3
-//        scale?.timingFunction = CAMediaTimingFunction.init(name: kCAMediaTimingFunctionEaseOut)
-//        scale?.removedOnCompletion = true
-//
-//        let alpha = POPBasicAnimation.init(propertyNamed: kPOPLayerOpacity)
-//        alpha?.fromValue = 0.6
-//        alpha?.toValue = 0.6
-//        alpha?.beginTime = CACurrentMediaTime()
-//        alpha?.duration = 0.25
-//        alpha?.timingFunction = CAMediaTimingFunction.init(name: kCAMediaTimingFunctionEaseOut)
-//        alpha?.removedOnCompletion = true
-//
-//        view.layer.pop_add(scale, forKey: "scale")
-//        view.layer.pop_add(alpha, forKey: "alpha")
-//
-//        scale?.completionBlock = ({ animation, finished in
-//            completion?()
-//        })
-//    }
-    
-}
-
-
-class MainTabBarViewController: ESTabBarController {
+class MainTabBarViewController: CYLTabBarController {
 
     var homeViewController = HomeViewController()
     var topViewController = TopViewController()
@@ -151,36 +23,14 @@ class MainTabBarViewController: ESTabBarController {
         super.viewDidLoad()
         
         self.delegate = self
+    
+        self.tabBarItemsAttributes = [
+            [CYLTabBarItemTitle:"首页",CYLTabBarItemImage : "home_gray",CYLTabBarItemSelectedImage : "home_red"],
+            [CYLTabBarItemTitle:"我的",CYLTabBarItemImage : "me_gray",CYLTabBarItemSelectedImage : "me_red"]]
         
-        self.delegate = delegate
-        
-        self.shouldHijackHandler = {
-            tabbarController, viewController, index in
-            if index == 1 {
-                return true
-            }
-            return false
-        }
-        
-        
-        
-        homeViewController.tabBarItem = ESTabBarItem.init(CustomContentView(), title: "首页", image: UIImage.init(named: "home_gray")!.withRenderingMode(.alwaysOriginal), selectedImage: UIImage.init(named: "home_red")!.withRenderingMode(.alwaysOriginal), tag: 0)
-        topViewController.tabBarItem = ESTabBarItem.init(ExampleIrregularityContentView(), title: "快速开始", image: UIImage.init(named: "photo_verybig_1")!.withRenderingMode(.alwaysOriginal), selectedImage: UIImage.init(named: "photo_verybig_1")!.withRenderingMode(.alwaysOriginal), tag: 1)
-        mineViewController.tabBarItem = ESTabBarItem.init(CustomContentView(), title: "我的", image: UIImage.init(named: "me_gray")!.withRenderingMode(.alwaysOriginal), selectedImage: UIImage.init(named: "me_red")!.withRenderingMode(.alwaysOriginal), tag: 2)
-        
-//        self.setNavigationControllerTitleAndImage(image: UIImage.init(named: "home_gray")!, title: "抓我", selectImage: UIImage.init(named: "home_red")!, controller: homeViewController)
-//        self.setNavigationControllerTitleAndImage(image: UIImage.init(named: "v_gray")!, title: "大神榜", selectImage: UIImage.init(named: "v_red")!, controller: topViewController)
-//        self.setNavigationControllerTitleAndImage(image:  UIImage.init(named: "me_gray")!, title: "我的", selectImage: UIImage.init(named: "me_red")!,  controller: mineViewController)
-        
-        let controllers = [createNavigationController(controller: homeViewController),createNavigationController(controller: topViewController),createNavigationController(controller: mineViewController)]
-        
-        self.didHijackHandler = {
-            [weak tabBarController] tabbarController, viewController, index in
-            let controllerVC = CacheMeViewController()
-            controllerVC.isQuickEnter = true
-            NavigationPushView(self.currentViewController, toConroller: controllerVC)
-        }
-        
+        let controllers = [createNavigationController(controller: homeViewController),createNavigationController(controller: mineViewController)]
+        currentViewController = homeViewController
+
         self.viewControllers = controllers
         
         if #available(iOS 11.0, *) {
@@ -227,4 +77,69 @@ extension MainTabBarViewController : UITabBarControllerDelegate {
         viewController.tabBarItem.badgeValue = nil
         currentViewController = viewController.childViewControllers[0]
     }
+}
+
+class PlusButtonSubclass : CYLPlusButton,CYLPlusButtonSubclassing {
+    class func plusButton() -> Any! {
+        let button:PlusButtonSubclass =  PlusButtonSubclass()
+//        button.backgroundColor = UIColor.red
+        button.setImage(UIImage(named: "tabar"), for: UIControlState.normal)
+        button.setTitle("快速开始", for: UIControlState.normal)
+        button.setTitleColor(UIColor.init(hexString: App_Theme_FC4652_Color), for: UIControlState.normal)
+        
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 9.5)
+        button.titleLabel!.textAlignment = .center;
+        button.adjustsImageWhenHighlighted = false;
+        // if you use `+plusChildViewController` , do not addTarget to plusButton.
+        button.addTarget(button, action: #selector(self.buttonClicked(sender:)), for: .touchUpInside)
+        
+        // set button frame
+        button.frame.size.width = 70
+        button.frame.size.height = 65
+//        button.sizeToFit()
+        return button
+    }
+    
+    // button click action
+    
+      @objc func buttonClicked(sender:CYLPlusButton) {
+        let controllerVC = CacheMeViewController()
+        controllerVC.isQuickEnter = true
+        NavigationPushView((KWINDOWDS().rootViewController as! MainTabBarViewController).currentViewController, toConroller: controllerVC)
+      }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        // tabbar UI layout setup
+        let imageViewEdgeWidth   = self.bounds.size.width * 0.7
+        let imageViewEdgeHeight = imageViewEdgeWidth * 0.9
+
+        let centerOfView    = self.bounds.size.width * 0.5
+        let labelLineHeight = self.titleLabel!.font.lineHeight
+        let verticalMargin = (self.bounds.size.height - labelLineHeight - imageViewEdgeHeight ) * 0.5
+
+        let centerOfImageView = verticalMargin + imageViewEdgeHeight * 0.5
+        let centerOfTitleLabel = imageViewEdgeHeight + verticalMargin * 2  + labelLineHeight * 0.5 + 5
+
+        //imageView position layout
+        self.imageView!.bounds = CGRect.init(x: 0, y: 0, width: imageViewEdgeWidth, height: imageViewEdgeHeight)
+        self.imageView!.center = CGPoint.init(x: centerOfView, y: centerOfImageView)
+
+        //title position layout
+        self.titleLabel!.bounds = CGRect.init(x: 0, y: 0, width: self.bounds.size.width, height: labelLineHeight)
+        self.titleLabel!.center = CGPoint.init(x: centerOfView, y: centerOfTitleLabel - 5)
+    }
+    
+    static func indexOfPlusButtonInTabBar() -> UInt {
+        return 1
+    }
+    
+    static func multiplierOfTabBarHeight(tabBarHeight: CGFloat) -> CGFloat {
+        return 0.3
+    }
+    
+    //    static func constantOfPlusButtonCenterYOffsetForTabBarHeight(tabBarHeight: CGFloat) -> CGFloat {
+    //        return -10
+    //    }
 }

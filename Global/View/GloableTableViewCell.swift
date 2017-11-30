@@ -263,7 +263,7 @@ class GloabTitleAndFieldCell: UITableViewCell {
         textField.textColor = UIColor.init(hexString: App_Theme_AAAAAA_Color)
         self.contentView.addSubview(textField)
         
-        lineLable = GloabLineView(frame: CGRect(x: 15,y: 0,width: SCREENWIDTH - 30, height: 0.5))
+        lineLable = GloabLineView(frame: CGRect(x: 15,y: 0,width: SCREENWIDTH - 15, height: 0.5))
         self.contentView.addSubview(lineLable)
         
         self.updateConstraintsIfNeeded()
