@@ -38,8 +38,8 @@ class InPurchaseViewController: BaseViewController {
     
     override func setUpView() {
         balance = UILabel.init()
-        let str = UserInfoModel.shareInstance().coinAmount == nil ? UserInfoModel.shareInstance().coinAmount : "0"
-        self.coinAmount = (str as! NSString).integerValue
+        let str = UserInfoModel.shareInstance().coinAmount != nil ? UserInfoModel.shareInstance().coinAmount : "0"
+        self.coinAmount = (str! as NSString).integerValue
         balance.text = "账户余额 \(str!) 币"
         self.updateBalance(text: balance.text!)
         self.view.addSubview(balance)
@@ -69,8 +69,8 @@ class InPurchaseViewController: BaseViewController {
     
     func createTopUpModel() ->NSMutableArray{
         let models = NSMutableArray.init()
-        let coins = [100,300,1300]
-        let rechargeMoney:[Float] = [5.00,10.00,98.00]
+        let coins = [100,300,3000]
+        let rechargeMoney:[Float] = [6.00,12.00,98.00]
         for i in 0...2 {
             let model = TopUpModel.init()
             model.rechargeCoin = coins[i]
@@ -152,6 +152,9 @@ class InPurchaseViewController: BaseViewController {
     }
     
     func requestDidFinish(_ request: SKRequest) {
+        if loadingView != nil {
+            loadingView.hide(animated: true)
+        }
         print("----------反馈信息结束--------------")
     }
     
@@ -260,6 +263,11 @@ extension InPurchaseViewController : SKProductsRequestDelegate {
             }
             let payment = SKPayment.init(product: myProduct[self.productI - 1])
             SKPaymentQueue.default().add(payment)
+        }else{
+            if loadingView != nil {
+                loadingView.hide(animated: true)
+                _ = Tools.shareInstance.showMessage(KWINDOWDS(), msg: "内购失败，产品数量为0", autoHidder: true)
+            }
         }
     }
 }
