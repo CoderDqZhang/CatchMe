@@ -19,7 +19,7 @@ class GloabLineView: UIView {
     override init(frame: CGRect) {
         super.init(frame:frame)
         lineLabel.frame = CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height)
-        lineLabel.backgroundColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
+        lineLabel.backgroundColor = UIColor.init(hexString: App_Theme_EEEEEE_Color)
         self.addSubview(lineLabel)
     }
     

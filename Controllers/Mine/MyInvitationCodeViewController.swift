@@ -101,11 +101,11 @@ class MyInvitationCodeViewController: BaseViewController {
             KWINDOWDS().addSubview(GloabelShareAndConnectUs.init(type: GloabelShareAndConnectUsType.share, clickClouse: { (type) in
                 switch type {
                 case .QQChat:
-                    ShareTools.shareInstance.shareQQSessionWebUrl("测试", webTitle: "", imageUrl: "", webDescription: "", webUrl: "")
+                    ShareTools.shareInstance.shareQQSessionWebUrl("测试", webTitle: "", imageUrl: "", webDescription: "", webUrl: InviteFriends)
                 case .weChatChat:
-                    ShareTools.shareInstance.shareWeChatSession("", description: "", image: UIImage.init(named: "pic_about")!, url: nil)
+                    ShareTools.shareInstance.shareWeChatSession("", description: "", image: UIImage.init(named: "pic_about")!, url: InviteFriends)
                 case .weChatSession:
-                    ShareTools.shareInstance.shareWeChatTimeLine("", description: "", image: UIImage.init(named: "pic_about")!, url: nil)
+                    ShareTools.shareInstance.shareWeChatTimeLine("", description: "", image: UIImage.init(named: "pic_about")!, url: InviteFriends)
                 default:
                     break
                 }

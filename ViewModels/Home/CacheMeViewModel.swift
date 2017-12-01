@@ -188,22 +188,30 @@ class CacheMeViewModel: BaseViewModel {
     
     //查看排队情况
     func gameStart(){
-        if NIMSDK.shared().loginManager.isLogined() {
-            if self.catchMeModel.currentPlayStatus != 1 || self.headerModel.currentPlayerId != nil {
-                let parameters = ["machineId":catchMeModel.machineDTO.id,"userId":UserInfoModel.shareInstance().idField,"roomId":self.catchMeModel.id] as [String : Any]
-                BaseNetWorke.sharedInstance.getUrlWithString(GamePrepa, parameters: parameters as AnyObject).observe { (resultDic) in
-                    if !resultDic.isCompleted {
-                        //排队成功调用
-                        self.prepareModel = PrepareGameModel.init(fromDictionary: resultDic.value as! NSDictionary)
-                        self.makeGameToUser()
-                        self.doDestroyPlay()
-                        self.gameStarts()
+        if ((UserInfoModel.shareInstance().coinAmount as NSString?)?.integerValue)! < 30 {
+            KWINDOWDS().addSubview(GloableAlertView.init(title: "当前余额不足支付一次游戏\n请先充值", btnTop: "去充值", btnBottom: "取消", image: UIImage.init(named: "pic_fail_1")!, type: GloableAlertViewType.topupfail, clickClouse: { (tag) in
+                if tag == 100 {
+                    self.gotoTopUpVC()
+                }
+            }))
+        }else{
+            if NIMSDK.shared().loginManager.isLogined() {
+                if self.catchMeModel.currentPlayStatus != 1 || self.headerModel.currentPlayerId != nil {
+                    let parameters = ["machineId":catchMeModel.machineDTO.id,"userId":UserInfoModel.shareInstance().idField,"roomId":self.catchMeModel.id] as [String : Any]
+                    BaseNetWorke.sharedInstance.getUrlWithString(GamePrepa, parameters: parameters as AnyObject).observe { (resultDic) in
+                        if !resultDic.isCompleted {
+                            //排队成功调用
+                            self.prepareModel = PrepareGameModel.init(fromDictionary: resultDic.value as! NSDictionary)
+                            self.makeGameToUser()
+                            self.doDestroyPlay()
+                            self.gameStarts()
+                        }
                     }
                 }
+            }else{
+                _ = Tools.shareInstance.showMessage(KWINDOWDS(), msg: "用户未登录", autoHidder: true)
+                NeteaseManager.shareInstance.setAutoLogin()
             }
-        }else{
-            _ = Tools.shareInstance.showMessage(KWINDOWDS(), msg: "用户未登录", autoHidder: true)
-            NeteaseManager.shareInstance.setAutoLogin()
         }
     }
     
@@ -258,6 +266,14 @@ class CacheMeViewModel: BaseViewModel {
                     self.shootSuccess()
                 }
             }
+        }
+    }
+    
+    func gotoTopUpVC(){
+        if !COFIGVALUE {
+            NavigationPushView(self.cacheMeController, toConroller: InPurchaseViewController())
+        }else{
+            NavigationPushView(self.cacheMeController, toConroller: TopUpViewController())
         }
     }
     

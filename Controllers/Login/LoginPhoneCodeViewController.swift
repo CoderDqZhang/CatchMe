@@ -147,7 +147,7 @@ class LoginPhoneCodeViewController: BaseViewController {
         
         senderCode = UIButton.init(type: .custom)
         senderCode.setTitle("60秒后重发", for: .normal)
-        senderCode.setTitleColor(UIColor.init(hexString: App_Theme_000000_Color), for: .normal)
+        senderCode.setTitleColor(UIColor.init(hexString: App_Theme_AAAAAA_Color), for: .normal)
         senderCode.titleLabel?.font = App_Theme_PinFan_R_14_Font
         senderCode.reactive.controlEvents(.touchUpInside).observe { (active) in
             self.loginViewModel.requestLoginCode(self.loginViewModel.form.phone)

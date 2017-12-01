@@ -24,7 +24,7 @@ class ProfileViewModel: BaseViewModel {
     
     func getUserInfoData(){
         detailStr.add(UserInfoModel.shareInstance().userName)
-        detailStr.add(UserInfoModel.shareInstance().gender == 0 ? "男" : "女")
+        detailStr.add(UserInfoModel.shareInstance().gender != 0 ? "男" : "女")
     }
     
     

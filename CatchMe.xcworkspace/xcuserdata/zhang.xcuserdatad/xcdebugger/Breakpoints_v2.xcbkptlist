@@ -132,12 +132,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ViewModels/Home/CacheMeViewModel.swift"
-            timestampString = "533737387.675208"
+            timestampString = "533845842.465237"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "226"
-            endingLineNumber = "226"
-            landmarkName = "playGameLogic(tag:)"
+            startingLineNumber = "234"
+            endingLineNumber = "234"
+            landmarkName = "gameStarts()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -148,12 +148,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ViewModels/Home/CacheMeViewModel.swift"
-            timestampString = "533737387.675318"
+            timestampString = "533845842.465338"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "225"
-            endingLineNumber = "225"
-            landmarkName = "playGameLogic(tag:)"
+            startingLineNumber = "233"
+            endingLineNumber = "233"
+            landmarkName = "gameStarts()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -164,12 +164,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ViewModels/Home/CacheMeViewModel.swift"
-            timestampString = "533737387.675388"
+            timestampString = "533845842.465384"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "224"
-            endingLineNumber = "224"
-            landmarkName = "playGameLogic(tag:)"
+            startingLineNumber = "232"
+            endingLineNumber = "232"
+            landmarkName = "gameStarts()"
             landmarkType = "7">
             <Locations>
                <Location
@@ -212,11 +212,27 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ViewModels/Home/CacheMeViewModel.swift"
-            timestampString = "533737387.675451"
+            timestampString = "533845842.465462"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "223"
-            endingLineNumber = "223"
+            startingLineNumber = "231"
+            endingLineNumber = "231"
+            landmarkName = "gameStarts()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ViewModels/Home/CacheMeViewModel.swift"
+            timestampString = "533845842.465507"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "243"
+            endingLineNumber = "243"
             landmarkName = "playGameLogic(tag:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -228,28 +244,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ViewModels/Home/CacheMeViewModel.swift"
-            timestampString = "533737387.675516"
+            timestampString = "533845842.465547"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "235"
-            endingLineNumber = "235"
-            landmarkName = "playGameGo()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ViewModels/Home/CacheMeViewModel.swift"
-            timestampString = "533737387.675579"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "234"
-            endingLineNumber = "234"
-            landmarkName = "playGameGo()"
+            startingLineNumber = "242"
+            endingLineNumber = "242"
+            landmarkName = "playGameLogic(tag:)"
             landmarkType = "7">
             <Locations>
                <Location
@@ -292,27 +292,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ViewModels/Home/CacheMeViewModel.swift"
-            timestampString = "533737387.675646"
+            timestampString = "533845842.465587"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "250"
-            endingLineNumber = "250"
-            landmarkName = "getGameStaus()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ViewModels/Home/CacheMeViewModel.swift"
-            timestampString = "533737387.675689"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "242"
-            endingLineNumber = "242"
+            startingLineNumber = "258"
+            endingLineNumber = "258"
             landmarkName = "playGameGo()"
             landmarkType = "7">
          </BreakpointContent>
@@ -324,12 +308,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ViewModels/Home/CacheMeViewModel.swift"
-            timestampString = "533737387.675732"
+            timestampString = "533845842.465626"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "249"
-            endingLineNumber = "249"
-            landmarkName = "getGameStaus()"
+            startingLineNumber = "250"
+            endingLineNumber = "250"
+            landmarkName = "playGameGo()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ViewModels/Home/CacheMeViewModel.swift"
+            timestampString = "533845842.465666"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "257"
+            endingLineNumber = "257"
+            landmarkName = "playGameGo()"
             landmarkType = "7">
             <Locations>
                <Location
@@ -372,12 +372,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ViewModels/Home/CacheMeViewModel.swift"
-            timestampString = "533737387.675772"
+            timestampString = "533845842.465719"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "253"
-            endingLineNumber = "253"
-            landmarkName = "getGameStaus()"
+            startingLineNumber = "261"
+            endingLineNumber = "261"
+            landmarkName = "CacheMeViewModel"
+            landmarkType = "3">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Controllers/Mine/InPurchaseViewController.swift"
+            timestampString = "533822521.957041"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "240"
+            endingLineNumber = "240"
+            landmarkName = "paymentQueue(_:restoreCompletedTransactionsFailedWithError:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -388,23 +404,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Controllers/Mine/InPurchaseViewController.swift"
-            timestampString = "533819115.424082"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "240"
-            endingLineNumber = "240"
-            landmarkName = "unknown"
-            landmarkType = "0">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Controllers/Mine/InPurchaseViewController.swift"
-            timestampString = "533819115.42441"
+            timestampString = "533822521.957165"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "256"
@@ -596,7 +596,7 @@
                   moduleName = "CatchMe"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/zhang/Desktop/CatchMe/Global/Net/BaseNetWorke.swift"
-                  timestampString = "533819115.564493"
+                  timestampString = "533845842.955796"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "195"
@@ -611,7 +611,7 @@
                   moduleName = "CatchMe"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/zhang/Desktop/CatchMe/Global/Net/BaseNetWorke.swift"
-                  timestampString = "533819115.566829"
+                  timestampString = "533845842.95746"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "196"
@@ -708,12 +708,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ViewModels/Mine/ProfileViewModel.swift"
-            timestampString = "533806530.667321"
+            timestampString = "533845842.465965"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "81"
             endingLineNumber = "81"
-            landmarkName = "uploadImage(image:)"
+            landmarkName = "changeUserInfo()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -724,12 +724,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ViewModels/Mine/ProfileViewModel.swift"
-            timestampString = "533806530.667471"
+            timestampString = "533845842.466009"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "80"
             endingLineNumber = "80"
-            landmarkName = "uploadImage(image:)"
+            landmarkName = "changeUserInfo()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -788,11 +788,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ViewModels/Mine/SenderJoysViewModel.swift"
-            timestampString = "533806530.667803"
+            timestampString = "533845842.466094"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "68"
-            endingLineNumber = "68"
+            startingLineNumber = "74"
+            endingLineNumber = "74"
             landmarkName = "senderJoys()"
             landmarkType = "7">
          </BreakpointContent>
@@ -804,11 +804,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ViewModels/Mine/SenderJoysViewModel.swift"
-            timestampString = "533806530.66798"
+            timestampString = "533845842.466136"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "64"
-            endingLineNumber = "64"
+            startingLineNumber = "70"
+            endingLineNumber = "70"
             landmarkName = "senderJoys()"
             landmarkType = "7">
          </BreakpointContent>
@@ -820,11 +820,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ViewModels/Mine/SenderJoysViewModel.swift"
-            timestampString = "533806530.66811"
+            timestampString = "533845842.466174"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "56"
-            endingLineNumber = "56"
+            startingLineNumber = "62"
+            endingLineNumber = "62"
             landmarkName = "senderJoys()"
             landmarkType = "7">
          </BreakpointContent>
@@ -836,11 +836,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ViewModels/Mine/SenderJoysViewModel.swift"
-            timestampString = "533806530.668209"
+            timestampString = "533845842.466221"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "114"
-            endingLineNumber = "114"
+            startingLineNumber = "120"
+            endingLineNumber = "120"
             landmarkName = "tableViewDidSelect(_:tableView:)"
             landmarkType = "7">
             <Locations>
@@ -852,11 +852,11 @@
                   moduleName = "CatchMe"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/zhang/Desktop/CatchMe/ViewModels/Mine/SenderJoysViewModel.swift"
-                  timestampString = "533819115.612372"
+                  timestampString = "533845842.991169"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "114"
-                  endingLineNumber = "114"
+                  startingLineNumber = "120"
+                  endingLineNumber = "120"
                   offsetFromSymbolStart = "932">
                </Location>
                <Location
@@ -867,30 +867,14 @@
                   moduleName = "CatchMe"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/zhang/Desktop/CatchMe/ViewModels/Mine/SenderJoysViewModel.swift"
-                  timestampString = "533819115.61528"
+                  timestampString = "533845842.992813"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "114"
-                  endingLineNumber = "114"
+                  startingLineNumber = "120"
+                  endingLineNumber = "120"
                   offsetFromSymbolStart = "1076">
                </Location>
             </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Controllers/Login/LoginTypeViewController.swift"
-            timestampString = "533806530.668324"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "93"
-            endingLineNumber = "93"
-            landmarkName = "loginWeiChat()"
-            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -976,59 +960,11 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Controllers/Login/LoginTypeViewController.swift"
-            timestampString = "533806530.66886"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "100"
-            endingLineNumber = "100"
-            landmarkName = "loginSuccess(_:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "CatchMe.LoginTypeViewController.loginSuccess(Foundation.Notification) -&gt; ()"
-                  moduleName = "CatchMe"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/zhang/Desktop/CatchMe/Controllers/Login/LoginTypeViewController.swift"
-                  timestampString = "533819115.625375"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "100"
-                  endingLineNumber = "100"
-                  offsetFromSymbolStart = "436">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (ReactiveSwift.Signal&lt;Any, __ObjC.NSError&gt;.Event) -&gt; () in CatchMe.LoginTypeViewController.loginSuccess(Foundation.Notification) -&gt; ()"
-                  moduleName = "CatchMe"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/zhang/Desktop/CatchMe/Controllers/Login/LoginTypeViewController.swift"
-                  timestampString = "533819115.627926"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "101"
-                  endingLineNumber = "101"
-                  offsetFromSymbolStart = "28">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ViewModels/Mine/ProfileViewModel.swift"
-            timestampString = "533806530.668941"
+            timestampString = "533845842.466316"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "23"
@@ -1044,7 +980,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ViewModels/Mine/ProfileViewModel.swift"
-            timestampString = "533806530.669021"
+            timestampString = "533845842.466353"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "22"
@@ -1092,76 +1028,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ViewModels/Mine/SenderJoysViewModel.swift"
-            timestampString = "533806530.669616"
+            timestampString = "533845842.466419"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "137"
-            endingLineNumber = "137"
+            startingLineNumber = "143"
+            endingLineNumber = "143"
             landmarkName = "requestDefaultAddress()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Controllers/Login/LoginTypeViewController.swift"
-            timestampString = "533806530.669831"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "106"
-            endingLineNumber = "106"
-            landmarkName = "loginSuccess(_:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Controllers/Login/LoginTypeViewController.swift"
-            timestampString = "533806530.670003"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "107"
-            endingLineNumber = "107"
-            landmarkName = "loginSuccess(_:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Controllers/Login/LoginTypeViewController.swift"
-            timestampString = "533806557.657423"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "103"
-            endingLineNumber = "103"
-            landmarkName = "loginSuccess(_:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Controllers/Login/LoginTypeViewController.swift"
-            timestampString = "533806569.159056"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "101"
-            endingLineNumber = "101"
-            landmarkName = "loginSuccess(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1188,7 +1060,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Global/View/Gloable+View.swift"
-            timestampString = "533819115.425283"
+            timestampString = "533845842.466493"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "258"
@@ -1204,7 +1076,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Global/View/Gloable+View.swift"
-            timestampString = "533819115.42535"
+            timestampString = "533845842.466545"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "283"
@@ -1216,11 +1088,11 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Controllers/Mine/InPurchaseViewController.swift"
-            timestampString = "533819115.425404"
+            timestampString = "533822521.957559"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "41"
@@ -1236,7 +1108,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Controllers/Mine/InPurchaseViewController.swift"
-            timestampString = "533819176.936829"
+            timestampString = "533822521.95761"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "105"
@@ -1252,7 +1124,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Controllers/Mine/InPurchaseViewController.swift"
-            timestampString = "533819178.559405"
+            timestampString = "533822521.957649"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "108"
@@ -1268,7 +1140,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Controllers/Mine/InPurchaseViewController.swift"
-            timestampString = "533819189.253219"
+            timestampString = "533822521.957723"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "161"
@@ -1284,7 +1156,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Controllers/Mine/InPurchaseViewController.swift"
-            timestampString = "533819193.175023"
+            timestampString = "533822521.957766"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "173"
@@ -1300,7 +1172,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Controllers/Mine/InPurchaseViewController.swift"
-            timestampString = "533819195.841818"
+            timestampString = "533822521.957807"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "189"
@@ -1316,12 +1188,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Controllers/Mine/InPurchaseViewController.swift"
-            timestampString = "533819199.377886"
+            timestampString = "533822521.957853"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "202"
             endingLineNumber = "202"
             landmarkName = "paymentQueue(_:updatedTransactions:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Controllers/Home/CacheMeViewController.swift"
+            timestampString = "533845842.466677"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "228"
+            endingLineNumber = "228"
+            landmarkName = "doInitPlayerNotication()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

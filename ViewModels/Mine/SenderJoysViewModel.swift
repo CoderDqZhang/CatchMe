@@ -28,7 +28,13 @@ class SenderJoysViewModel: BaseViewModel {
     
     func senderAddress(){
         KWINDOWDS().addSubview(GloableAlertView.init(title: "当前余额不足支付邮费\n请先充值", btnTop: "去充值", btnBottom: "取消", image: UIImage.init(named: "pic_fail_1")!, type: GloableAlertViewType.topupfail, clickClouse: { (tag) in
-            
+            if tag == 100 {
+                if !COFIGVALUE {
+                    NavigationPushView(self.controller!, toConroller: InPurchaseViewController())
+                }else{
+                    NavigationPushView(self.controller!, toConroller: TopUpViewController())
+                }
+            }
         }))
     }
     

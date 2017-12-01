@@ -66,6 +66,8 @@ let QuictEnter = "\(BaseURL)room/quick/enter"
 let DollsDetail = "\(BaseH5URL)/catch-me/#/toyDetail?skuSubId="
 //抓到娃娃分享
 let ShareCatchDoll = "\(BaseH5URL)/catch-me/#/shareLanding?gameId="
+//邀请码
+let InviteFriends = "\(BaseH5URL)/catch-me/#/invite"
 //修改用户信息
 let ChangeUserInfo = "\(BaseURL)user/updateInfo"
 //上传文件

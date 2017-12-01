@@ -131,11 +131,7 @@ class CacheMeViewController: BaseViewController {
             case 2:
                 self.playGame()
             default:
-                if !COFIGVALUE {
-                    NavigationPushView(self, toConroller: InPurchaseViewController())
-                }else{
-                    NavigationPushView(self, toConroller: TopUpViewController())
-                }
+                self.cacheMeViewModel.gotoTopUpVC()
             }
         }
         self.view.addSubview(bottomToolsView)
@@ -231,8 +227,6 @@ class CacheMeViewController: BaseViewController {
     @objc func playGame(){
         cacheMeViewModel.gameStart()
     }
-    
-    
     
     func doInitPlayerNotication(){
 //        NotificationCenter.default.addObserver(self, selector: #selector(NELivePlayerDidPreparedToPlay(notification:)), name: NELivePlayerDidPreparedToPlayNotification, object: self.liveplayer)
