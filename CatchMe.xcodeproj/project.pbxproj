@@ -145,6 +145,10 @@
 		1F2292821FD01A7C00089174 /* CacheTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2292811FD01A7C00089174 /* CacheTools.swift */; };
 		1F24A32F1FC8050F007D0C18 /* MyInvitationCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F24A32E1FC8050F007D0C18 /* MyInvitationCodeViewController.swift */; };
 		1F24A3311FC92207007D0C18 /* BaseWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F24A3301FC92207007D0C18 /* BaseWebViewController.swift */; };
+		1F3739BC1FD1061F0068F1C0 /* ProfileLogoutTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3739BB1FD1061F0068F1C0 /* ProfileLogoutTableViewCell.swift */; };
+		1F3739BE1FD10D5A0068F1C0 /* address.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1F3739BD1FD10D5A0068F1C0 /* address.txt */; };
+		1F3739C01FD10E160068F1C0 /* LocalJsonFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3739BF1FD10E160068F1C0 /* LocalJsonFile.swift */; };
+		1F3739C41FD1302E0068F1C0 /* AddressValueKey.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1F3739C31FD1302E0068F1C0 /* AddressValueKey.txt */; };
 		1FCA1FFF1FC47CB50008BF07 /* HomeLables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCA1FFE1FC47CB50008BF07 /* HomeLables.swift */; };
 		1FCA20011FC5202D0008BF07 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCA20001FC5202D0008BF07 /* SettingViewController.swift */; };
 		1FCA20031FC521410008BF07 /* NeteaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCA20021FC521410008BF07 /* NeteaseManager.swift */; };
@@ -374,6 +378,10 @@
 		1F2292811FD01A7C00089174 /* CacheTools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheTools.swift; sourceTree = "<group>"; };
 		1F24A32E1FC8050F007D0C18 /* MyInvitationCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInvitationCodeViewController.swift; sourceTree = "<group>"; };
 		1F24A3301FC92207007D0C18 /* BaseWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseWebViewController.swift; sourceTree = "<group>"; };
+		1F3739BB1FD1061F0068F1C0 /* ProfileLogoutTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileLogoutTableViewCell.swift; sourceTree = "<group>"; };
+		1F3739BD1FD10D5A0068F1C0 /* address.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = address.txt; sourceTree = "<group>"; };
+		1F3739BF1FD10E160068F1C0 /* LocalJsonFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalJsonFile.swift; sourceTree = "<group>"; };
+		1F3739C31FD1302E0068F1C0 /* AddressValueKey.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AddressValueKey.txt; sourceTree = "<group>"; };
 		1FCA1FFE1FC47CB50008BF07 /* HomeLables.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeLables.swift; sourceTree = "<group>"; };
 		1FCA20001FC5202D0008BF07 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		1FCA20021FC521410008BF07 /* NeteaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeteaseManager.swift; sourceTree = "<group>"; };
@@ -464,7 +472,9 @@
 				1F126DFB1FBFFB76006306D2 /* CatchMe-Bridging-Header.h */,
 				1F126DFA1FBFFB76006306D2 /* RequestUrl.swift */,
 				1F126DF61FBFFB74006306D2 /* city.plist */,
+				1F3739C31FD1302E0068F1C0 /* AddressValueKey.txt */,
 				1F22927D1FCFBC6600089174 /* Address.plist */,
+				1F3739BD1FD10D5A0068F1C0 /* address.txt */,
 				1F126D661FBFF024006306D2 /* Main.storyboard */,
 				1F126D691FBFF024006306D2 /* Assets.xcassets */,
 				1FE1A2D11FCD095200B715D8 /* Default-568.jpg */,
@@ -636,6 +646,7 @@
 				1F126D8F1FBFF354006306D2 /* Tools.swift */,
 				1F126EBA1FC18CCB006306D2 /* UIImageViewManger.swift */,
 				1F2292811FD01A7C00089174 /* CacheTools.swift */,
+				1F3739BF1FD10E160068F1C0 /* LocalJsonFile.swift */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -852,6 +863,7 @@
 				1F126E481FC07F1B006306D2 /* MineToolsTableViewCell.swift */,
 				1F126ECA1FC2C03F006306D2 /* ProfileHeaderTableViewCell.swift */,
 				1F126ECC1FC2C04E006306D2 /* ProfielInfoTableViewCell.swift */,
+				1F3739BB1FD1061F0068F1C0 /* ProfileLogoutTableViewCell.swift */,
 				1F126ED01FC2C6FE006306D2 /* MyJoyTableViewCell.swift */,
 				1F126EDC1FC3109F006306D2 /* SendAddressTableViewCell.swift */,
 				1F126EDE1FC310B2006306D2 /* SendJoyInfoTableViewCell.swift */,
@@ -1153,6 +1165,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1F126DDE1FBFF46A006306D2 /* AlipaySDK.bundle in Resources */,
+				1F3739C41FD1302E0068F1C0 /* AddressValueKey.txt in Resources */,
 				1F126D6D1FBFF024006306D2 /* LaunchScreen.storyboard in Resources */,
 				1F126DFC1FBFFB76006306D2 /* city.plist in Resources */,
 				1F126D6A1FBFF024006306D2 /* Assets.xcassets in Resources */,
@@ -1160,6 +1173,7 @@
 				1F126D8B1FBFF328006306D2 /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
 				1F126D681FBFF024006306D2 /* Main.storyboard in Resources */,
 				1FE1A2D21FCD095300B715D8 /* Default-568.jpg in Resources */,
+				1F3739BE1FD10D5A0068F1C0 /* address.txt in Resources */,
 				1F126E1B1FBFFE35006306D2 /* WeiboSDK.bundle in Resources */,
 				1F22927E1FCFBC6700089174 /* Address.plist in Resources */,
 			);
@@ -1285,6 +1299,7 @@
 				1F126EA51FC154A0006306D2 /* IJKSDLGLView.m in Sources */,
 				1F126DAA1FBFF387006306D2 /* CountDown.m in Sources */,
 				1F126EA81FC16212006306D2 /* ShareView.swift in Sources */,
+				1F3739BC1FD1061F0068F1C0 /* ProfileLogoutTableViewCell.swift in Sources */,
 				1F126DC81FBFF3AF006306D2 /* UIButton+Extentions.swift in Sources */,
 				1F126ECD1FC2C04E006306D2 /* ProfielInfoTableViewCell.swift in Sources */,
 				1F126E651FC0979A006306D2 /* AddressViewController.swift in Sources */,
@@ -1338,6 +1353,7 @@
 				1FCA20091FC57D2A0008BF07 /* TopUpViewModel.swift in Sources */,
 				1F126DB21FBFF387006306D2 /* ZHPickView.m in Sources */,
 				1FCA1FFF1FC47CB50008BF07 /* HomeLables.swift in Sources */,
+				1F3739C01FD10E160068F1C0 /* LocalJsonFile.swift in Sources */,
 				1F126EE31FC3D89D006306D2 /* AddressViewModel.swift in Sources */,
 				1F126E6B1FC097CE006306D2 /* JoysDetailViewController.swift in Sources */,
 				1F126E001FBFFB76006306D2 /* RequestUrl.swift in Sources */,
@@ -1502,7 +1518,7 @@
 					"$(PROJECT_DIR)/Global/Utli/NELivePlayer/libs",
 					"$(PROJECT_DIR)/Global/Utli/libWeiboSDK",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.zhuawo.catchdolldev;
+				PRODUCT_BUNDLE_IDENTIFIER = com.zhuawo.catchdoll;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "CatchMe/CatchMe-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
@@ -1532,7 +1548,7 @@
 					"$(PROJECT_DIR)/Global/Utli/NELivePlayer/libs",
 					"$(PROJECT_DIR)/Global/Utli/libWeiboSDK",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.zhuawo.catchdolldev;
+				PRODUCT_BUNDLE_IDENTIFIER = com.zhuawo.catchdoll;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "CatchMe/CatchMe-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;

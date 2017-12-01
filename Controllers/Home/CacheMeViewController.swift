@@ -126,7 +126,7 @@ class CacheMeViewController: BaseViewController {
             switch tag {
             case 1:
                 let toViewController = JoysDetailViewController()
-                toViewController.url = "\(DollsDetail)?\(self.roomModel.skuId)"
+                toViewController.url = "\(DollsDetail)\(self.roomModel.skuId)"
                 NavigationPushView(self, toConroller: toViewController)
             case 2:
                 self.playGame()

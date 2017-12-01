@@ -17,10 +17,6 @@ class TopViewController: BaseViewController {
         // Do any additional setup after loading the view.
     }
     
-    override func viewControllerSetNavigationItemBack() {
-        
-    }
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.fd_prefersNavigationBarHidden = false

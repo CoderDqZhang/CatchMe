@@ -28,7 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WeiboSDKDelegate {
         manager = NeteaseManager.init()
         self.setUpMainViewContr()
         self.getConfig()
-
+        
         // Override point for customization after application launch.
         return true
     }
@@ -106,7 +106,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WeiboSDKDelegate {
         if url.host == "response_from_qq" {
             return TencentOAuth.handleOpen(url)
         }
-        if url.host == "platformId=wechat" || url.host == "pay" {
+        if url.host == "platformId=wechat" || url.host == "pay" || url.host == "oauth" {
             return WXApi.handleOpen(url, delegate: self)
         }
         
@@ -126,7 +126,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WeiboSDKDelegate {
         if url.host == "response_from_qq" {
             return TencentOAuth.handleOpen(url)
         }
-        if url.host == "platformId=wechat" || url.host == "pay" {
+        if url.host == "platformId=wechat" || url.host == "pay" || url.host == "oauth" {
             return WXApi.handleOpen(url, delegate: self)
         }
         return WeiboSDK.handleOpen(url, delegate: self)
@@ -168,6 +168,17 @@ extension AppDelegate : WXApiDelegate {
             switch resp.errCode {
             case -2:
                 MainThreadAlertShow("取消分享", view: KWINDOWDS())
+            default:
+                break;
+            }
+        }else if resp is SendAuthResp {
+            switch resp.errCode {
+                case 0 :
+                    Notification(WeiXinCode, value: (resp! as! SendAuthResp).code!)
+                case -2:
+                    MainThreadAlertShow("取消登录", view: KWINDOWDS())
+                case -4:
+                    MainThreadAlertShow("拒绝授权", view: KWINDOWDS())
             default:
                 break;
             }

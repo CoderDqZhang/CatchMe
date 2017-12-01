@@ -13,5 +13,5 @@
 +(UIImage *) getImageFromURL:(NSString *)fileURL;
 
 + (UIImage *)imageWithColor:(UIColor *)color size:(CGSize)size;
-+(UIImage *) createImageWithColor: (UIColor *) color;
++ (UIImage *) createImageWithColor: (UIColor *) color;
 @end

@@ -20,8 +20,10 @@ class SenderJoysViewModel: BaseViewModel {
         super.init()
         if AddressModel.findAll().count > 0 {
             model = AddressModel.findLastObject()
+            isHaveAddress = model == nil ? false : true
+        }else{
+            self.requestDefaultAddress()
         }
-        isHaveAddress = model == nil ? false : true
     }
     
     func senderAddress(){
@@ -120,6 +122,20 @@ class SenderJoysViewModel: BaseViewModel {
             if !resultDic.isCompleted {
 //                self.model = MyCatchDollsModel.init(fromDictionary: resultDic.value! as! NSDictionary)
 //                self.controller?.tableView.reloadData()
+            }
+        }
+    }
+    
+    func requestDefaultAddress(){
+        let parameters = ["userId":UserInfoModel.shareInstance().idField]
+        BaseNetWorke.sharedInstance.getUrlWithString(QueryDefault, parameters: parameters as AnyObject).observe { (resultDic) in
+            if !resultDic.isCompleted {
+                let models:NSMutableArray = NSMutableArray.mj_keyValuesArray(withObjectArray: resultDic.value as! [Any])
+                if (models.count > 0) {
+                    self.model = AddressModel.init(dictionary: models[0] as! NSDictionary as! [AnyHashable : Any])
+                    self.isHaveAddress = self.model == nil ? false : true
+                    self.controller?.tableView.reloadData()
+                }
             }
         }
     }

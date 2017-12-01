@@ -22,7 +22,7 @@ class MyJoysViewModel: BaseViewModel {
     
     func tableViewDidSelect(_ indexPath:IndexPath) {
         let toViewController = JoysDetailViewController()
-        toViewController.url = "\(DollsDetail)?\(MyCatchDollsModel.init(fromDictionary: model[indexPath.section] as! NSDictionary).skuId!)"
+        toViewController.url = "\(DollsDetail)\(MyCatchDollsModel.init(fromDictionary: model[indexPath.section] as! NSDictionary).skuId!)"
         NavigationPushView(self.controller!, toConroller: toViewController)
     }
     

@@ -31,4 +31,17 @@ extension UIButton {
         self.setImage(sImage, for: .selected)
         self.setImage(sImage, for: .highlighted)
     }
+    
+    func verticalImageAndTitle(spacing:CGFloat) {
+        let imageSize = self.imageView?.frame.size
+        var titleSize = self.titleLabel?.frame.size
+        let textSize = (self.titleLabel?.text as! NSString).size(with: self.titleLabel?.font, constrainedToWidth: 0)
+        let frameSize = CGSize.init(width: textSize.width, height: textSize.height)
+        if (titleSize?.width)! + 0.5 < frameSize.width {
+            titleSize?.width = frameSize.width
+        }
+        let totalHeight = (imageSize?.height)! + (titleSize?.height)! + spacing
+        self.imageEdgeInsets = UIEdgeInsetsMake(-(totalHeight - (imageSize?.height)!), 0.0, 0.0, -(titleSize?.width)!)
+        self.titleEdgeInsets = UIEdgeInsetsMake(0, -(imageSize?.width)!, -(totalHeight - (titleSize?.height)!), 0)
+    }
 }

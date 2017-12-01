@@ -8,6 +8,7 @@
 
 import UIKit
 import CYLTabBarController
+import SwifterSwift
 
 let SafeAreaBottomHeight = SCREENHEIGHT == 812.0 ? 34 : 0
 
@@ -30,7 +31,9 @@ class MainTabBarViewController: CYLTabBarController {
         
         let controllers = [createNavigationController(controller: homeViewController),createNavigationController(controller: mineViewController)]
         currentViewController = homeViewController
-
+        self.tabBarController?.tabBar.barStyle = .black
+        self.tabBar.shadowImage =  UIImage.createImage(with: UIColor.clear)
+        self.tabBar.backgroundImage = UIImage.createImage(with: UIColor.clear)
         self.viewControllers = controllers
         
         if #available(iOS 11.0, *) {
@@ -82,7 +85,6 @@ extension MainTabBarViewController : UITabBarControllerDelegate {
 class PlusButtonSubclass : CYLPlusButton,CYLPlusButtonSubclassing {
     class func plusButton() -> Any! {
         let button:PlusButtonSubclass =  PlusButtonSubclass()
-//        button.backgroundColor = UIColor.red
         button.setImage(UIImage(named: "tabar"), for: UIControlState.normal)
         button.setTitle("快速开始", for: UIControlState.normal)
         button.setTitleColor(UIColor.init(hexString: App_Theme_FC4652_Color), for: UIControlState.normal)
@@ -95,7 +97,8 @@ class PlusButtonSubclass : CYLPlusButton,CYLPlusButtonSubclassing {
         
         // set button frame
         button.frame.size.width = 70
-        button.frame.size.height = 65
+        button.frame.size.height = 70
+        button.verticalImageAndTitle(spacing: 2)
 //        button.sizeToFit()
         return button
     }
@@ -111,24 +114,24 @@ class PlusButtonSubclass : CYLPlusButton,CYLPlusButtonSubclassing {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        // tabbar UI layout setup
-        let imageViewEdgeWidth   = self.bounds.size.width * 0.7
-        let imageViewEdgeHeight = imageViewEdgeWidth * 0.9
-
-        let centerOfView    = self.bounds.size.width * 0.5
-        let labelLineHeight = self.titleLabel!.font.lineHeight
-        let verticalMargin = (self.bounds.size.height - labelLineHeight - imageViewEdgeHeight ) * 0.5
-
-        let centerOfImageView = verticalMargin + imageViewEdgeHeight * 0.5
-        let centerOfTitleLabel = imageViewEdgeHeight + verticalMargin * 2  + labelLineHeight * 0.5 + 5
-
-        //imageView position layout
-        self.imageView!.bounds = CGRect.init(x: 0, y: 0, width: imageViewEdgeWidth, height: imageViewEdgeHeight)
-        self.imageView!.center = CGPoint.init(x: centerOfView, y: centerOfImageView)
-
-        //title position layout
-        self.titleLabel!.bounds = CGRect.init(x: 0, y: 0, width: self.bounds.size.width, height: labelLineHeight)
-        self.titleLabel!.center = CGPoint.init(x: centerOfView, y: centerOfTitleLabel - 5)
+//        // tabbar UI layout setup
+//        let imageViewEdgeWidth   = self.bounds.size.width * 0.7
+//        let imageViewEdgeHeight = imageViewEdgeWidth * 0.9
+//
+//        let centerOfView    = self.bounds.size.width * 0.5
+//        let labelLineHeight = self.titleLabel!.font.lineHeight
+//        let verticalMargin = (self.bounds.size.height - labelLineHeight - imageViewEdgeHeight ) * 0.5
+//
+//        let centerOfImageView = verticalMargin + imageViewEdgeHeight * 0.5
+//        let centerOfTitleLabel = imageViewEdgeHeight + verticalMargin * 2  + labelLineHeight * 0.5 + 5
+//
+//        //imageView position layout
+//        self.imageView!.bounds = CGRect.init(x: 0, y: 0, width: imageViewEdgeWidth, height: imageViewEdgeHeight)
+//        self.imageView!.center = CGPoint.init(x: centerOfView, y: centerOfImageView)
+//
+//        //title position layout
+//        self.titleLabel!.bounds = CGRect.init(x: 0, y: 0, width: self.bounds.size.width, height: labelLineHeight)
+//        self.titleLabel!.center = CGPoint.init(x: centerOfView, y: centerOfTitleLabel - 5)
     }
     
     static func indexOfPlusButtonInTabBar() -> UInt {
@@ -136,7 +139,7 @@ class PlusButtonSubclass : CYLPlusButton,CYLPlusButtonSubclassing {
     }
     
     static func multiplierOfTabBarHeight(tabBarHeight: CGFloat) -> CGFloat {
-        return 0.3
+        return 0.5
     }
     
     //    static func constantOfPlusButtonCenterYOffsetForTabBarHeight(tabBarHeight: CGFloat) -> CGFloat {

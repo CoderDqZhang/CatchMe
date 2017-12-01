@@ -17,11 +17,17 @@ class LoginTypeViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        NotificationCenter.default.addObserver(self, selector: #selector(self.loginSuccess(_:)), name: NSNotification.Name(rawValue: WeiXinCode), object: nil)
         self.view.backgroundColor = UIColor.init(hexString: App_Theme_FC4652_Color)
         // Do any additional setup after loading the view.
     }
     
     override func viewControllerSetNavigationItemBack(){
+        
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: WeiXinCode), object: nil)
     }
     
     override func setUpView() {
@@ -85,6 +91,15 @@ class LoginTypeViewController: BaseViewController {
             //第三方向微信终端发送一个SendAuthReq消息结构
             if !WXApi.send(req) {
                 print("weixin sendreq failed")
+            }
+        }
+    }
+
+    @objc func loginSuccess(_ object:Foundation.Notification){
+        let url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=\(WeiXinAppID)&secret=\(WeiXinSECRET)&code=\(object.object!)&grant_type=authorization_code"
+        BaseNetWorke.sharedInstance.getUrlWithString(url, parameters: nil).observe { (resultDic) in
+            if !resultDic.isCompleted {
+                
             }
         }
     }

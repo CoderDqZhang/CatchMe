@@ -13,7 +13,8 @@ import Foundation
 //测试服
 //let BaseStr = "liangpiao.me/"
 //正式服
-let BaseURL = "http://39.106.137.21:8201/"
+let BaseURL = "\(BaseH5URL):8201/"
+let BaseH5URL = "http://39.106.137.21"
 
 //登录api
 let LoginUrl = "\(BaseURL)user/login"
@@ -60,13 +61,17 @@ let Config = "\(BaseURL)config"
 //快速进入
 let QuictEnter = "\(BaseURL)room/quick/enter"
 //娃娃详情
-let DollsDetail = "\(BaseURL)catch-me/#/toyDetail?skuSubId="
+let DollsDetail = "\(BaseH5URL)/catch-me/#/toyDetail?skuSubId="
 //抓到娃娃分享
-let ShareCatchDoll = "\(BaseURL)catch-me/#/shareLanding?gameId="
+let ShareCatchDoll = "\(BaseH5URL)/catch-me/#/shareLanding?gameId="
 //修改用户信息
 let ChangeUserInfo = "\(BaseURL)user/updateInfo"
 //上传文件
 let UploadImage = "\(BaseURL)uploadImage"
+//添加地址
+let AddressUrl = "\(BaseURL)address/add"
+//获取默认地址
+let QueryDefault = "\(BaseURL)address/queryDefault"
 
 //9.106.137.21:8201/rooms?offset=1&limit=20&userId=1
 ////首页房间李彪，offset从1开始

@@ -11,9 +11,24 @@
 @interface AddressModel : JKDBModel
 
 @property (nonatomic, copy) NSString * address;
-@property (nonatomic, copy) NSString * city;
-@property (nonatomic, copy) NSString * isNormal;
-@property (nonatomic, copy) NSString * phone;
-@property (nonatomic, copy) NSString * userName;
-    
+@property (nonatomic, assign) NSInteger city;
+@property (nonatomic, copy) NSObject * comment;
+@property (nonatomic, copy) NSString * consignee;
+@property (nonatomic, assign) NSInteger county;
+@property (nonatomic, strong) NSObject * createBy;
+@property (nonatomic, assign) NSInteger createTime;
+@property (nonatomic, strong) NSObject * defaultFlag;
+@property (nonatomic, assign) NSInteger idField;
+@property (nonatomic, assign) NSInteger province;
+@property (nonatomic, copy) NSString * telephone;
+@property (nonatomic, strong) NSObject * updateBy;
+@property (nonatomic, assign) NSInteger updateTime;
+@property (nonatomic, assign) NSInteger userId;
+@property (nonatomic, assign) NSInteger validFlag;
+@property (nonatomic, strong) NSObject * version;
+
+-(instancetype)initWithDictionary:(NSDictionary *)dictionary;
+
+-(NSDictionary *)toDictionary;
+
 @end

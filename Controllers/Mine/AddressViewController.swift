@@ -12,9 +12,11 @@ typealias AddressSaveSuccessClouse = (_ model:AddressModel) -> Void
 
 class AddressViewController: BaseViewController {
 
-    var cityPickerView:ZHPickView!
     var addressSaveSuccessClouse:AddressSaveSuccessClouse!
     var model:AddressModel!
+    
+    var picker:UIPickerView!
+    var pickerToolBar:UIToolbar!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,21 +45,41 @@ class AddressViewController: BaseViewController {
     @objc func rightBarButtonPress(){
         (viewModel as! AddressViewModel).saveAddress()
     }
-    
-    func showCityPickerView(){
-        self.view.endEditing(true)
-        if cityPickerView == nil {
-            cityPickerView = ZHPickView(pickviewWithPlistName: "city", isHaveNavControler: false)
-            cityPickerView.setPickViewColer(UIColor.white)
-            cityPickerView.setTintColor(UIColor.white)
-            cityPickerView.tag = 2
-            cityPickerView.setToolbarTintColor(UIColor.init(hexString: App_Theme_FC4652_Color))
-            cityPickerView.setTintFont(App_Theme_PinFan_R_13_Font, color: UIColor.init(hexString: App_Theme_FFFFFF_Color))
-            cityPickerView.delegate = self
-        }
-        cityPickerView.show()
-    }
 
+    func showCityPickerView(){
+        picker = UIPickerView.init(frame: CGRect.init(x: 0, y: SCREENHEIGHT - 216, width: SCREENWIDTH, height: 216))
+        picker.dataSource = self.viewModel as? UIPickerViewDataSource
+        picker.delegate = self.viewModel as? UIPickerViewDelegate
+        self.view.addSubview(self.showToolBar())
+        self.view.addSubview(picker)
+    }
+    
+    func showToolBar() -> UIToolbar{
+        pickerToolBar = UIToolbar.init(frame: CGRect.init(x: 0, y: SCREENHEIGHT - 256, width: SCREENWIDTH, height: 40))
+        pickerToolBar.barTintColor = UIColor.init(hexString: App_Theme_FC4652_Color)
+        let barItems = NSMutableArray.init()
+        let cancel = UIBarButtonItem.init(title: "取消", style: .plain, target: self, action: #selector(self.cancelSelect))
+        barItems.add(cancel)
+        let flexSpace = UIBarButtonItem.init(barButtonSystemItem: .fixedSpace, target: self, action: nil)
+        flexSpace.width = SCREENWIDTH - 60
+        barItems.add(flexSpace)
+        let done = UIBarButtonItem.init(title: "确定", style: .plain, target: self, action: #selector(self.doneSelect))
+        barItems.add(done)
+        pickerToolBar.items = barItems as? [UIBarButtonItem]
+        return pickerToolBar
+    }
+    
+    @objc func cancelSelect(){
+        picker.isHidden = true
+        pickerToolBar.isHidden = true
+    }
+    
+    @objc func doneSelect(){
+        picker.isHidden = true
+        pickerToolBar.isHidden = true
+        (self.viewModel as! AddressViewModel).getAddress()
+    }
+    
     /*
     // MARK: - Navigation
 
@@ -70,12 +92,3 @@ class AddressViewController: BaseViewController {
 
 }
 
-extension AddressViewController : ZHPickViewDelegate {
-    func toobarDonBtnHaveClick(_ pickView: ZHPickView!, resultString: String!) {
-        print(resultString)
-        if resultString != nil {
-            (viewModel as! AddressViewModel).model.city = resultString
-            (viewModel as! AddressViewModel).updateCellString(self.tableView, str: resultString, tag: pickView.tag)
-        }
-    }
-}

@@ -11,12 +11,14 @@ import UIKit
 class ProfileViewController: BaseViewController {
 
     var sexPickerView:ZHPickView!
+    var picker:UIPickerView!
+    var pickerToolBar:UIToolbar!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.bindViewModel(viewModel: ProfileViewModel(), controller: self)
-        self.setUpTableView(style: .grouped, cells: [ProfileHeaderTableViewCell.self,GloabTitleAndFieldCell.self,ProfielInfoTableViewCell.self], controller: self)
+        self.setUpTableView(style: .grouped, cells: [ProfileHeaderTableViewCell.self,GloabTitleAndFieldCell.self,ProfielInfoTableViewCell.self, ProfileLogoutTableViewCell.self], controller: self)
         // Do any additional setup after loading the view.
     }
 

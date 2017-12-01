@@ -39,7 +39,9 @@ let APPCONFIGSTATUS = "APPCONFIGSTATUS"
 
 let WANGYIIMAPPKEY = "04fdcc5868d168349f86a52c04a9d426"
 
-let WeiXinAppID = "wx6c6b940e660449a2"
+let WeiXinAppID = "wxde874e2be98bd508"
+let WeiXinSECRET = ""
+let WeiXinCode = "GetWeiXinCode"
 let QQAppID = "1105914312"
 let QQAppKey = "13YjjEEnKWGQ5IJl"
 

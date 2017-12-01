@@ -12,9 +12,14 @@ class ProfileViewModel: BaseViewModel {
 
     var titleStr:[String] = ["昵称","性别"]
     var detailStr = NSMutableArray.init()
+    var addressDic = NSMutableArray.init()
+    var selectProvince:Int = 0
+    var selectCity:Int = 0
+    var selectRegion:Int = 0
     override init() {
         super.init()
         self.getUserInfoData()
+        addressDic = LocalJsonFile.init().fileRead(fileName: "address", type: "txt")!.object(forKey: "data") as! NSMutableArray
     }
     
     func getUserInfoData(){
@@ -57,6 +62,12 @@ class ProfileViewModel: BaseViewModel {
         }
     }
     
+    @objc func logout(){
+        if UserInfoModel.logout() {
+            KWINDOWDS().rootViewController = UINavigationController.init(rootViewController: LoginTypeViewController())
+        }
+    }
+    
     //MARK: RequestNet
     func changeUserInfo(){
         let parameters = ["id":UserInfoModel.shareInstance().idField,
@@ -87,13 +98,6 @@ class ProfileViewModel: BaseViewModel {
                 }
             }
         }
-        
-//        uploadImage(image: image, fileName: "thumbnail/collection", success: { (resultDic) in
-//            self.imageType == 0 ? (UserInfoModel.shareInstance().tails.userInfo.photo = resultDic as! String)
-//                : (UserInfoModel.shareInstance().tails.userInfo.qrCode = resultDic as! String)
-//        }) { (failure) in
-//
-//        }
     }
 }
 
@@ -115,6 +119,8 @@ extension ProfileViewModel: UITableViewDelegate {
         switch indexPath.section {
         case 0:
             return 70
+        case 1:
+            return 50
         default:
             return 56
         }
@@ -123,11 +129,11 @@ extension ProfileViewModel: UITableViewDelegate {
 
 extension ProfileViewModel: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return 3
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return section == 0 ? 1 : 2
+        return section == 1 ? 2 : 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -138,7 +144,7 @@ extension ProfileViewModel: UITableViewDataSource {
             cell.accessoryType = .disclosureIndicator
             cell.selectionStyle = .none
             return cell
-        default:
+        case 1:
             if indexPath.row == 0 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: GloabTitleAndFieldCell.description(), for: indexPath)
                 self.tableViewGloabTitleAndFieldCellSetData(indexPath, cell: cell as! GloabTitleAndFieldCell)
@@ -152,6 +158,17 @@ extension ProfileViewModel: UITableViewDataSource {
                 cell.selectionStyle = .none
                 return cell
             }
+        default:
+            let cell = tableView.dequeueReusableCell(withIdentifier: ProfileLogoutTableViewCell.description(), for: indexPath)
+            cell.backgroundColor = UIColor.clear
+            let button = CustomButton.init(frame: CGRect.init(x: (SCREENWIDTH - 200)/2, y: 10, width: 200, height: 46), title: "退出", tag: 10, titleFont: App_Theme_PinFan_M_17_Font!, type: CustomButtonType.withBackBoarder) { (tag) in
+                self.logout()
+            }
+            cell.contentView.addSubview(button)
+            cell.selectionStyle = .none
+            return cell
         }
     }
 }
+
+
