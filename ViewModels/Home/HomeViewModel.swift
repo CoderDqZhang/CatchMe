@@ -41,7 +41,7 @@ class HomeViewModel: BaseViewModel {
             self.headerView.setcycleScrollerViewData(imageUrls.mutableCopy() as! NSArray)
             self.headerView.cyCleScrollerViewClouse = { index in
                 let controllerVC = BaseWebViewController()
-                controllerVC.url = "http://www.baidu.com"
+                controllerVC.bannerModel = BannerModel.init(fromDictionary: self.banners[index] as! NSDictionary)
                 NavigationPushView(self.controller!, toConroller: controllerVC)
             }
         }
@@ -58,7 +58,7 @@ class HomeViewModel: BaseViewModel {
             self.headerView.setcycleScrollerViewData(imageUrls.mutableCopy() as! NSArray)
             self.headerView.cyCleScrollerViewClouse = { index in
                 let controllerVC = BaseWebViewController()
-                controllerVC.url = "http://www.baidu.com"
+                controllerVC.bannerModel = BannerModel.init(fromDictionary: self.banners[index] as! NSDictionary)
                 NavigationPushView(self.controller!, toConroller: controllerVC)
             }
         }

@@ -104,7 +104,7 @@ class AboutUsViewController: BaseViewController {
                 _ = Tools.shareInstance.showMessage(KWINDOWDS(), msg: "已帮您复制微信号，请打开微信联系微信客服", autoHidder: true)
                 break;
             case .phoneCall:
-                AppCallViewShow(KWINDOWDS(), phone: "4006005355")
+                AppCallViewShow(self.view, phone: "4006005355")
             case .QQService:
                 self.openQQChat(str: "769839948")
                 break;

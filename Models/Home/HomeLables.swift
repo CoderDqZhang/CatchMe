@@ -196,6 +196,7 @@ class BannerModel : NSObject, NSCoding{
     
     var bannerAddress : String!
     var id : Int!
+    var linkAddress : String!
     var sequence : Int!
     var title : String!
     
@@ -206,6 +207,7 @@ class BannerModel : NSObject, NSCoding{
     init(fromDictionary dictionary: NSDictionary){
         bannerAddress = dictionary["bannerAddress"] as? String
         id = dictionary["id"] as? Int
+        linkAddress = dictionary["linkAddress"] as? String
         sequence = dictionary["sequence"] as? Int
         title = dictionary["title"] as? String
     }
@@ -221,6 +223,9 @@ class BannerModel : NSObject, NSCoding{
         }
         if id != nil{
             dictionary["id"] = id
+        }
+        if linkAddress != nil{
+            dictionary["linkAddress"] = linkAddress
         }
         if sequence != nil{
             dictionary["sequence"] = sequence
@@ -239,6 +244,7 @@ class BannerModel : NSObject, NSCoding{
     {
         bannerAddress = aDecoder.decodeObject(forKey: "bannerAddress") as? String
         id = aDecoder.decodeObject(forKey: "id") as? Int
+        linkAddress = aDecoder.decodeObject(forKey: "linkAddress") as? String
         sequence = aDecoder.decodeObject(forKey: "sequence") as? Int
         title = aDecoder.decodeObject(forKey: "title") as? String
         
@@ -256,13 +262,14 @@ class BannerModel : NSObject, NSCoding{
         if id != nil{
             aCoder.encode(id, forKey: "id")
         }
+        if linkAddress != nil{
+            aCoder.encode(linkAddress, forKey: "linkAddress")
+        }
         if sequence != nil{
             aCoder.encode(sequence, forKey: "sequence")
         }
         if title != nil{
             aCoder.encode(title, forKey: "title")
         }
-        
     }
-    
 }

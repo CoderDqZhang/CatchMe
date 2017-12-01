@@ -13,12 +13,17 @@ class BaseWebViewController: BaseViewController {
 
     var webView:WKWebView!
     var url:String!
+    var bannerModel:BannerModel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        if bannerModel != nil {
+            self.url = bannerModel.linkAddress
+        }
+        
         webView = WKWebView(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: SCREENHEIGHT - 64))
-        webView.load(URLRequest.init(url: URL.init(string: url)!))
+        webView.load(URLRequest.init(url: URL.init(string: bannerModel != nil ? bannerModel.linkAddress : url)!))
         self.view.addSubview(webView)
         // Do any additional setup after loading the view.
     }
@@ -31,7 +36,7 @@ class BaseWebViewController: BaseViewController {
     }
     
     override func setUpViewNavigationItem() {
-        self.navigationItem.title = "炫耀一下"
+        self.navigationItem.title = bannerModel != nil ? bannerModel.title : "炫耀一下"
         self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: "分享", style: .plain, target: self, action: #selector(self.rightBarItemPress))
     }
     
@@ -44,7 +49,7 @@ class BaseWebViewController: BaseViewController {
         KWINDOWDS().addSubview(GloabelShareAndConnectUs.init(type: GloabelShareAndConnectUsType.share, clickClouse: { (type) in
             switch type {
             case .QQChat:
-                ShareTools.shareInstance.shareQQSessionWebUrl("", webTitle: "", imageUrl: self.url, webDescription: "", webUrl: "")
+                ShareTools.shareInstance.shareQQSessionWebUrl("", webTitle: "", imageUrl: self.url, webDescription: "", webUrl: self.url)
             case .weChatChat:
                 ShareTools.shareInstance.shareWeChatSession("", description: "", image: UIImage.init(named: "pic_about")!, url: self.url)
             case .weChatSession:

@@ -29,12 +29,13 @@ class MyDollsCollectionViewCell: UICollectionViewCell {
     }
     
     func setUpView(){
-        statusImage = UIImageView.init()
-        statusImage.image = UIImage.init(named: "tag_vacant")
-        self.contentView.addSubview(statusImage)
         
         dollsImage = UIImageView.init()
         self.contentView.addSubview(dollsImage)
+        
+        statusImage = UIImageView.init()
+        statusImage.image = UIImage.init(named: "tag_vacant")
+        self.contentView.addSubview(statusImage)
         
         coinsImage = UIImageView.init()
         coinsImage.image = UIImage.init(named: "coin")
