@@ -38,9 +38,9 @@ static UserInfoModel *_instance = nil;
 + (instancetype)shareInstance {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        NSObject *object = [[NSUserDefaults standardUserDefaults] objectForKey:@"telephone"];
+        NSObject *object = [[NSUserDefaults standardUserDefaults] objectForKey:@"neteaseAccountId"];
         if ([UserInfoModel findAll].count > 0 ) {
-            _instance =  [UserInfoModel findFirstByCriteria:[NSString stringWithFormat:@" where telephone = '%@'",object]];
+            _instance =  [UserInfoModel findFirstByCriteria:[NSString stringWithFormat:@" where neteaseAccountId = '%@'",object]];
         }else{
             _instance = [[UserInfoModel alloc] init];
         }
@@ -239,8 +239,8 @@ static UserInfoModel *_instance = nil;
 
 + (BOOL)isLoggedIn
     {
-        NSObject *object = [[NSUserDefaults standardUserDefaults] objectForKey:@"telephone"];
-        if ([UserInfoModel findAll].count > 0 && [UserInfoModel findFirstByCriteria:[NSString stringWithFormat:@" where telephone = '%@'",object]] != nil){
+        NSObject *object = [[NSUserDefaults standardUserDefaults] objectForKey:@"neteaseAccountId"];
+        if ([UserInfoModel findAll].count > 0 && [UserInfoModel findFirstByCriteria:[NSString stringWithFormat:@" where neteaseAccountId = '%@'",object]] != nil){
             return YES;
         }else{
             return NO;
@@ -262,8 +262,8 @@ static UserInfoModel *_instance = nil;
         [UserInfoModel shareInstance].neteaseAccountId = nil;
         [UserInfoModel shareInstance].token = nil;
         [UserInfoModel shareInstance].coinAmount = nil;
-        NSObject *object = [[NSUserDefaults standardUserDefaults] objectForKey:@"telephone"];
-        return [UserInfoModel deleteObjectsByCriteria:[NSString stringWithFormat:@" where telephone = '%@'", object]];
+        NSObject *object = [[NSUserDefaults standardUserDefaults] objectForKey:@"neteaseAccountId"];
+        return [UserInfoModel deleteObjectsByCriteria:[NSString stringWithFormat:@" where neteaseAccountId = '%@'", object]];
     }
 
 @end

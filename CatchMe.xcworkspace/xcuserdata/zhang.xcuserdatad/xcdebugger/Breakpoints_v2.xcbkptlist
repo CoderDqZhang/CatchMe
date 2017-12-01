@@ -52,7 +52,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CatchMe/AppDelegate.swift"
-            timestampString = "533805653.22706"
+            timestampString = "533806530.660759"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "96"
@@ -68,7 +68,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CatchMe/AppDelegate.swift"
-            timestampString = "533805653.227138"
+            timestampString = "533806530.660894"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "94"
@@ -116,7 +116,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Views/Home/CacheMeControllerSubViews.swift"
-            timestampString = "533805653.227278"
+            timestampString = "533806530.661143"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "35"
@@ -436,7 +436,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Global/Net/BaseNetWorke.swift"
-            timestampString = "533805653.227788"
+            timestampString = "533806530.661787"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "242"
@@ -452,7 +452,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Global/Net/BaseNetWorke.swift"
-            timestampString = "533805653.227851"
+            timestampString = "533806530.662219"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "243"
@@ -468,7 +468,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Global/Net/BaseNetWorke.swift"
-            timestampString = "533805653.227979"
+            timestampString = "533806530.662618"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "246"
@@ -480,11 +480,11 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Global/Net/BaseNetWorke.swift"
-            timestampString = "533805653.22806"
+            timestampString = "533806530.663171"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "248"
@@ -500,7 +500,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Global/Net/BaseNetWorke.swift"
-            timestampString = "533805653.228117"
+            timestampString = "533806530.663569"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "238"
@@ -516,12 +516,12 @@
                   moduleName = "CatchMe"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/zhang/Desktop/CatchMe/Global/Net/BaseNetWorke.swift"
-                  timestampString = "533804292.043108"
+                  timestampString = "533806605.660963"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "238"
                   endingLineNumber = "238"
-                  offsetFromSymbolStart = "5142">
+                  offsetFromSymbolStart = "4868">
                </Location>
                <Location
                   shouldBeEnabled = "No"
@@ -531,12 +531,12 @@
                   moduleName = "CatchMe"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/zhang/Desktop/CatchMe/Global/Net/BaseNetWorke.swift"
-                  timestampString = "533804292.046626"
+                  timestampString = "533806605.662801"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "239"
                   endingLineNumber = "239"
-                  offsetFromSymbolStart = "33">
+                  offsetFromSymbolStart = "36">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -612,7 +612,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Global/Net/BaseNetWorke.swift"
-            timestampString = "533805653.228367"
+            timestampString = "533806530.664144"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "195"
@@ -628,7 +628,7 @@
                   moduleName = "CatchMe"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/zhang/Desktop/CatchMe/Global/Net/BaseNetWorke.swift"
-                  timestampString = "533805653.604698"
+                  timestampString = "533806533.187515"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "195"
@@ -643,7 +643,7 @@
                   moduleName = "CatchMe"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/zhang/Desktop/CatchMe/Global/Net/BaseNetWorke.swift"
-                  timestampString = "533805653.607592"
+                  timestampString = "533806533.189845"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "196"
@@ -660,7 +660,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Global/Net/BaseNetWorke.swift"
-            timestampString = "533805653.228427"
+            timestampString = "533806530.664503"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "208"
@@ -676,7 +676,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Global/Net/BaseNetWorke.swift"
-            timestampString = "533805653.228479"
+            timestampString = "533806530.664915"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "196"
@@ -692,7 +692,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Global/Net/BaseNetWorke.swift"
-            timestampString = "533805653.228526"
+            timestampString = "533806530.665397"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "197"
@@ -708,7 +708,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Global/Net/BaseNetWorke.swift"
-            timestampString = "533805653.228577"
+            timestampString = "533806530.665852"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "200"
@@ -724,7 +724,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Global/Net/BaseNetWorke.swift"
-            timestampString = "533805653.228625"
+            timestampString = "533806530.66668"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "198"
@@ -740,7 +740,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ViewModels/Mine/ProfileViewModel.swift"
-            timestampString = "533805653.228678"
+            timestampString = "533806530.667321"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "81"
@@ -756,7 +756,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ViewModels/Mine/ProfileViewModel.swift"
-            timestampString = "533805653.228739"
+            timestampString = "533806530.667471"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "80"
@@ -772,7 +772,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Views/Mine/MyJoyTableViewCell.swift"
-            timestampString = "533805653.228805"
+            timestampString = "533806530.667625"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "71"
@@ -820,7 +820,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ViewModels/Mine/SenderJoysViewModel.swift"
-            timestampString = "533805653.228861"
+            timestampString = "533806530.667803"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "68"
@@ -836,7 +836,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ViewModels/Mine/SenderJoysViewModel.swift"
-            timestampString = "533805653.228926"
+            timestampString = "533806530.66798"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "64"
@@ -852,7 +852,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ViewModels/Mine/SenderJoysViewModel.swift"
-            timestampString = "533805653.228978"
+            timestampString = "533806530.66811"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "56"
@@ -868,7 +868,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ViewModels/Mine/SenderJoysViewModel.swift"
-            timestampString = "533805653.229026"
+            timestampString = "533806530.668209"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "114"
@@ -884,7 +884,7 @@
                   moduleName = "CatchMe"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/zhang/Desktop/CatchMe/ViewModels/Mine/SenderJoysViewModel.swift"
-                  timestampString = "533805653.659765"
+                  timestampString = "533806533.253578"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "114"
@@ -899,7 +899,7 @@
                   moduleName = "CatchMe"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/zhang/Desktop/CatchMe/ViewModels/Mine/SenderJoysViewModel.swift"
-                  timestampString = "533805653.662979"
+                  timestampString = "533806533.255295"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "114"
@@ -912,11 +912,11 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Controllers/Login/LoginTypeViewController.swift"
-            timestampString = "533805653.229078"
+            timestampString = "533806530.668324"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "93"
@@ -932,7 +932,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CatchMe/AppDelegate.swift"
-            timestampString = "533805653.229129"
+            timestampString = "533806530.668418"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "110"
@@ -948,7 +948,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CatchMe/AppDelegate.swift"
-            timestampString = "533805653.229184"
+            timestampString = "533806530.668533"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "130"
@@ -964,7 +964,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CatchMe/AppDelegate.swift"
-            timestampString = "533805653.229235"
+            timestampString = "533806530.668619"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "109"
@@ -980,7 +980,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CatchMe/AppDelegate.swift"
-            timestampString = "533805653.229285"
+            timestampString = "533806530.668708"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "167"
@@ -996,7 +996,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CatchMe/AppDelegate.swift"
-            timestampString = "533805653.229335"
+            timestampString = "533806530.668783"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "152"
@@ -1012,7 +1012,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Controllers/Login/LoginTypeViewController.swift"
-            timestampString = "533805653.229388"
+            timestampString = "533806530.66886"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "100"
@@ -1028,12 +1028,12 @@
                   moduleName = "CatchMe"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/zhang/Desktop/CatchMe/Controllers/Login/LoginTypeViewController.swift"
-                  timestampString = "533805653.679755"
+                  timestampString = "533806578.12415"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "100"
                   endingLineNumber = "100"
-                  offsetFromSymbolStart = "1000">
+                  offsetFromSymbolStart = "436">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -1043,12 +1043,12 @@
                   moduleName = "CatchMe"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/zhang/Desktop/CatchMe/Controllers/Login/LoginTypeViewController.swift"
-                  timestampString = "533805653.682758"
+                  timestampString = "533806578.127912"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "101"
                   endingLineNumber = "101"
-                  offsetFromSymbolStart = "14">
+                  offsetFromSymbolStart = "28">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -1060,7 +1060,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ViewModels/Mine/ProfileViewModel.swift"
-            timestampString = "533805653.229433"
+            timestampString = "533806530.668941"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "23"
@@ -1076,7 +1076,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ViewModels/Mine/ProfileViewModel.swift"
-            timestampString = "533805653.229481"
+            timestampString = "533806530.669021"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "22"
@@ -1092,7 +1092,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ViewModels/Mine/AddressViewModel.swift"
-            timestampString = "533805653.229533"
+            timestampString = "533806530.669135"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "62"
@@ -1108,7 +1108,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Global/Net/BaseNetWorke.swift"
-            timestampString = "533805653.229581"
+            timestampString = "533806530.669224"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "245"
@@ -1124,7 +1124,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ViewModels/Mine/SenderJoysViewModel.swift"
-            timestampString = "533805653.229626"
+            timestampString = "533806530.669616"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "137"
@@ -1146,6 +1146,86 @@
             startingLineNumber = "20"
             endingLineNumber = "20"
             landmarkName = "viewDidLoad()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Controllers/Login/LoginTypeViewController.swift"
+            timestampString = "533806530.669831"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "106"
+            endingLineNumber = "106"
+            landmarkName = "loginSuccess(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Controllers/Login/LoginTypeViewController.swift"
+            timestampString = "533806530.670003"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "107"
+            endingLineNumber = "107"
+            landmarkName = "loginSuccess(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Controllers/Login/LoginTypeViewController.swift"
+            timestampString = "533806557.657423"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "103"
+            endingLineNumber = "103"
+            landmarkName = "loginSuccess(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Controllers/Login/LoginTypeViewController.swift"
+            timestampString = "533806569.159056"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "101"
+            endingLineNumber = "101"
+            landmarkName = "loginSuccess(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Global/Net/BaseNetWorke.swift"
+            timestampString = "533806595.790335"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "244"
+            endingLineNumber = "244"
+            landmarkName = "httpRequest(_:url:parameters:success:failure:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

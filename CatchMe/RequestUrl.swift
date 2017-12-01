@@ -18,6 +18,8 @@ let BaseH5URL = "http://39.106.137.21"
 
 //登录api
 let LoginUrl = "\(BaseURL)user/login"
+//登录微信
+let LoginWeiChat = "\(BaseURL)user/loginByWechat"
 //验证码
 let LoginCode = "\(BaseURL)captcha"
 //首页房间

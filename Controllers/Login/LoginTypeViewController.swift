@@ -96,10 +96,14 @@ class LoginTypeViewController: BaseViewController {
     }
 
     @objc func loginSuccess(_ object:Foundation.Notification){
-        let url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=\(WeiXinAppID)&secret=\(WeiXinSECRET)&code=\(object.object!)&grant_type=authorization_code"
-        BaseNetWorke.sharedInstance.getUrlWithString(url, parameters: nil).observe { (resultDic) in
+        let parameters = ["code":object.object!]
+        BaseNetWorke.sharedInstance.postUrlWithString(LoginWeiChat, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
-                
+                let model = UserInfoModel.mj_object(withKeyValues: resultDic.value)
+                model?.idField = "\((resultDic.value as! NSDictionary).object(forKey: "id")!)"
+                UserDefaultsSetSynchronize(model?.neteaseAccountId as AnyObject, key: "neteaseAccountId")
+                model?.saveOrUpdate(byColumnName: "neteaseAccountId", andColumnValue: "'\(String(describing: model?.neteaseAccountId!))'")
+                LoginViewModel.shareInstance.loginNetNetease()
             }
         }
     }
