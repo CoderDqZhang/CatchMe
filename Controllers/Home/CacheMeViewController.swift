@@ -30,7 +30,7 @@ class CacheMeViewController: BaseViewController {
     var time:Timer!
     
     var cacheMeViewModel = CacheMeViewModel()
-    var url:String = "rtmp://vbd0442e6.live.126.net/live/0567baeb9b0d4780a06ac394f2f26d9e"
+    var url:String = ""
     var addToCacth:UIButton!
     
     var isQuickEnter:Bool = false
@@ -40,14 +40,9 @@ class CacheMeViewController: BaseViewController {
         self.bindViewModel(viewModel: cacheMeViewModel, controller: self)
         NIMAVChatSDK.shared().netCallManager.add(cacheMeViewModel)
         self.bindLogicViewModel()
-        self.initRemoteGlView()
         self.doInitPlayerNotication()
-        self.setUpPlayGameView()
-        self.setUpPlayer(url: url)
-        self.setUpToolsView()
-        self.setUpCacheMeTopView()
-        self.setUpCameraView()
-        self.setUpGameView()
+        self.initRemoteGlView()
+        
         // Do any additional setup after loading the view.
     }
     
@@ -55,6 +50,23 @@ class CacheMeViewController: BaseViewController {
         if time != nil {
             time.invalidate()
         }
+        // 播放器媒体流初始化完成后触发，收到该通知表示可以开始播放
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.NELivePlayerDidPreparedToPlay, object: self.liveplayer)
+        // 播放器加载状态发生变化时触发，如开始缓冲，缓冲结束
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.NELivePlayerLoadStateChanged, object: self.liveplayer)
+        //
+        // 正常播放结束或播放过程中发生错误导致播放结束时触发的通知
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.NELivePlayerPlaybackFinished, object: self.liveplayer)
+        //
+        // 第一帧视频图像显示时触发的通知
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.NELivePlayerFirstVideoDisplayed, object: self.liveplayer)
+        //
+        // 第一帧音频播放时触发的通知
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.NELivePlayerFirstAudioDisplayed, object: self.liveplayer)
+        // 资源释放成功后触发的通知
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.NELivePlayerReleaseSueecss, object: self.liveplayer)
+        // 视频码流解析失败时触发的通知
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.NELivePlayerVideoParseError, object: self.liveplayer)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -77,10 +89,11 @@ class CacheMeViewController: BaseViewController {
     func setUpPlayer(url:String){
         NELivePlayerController.setLogLevel(NELPLogLevel.LOG_VERBOSE)
         do {
-            try self.liveplayer = NELivePlayerController.init(contentURL: URL.init(string: self.url))
+            try self.liveplayer = NELivePlayerController.init(contentURL: URL.init(string: url))
             self.liveplayer.setScalingMode(NELPMovieScalingMode.init(0))
             self.liveplayer.setHardwareDecoder(true)
             self.view.addSubview(self.liveplayer.view)
+            self.liveplayer.view.sendSubview(toBack: self.view)
             self.liveplayer.view.snp.makeConstraints({ (make) in
                 make.left.equalTo(self.view.snp.left).offset(0)
                 make.right.equalTo(self.view.snp.right).offset(0)
@@ -92,11 +105,23 @@ class CacheMeViewController: BaseViewController {
             self.liveplayer.shouldAutoplay = true
             self.liveplayer.setPlaybackTimeout(15 * 1000)
             self.liveplayer.prepareToPlay()
+            self.liveplayer.play()
+            
+            self.setUpFontToolsView()
+            
         } catch {
             print("拉流失败")
             return
         }
         
+    }
+    
+    func setUpFontToolsView(){
+        self.setUpPlayGameView()
+        self.setUpToolsView()
+        self.setUpCacheMeTopView()
+        self.setUpCameraView()
+        self.setUpGameView()
     }
     
     func setUpCountDown(isPlay:Bool, text:String) {
@@ -122,6 +147,7 @@ class CacheMeViewController: BaseViewController {
     //创建底部工具界面
     func setUpToolsView() {
         bottomToolsView = CacheMeToolsView.init(frame: CGRect.init(x: 0, y: SCREENHEIGHT - 78, width: SCREENWIDTH, height: 78))
+        bottomToolsView.setData(str: "\(self.cacheMeViewModel.catchMeModel.price!)")
         bottomToolsView.cacheMeToolsViewClouse = { tag in
             switch tag {
             case 1:
@@ -154,7 +180,7 @@ class CacheMeViewController: BaseViewController {
         gameToolsView = GameToolsView.init(frame: CGRect.init(x: 0, y: SCREENHEIGHT - 202, width: SCREENWIDTH, height: 202), gameToolsViewClouse: { (tag) in
             switch tag {
             case 1,2,3,4:
-                //上//左//下//右
+                //上//下//左//右
                 self.cacheMeViewModel.playGameLogic(tag: tag)
             default:
                 //go
@@ -176,7 +202,7 @@ class CacheMeViewController: BaseViewController {
             countDown.textAlignment = .center
             countDown.textColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
             countDown.font = App_Theme_PinFan_M_28_Font
-            self.countDown.text = "\(self.cacheMeViewModel.prepareModel.maxTime)"
+            self.countDown.text = "\(self.cacheMeViewModel.prepareModel.maxTime!)"
             self.view.addSubview(countDown)
             countDown.snp.makeConstraints { (make) in
                 make.right.equalTo(self.view.snp.right).offset(-61)
@@ -229,36 +255,75 @@ class CacheMeViewController: BaseViewController {
     }
     
     func doInitPlayerNotication(){
-//        NotificationCenter.default.addObserver(self, selector: #selector(NELivePlayerDidPreparedToPlay(notification:)), name: NELivePlayerDidPreparedToPlayNotification, object: self.liveplayer)
+        // 播放器媒体流初始化完成后触发，收到该通知表示可以开始播放
+        NotificationCenter.default.addObserver(self, selector: #selector(self.NELivePlayerDidPreparedToPlay(notification:)), name: NSNotification.Name.NELivePlayerDidPreparedToPlay, object: self.liveplayer)
+
+        // 播放器加载状态发生变化时触发，如开始缓冲，缓冲结束
+        NotificationCenter.default.addObserver(self,
+            selector:#selector(self.NeLivePlayerloadStateChanged(notification:)),
+            name:NSNotification.Name.NELivePlayerLoadStateChanged ,
+            object:self.liveplayer)
 //
+        // 正常播放结束或播放过程中发生错误导致播放结束时触发的通知
+        NotificationCenter.default.addObserver(self,
+            selector:#selector(self.NELivePlayerPlayBackFinished(notification:)),
+            name:NSNotification.Name.NELivePlayerPlaybackFinished,
+            object:self.liveplayer)
 //
-//        NotificationCenter.default.addObserver(self, selector: #selector(NELivePlayerDidPreparedToPlay(notification:)), name: NELivePlayerDidPreparedToPlayNotification, object: self.liveplayer)
+        // 第一帧视频图像显示时触发的通知
+        NotificationCenter.default.addObserver(self,
+            selector:#selector(self.NELivePlayerFirstVideoDisplayed(notification:)),
+            name:NSNotification.Name.NELivePlayerFirstVideoDisplayed,
+            object:self.liveplayer)
 //
-//        NotificationCenter.default.addObserver(self, selector: #selector(NELivePlayerDidPreparedToPlay(notification:)), name: NELivePlayerDidPreparedToPlayNotification, object: self.liveplayer)
-//
-//        NotificationCenter.default.addObserver(self, selector: #selector(NELivePlayerDidPreparedToPlay(notification:)), name: NELivePlayerDidPreparedToPlayNotification, object: self.liveplayer)
-//
-//        NotificationCenter.default.addObserver(self, selector: #selector(NELivePlayerDidPreparedToPlay(notification:)), name: NELivePlayerDidPreparedToPlayNotification, object: self.liveplayer)
-//
-//        NotificationCenter.default.addObserver(self, selector: #selector(NELivePlayerDidPreparedToPlay(notification:)), name: NELivePlayerDidPreparedToPlayNotification, object: self.liveplayer)
-//
-//        NotificationCenter.default.addObserver(self, selector: #selector(NELivePlayerDidPreparedToPlay(notification:)), name: NELivePlayerDidPreparedToPlayNotification, object: self.liveplayer)
-//
-//        [[NSNotificationCenter defaultCenter] addObserver:self
-//            selector:@selector(NELivePlayerVideoParseError:)
-//            name:NELivePlayerVideoParseErrorNotification
-//            object:_player];
-//
-//        [[NSNotificationCenter defaultCenter] addObserver:self
-//            selector:@selector(NELivePlayerSeekComplete:)
-//            name:NELivePlayerMoviePlayerSeekCompletedNotification
-//            object:_player];
+        // 第一帧音频播放时触发的通知
+        NotificationCenter.default.addObserver(self,
+            selector:#selector(self.NELivePlayerFirstAudioDisplayed(notification:)),
+            name:NSNotification.Name.NELivePlayerFirstAudioDisplayed,
+            object:self.liveplayer)
+        // 资源释放成功后触发的通知
+        NotificationCenter.default.addObserver(self,
+            selector:#selector(self.NELivePlayerReleaseSuccess(notification:)),
+            name:NSNotification.Name.NELivePlayerReleaseSueecss,
+            object:self.liveplayer)
+//        // 视频码流解析失败时触发的通知
+
+        NotificationCenter.default.addObserver(self,
+            selector:#selector(self.NELivePlayerVideoParseError(notification:)),
+            name:NSNotification.Name.NELivePlayerVideoParseError,
+            object:self.liveplayer)
     }
     
-    func NELivePlayerDidPreparedToPlay(notification:Notification){
+    @objc func NELivePlayerDidPreparedToPlay(notification:Notification){
         
     }
-
+    
+    @objc func NeLivePlayerloadStateChanged(notification:Notification){
+        
+    }
+    
+    @objc func NELivePlayerPlayBackFinished(notification:Notification){
+    
+    }
+    
+    @objc func NELivePlayerFirstVideoDisplayed(notification:Notification) {
+        if self.localPreView != nil {
+            self.localPreView.isHidden = true
+        }
+    }
+    
+    @objc func NELivePlayerFirstAudioDisplayed(notification:Notification) {
+        
+    }
+        
+    @objc func NELivePlayerReleaseSuccess(notification:Notification){
+        
+    }
+    
+    @objc func NELivePlayerVideoParseError(notification:Notification){
+        
+    }
+        
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

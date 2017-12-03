@@ -16,10 +16,15 @@ let IPHONE_VERSION_LAST10 = IPHONE_VERSION >= 10 ? 1:0
 
 let IPHONE4 = SCREENHEIGHT == 480 ? true:false
 let IPHONE5 = SCREENHEIGHT == 568 ? true:false
-let IPHONE6 = SCREENWIDTH == 344 ? true:false
+let IPHONE6 = SCREENHEIGHT == 667 ? true:false
 let IPHONE6P = SCREENWIDTH == 414 ? true:false
-
+let IPHONE7P = SCREENHEIGHT == 736 ? true:false
 let IPHONEX = SCREENHEIGHT == 812.0 ? true : false
+
+let IPHONEWIDTH320 = SCREENWIDTH == 320 ? true:false
+let IPHONEWIDTH375 = SCREENWIDTH == 375 ? true:false
+let IPHONEWIDTH414 = SCREENWIDTH == 414 ? true:false
+
 
 let SCREENWIDTH = SwifterSwift.screenWidth
 let SCREENHEIGHT = SwifterSwift.screenHeight

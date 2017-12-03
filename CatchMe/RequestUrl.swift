@@ -76,6 +76,8 @@ let UploadImage = "\(BaseURL)uploadImage"
 let AddressUrl = "\(BaseURL)address/add"
 //获取默认地址
 let QueryDefault = "\(BaseURL)address/queryDefault"
+//获取用户信息
+let UserInfoUrl = "\(BaseURL)user/findUserDTOById"
 
 //9.106.137.21:8201/rooms?offset=1&limit=20&userId=1
 ////首页房间李彪，offset从1开始

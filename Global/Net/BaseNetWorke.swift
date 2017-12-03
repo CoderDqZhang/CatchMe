@@ -233,7 +233,10 @@ class BaseNetWorke {
             default:
                 methods = HTTPMethod.put
         }
-        let headers:HTTPHeaders = url != LoginUrl && url != LoginCode && url != Config && url != LoginWeiChat ? ["X-ui":UserInfoModel.shareInstance().idField,"X-di":"","X-token":UserInfoModel.shareInstance().token] as! [String:String] : [:]
+        var headers:HTTPHeaders? = nil
+        if UserInfoModel.isLoggedIn() {
+            headers = url != LoginUrl && url != LoginCode && url != Config && url != LoginWeiChat ? ["X-ui":UserInfoModel.shareInstance().idField,"X-di":"","X-token":UserInfoModel.shareInstance().token] as! [String:String] : [:]
+        }
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
         Alamofire.request(url, method: methods , parameters: parameters as? [String: Any], encoding: url == AddressUrl ? JSONEncoding.default : URLEncoding.default, headers: headers).responseJSON { (response) in
             UIApplication.shared.isNetworkActivityIndicatorVisible = false

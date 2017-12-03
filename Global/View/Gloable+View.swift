@@ -108,11 +108,11 @@ class CustomViewButton: UIView {
     init(frame:CGRect, title:String, image:UIImage, tag:NSInteger?) {
         super.init(frame: frame)
         
-        imageView = UIImageView.init(frame: CGRect.init(x: 10, y: 0, width: 68, height: 68))
+        imageView = UIImageView.init(frame: CGRect.init(x: 11, y: 0, width: 68, height: 68))
         imageView.image = image
         self.addSubview(imageView)
         
-        label = UILabel.init(frame: CGRect.init(x: 0, y: 72, width: frame.size.width, height: 20))
+        label = UILabel.init(frame: CGRect.init(x: 0, y: 77, width: frame.size.width, height: 20))
         label.textAlignment = .center
         label.text = title
         label.font = App_Theme_PinFan_R_14_Font
@@ -120,6 +120,10 @@ class CustomViewButton: UIView {
         self.isUserInteractionEnabled = true
         self.tag = tag!
         self.addSubview(label)
+    }
+    
+    func changeLabelText(str:String) {
+        label.text = str
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -420,9 +424,8 @@ class GloableAlertView: UIView {
             make.bottom.equalTo(self.detailView.snp.bottom).offset(-32)
             make.size.equalTo(CGSize.init(width: 150, height: 42))
         }
-        
+        var number = 5
         if type == .catchfail {
-            var number = 5
             time = Timer.every(1, {
                 number = number - 1
                 if number == 0 {

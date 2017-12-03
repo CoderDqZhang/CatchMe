@@ -78,7 +78,7 @@ class HomeViewModel: BaseViewModel {
     //MARK: RequestNetWorking
     func requestRooms(pageIndex:String){
         let url = HomeRooms
-        let parameters = ["offset":pageIndex,"limit":"20","userId":UserInfoModel.shareInstance().idField] as [String : Any]
+        let parameters = ["offset":pageIndex,"limit":"10","userId":UserInfoModel.shareInstance().idField] as [String : Any]
         BaseNetWorke.sharedInstance.getUrlWithString(url, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
                 if resultDic.value != nil {
@@ -120,9 +120,9 @@ extension HomeViewModel : UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         if kind == "UICollectionElementKindSectionHeader" {
             let kindView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: BannerCollectionReusableView.description(), for: indexPath)
-            kindView.frame = CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: SCREENWIDTH * 80 / 188)
+            let height:CGFloat = (IPHONEWIDTH320 ? 137 : IPHONEWIDTH375 ? 160 : 180) + 8
+            kindView.frame = CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: height)
             self.cellBanner(headerView: kindView as! BannerCollectionReusableView)
-            kindView.backgroundColor = UIColor.brown
             return kindView
         }else{
             let kindView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: BannerCollectionReusableView.description(), for: indexPath)
@@ -159,6 +159,7 @@ extension HomeViewModel : UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+    
         return 8
     }
     
@@ -172,7 +173,8 @@ extension HomeViewModel : UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize
     {
-        return CGSize.init(width: SCREENWIDTH, height: SCREENWIDTH * 80 / 188 + 8)
+        let height:CGFloat = (IPHONEWIDTH320 ? 137 : IPHONEWIDTH375 ? 160 : 180) + 8
+        return CGSize.init(width: SCREENWIDTH, height: height)
     }
     
     

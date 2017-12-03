@@ -42,6 +42,7 @@ class CacheMeTopView : UIView {
     
     func setUpPlayUser(){
         playUser = UIView.init()
+        playUser.isHidden = true
         playUser.backgroundColor = UIColor.init(hexString: App_Theme_000000_Color, andAlpha: 0.4)
         playUser.layer.cornerRadius = 28.5
         self.addSubview(playUser)
@@ -86,14 +87,14 @@ class CacheMeTopView : UIView {
         }
     }
     
-    func setData(model:BasicUserDTO?){
+    func setData(model:SwiftUserModel?){
         playUser.isHidden = model == nil ? true : false
         if model == nil {
             detail.text = "空闲中..."
         }else{
             detail.text = "正在抓..."
             userName.text = model?.userName
-            UIImageViewManger.sd_imageView(url: model?.photo is String ? model?.photo as! String : "", imageView: avatar, placeholderImage: nil) { (image, error, cachtType, url) in
+            UIImageViewManger.sd_imageView(url: (model?.photo)!, imageView: avatar, placeholderImage: nil) { (image, error, cachtType, url) in
                 
             }
         }
@@ -334,7 +335,7 @@ class GameToolsView : UIView {
         topBtn.setImage(UIImage.init(named: "up"), for: .normal)
         self.setUpButtonTheme(button: topBtn)
         topBtn.reactive.controlEvents(.touchUpInside).observe { (action) in
-            gameToolsViewClouse(2)
+            gameToolsViewClouse(1)
         }
         self.addSubview(topBtn)
         
@@ -342,7 +343,7 @@ class GameToolsView : UIView {
         leftBtn.setImage(UIImage.init(named: "left"), for: .normal)
         self.setUpButtonTheme(button: leftBtn)
         leftBtn.reactive.controlEvents(.touchUpInside).observe { (action) in
-            gameToolsViewClouse(1)
+            gameToolsViewClouse(3)
         }
         self.addSubview(leftBtn)
         
@@ -351,7 +352,7 @@ class GameToolsView : UIView {
         self.setUpButtonTheme(button: bottomBtn)
         bottomBtn.setImage(UIImage.init(named: "down"), for: .normal)
         bottomBtn.reactive.controlEvents(.touchUpInside).observe { (action) in
-            gameToolsViewClouse(3)
+            gameToolsViewClouse(2)
         }
         self.addSubview(bottomBtn)
         

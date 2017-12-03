@@ -2,7 +2,7 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "coins.png",
+      "filename" : "coins@1x.png",
       "scale" : "1x"
     },
     {

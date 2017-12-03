@@ -19,16 +19,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WeiboSDKDelegate {
         
         PlusButtonSubclass.register()
         
-        self.window?.makeKeyAndVisible()
         AppleThemeTool.setUpToolBarColor()
         AppleThemeTool.setUpKeyBoardManager()
         //分享控制器
         _ = ShareManager.init()
         //网易云控制器
         manager = NeteaseManager.init()
+        
         self.setUpMainViewContr()
         self.getConfig()
-        
+        self.window?.makeKeyAndVisible()
         // Override point for customization after application launch.
         return true
     }

@@ -289,7 +289,7 @@ class GloabTitleAndFieldCell: UITableViewCell {
     override func updateConstraints() {
         if !self.didMakeConstraints {
             titleLabel.snp.makeConstraints({ (make) in
-                make.left.equalTo(self.contentView.snp.left).offset(15)
+                make.left.equalTo(self.contentView.snp.left).offset(20)
                 make.centerY.equalTo(self.contentView.snp.centerY).offset(0)
                 make.width.equalTo(70)
             })

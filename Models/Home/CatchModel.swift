@@ -16,6 +16,11 @@ class CatchMeModel : NSObject, NSCoding{
     var id : Int!
     var machineDTO : MachineDTO!
     var onlineUserList : [Int]!
+    var price : Int!
+    var skuId : Int!
+    var skuImageAddress : String!
+    var skuName : String!
+    var skuSubId : Int!
     
     
     /**
@@ -26,12 +31,17 @@ class CatchMeModel : NSObject, NSCoding{
             basicUserDTO = BasicUserDTO(fromDictionary: basicUserDTOData)
         }
         currentPlayStatus = dictionary["currentPlayStatus"] as? Int
-        currentPlayerId = dictionary["currentPlayerId"] as AnyObject
+        currentPlayerId = dictionary["currentPlayerId"] as? AnyObject
         id = dictionary["id"] as? Int
         if let machineDTOData = dictionary["machineDTO"] as? NSDictionary{
             machineDTO = MachineDTO(fromDictionary: machineDTOData)
         }
         onlineUserList = dictionary["onlineUserList"] as? [Int]
+        price = dictionary["price"] as? Int
+        skuId = dictionary["skuId"] as? Int
+        skuImageAddress = dictionary["skuImageAddress"] as? String
+        skuName = dictionary["skuName"] as? String
+        skuSubId = dictionary["skuSubId"] as? Int
     }
     
     /**
@@ -39,7 +49,7 @@ class CatchMeModel : NSObject, NSCoding{
      */
     func toDictionary() -> NSDictionary
     {
-        let dictionary = NSMutableDictionary()
+        var dictionary = NSMutableDictionary()
         if basicUserDTO != nil{
             dictionary["basicUserDTO"] = basicUserDTO.toDictionary()
         }
@@ -58,6 +68,21 @@ class CatchMeModel : NSObject, NSCoding{
         if onlineUserList != nil{
             dictionary["onlineUserList"] = onlineUserList
         }
+        if price != nil{
+            dictionary["price"] = price
+        }
+        if skuId != nil{
+            dictionary["skuId"] = skuId
+        }
+        if skuImageAddress != nil{
+            dictionary["skuImageAddress"] = skuImageAddress
+        }
+        if skuName != nil{
+            dictionary["skuName"] = skuName
+        }
+        if skuSubId != nil{
+            dictionary["skuSubId"] = skuSubId
+        }
         return dictionary
     }
     
@@ -69,10 +94,15 @@ class CatchMeModel : NSObject, NSCoding{
     {
         basicUserDTO = aDecoder.decodeObject(forKey: "basicUserDTO") as? BasicUserDTO
         currentPlayStatus = aDecoder.decodeObject(forKey: "currentPlayStatus") as? Int
-        currentPlayerId = aDecoder.decodeObject(forKey: "currentPlayerId") as AnyObject
+        currentPlayerId = aDecoder.decodeObject(forKey: "currentPlayerId") as? AnyObject
         id = aDecoder.decodeObject(forKey: "id") as? Int
         machineDTO = aDecoder.decodeObject(forKey: "machineDTO") as? MachineDTO
         onlineUserList = aDecoder.decodeObject(forKey: "onlineUserList") as? [Int]
+        price = aDecoder.decodeObject(forKey: "price") as? Int
+        skuId = aDecoder.decodeObject(forKey: "skuId") as? Int
+        skuImageAddress = aDecoder.decodeObject(forKey: "skuImageAddress") as? String
+        skuName = aDecoder.decodeObject(forKey: "skuName") as? String
+        skuSubId = aDecoder.decodeObject(forKey: "skuSubId") as? Int
         
     }
     
@@ -99,6 +129,21 @@ class CatchMeModel : NSObject, NSCoding{
         }
         if onlineUserList != nil{
             aCoder.encode(onlineUserList, forKey: "onlineUserList")
+        }
+        if price != nil{
+            aCoder.encode(price, forKey: "price")
+        }
+        if skuId != nil{
+            aCoder.encode(skuId, forKey: "skuId")
+        }
+        if skuImageAddress != nil{
+            aCoder.encode(skuImageAddress, forKey: "skuImageAddress")
+        }
+        if skuName != nil{
+            aCoder.encode(skuName, forKey: "skuName")
+        }
+        if skuSubId != nil{
+            aCoder.encode(skuSubId, forKey: "skuSubId")
         }
         
     }
@@ -128,7 +173,7 @@ class MachineDTO : NSObject, NSCoding{
      */
     func toDictionary() -> NSDictionary
     {
-        let dictionary = NSMutableDictionary()
+        var dictionary = NSMutableDictionary()
         if audiencePullAddressA != nil{
             dictionary["audiencePullAddressA"] = audiencePullAddressA
         }
@@ -185,7 +230,7 @@ class BasicUserDTO : NSObject, NSCoding{
     var coinAmount : Int!
     var gender : Int!
     var id : Int!
-    var photo : AnyObject!
+    var photo : String!
     var telephone : String!
     var userName : String!
     
@@ -197,7 +242,7 @@ class BasicUserDTO : NSObject, NSCoding{
         coinAmount = dictionary["coinAmount"] as? Int
         gender = dictionary["gender"] as? Int
         id = dictionary["id"] as? Int
-        photo = dictionary["photo"] as AnyObject
+        photo = dictionary["photo"] as? String
         telephone = dictionary["telephone"] as? String
         userName = dictionary["userName"] as? String
     }
@@ -207,7 +252,7 @@ class BasicUserDTO : NSObject, NSCoding{
      */
     func toDictionary() -> NSDictionary
     {
-        let dictionary = NSMutableDictionary()
+        var dictionary = NSMutableDictionary()
         if coinAmount != nil{
             dictionary["coinAmount"] = coinAmount
         }
@@ -238,7 +283,7 @@ class BasicUserDTO : NSObject, NSCoding{
         coinAmount = aDecoder.decodeObject(forKey: "coinAmount") as? Int
         gender = aDecoder.decodeObject(forKey: "gender") as? Int
         id = aDecoder.decodeObject(forKey: "id") as? Int
-        photo = aDecoder.decodeObject(forKey: "photo") as AnyObject
+        photo = aDecoder.decodeObject(forKey: "photo") as? String
         telephone = aDecoder.decodeObject(forKey: "telephone") as? String
         userName = aDecoder.decodeObject(forKey: "userName") as? String
         

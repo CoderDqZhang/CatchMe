@@ -14,6 +14,7 @@ class MineToolsTableViewCell: UITableViewCell {
     var version:UILabel!
     var customViewButtonClouse:CustomViewButtonClouse!
     var didMakeConstraints = false
+    var myCoins:CustomViewButton!
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.contentView.backgroundColor = UIColor.init(hexString: App_Theme_FAFAFA_Color)
@@ -21,28 +22,28 @@ class MineToolsTableViewCell: UITableViewCell {
     }
     
     func setUpView(){
-        let myCoins = CustomViewButton.init(frame: CGRect.init(x: (SCREENWIDTH - 270) / 2, y: 40, width: 90, height: 96), title: "我的娃娃币", image: UIImage.init(named: "coins")!, tag:1)
+        myCoins = CustomViewButton.init(frame: CGRect.init(x: 29, y: 40, width: 90, height: 96), title: "我的娃娃币", image: UIImage.init(named: "coins")!, tag:1)
         self.setUpSingTap(myCoins)
         self.contentView.addSubview(myCoins)
         
-        let myMoppet = CustomViewButton.init(frame: CGRect.init(x: SCREENWIDTH / 2  - 45, y: 40, width: 90, height: 96), title: "抓到的娃娃", image: UIImage.init(named: "toys")!, tag:2)
+        let myMoppet = CustomViewButton.init(frame: CGRect.init(x: SCREENWIDTH / 2  - 45, y: 40, width: 90, height: 96), title: "抓到的娃娃", image: UIImage.init(named: "mine_joys")!, tag:2)
         self.setUpSingTap(myMoppet)
         self.contentView.addSubview(myMoppet)
         
-        let top = CustomViewButton.init(frame: CGRect.init(x: SCREENWIDTH / 2  + 45, y: 40, width: 90, height: 96), title: "大神榜", image: UIImage.init(named: "top")!, tag:3)
+        let top = CustomViewButton.init(frame: CGRect.init(x: SCREENWIDTH - 90 - 29, y: 40, width: 90, height: 96), title: "大神榜", image: UIImage.init(named: "top")!, tag:3)
         self.setUpSingTap(top)
         self.contentView.addSubview(top)
         
-        let myCode = CustomViewButton.init(frame: CGRect.init(x: (SCREENWIDTH - 270) / 2, y: 40 + 96 + 32, width: 90, height: 96), title: "邀请码", image: UIImage.init(named: "invite")!, tag:4)
+        let myCode = CustomViewButton.init(frame: CGRect.init(x: 29, y: 168, width: 90, height: 96), title: "邀请码", image: UIImage.init(named: "invite")!, tag:4)
         self.setUpSingTap(myCode)
         self.contentView.addSubview(myCode)
         
         
-        let myQuestion = CustomViewButton.init(frame: CGRect.init(x: SCREENWIDTH / 2 - 45, y: 40 + 96 + 32, width: 90, height: 96), title: "问题反馈", image: UIImage.init(named: "question")!, tag:5)
+        let myQuestion = CustomViewButton.init(frame: CGRect.init(x: SCREENWIDTH / 2 - 45, y: 168, width: 90, height: 96), title: "问题反馈", image: UIImage.init(named: "question")!, tag:5)
         self.setUpSingTap(myQuestion)
         self.contentView.addSubview(myQuestion)
         
-        let contactUs = CustomViewButton.init(frame: CGRect.init(x: SCREENWIDTH / 2 + 45, y: 40 + 96 + 32, width: 90, height: 96), title: "关于我们", image: UIImage.init(named: "contacr")!, tag:6)
+        let contactUs = CustomViewButton.init(frame: CGRect.init(x: SCREENWIDTH - 90 - 29, y: 168, width: 90, height: 96), title: "关于我们", image: UIImage.init(named: "contact")!, tag:6)
         self.setUpSingTap(contactUs)
         self.contentView.addSubview(contactUs)
         
@@ -77,9 +78,10 @@ class MineToolsTableViewCell: UITableViewCell {
     
     override func updateConstraints() {
         if !didMakeConstraints {
+            let bottom = IPHONEX ? 18 : 15
             version.snp.makeConstraints({ (make) in
                 make.centerX.equalTo(self.contentView.snp.centerX).offset(0)
-                make.bottom.equalTo(self.contentView.snp.bottom).offset(IPHONEX ? 43 : 23)
+                make.bottom.equalTo(self.contentView.snp.bottom).offset(-bottom)
             })
             didMakeConstraints = true
         }

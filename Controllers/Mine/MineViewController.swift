@@ -21,7 +21,7 @@ class MineViewController: BaseViewController {
     
     func upDataConstraints(){
         self.tableView.snp.remakeConstraints { (make) in
-            make.top.equalTo(self.view.snp.top).offset(-20)
+            make.top.equalTo(self.view.snp.top).offset(0)
             make.left.equalTo(self.view.snp.left).offset(0)
             make.right.equalTo(self.view.snp.right).offset(0)
             make.bottom.equalTo(self.view.snp.bottom).offset(0)
@@ -48,7 +48,7 @@ class MineViewController: BaseViewController {
         self.view.addSubview(rightButton)
         rightButton.snp.makeConstraints { (make) in
             make.right.equalTo(self.view.snp.right).offset(-20)
-            make.top.equalTo(self.view.snp.top).offset(IPHONEX ? 30 : 16)
+            make.top.equalTo(self.view.snp.top).offset(IPHONEX ? 40 : 28)
             make.size.equalTo(CGSize.init(width: 36, height: 36))
         }
     }
@@ -57,6 +57,7 @@ class MineViewController: BaseViewController {
 //        if UserInfoModel.logout() {
 //            KWINDOWDS().rootViewController = UINavigationController.init(rootViewController: LoginTypeViewController())
 //        }
+        NavigationPushView(self, toConroller: ProfileViewController())
     }
 
     override func didReceiveMemoryWarning() {

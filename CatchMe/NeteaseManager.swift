@@ -60,36 +60,36 @@ extension NeteaseManager : NIMLoginManagerDelegate {
     
     //网易登录步骤
     func onLogin(_ step: NIMLoginStep) {
-        if loginHud == nil {
-            loginHud = Tools.shareInstance.showLoading(KWINDOWDS(), msg: nil)
-        }
-        var str = ""
-        switch step {
-        case .linking:
-            str = "连接服务器"
-        case .linkOK:
-            str = "连接服务器成功"
-        case .linkFailed:
-            str = "连接服务器失败"
-            loginHud.label.text = str
-            loginHud.hide(animated: true)
-        case .logining:
-            str = "登录中..."
-        case .loginOK:
-            str = "登录成功"
-        case .loseConnection:
-            str = "连接断开"
-            loginHud.label.text = str
-            loginHud.hide(animated: true)
-        default:
-            break
-        }
-        loginHud.label.text = str
-        if step == .loginOK {
-            loginHud.hide(animated: true)
-            Notification(LoginStatuesChange, value: nil)
-            KWINDOWDS().rootViewController = MainTabBarViewController()
-        }
+//        if loginHud == nil {
+////            loginHud = Tools.shareInstance.showLoading(KWINDOWDS(), msg: nil)
+//        }
+//        var str = ""
+//        switch step {
+//        case .linking:
+//            str = "连接服务器"
+//        case .linkOK:
+//            str = "连接服务器成功"
+//        case .linkFailed:
+//            str = "连接服务器失败"
+//            loginHud.label.text = str
+//            loginHud.hide(animated: true)
+//        case .logining:
+//            str = "登录中..."
+//        case .loginOK:
+//            str = "登录成功"
+//        case .loseConnection:
+//            str = "连接断开"
+//            loginHud.label.text = str
+//            loginHud.hide(animated: true)
+//        default:
+//            break
+//        }
+//        loginHud.label.text = str
+//        if step == .loginOK {
+//            loginHud.hide(animated: true)
+//            Notification(LoginStatuesChange, value: nil)
+//            KWINDOWDS().rootViewController = MainTabBarViewController()
+//        }
     }
     
     //自动登录失败回调

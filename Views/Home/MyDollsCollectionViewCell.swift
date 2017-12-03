@@ -23,7 +23,7 @@ class MyDollsCollectionViewCell: UICollectionViewCell {
         super.init(frame: frame)
         self.backgroundColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
         self.layer.cornerRadius = 6
-        self.layer.borderWidth = 1.0
+        self.layer.borderWidth = 0.5
         self.layer.borderColor = UIColor.init(hexString: App_Theme_F2F2F2_Color)?.cgColor
         self.setUpView()
     }
@@ -31,6 +31,8 @@ class MyDollsCollectionViewCell: UICollectionViewCell {
     func setUpView(){
         
         dollsImage = UIImageView.init()
+        dollsImage.layer.cornerRadius = 6
+        dollsImage.layer.masksToBounds = true
         self.contentView.addSubview(dollsImage)
         
         statusImage = UIImageView.init()
@@ -53,6 +55,7 @@ class MyDollsCollectionViewCell: UICollectionViewCell {
         self.contentView.addSubview(coinsNumber)
         
         statusLabel = UILabel.init()
+        
         statusLabel.textColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
         statusLabel.font = App_Theme_PinFan_M_11_Font
         self.contentView.addSubview(statusLabel)
@@ -83,24 +86,23 @@ class MyDollsCollectionViewCell: UICollectionViewCell {
             statusImage.snp.makeConstraints({ (make) in
                 make.top.equalTo(self.contentView.snp.top).offset(15)
                 make.left.equalTo(self.contentView.snp.left).offset(15)
-                make.size.equalTo(CGSize.init(width: 50, height: 20))
             })
             
             statusLabel.snp.makeConstraints({ (make) in
-                make.top.equalTo(self.contentView.snp.top).offset(18)
+                make.top.equalTo(self.contentView.snp.top).offset(18.5)
                 make.left.equalTo(self.contentView.snp.left).offset(23)
             })
 
             dollsImage.snp.makeConstraints({ (make) in
-                make.centerX.equalTo(self.contentView.snp.centerX).offset(0)
-                make.centerY.equalTo(self.contentView.snp.centerY).offset(0)
-                make.size.equalTo(CGSize.init(width: 136, height: 136))
+                make.top.equalTo(self.contentView.snp.top).offset(0)
+                make.left.equalTo(self.contentView.snp.left).offset(0)
+                make.right.equalTo(self.contentView.snp.right).offset(0)
+                make.bottom.equalTo(self.contentView.snp.bottom).offset(0)
             })
             
             coinsImage.snp.makeConstraints({ (make) in
                 make.bottom.equalTo(self.contentView.snp.bottom).offset(-38)
                 make.left.equalTo(self.contentView.snp.left).offset(14)
-                make.size.equalTo(CGSize.init(width: 24, height: 19))
             })
             
             coinsNumber.snp.makeConstraints({ (make) in

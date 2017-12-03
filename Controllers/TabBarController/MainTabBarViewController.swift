@@ -31,9 +31,22 @@ class MainTabBarViewController: CYLTabBarController {
         
         let controllers = [createNavigationController(controller: homeViewController),createNavigationController(controller: mineViewController)]
         currentViewController = homeViewController
-        self.tabBarController?.tabBar.barStyle = .black
-        self.tabBar.shadowImage =  UIImage.createImage(with: UIColor.clear)
-        self.tabBar.backgroundImage = UIImage.createImage(with: UIColor.clear)
+        self.tabBar.barStyle = .default
+        self.tabBar.shadowImage = UIImage.init()
+        self.tabBar.backgroundImage = UIImage.init()
+        self.tabBar.layer.shadowColor = UIColor.init(hexString: App_Theme_FFFFFF_Color, andAlpha: 1).cgColor
+        self.tabBar.layer.shadowOffset = .zero
+        self.tabBar.layer.shadowRadius = 1
+        self.tabBar.layer.shadowOpacity = 0.5
+
+        let image = UIImage.init(named: "menu")
+        let imageHeight = SCREENWIDTH * (image?.size.height)! / (image?.size.width)!
+        let imageView = UIImageView.init(frame: CGRect.init(x: 0, y: -(imageHeight - 49), width: SCREENWIDTH, height: imageHeight))
+        imageView.image = image
+        self.tabBar.addSubview(imageView)
+        self.tabBar.isTranslucent = true
+//        self.tabBar.backgroundImage = UIImage.createImage(with: UIColor.clear)
+        
         self.viewControllers = controllers
         
         if #available(iOS 11.0, *) {
@@ -55,6 +68,11 @@ class MainTabBarViewController: CYLTabBarController {
     
     func createNavigationController(controller:UIViewController?) -> UINavigationController {
         return UINavigationController.init(rootViewController: controller!)
+    }
+    
+    func addEfct() ->UIBlurEffect{
+        let blueffect = UIBlurEffect.init(style: .light)
+        return blueffect
     }
 
     override func didReceiveMemoryWarning() {
@@ -86,10 +104,10 @@ class PlusButtonSubclass : CYLPlusButton,CYLPlusButtonSubclassing {
     class func plusButton() -> Any! {
         let button:PlusButtonSubclass =  PlusButtonSubclass()
         button.setImage(UIImage(named: "tabar"), for: UIControlState.normal)
-        button.setTitle("快速开始", for: UIControlState.normal)
-        button.setTitleColor(UIColor.init(hexString: App_Theme_FC4652_Color), for: UIControlState.normal)
+        button.setTitle("快抓我呀", for: UIControlState.normal)
+        button.setTitleColor(UIColor.init(hexString: App_Theme_333333_Color), for: UIControlState.normal)
         
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 9.5)
+        button.titleLabel?.font = App_Theme_PinFan_M_10_Font
         button.titleLabel!.textAlignment = .center;
         button.adjustsImageWhenHighlighted = false;
         // if you use `+plusChildViewController` , do not addTarget to plusButton.
@@ -113,25 +131,6 @@ class PlusButtonSubclass : CYLPlusButton,CYLPlusButtonSubclassing {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        
-//        // tabbar UI layout setup
-//        let imageViewEdgeWidth   = self.bounds.size.width * 0.7
-//        let imageViewEdgeHeight = imageViewEdgeWidth * 0.9
-//
-//        let centerOfView    = self.bounds.size.width * 0.5
-//        let labelLineHeight = self.titleLabel!.font.lineHeight
-//        let verticalMargin = (self.bounds.size.height - labelLineHeight - imageViewEdgeHeight ) * 0.5
-//
-//        let centerOfImageView = verticalMargin + imageViewEdgeHeight * 0.5
-//        let centerOfTitleLabel = imageViewEdgeHeight + verticalMargin * 2  + labelLineHeight * 0.5 + 5
-//
-//        //imageView position layout
-//        self.imageView!.bounds = CGRect.init(x: 0, y: 0, width: imageViewEdgeWidth, height: imageViewEdgeHeight)
-//        self.imageView!.center = CGPoint.init(x: centerOfView, y: centerOfImageView)
-//
-//        //title position layout
-//        self.titleLabel!.bounds = CGRect.init(x: 0, y: 0, width: self.bounds.size.width, height: labelLineHeight)
-//        self.titleLabel!.center = CGPoint.init(x: centerOfView, y: centerOfTitleLabel - 5)
     }
     
     static func indexOfPlusButtonInTabBar() -> UInt {
@@ -141,8 +140,4 @@ class PlusButtonSubclass : CYLPlusButton,CYLPlusButtonSubclassing {
     static func multiplierOfTabBarHeight(tabBarHeight: CGFloat) -> CGFloat {
         return 0.5
     }
-    
-    //    static func constantOfPlusButtonCenterYOffsetForTabBarHeight(tabBarHeight: CGFloat) -> CGFloat {
-    //        return -10
-    //    }
 }

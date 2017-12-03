@@ -14,4 +14,10 @@
 
 + (UIImage *)imageWithColor:(UIColor *)color size:(CGSize)size;
 + (UIImage *) createImageWithColor: (UIColor *) color;
+
++ (UIImage *)coreBlurImage:(UIImage *)image withBlurNumber:(CGFloat)blur;
++ (UIImage *)boxblurImage:(UIImage *)image withBlurNumber:(CGFloat)blur;
+
++ (void)boxblurImage:(UIImage *)image;
+
 @end

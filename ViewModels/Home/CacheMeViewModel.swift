@@ -8,6 +8,11 @@
 
 import UIKit
 
+enum CameraType {
+    case Font
+    case Back
+}
+
 class CacheMeViewModel: BaseViewModel {
 
     var cacheMeController:CacheMeViewController!
@@ -20,6 +25,11 @@ class CacheMeViewModel: BaseViewModel {
     var time:Timer!
     var timeHeader:Timer!
     var timeCount:Int = 0
+    
+    var playUrl:String!
+    var currentUserId = 0
+    var cameraType = CameraType.Font
+    
     override init() {
         super.init()
     }
@@ -36,19 +46,17 @@ class CacheMeViewModel: BaseViewModel {
     //断开拉流
     func doDestroyPlay(){
         if cacheMeController.liveplayer.isPlaying() {
-            cacheMeController.liveplayer.shutdown()
+            cacheMeController.liveplayer.view.isHidden = true
         }
     }
     
     //游戏前准备
     func prepedPlay(){
-        cacheMeController.setUpCountDown(isPlay: false, text: "36")
         if !cacheMeController.liveplayer.isPlaying() {
-            cacheMeController.liveplayer.prepareToPlay()
-        }
-        if cacheMeController.localPreView != nil {
+            cacheMeController.liveplayer.view.isHidden = false
             cacheMeController.localPreView.isHidden = false
         }
+        
         if cacheMeController.bottomToolsView != nil {
             cacheMeController.bottomToolsView.isHidden = false
         }
@@ -76,20 +84,27 @@ class CacheMeViewModel: BaseViewModel {
         if cacheMeController.remoteGLView != nil {
             cacheMeController.remoteGLView.isHidden = false
         }
+        self.gameStarts()
     }
     
     func handUpConnect(){
         self.prepedPlay()
         if self.callID != nil {
+            self.cacheMeController.setUpPlayer(url: self.catchMeModel.machineDTO.audiencePullAddressA)
             NIMAVChatSDK.shared().netCallManager.hangup(self.callID)
         }
     }
     //改变摄像头
     func changeCamera(){
-        if cacheMeController.liveplayer.isPlaying(){
+        if !cacheMeController.liveplayer.view.isHidden {
             //切换拉流地址
-            NIMAVChatSDK.shared().netCallManager.switchBypassStreamingUrl("")
+            let url = playUrl == self.catchMeModel.machineDTO.audiencePullAddressA ? self.catchMeModel.machineDTO.audiencePullAddressB : self.catchMeModel.machineDTO.audiencePullAddressA
+            playUrl = url
+            self.cacheMeController.liveplayer.switchContentUrl(URL.init(string: playUrl))
         }else{
+            if self.cameraType == .Font {
+                self.cameraType = .Back
+            }else{self.cameraType = .Font}
             NIMAVChatSDK.shared().netCallManager.control(self.callID, type: NIMNetCallControlType.noCamera)
         }
     }
@@ -112,8 +127,6 @@ class CacheMeViewModel: BaseViewModel {
         self.fillUserSetting(option)
         NIMAVChatSDK.shared().netCallManager.start([self.catchMeModel.machineDTO.playerAccountId], type: NIMNetCallMediaType.video, option: option) { (error, nil) in
             if error == nil {
-                self.cacheMeController.setUpCountDownView()
-                self.playGame()
             }
         }
     }
@@ -126,7 +139,9 @@ class CacheMeViewModel: BaseViewModel {
         BaseNetWorke.sharedInstance.getUrlWithString(EnterRooms, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
                 self.catchMeModel = CatchMeModel.init(fromDictionary: resultDic.value as! NSDictionary)
-                self.cacheMeController.cacheMeTopView.setData(model: self.catchMeModel.basicUserDTO)
+                self.cacheMeController.setUpPlayer(url: self.catchMeModel.machineDTO.audiencePullAddressA)
+                self.playUrl = self.catchMeModel.machineDTO.audiencePullAddressA
+                self.getUserInfo()
                 //心跳接口
                 self.timeHeader = Timer.every(1, {
                     self.requestHeader()
@@ -141,7 +156,9 @@ class CacheMeViewModel: BaseViewModel {
         BaseNetWorke.sharedInstance.getUrlWithString(QuictEnter, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
                 self.catchMeModel = CatchMeModel.init(fromDictionary: resultDic.value as! NSDictionary)
-                self.cacheMeController.cacheMeTopView.setData(model: self.catchMeModel.basicUserDTO)
+                self.cacheMeController.setUpPlayer(url: self.catchMeModel.machineDTO.audiencePullAddressA)
+                self.playUrl = self.catchMeModel.machineDTO.audiencePullAddressA
+                self.getUserInfo()
                 //心跳接口
                 self.timeHeader = Timer.every(1, {
                     self.requestHeader()
@@ -180,23 +197,23 @@ class CacheMeViewModel: BaseViewModel {
         BaseNetWorke.sharedInstance.getUrlWithString(Heartbeat, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
                 self.headerModel = HeartModel.init(fromDictionary: resultDic.value as! NSDictionary)
-                self.catchMeModel.basicUserDTO = self.headerModel.basicUserDTO
-                self.cacheMeController.cacheMeTopView.setData(model: self.catchMeModel.basicUserDTO)
+                self.getUserInfo()
             }
         }
     }
     
     //查看排队情况
     func gameStart(){
-        if ((UserInfoModel.shareInstance().coinAmount as NSString?)?.integerValue)! < 30 {
+        if ((UserInfoModel.shareInstance().coinAmount as NSString?)?.integerValue)! < self.cacheMeController.roomModel.price {
             KWINDOWDS().addSubview(GloableAlertView.init(title: "当前余额不足支付一次游戏\n请先充值", btnTop: "去充值", btnBottom: "取消", image: UIImage.init(named: "pic_fail_1")!, type: GloableAlertViewType.topupfail, clickClouse: { (tag) in
                 if tag == 100 {
                     self.gotoTopUpVC()
                 }
             }))
+            //4 xia
         }else{
             if NIMSDK.shared().loginManager.isLogined() {
-                if self.catchMeModel.currentPlayStatus != 1 || self.headerModel.currentPlayerId != nil {
+                if self.catchMeModel.currentPlayStatus == 0 {
                     let parameters = ["machineId":catchMeModel.machineDTO.id,"userId":UserInfoModel.shareInstance().idField,"roomId":self.catchMeModel.id] as [String : Any]
                     BaseNetWorke.sharedInstance.getUrlWithString(GamePrepa, parameters: parameters as AnyObject).observe { (resultDic) in
                         if !resultDic.isCompleted {
@@ -204,9 +221,10 @@ class CacheMeViewModel: BaseViewModel {
                             self.prepareModel = PrepareGameModel.init(fromDictionary: resultDic.value as! NSDictionary)
                             self.makeGameToUser()
                             self.doDestroyPlay()
-                            self.gameStarts()
                         }
                     }
+                }else{
+                    _ = Tools.shareInstance.showMessage(KWINDOWDS(), msg: "当前机器有人在使用", autoHidder: true)
                 }
             }else{
                 _ = Tools.shareInstance.showMessage(KWINDOWDS(), msg: "用户未登录", autoHidder: true)
@@ -221,14 +239,27 @@ class CacheMeViewModel: BaseViewModel {
         BaseNetWorke.sharedInstance.getUrlWithString(StartGame, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
                 //排队成功调用
-                
+                self.cacheMeController.setUpCountDownView()
             }
         }
     }
-    
+    //         1上，2下，3左，4右Font
+    //1右  2左，3上  4下Back
     //点击上下左右
     func playGameLogic(tag:Int){
-        let parameters = ["machineId":catchMeModel.machineDTO.id,"userId":UserInfoModel.shareInstance().idField,"type":tag] as [String : Any]
+        var temp = tag
+        if self.cameraType == .Back {
+            if tag == 1 {
+                temp = 3
+            }else if tag == 2 {
+                temp = 4
+            }else if tag == 3 {
+                temp = 2
+            }else if tag == 4 {
+                temp = 1
+            }
+        }
+        let parameters = ["machineId":catchMeModel.machineDTO.id,"userId":UserInfoModel.shareInstance().idField,"type":temp] as [String : Any]
         BaseNetWorke.sharedInstance.getUrlWithString(MoveGame, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
                 
@@ -244,11 +275,12 @@ class CacheMeViewModel: BaseViewModel {
             }
         }
         //测试
-        
-        time = Timer.every(3, {
-            self.timeCount = self.timeCount + 1
-            self.getGameStaus()
-        })
+        if time == nil {
+            time = Timer.every(3, {
+                self.timeCount = self.timeCount + 1
+                self.getGameStaus()
+            })
+        }
     }
     
     //获取游戏结果
@@ -258,15 +290,32 @@ class CacheMeViewModel: BaseViewModel {
             if !resultDic.isCompleted {
                //抓取成功调用
                 self.gameStatus = GameStatusModel.init(fromDictionary: resultDic.value as! NSDictionary)
-                if self.gameStatus.status == 2 || self.timeCount > 30{
+                if self.gameStatus.status == 3 || self.timeCount > 30{
                     self.shootFail()
                     self.time.invalidate()
-                }else if self.gameStatus.status == 3 {
+                }else if self.gameStatus.status == 2 {
                     self.time.invalidate()
                     self.shootSuccess()
                 }
             }
         }
+    }
+    
+    func getUserInfo(){
+        if self.catchMeModel.currentPlayStatus == 1 {
+            if self.catchMeModel.currentPlayerId as! Int != self.currentUserId {
+                self.currentUserId = self.catchMeModel.currentPlayerId as! Int
+                let parameters = ["userId":self.catchMeModel.currentPlayerId]
+                BaseNetWorke.sharedInstance.getUrlWithString(UserInfoUrl, parameters: parameters as AnyObject).observe({ (resultDic) in
+                    if !resultDic.isCompleted {
+                        let model = SwiftUserModel.init(fromDictionary: resultDic.value as! NSDictionary)
+                        self.cacheMeController.cacheMeTopView.setData(model: model)
+                    }
+                })
+            }
+        }
+        
+        
     }
     
     func gotoTopUpVC(){
@@ -293,7 +342,7 @@ class CacheMeViewModel: BaseViewModel {
         //抓取失败
         KWINDOWDS().addSubview(GloableAlertView.init(title: "好可惜，就差一点了", btnTop: "再试一次5s", btnBottom: "无力再试", image: UIImage.init(named: "pic_fail_1")!, type: GloableAlertViewType.catchfail, clickClouse: { (tag) in
             if tag == 100 {
-                self.playGame()
+                self.gameStarts()
             }else{
                 self.handUpConnect()
             }

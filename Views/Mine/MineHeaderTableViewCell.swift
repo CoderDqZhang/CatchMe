@@ -56,8 +56,9 @@ class MineHeaderTableViewCell: UITableViewCell {
     func cellSetData(model:UserInfoModel){
         if model.photo != nil && model.photo != "" {
             UIImageViewManger.sd_imageView(url: model.photo, imageView: headerImage, placeholderImage: UIImage.init(named: "默认头像_1")) { (image, error, cacheType, url) in
-                let inputImage =  image!.gaussianBlur(blurAmount: 0.3)
-                self.backImage.image = inputImage
+                let newImageSize = image?.scaled(toWidth: SCREENWIDTH)
+                let inputImage = newImageSize?.cropped(to: CGRect.init(x: 0, y: ((newImageSize?.size.height)! - self.contentView.frame.height)/2, width: SCREENWIDTH, height: self.contentView.frame.height))
+                self.backImage.image = UIImage.boxblurImage(inputImage, withBlurNumber: 0.9)
             }
         }
         
@@ -88,7 +89,7 @@ class MineHeaderTableViewCell: UITableViewCell {
                 make.size.equalTo(CGSize.init(width: 18, height: 18))
             })
             userName.snp.makeConstraints({ (make) in
-                make.top.equalTo(headerImage.snp.bottom).offset(7)
+                make.bottom.equalTo(self.contentView.snp.bottom).offset(-28)
                 make.centerX.equalTo(self.contentView.snp.centerX).offset(0)
             })
             didMakeConstraints = true

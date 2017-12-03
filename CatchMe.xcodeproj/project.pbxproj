@@ -149,6 +149,7 @@
 		1F3739BE1FD10D5A0068F1C0 /* address.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1F3739BD1FD10D5A0068F1C0 /* address.txt */; };
 		1F3739C01FD10E160068F1C0 /* LocalJsonFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3739BF1FD10E160068F1C0 /* LocalJsonFile.swift */; };
 		1F3739C41FD1302E0068F1C0 /* AddressValueKey.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1F3739C31FD1302E0068F1C0 /* AddressValueKey.txt */; };
+		1F8432511FD29BDF000D6293 /* SwiftUserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8432501FD29BDF000D6293 /* SwiftUserModel.swift */; };
 		1FCA1FFF1FC47CB50008BF07 /* HomeLables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCA1FFE1FC47CB50008BF07 /* HomeLables.swift */; };
 		1FCA20011FC5202D0008BF07 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCA20001FC5202D0008BF07 /* SettingViewController.swift */; };
 		1FCA20031FC521410008BF07 /* NeteaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCA20021FC521410008BF07 /* NeteaseManager.swift */; };
@@ -382,6 +383,7 @@
 		1F3739BD1FD10D5A0068F1C0 /* address.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = address.txt; sourceTree = "<group>"; };
 		1F3739BF1FD10E160068F1C0 /* LocalJsonFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalJsonFile.swift; sourceTree = "<group>"; };
 		1F3739C31FD1302E0068F1C0 /* AddressValueKey.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AddressValueKey.txt; sourceTree = "<group>"; };
+		1F8432501FD29BDF000D6293 /* SwiftUserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUserModel.swift; sourceTree = "<group>"; };
 		1FCA1FFE1FC47CB50008BF07 /* HomeLables.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeLables.swift; sourceTree = "<group>"; };
 		1FCA20001FC5202D0008BF07 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		1FCA20021FC521410008BF07 /* NeteaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeteaseManager.swift; sourceTree = "<group>"; };
@@ -934,6 +936,7 @@
 			children = (
 				1F126EAD1FC180B0006306D2 /* UserInfoModel.h */,
 				1F126EAE1FC180B0006306D2 /* UserInfoModel.m */,
+				1F8432501FD29BDF000D6293 /* SwiftUserModel.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -1327,6 +1330,7 @@
 				1F126EAA1FC16C50006306D2 /* ShareManager.swift in Sources */,
 				1F126ECF1FC2C6BA006306D2 /* MyJoysViewModel.swift in Sources */,
 				1F126E691FC097BC006306D2 /* MyJoysViewController.swift in Sources */,
+				1F8432511FD29BDF000D6293 /* SwiftUserModel.swift in Sources */,
 				1F126E6D1FC097FF006306D2 /* TopUpViewController.swift in Sources */,
 				1F126DDA1FBFF3DE006306D2 /* UITextView+Placeholder.m in Sources */,
 				1F126EA61FC154A0006306D2 /* ijksdl_timer.c in Sources */,

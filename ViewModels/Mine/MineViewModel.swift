@@ -80,9 +80,9 @@ extension MineViewModel: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch indexPath.row {
         case 0:
-            return 222
+            return SCREENWIDTH * 111.5 / 187.5
         default:
-            return SCREENHEIGHT - 222 - 44 - 20
+            return SCREENHEIGHT - (SCREENWIDTH * 111.5 / 187.5) - 44 - 20
         }
     }
 }
