@@ -144,10 +144,13 @@ class InPurchaseViewController: BaseViewController {
     
     func request(_ request: SKRequest, didFailWithError error: Error) {
         print("------弹出错误信息--------")
-        UIAlertController.shwoAlertControl(self, style: .alert, title: "出现错误", message: nil, cancel: nil, doneTitle: "确定", cancelAction: {
+        UIAlertController.shwoAlertControl(self, style: .alert, title: "请退出APP Store账号测试", message: nil, cancel: nil, doneTitle: "确定", cancelAction: {
             
         }) {
             
+        }
+        if loadingView != nil {
+            loadingView.hide(animated: true)
         }
     }
     

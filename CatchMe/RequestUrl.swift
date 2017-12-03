@@ -78,7 +78,10 @@ let AddressUrl = "\(BaseURL)address/add"
 let QueryDefault = "\(BaseURL)address/queryDefault"
 //获取用户信息
 let UserInfoUrl = "\(BaseURL)user/findUserDTOById"
-
+//再玩一次
+let PlayAgain = "\(BaseURL)machine/again/start"
+//再玩一次
+//http://39.106.137.21:8201/machine/again/start?userId=1&machineId=1&lastGameId=357&roomId=1
 //9.106.137.21:8201/rooms?offset=1&limit=20&userId=1
 ////首页房间李彪，offset从1开始
 //http://39.106.137.21:8201/room/enter?roomId=1&userId=1

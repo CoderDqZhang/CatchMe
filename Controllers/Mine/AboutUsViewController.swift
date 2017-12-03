@@ -32,7 +32,7 @@ class AboutUsViewController: BaseViewController {
         logoImage = UIImageView.init()
         logoImage.layer.cornerRadius = 10
         logoImage.layer.masksToBounds = true
-        logoImage.image = UIImage.init(named: "about_logo")
+        logoImage.image = UIImage.init(named: "logo+text")
         self.view.addSubview(logoImage)
         
         aboutLabel = UILabel.init()
@@ -56,7 +56,7 @@ class AboutUsViewController: BaseViewController {
         versionLabel = UILabel.init()
         versionLabel.font = App_Theme_PinFan_M_15_Font
         versionLabel.textColor = UIColor.init(hexString: App_Theme_333333_Color)
-        versionLabel.text = "v\(APPVERSION)"
+        versionLabel.text = "V\(APPVERSION)"
         self.view.addSubview(versionLabel)
         
         self.makeConstraints()
@@ -65,9 +65,8 @@ class AboutUsViewController: BaseViewController {
     
     func makeConstraints(){
         logoImage.snp.makeConstraints { (make) in
-            make.top.equalTo(self.view.snp.top).offset(82)
+            make.top.equalTo(self.view.snp.top).offset(84)
             make.centerX.equalTo(self.view.snp.centerX).offset(0)
-            make.size.equalTo(CGSize.init(width: 96, height: 93))
         }
         
         aboutLabel.snp.makeConstraints { (make) in
@@ -82,11 +81,11 @@ class AboutUsViewController: BaseViewController {
         }
         
         proLabel.snp.makeConstraints { (make) in
-            make.bottom.equalTo(bottomImage.snp.top).offset(-25)
+            make.bottom.equalTo(self.view.snp.bottom).offset(-162)
             make.centerX.equalTo(self.view.snp.centerX).offset(0)
         }
         versionLabel.snp.makeConstraints { (make) in
-            make.bottom.equalTo(proLabel.snp.top).offset(-10)
+            make.bottom.equalTo(proLabel.snp.top).offset(-7)
             make.centerX.equalTo(self.view.snp.centerX).offset(0)
         }
     }

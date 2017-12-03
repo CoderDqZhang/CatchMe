@@ -45,7 +45,7 @@ class LoginViewModel: BaseViewModel {
                 let model = UserInfoModel.mj_object(withKeyValues: resultDic.value)
                 model?.idField = "\((resultDic.value as! NSDictionary).object(forKey: "id")!)"
                 UserDefaultsSetSynchronize(model?.neteaseAccountId as AnyObject, key: "neteaseAccountId")
-                model?.saveOrUpdate(byColumnName: "neteaseAccountId", andColumnValue: "'\(String(describing: model?.neteaseAccountId!))'")
+                model?.saveOrUpdate(byColumnName: "neteaseAccountId", andColumnValue: "'\((model?.neteaseAccountId! as! String))'")
                 self.loginNetNetease()
             }
         }

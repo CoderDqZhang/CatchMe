@@ -232,14 +232,14 @@ class ToolsView: UIView {
         self.addSubview(label)
         
         if blance == nil {
-            imageView = UIImageView.init(frame: CGRect.init(x: (frame.size.width  - 22 )/2, y: 9, width: 26, height: 21))
+            imageView = UIImageView.init(frame: CGRect.init(x: (frame.size.width  - 22 )/2, y: 9, width: image.size.width, height: image.size.height))
             imageView.image = image
             self.addSubview(imageView)
             label.textColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
 
         }else{
             let width = ((blance! as NSString).width(with: App_Theme_PinFan_M_20_Font, constrainedToHeight: 24)) + 22
-            imageView = UIImageView.init(frame: CGRect.init(x: (frame.size.width  - width )/2, y: 9, width: 26, height: 21))
+            imageView = UIImageView.init(frame: CGRect.init(x: (frame.size.width  - width )/2, y: 9, width: image.size.width, height: image.size.height))
             imageView.image = image
             self.addSubview(imageView)
             
@@ -290,14 +290,14 @@ class CacheMeToolsView: UIView {
         }
         self.addSubview(toolsDesc)
         
-        playGame = ToolsView.init(frame: CGRect.init(x: toolsDesc.frame.maxX + 8, y: 0, width: toolsWidth * 75 / 48, height: 60), title: "开始抓娃娃", blance: "30", image: UIImage.init(named: "coin")!,tag:2) {
+        playGame = ToolsView.init(frame: CGRect.init(x: toolsDesc.frame.maxX + 8, y: 0, width: toolsWidth * 75 / 48, height: 60), title: "开始抓娃娃", blance: "30", image: UIImage.init(named: "coin_1")!,tag:2) {
             if self.cacheMeToolsViewClouse != nil {
                 self.cacheMeToolsViewClouse(2)
             }
         }
         self.addSubview(playGame)
         
-        topUp = ToolsView.init(frame: CGRect.init(x: playGame.frame.maxX + 8, y: 0, width: toolsWidth, height: 60), title: "充值", blance: nil, image: UIImage.init(named: "coin")!,tag:3) {
+        topUp = ToolsView.init(frame: CGRect.init(x: playGame.frame.maxX + 8, y: 0, width: toolsWidth, height: 60), title: "充值", blance: nil, image: UIImage.init(named: "coin_1")!,tag:3) {
             if self.cacheMeToolsViewClouse != nil {
                 self.cacheMeToolsViewClouse(3)
             }
@@ -314,9 +314,17 @@ class CacheMeToolsView: UIView {
     }
 }
 
-typealias GameToolsViewClouse = (_ tag:Int) ->Void
+typealias GameToolsViewClouse = (_ tag:GameToolsLogic) ->Void
 
 let gameBtnWidht = 60
+
+enum GameToolsLogic:Int {
+    case moveTop = 1
+    case moveDown = 2
+    case moveLeft = 3
+    case moveRight = 4
+    case moveGO = 5
+}
 
 class GameToolsView : UIView {
     var leftBtn:UIButton!
@@ -335,7 +343,7 @@ class GameToolsView : UIView {
         topBtn.setImage(UIImage.init(named: "up"), for: .normal)
         self.setUpButtonTheme(button: topBtn)
         topBtn.reactive.controlEvents(.touchUpInside).observe { (action) in
-            gameToolsViewClouse(1)
+            gameToolsViewClouse(.moveTop)
         }
         self.addSubview(topBtn)
         
@@ -343,7 +351,7 @@ class GameToolsView : UIView {
         leftBtn.setImage(UIImage.init(named: "left"), for: .normal)
         self.setUpButtonTheme(button: leftBtn)
         leftBtn.reactive.controlEvents(.touchUpInside).observe { (action) in
-            gameToolsViewClouse(3)
+            gameToolsViewClouse(.moveLeft)
         }
         self.addSubview(leftBtn)
         
@@ -352,7 +360,7 @@ class GameToolsView : UIView {
         self.setUpButtonTheme(button: bottomBtn)
         bottomBtn.setImage(UIImage.init(named: "down"), for: .normal)
         bottomBtn.reactive.controlEvents(.touchUpInside).observe { (action) in
-            gameToolsViewClouse(2)
+            gameToolsViewClouse(.moveDown)
         }
         self.addSubview(bottomBtn)
         
@@ -360,7 +368,7 @@ class GameToolsView : UIView {
         self.setUpButtonTheme(button: rightBtn)
         rightBtn.setImage(UIImage.init(named: "right"), for: .normal)
         rightBtn.reactive.controlEvents(.touchUpInside).observe { (action) in
-            gameToolsViewClouse(4)
+            gameToolsViewClouse(.moveRight)
         }
         self.addSubview(rightBtn)
         
@@ -370,7 +378,7 @@ class GameToolsView : UIView {
         goBtn.layer.masksToBounds = true
         goBtn.setImage(UIImage.init(named: "go"), for: .normal)
         goBtn.reactive.controlEvents(.touchUpInside).observe { (action) in
-            gameToolsViewClouse(5)
+            gameToolsViewClouse(.moveGO)
         }
         self.addSubview(goBtn)
     }

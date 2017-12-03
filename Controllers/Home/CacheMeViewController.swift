@@ -107,6 +107,8 @@ class CacheMeViewController: BaseViewController {
             self.liveplayer.prepareToPlay()
             self.liveplayer.play()
             
+            //拉流地址设置成功后执行拉流的一些界面创建
+            //根据通知的状态来隐藏和显示视图
             self.setUpFontToolsView()
             
         } catch {
@@ -166,7 +168,6 @@ class CacheMeViewController: BaseViewController {
     //创建顶部导航栏
     func setUpCacheMeTopView(){
         cacheMeTopView = CacheMeTopView.init(frame: CGRect.init(x: 0, y: 20, width: SCREENWIDTH, height: 68), topViewBackButtonClouse: {
-            self.cacheMeViewModel.handUpConnect()
             self.cacheMeViewModel.requestExitRooms()
             self.navigationController?.popViewController({
                 
@@ -179,7 +180,7 @@ class CacheMeViewController: BaseViewController {
     func setUpGameView(){
         gameToolsView = GameToolsView.init(frame: CGRect.init(x: 0, y: SCREENHEIGHT - 202, width: SCREENWIDTH, height: 202), gameToolsViewClouse: { (tag) in
             switch tag {
-            case 1,2,3,4:
+            case .moveLeft,.moveRight,.moveTop,.moveDown:
                 //上//下//左//右
                 self.cacheMeViewModel.playGameLogic(tag: tag)
             default:

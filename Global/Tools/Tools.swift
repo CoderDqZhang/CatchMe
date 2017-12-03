@@ -9,9 +9,9 @@
 import UIKit
 import MBProgressHUD
 
-let HUDBackGroudColor = "556169"
+let HUDBackGroudColor = "000000"
 let CustomViewWidth:CGFloat = 190
-let CustomViewFont = IPHONE_VERSION > 9 ? UIFont.init(name: ".SFUIText-Medium", size: 14.0):UIFont.init(name: ".HelveticaNeueInterface-Bold", size: 14.0)
+let CustomViewFont = IPHONE_VERSION > 9 ? UIFont.init(name: ".SFUIText-Medium", size: 17.0):UIFont.init(name: ".HelveticaNeueInterface-Bold", size: 17.0)
 let TextLabelMarger:CGFloat = 20
 
 class HUDCustomView: UIView {
@@ -61,7 +61,7 @@ class Tools: NSObject {
     func showLoading(_ view:UIView, msg:String?) -> MBProgressHUD {
         let hud = MBProgressHUD.showAdded(to: view, animated: true)
         hud.mode = .indeterminate
-        hud.bezelView.backgroundColor = UIColor.init(hexString: HUDBackGroudColor, andAlpha: 0.9)
+        hud.bezelView.backgroundColor = UIColor.init(hexString: HUDBackGroudColor, andAlpha: 1)
         hud.bezelView.layer.cornerRadius = 12.0
         if msg != nil {
             hud.label.text = msg
@@ -79,7 +79,7 @@ class Tools: NSObject {
     func showMessage(_ view:UIView, msg:String, autoHidder:Bool) -> MBProgressHUD {
         let hud = MBProgressHUD.showAdded(to: view, animated: true)
         hud.mode = .customView
-        hud.bezelView.backgroundColor = UIColor.init(hexString: HUDBackGroudColor, andAlpha: 0.9)
+        hud.bezelView.backgroundColor = UIColor.init(hexString: HUDBackGroudColor, andAlpha: 1)
         hud.bezelView.layer.cornerRadius = 12.0
         hud.label.numberOfLines = 0;
         hud.label.textColor = UIColor.white

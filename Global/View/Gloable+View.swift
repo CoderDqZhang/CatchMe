@@ -203,6 +203,7 @@ typealias  GloabelShareAndConnectUsClouse = (_ type:ClickType) ->Void
 
 class GloabelShareAndConnectUs: UIView {
     
+    var backGroundImage:UIImageView!
     var isHaveWeChat:Bool = WXApi.isWXAppInstalled()
     var isHaveQQ:Bool = TencentOAuth.iphoneQQInstalled()
     var titleLabel:UILabel!
@@ -214,7 +215,10 @@ class GloabelShareAndConnectUs: UIView {
         super.init(frame: CGRect.init(x: 0, y: SCREENHEIGHT - 250, width: SCREENWIDTH, height: 250))
         
         self.gloabelShareAndConnectUsClouse = clickClouse
-        self.backgroundColor = UIColor.init(hexString: App_Theme_FFFFFF_Color, andAlpha: 0.96)
+        backGroundImage = UIImageView.init(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: 250))
+        backGroundImage.image = UIImage.init(color: UIColor.init(hexString: App_Theme_FFFFFF_Color, andAlpha: 0.75), size: CGSize.init(width: SCREENWIDTH, height: 250))
+        backGroundImage.blur()
+        self.addSubview(backGroundImage)
         
         self.setUpNormaleView()
         
@@ -233,7 +237,7 @@ class GloabelShareAndConnectUs: UIView {
         
         titleLabel.snp.makeConstraints { (make) in
             make.centerX.equalTo(self.snp.centerX).offset(0)
-            make.top.equalTo(self.snp.top).offset(26)
+            make.top.equalTo(self.snp.top).offset(28)
         }
         
         lineLabel = GloabLineView.init(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: 1))
@@ -247,8 +251,9 @@ class GloabelShareAndConnectUs: UIView {
         self.addSubview(cancelButton)
         
         cancelButton.snp.makeConstraints { (make) in
+            make.size.equalTo(CGSize.init(width: 40, height: 40))
             make.centerX.equalTo(self.snp.centerX).offset(0)
-            make.bottom.equalTo(self.snp.bottom).offset(-30)
+            make.bottom.equalTo(self.snp.bottom).offset(-18)
         }
     }
     
@@ -298,7 +303,7 @@ class GloabelShareAndConnectUs: UIView {
             detailView.addSubview(weChat)
             maxX = weChat.frame.maxX + 45
         }
-        let phoneCall = GloabelImageAndLabel.init(frame: CGRect.init(x: maxX, y: 0, width: 60, height: 88), title: "客服电话", image: UIImage.init(named: "contact")!){
+        let phoneCall = GloabelImageAndLabel.init(frame: CGRect.init(x: maxX, y: 0, width: 60, height: 88), title: "客服电话", image: UIImage.init(named: "contact_about")!){
             self.gloabelShareAndConnectUsClouse(.phoneCall)
             self.removeSelf()
         }

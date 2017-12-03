@@ -58,7 +58,8 @@ class MineHeaderTableViewCell: UITableViewCell {
             UIImageViewManger.sd_imageView(url: model.photo, imageView: headerImage, placeholderImage: UIImage.init(named: "默认头像_1")) { (image, error, cacheType, url) in
                 let newImageSize = image?.scaled(toWidth: SCREENWIDTH)
                 let inputImage = newImageSize?.cropped(to: CGRect.init(x: 0, y: ((newImageSize?.size.height)! - self.contentView.frame.height)/2, width: SCREENWIDTH, height: self.contentView.frame.height))
-                self.backImage.image = UIImage.boxblurImage(inputImage, withBlurNumber: 0.9)
+                 self.backImage.image = inputImage
+                self.backImage.blur()
             }
         }
         
