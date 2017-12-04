@@ -582,3 +582,114 @@ class GameStatusModel : NSObject, NSCoding{
     }
     
 }
+
+class PlayGameAgain : NSObject, NSCoding{
+    
+    var gameId : Int!
+    var imageAddress : AnyObject!
+    var maxTime : Int!
+    var price : AnyObject!
+    var roomDetailDTO : AnyObject!
+    var skuId : AnyObject!
+    var skuName : AnyObject!
+    var skuSubId : AnyObject!
+    
+    
+    /**
+     * Instantiate the instance using the passed dictionary values to set the properties values
+     */
+    init(fromDictionary dictionary: NSDictionary){
+        gameId = dictionary["gameId"] as? Int
+        imageAddress = dictionary["imageAddress"] as AnyObject
+        maxTime = dictionary["maxTime"] as? Int
+        price = dictionary["price"] as AnyObject
+        roomDetailDTO = dictionary["roomDetailDTO"] as AnyObject
+        skuId = dictionary["skuId"] as AnyObject
+        skuName = dictionary["skuName"] as AnyObject
+        skuSubId = dictionary["skuSubId"] as AnyObject
+    }
+    
+    /**
+     * Returns all the available property values in the form of NSDictionary object where the key is the approperiate json key and the value is the value of the corresponding property
+     */
+    func toDictionary() -> NSDictionary
+    {
+        let dictionary = NSMutableDictionary()
+        if gameId != nil{
+            dictionary["gameId"] = gameId
+        }
+        if imageAddress != nil{
+            dictionary["imageAddress"] = imageAddress
+        }
+        if maxTime != nil{
+            dictionary["maxTime"] = maxTime
+        }
+        if price != nil{
+            dictionary["price"] = price
+        }
+        if roomDetailDTO != nil{
+            dictionary["roomDetailDTO"] = roomDetailDTO
+        }
+        if skuId != nil{
+            dictionary["skuId"] = skuId
+        }
+        if skuName != nil{
+            dictionary["skuName"] = skuName
+        }
+        if skuSubId != nil{
+            dictionary["skuSubId"] = skuSubId
+        }
+        return dictionary
+    }
+    
+    /**
+     * NSCoding required initializer.
+     * Fills the data from the passed decoder
+     */
+    @objc required init(coder aDecoder: NSCoder)
+    {
+        gameId = aDecoder.decodeObject(forKey:"gameId") as? Int
+        imageAddress = aDecoder.decodeObject(forKey:"imageAddress") as AnyObject
+        maxTime = aDecoder.decodeObject(forKey:"maxTime") as? Int
+        price = aDecoder.decodeObject(forKey:"price") as AnyObject
+        roomDetailDTO = aDecoder.decodeObject(forKey:"roomDetailDTO") as AnyObject
+        skuId = aDecoder.decodeObject(forKey:"skuId") as AnyObject
+        skuName = aDecoder.decodeObject(forKey:"skuName") as AnyObject
+        skuSubId = aDecoder.decodeObject(forKey: "skuSubId") as AnyObject
+        
+    }
+    
+    /**
+     * NSCoding required method.
+     * Encodes mode properties into the decoder
+     */
+    @objc func encode(with aCoder: NSCoder)
+    {
+        if gameId != nil{
+            aCoder.encode(gameId, forKey: "gameId")
+        }
+        if imageAddress != nil{
+            aCoder.encode(imageAddress, forKey: "imageAddress")
+        }
+        if maxTime != nil{
+            aCoder.encode(maxTime, forKey: "maxTime")
+        }
+        if price != nil{
+            aCoder.encode(price, forKey: "price")
+        }
+        if roomDetailDTO != nil{
+            aCoder.encode(roomDetailDTO, forKey: "roomDetailDTO")
+        }
+        if skuId != nil{
+            aCoder.encode(skuId, forKey: "skuId")
+        }
+        if skuName != nil{
+            aCoder.encode(skuName, forKey: "skuName")
+        }
+        if skuSubId != nil{
+            aCoder.encode(skuSubId, forKey: "skuSubId")
+        }
+        
+    }
+    
+}

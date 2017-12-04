@@ -24,6 +24,10 @@ class TopUpViewModel: BaseViewModel {
     @objc func paySuccess(_ object:Foundation.Notification){
         if Int(object.object as! String) != 100 {
             //支付成功执行更新方法
+            let coinAmount = UserInfoModel.shareInstance().coinAmount.int! + TopUpModel.init(fromDictionary: self.models[topUpMuch - 1] as! NSDictionary).rechargeCoin
+            UserInfoModel.shareInstance().coinAmount = "\(coinAmount)"
+            UserInfoModel.shareInstance().saveOrUpdate(byColumnName: "neteaseAccountId", andColumnValue: "'\(UserInfoModel.shareInstance().neteaseAccountId!)'")
+            (self.controller as! TopUpViewController).setBalanceText(str: "\(coinAmount)")
         }else{
             //支付失败
         }
