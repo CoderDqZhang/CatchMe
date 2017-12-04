@@ -42,10 +42,10 @@ class LoginViewModel: BaseViewModel {
         let dic = ["telephone":form.phone, "verifyCode":form.code]
         BaseNetWorke.sharedInstance.postUrlWithString(LoginUrl, parameters: dic as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
-                let model = UserInfoModel.mj_object(withKeyValues: resultDic.value)
-                model?.idField = "\((resultDic.value as! NSDictionary).object(forKey: "id")!)"
-                UserDefaultsSetSynchronize(model?.neteaseAccountId as AnyObject, key: "neteaseAccountId")
-                model?.saveOrUpdate(byColumnName: "neteaseAccountId", andColumnValue: "'\((model?.neteaseAccountId! as! String))'")
+                let model:UserInfoModel = UserInfoModel.mj_object(withKeyValues: resultDic.value)
+                model.idField = "\((resultDic.value as! NSDictionary).object(forKey: "id")!)"
+                UserDefaultsSetSynchronize(model.neteaseAccountId as AnyObject, key: "neteaseAccountId")
+                model.saveOrUpdate(byColumnName: "neteaseAccountId", andColumnValue: "'\(model.neteaseAccountId!)'")
                 self.loginNetNetease()
             }
         }

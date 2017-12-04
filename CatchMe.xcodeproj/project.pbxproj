@@ -384,6 +384,7 @@
 		1F3739BF1FD10E160068F1C0 /* LocalJsonFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalJsonFile.swift; sourceTree = "<group>"; };
 		1F3739C31FD1302E0068F1C0 /* AddressValueKey.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AddressValueKey.txt; sourceTree = "<group>"; };
 		1F8432501FD29BDF000D6293 /* SwiftUserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUserModel.swift; sourceTree = "<group>"; };
+		1F85F03D1FD54E5700FDF26C /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		1FCA1FFE1FC47CB50008BF07 /* HomeLables.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeLables.swift; sourceTree = "<group>"; };
 		1FCA20001FC5202D0008BF07 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		1FCA20021FC521410008BF07 /* NeteaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeteaseManager.swift; sourceTree = "<group>"; };
@@ -1073,6 +1074,7 @@
 		AB92BE9F4E2397317A00B46E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1F85F03D1FD54E5700FDF26C /* AVFoundation.framework */,
 				1F22927F1FD00F2500089174 /* Accelerate.framework */,
 				1FD7290C1FCE5E7F005CF939 /* StoreKit.framework */,
 				1F126E281FC01BBC006306D2 /* CoreMotion.framework */,
@@ -1504,8 +1506,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 599640648AD4571953B84782 /* Pods-CatchMe.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = WME8W97WUU;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1524,6 +1528,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.zhuawo.catchdoll;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "CatchMe/CatchMe-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1534,8 +1540,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 66871A49004208702649CA5E /* Pods-CatchMe.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = WME8W97WUU;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1554,6 +1562,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.zhuawo.catchdoll;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "CatchMe/CatchMe-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;

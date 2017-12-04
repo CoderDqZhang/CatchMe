@@ -29,6 +29,10 @@
 @property (nonatomic, copy) NSString * coinAmount;
 
 + (instancetype)shareInstance;
+
+-(instancetype)initWithDictionary:(NSDictionary *)dictionary;
+
+-(NSDictionary *)toDictionary;
         
 + (BOOL)logout;
     

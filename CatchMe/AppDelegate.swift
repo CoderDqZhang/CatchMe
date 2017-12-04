@@ -8,6 +8,7 @@
 
 import UIKit
 import NIMSDK
+import AVFoundation
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, WeiboSDKDelegate {
@@ -29,6 +30,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WeiboSDKDelegate {
         self.setUpMainViewContr()
         self.getConfig()
         self.window?.makeKeyAndVisible()
+        self.getAVAuthorizationStatus()
         // Override point for customization after application launch.
         return true
     }
@@ -54,6 +56,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WeiboSDKDelegate {
 //                let model = ConfigModel.init(fromDictionary: resultDic.value as! NSDictionary)
                 UserDefaultsSetSynchronize((resultDic.value as! NSDictionary).object(forKey: "value") as AnyObject, key: APPCONFIGSTATUS)
             }
+        }
+    }
+    
+    func getAVAuthorizationStatus(){
+        let authorizate = AVCaptureDevice.authorizationStatus(for: .audio)
+        AVAudioSession.sharedInstance().requestRecordPermission { (ret) in
+            
         }
     }
     

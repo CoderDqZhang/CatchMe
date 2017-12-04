@@ -122,12 +122,12 @@ class LoginSetPhoneViewController: BaseViewController {
         self.view.addSubview(proBtn)
         
         comfigLabel.snp.makeConstraints { (make) in
-            make.bottom.equalTo(self.view.snp.bottom).offset(-240)
+            make.bottom.equalTo(self.view.snp.bottom).offset(IPHONE5 ? -226 : -240)
             make.centerX.equalTo(self.view.snp.centerX).offset(-65)
         }
         
         proBtn.snp.makeConstraints { (make) in
-            make.bottom.equalTo(self.view.snp.bottom).offset(-234)
+            make.bottom.equalTo(self.view.snp.bottom).offset(IPHONE5 ? -220 : -234)
             make.centerX.equalTo(self.view.snp.centerX).offset(49)
         }
         

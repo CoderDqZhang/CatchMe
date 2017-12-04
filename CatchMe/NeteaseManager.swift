@@ -16,8 +16,8 @@ class NeteaseManager: NSObject {
     
     override init() {
         super.init()
-        NIMSDK.shared().loginManager.add(self)
         self.registerAPPKey()
+        NIMSDK.shared().loginManager.add(self)
     }
     
     static let shareInstance = NeteaseManager.init()
@@ -60,8 +60,8 @@ extension NeteaseManager : NIMLoginManagerDelegate {
     
     //网易登录步骤
     func onLogin(_ step: NIMLoginStep) {
-//        if loginHud == nil {
-////            loginHud = Tools.shareInstance.showLoading(KWINDOWDS(), msg: nil)
+//        if loginHud == nil{
+//            loginHud = Tools.shareInstance.showLoading(KWINDOWDS(), msg: nil)
 //        }
 //        var str = ""
 //        switch step {

@@ -84,25 +84,36 @@ class LoginTypeViewController: BaseViewController {
     }
     
     func loginWeiChat(){
-        if WXApi.isWXAppInstalled() {
-            let req = SendAuthReq()
-            req.scope = "snsapi_userinfo"
-            req.state = "App"
-            //第三方向微信终端发送一个SendAuthReq消息结构
-            if !WXApi.send(req) {
-                print("weixin sendreq failed")
+//        if WXApi.isWXAppInstalled() {
+//            let req = SendAuthReq()
+//            req.scope = "snsapi_userinfo"
+//            req.state = "App"
+//            //第三方向微信终端发送一个SendAuthReq消息结构
+//            if !WXApi.send(req) {
+//                print("weixin sendreq failed")
+//            }
+//        }
+        //测试登录
+        let parameters = ["userId":"7"]
+        BaseNetWorke.sharedInstance.getUrlWithString(UserInfoUrl, parameters: parameters as AnyObject).observe({ (resultDic) in
+            if !resultDic.isCompleted {
+                let model:UserInfoModel = UserInfoModel.init(dictionary: resultDic.value as! [AnyHashable : Any])
+                model.idField = "\((resultDic.value as! NSDictionary).object(forKey: "id")!)"
+                UserDefaultsSetSynchronize(model.neteaseAccountId as AnyObject, key: "neteaseAccountId")
+                model.saveOrUpdate(byColumnName: "neteaseAccountId", andColumnValue: "'\(model.neteaseAccountId!)'")
+                LoginViewModel.shareInstance.loginNetNetease()
             }
-        }
+        })
     }
 
     @objc func loginSuccess(_ object:Foundation.Notification){
         let parameters = ["code":object.object!]
         BaseNetWorke.sharedInstance.postUrlWithString(LoginWeiChat, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
-                let model = UserInfoModel.mj_object(withKeyValues: resultDic.value)
-                model?.idField = "\((resultDic.value as! NSDictionary).object(forKey: "id")!)"
-                UserDefaultsSetSynchronize(model?.neteaseAccountId as AnyObject, key: "neteaseAccountId")
-                model?.saveOrUpdate(byColumnName: "neteaseAccountId", andColumnValue: "'\(model?.neteaseAccountId! as! String)'")
+                let model:UserInfoModel = UserInfoModel.init(dictionary: resultDic.value as! [AnyHashable : Any])
+                model.idField = "\((resultDic.value as! NSDictionary).object(forKey: "id")!)"
+                UserDefaultsSetSynchronize(model.neteaseAccountId as AnyObject, key: "neteaseAccountId")
+                model.saveOrUpdate(byColumnName: "neteaseAccountId", andColumnValue: "'\(model.neteaseAccountId!)'")
                 LoginViewModel.shareInstance.loginNetNetease()
             }
         }

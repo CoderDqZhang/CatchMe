@@ -85,7 +85,7 @@ class ProfileViewModel: BaseViewModel {
     func uploadImage(image:UIImage) {
         let hud = Tools.shareInstance.showLoading(KWINDOWDS(), msg: "上传中...")
         let fileUrl = SaveImageTools.sharedInstance.getCachesDirectory("photoImage.png", path: "headerImage", isSmall: false)
-        let parameters = ["file":fileUrl]
+        let parameters = [fileUrl:"file"]
         
         BaseNetWorke.sharedInstance.uploadDataFile(UploadImage, parameters:nil, images: parameters as NSDictionary, hud: hud).observe { (resultDic) in
             if !resultDic.isCompleted {

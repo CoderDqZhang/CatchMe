@@ -53,52 +53,52 @@ static UserInfoModel *_instance = nil;
 {
     self = [super init];
     if(![dictionary[kHomeLabelsGender] isKindOfClass:[NSNull class]]){
-        self.gender = [dictionary[kHomeLabelsGender] integerValue];
+        UserInfoModel.shareInstance.gender = [dictionary[kHomeLabelsGender] integerValue];
     }
     
     if(![dictionary[kHomeLabelsIdField] isKindOfClass:[NSNull class]]){
-        self.idField = [dictionary[kHomeLabelsIdField] stringValue];
+        UserInfoModel.shareInstance.idField = [dictionary[kHomeLabelsIdField] stringValue];
     }
     if(![dictionary[kHomeLabelsCoinAmount] isKindOfClass:[NSNull class]]){
-        self.coinAmount = [dictionary[kHomeLabelsCoinAmount] stringValue];
+        UserInfoModel.shareInstance.coinAmount = [dictionary[kHomeLabelsCoinAmount] stringValue];
     }
     
     if(![dictionary[kHomeLabelsNeteaseAccountId] isKindOfClass:[NSNull class]]){
-        self.neteaseAccountId = dictionary[kHomeLabelsNeteaseAccountId];
+        UserInfoModel.shareInstance.neteaseAccountId = dictionary[kHomeLabelsNeteaseAccountId];
     }
-    if(![dictionary[kHomeLabelsToken] isKindOfClass:[NSNull class]]){
-        self.neteaseToken = dictionary[kHomeLabelsToken];
+    if(![dictionary[kHomeLabelsNeteaseToken] isKindOfClass:[NSNull class]]){
+        UserInfoModel.shareInstance.neteaseToken = dictionary[kHomeLabelsNeteaseToken];
     }
     if(![dictionary[kHomeLabelsPhoto] isKindOfClass:[NSNull class]]){
-        self.photo = dictionary[kHomeLabelsPhoto];
+        UserInfoModel.shareInstance.photo = dictionary[kHomeLabelsPhoto];
     }
     if(![dictionary[kHomeLabelsRegisterType] isKindOfClass:[NSNull class]]){
-        self.registerType = [dictionary[kHomeLabelsRegisterType] integerValue];
+        UserInfoModel.shareInstance.registerType = [dictionary[kHomeLabelsRegisterType] integerValue];
     }
     
     if(![dictionary[kHomeLabelsShareCode] isKindOfClass:[NSNull class]]){
-        self.shareCode = dictionary[kHomeLabelsShareCode];
+        UserInfoModel.shareInstance.shareCode = dictionary[kHomeLabelsShareCode];
     }
     if(![dictionary[kHomeLabelsShareNum] isKindOfClass:[NSNull class]]){
-        self.shareNum = dictionary[kHomeLabelsShareNum];
+        UserInfoModel.shareInstance.shareNum = dictionary[kHomeLabelsShareNum];
     }
     if(![dictionary[kHomeLabelsShareStatus] isKindOfClass:[NSNull class]]){
-        self.shareStatus = [dictionary[kHomeLabelsShareStatus] integerValue];
+        UserInfoModel.shareInstance.shareStatus = [dictionary[kHomeLabelsShareStatus] integerValue];
     }
     
     if(![dictionary[kHomeLabelsTelephone] isKindOfClass:[NSNull class]]){
-        self.telephone = dictionary[kHomeLabelsTelephone];
+        UserInfoModel.shareInstance.telephone = dictionary[kHomeLabelsTelephone];
     }
     if(![dictionary[kHomeLabelsToken] isKindOfClass:[NSNull class]]){
-        self.token = dictionary[kHomeLabelsToken];
+        UserInfoModel.shareInstance.token = dictionary[kHomeLabelsToken];
     }
     if(![dictionary[kHomeLabelsUserName] isKindOfClass:[NSNull class]]){
-        self.userName = dictionary[kHomeLabelsUserName];
+        UserInfoModel.shareInstance.userName = dictionary[kHomeLabelsUserName];
     }
     if(![dictionary[kHomeLabelsWechatOpenid] isKindOfClass:[NSNull class]]){
-        self.wechatOpenid = dictionary[kHomeLabelsWechatOpenid];
+        UserInfoModel.shareInstance.wechatOpenid = dictionary[kHomeLabelsWechatOpenid];
     }
-    return self;
+    return UserInfoModel.shareInstance;
 }
 
 

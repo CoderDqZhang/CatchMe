@@ -87,14 +87,14 @@ class CacheMeTopView : UIView {
         }
     }
     
-    func setData(model:SwiftUserModel?){
+    func setData(model:BasicUserDTO?){
         playUser.isHidden = model == nil ? true : false
         if model == nil {
             detail.text = "空闲中..."
         }else{
             detail.text = "正在抓..."
             userName.text = model?.userName
-            UIImageViewManger.sd_imageView(url: (model?.photo)!, imageView: avatar, placeholderImage: nil) { (image, error, cachtType, url) in
+            UIImageViewManger.sd_imageView(url: model?.photo == nil ? "" : (model?.photo)!, imageView: avatar, placeholderImage: nil) { (image, error, cachtType, url) in
                 
             }
         }

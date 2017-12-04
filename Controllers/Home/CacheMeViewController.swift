@@ -38,7 +38,6 @@ class CacheMeViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.bindViewModel(viewModel: cacheMeViewModel, controller: self)
-        NIMAVChatSDK.shared().netCallManager.add(cacheMeViewModel)
         self.bindLogicViewModel()
         self.doInitPlayerNotication()
         self.initRemoteGlView()
@@ -90,22 +89,23 @@ class CacheMeViewController: BaseViewController {
         NELivePlayerController.setLogLevel(NELPLogLevel.LOG_VERBOSE)
         do {
             try self.liveplayer = NELivePlayerController.init(contentURL: URL.init(string: url))
+
             self.liveplayer.setScalingMode(NELPMovieScalingMode.init(0))
             self.liveplayer.setHardwareDecoder(true)
             self.view.addSubview(self.liveplayer.view)
-            self.liveplayer.view.sendSubview(toBack: self.view)
             self.liveplayer.view.snp.makeConstraints({ (make) in
                 make.left.equalTo(self.view.snp.left).offset(0)
                 make.right.equalTo(self.view.snp.right).offset(0)
                 make.top.equalTo(self.view.snp.top).offset(0)
                 make.bottom.equalTo(self.view.snp.bottom).offset(0)
             })
+            
             self.view.autoresizesSubviews = true
             self.liveplayer.setBufferStrategy(NELPBufferStrategy.init(2))
             self.liveplayer.shouldAutoplay = true
             self.liveplayer.setPlaybackTimeout(15 * 1000)
             self.liveplayer.prepareToPlay()
-            self.liveplayer.play()
+            
             
             //拉流地址设置成功后执行拉流的一些界面创建
             //根据通知的状态来隐藏和显示视图
@@ -296,7 +296,7 @@ class CacheMeViewController: BaseViewController {
     }
     
     @objc func NELivePlayerDidPreparedToPlay(notification:Notification){
-        
+        self.liveplayer.play()
     }
     
     @objc func NeLivePlayerloadStateChanged(notification:Notification){
@@ -304,7 +304,7 @@ class CacheMeViewController: BaseViewController {
     }
     
     @objc func NELivePlayerPlayBackFinished(notification:Notification){
-    
+        
     }
     
     @objc func NELivePlayerFirstVideoDisplayed(notification:Notification) {

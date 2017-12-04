@@ -10,9 +10,8 @@ import UIKit
 
 class CatchMeModel : NSObject, NSCoding{
     
-    var basicUserDTO : BasicUserDTO!
+    var currentPlayerDTO : BasicUserDTO?
     var currentPlayStatus : Int!
-    var currentPlayerId : AnyObject!
     var id : Int!
     var machineDTO : MachineDTO!
     var onlineUserList : [Int]!
@@ -27,11 +26,10 @@ class CatchMeModel : NSObject, NSCoding{
      * Instantiate the instance using the passed dictionary values to set the properties values
      */
     init(fromDictionary dictionary: NSDictionary){
-        if let basicUserDTOData = dictionary["basicUserDTO"] as? NSDictionary{
-            basicUserDTO = BasicUserDTO(fromDictionary: basicUserDTOData)
+        if let basicUserDTOData = dictionary["currentPlayerDTO"] as? NSDictionary{
+            currentPlayerDTO = BasicUserDTO(fromDictionary: basicUserDTOData)
         }
         currentPlayStatus = dictionary["currentPlayStatus"] as? Int
-        currentPlayerId = dictionary["currentPlayerId"] as? AnyObject
         id = dictionary["id"] as? Int
         if let machineDTOData = dictionary["machineDTO"] as? NSDictionary{
             machineDTO = MachineDTO(fromDictionary: machineDTOData)
@@ -49,16 +47,14 @@ class CatchMeModel : NSObject, NSCoding{
      */
     func toDictionary() -> NSDictionary
     {
-        var dictionary = NSMutableDictionary()
-        if basicUserDTO != nil{
-            dictionary["basicUserDTO"] = basicUserDTO.toDictionary()
+        let dictionary = NSMutableDictionary()
+        if currentPlayerDTO != nil{
+            dictionary["currentPlayerDTO"] = currentPlayerDTO?.toDictionary()
         }
         if currentPlayStatus != nil{
             dictionary["currentPlayStatus"] = currentPlayStatus
         }
-        if currentPlayerId != nil{
-            dictionary["currentPlayerId"] = currentPlayerId
-        }
+        
         if id != nil{
             dictionary["id"] = id
         }
@@ -92,9 +88,8 @@ class CatchMeModel : NSObject, NSCoding{
      */
     @objc required init(coder aDecoder: NSCoder)
     {
-        basicUserDTO = aDecoder.decodeObject(forKey: "basicUserDTO") as? BasicUserDTO
+        currentPlayerDTO = aDecoder.decodeObject(forKey: "currentPlayerDTO") as? BasicUserDTO
         currentPlayStatus = aDecoder.decodeObject(forKey: "currentPlayStatus") as? Int
-        currentPlayerId = aDecoder.decodeObject(forKey: "currentPlayerId") as? AnyObject
         id = aDecoder.decodeObject(forKey: "id") as? Int
         machineDTO = aDecoder.decodeObject(forKey: "machineDTO") as? MachineDTO
         onlineUserList = aDecoder.decodeObject(forKey: "onlineUserList") as? [Int]
@@ -112,15 +107,13 @@ class CatchMeModel : NSObject, NSCoding{
      */
     @objc func encode(with aCoder: NSCoder)
     {
-        if basicUserDTO != nil{
-            aCoder.encode(basicUserDTO, forKey: "basicUserDTO")
+        if currentPlayerDTO != nil{
+            aCoder.encode(currentPlayerDTO, forKey: "currentPlayerDTO")
         }
         if currentPlayStatus != nil{
             aCoder.encode(currentPlayStatus, forKey: "currentPlayStatus")
         }
-        if currentPlayerId != nil{
-            aCoder.encode(currentPlayerId, forKey: "currentPlayerId")
-        }
+        
         if id != nil{
             aCoder.encode(id, forKey: "id")
         }
@@ -173,7 +166,7 @@ class MachineDTO : NSObject, NSCoding{
      */
     func toDictionary() -> NSDictionary
     {
-        var dictionary = NSMutableDictionary()
+        let dictionary = NSMutableDictionary()
         if audiencePullAddressA != nil{
             dictionary["audiencePullAddressA"] = audiencePullAddressA
         }
@@ -252,7 +245,7 @@ class BasicUserDTO : NSObject, NSCoding{
      */
     func toDictionary() -> NSDictionary
     {
-        var dictionary = NSMutableDictionary()
+        let dictionary = NSMutableDictionary()
         if coinAmount != nil{
             dictionary["coinAmount"] = coinAmount
         }
@@ -320,7 +313,7 @@ class BasicUserDTO : NSObject, NSCoding{
 
 class HeartModel : NSObject, NSCoding{
     
-    var basicUserDTO : BasicUserDTO!
+    var currentPlayerDTO : BasicUserDTO?
     var currentPlayStatus : Int!
     var currentPlayerId : AnyObject!
     var userList : [Int]!
@@ -330,8 +323,8 @@ class HeartModel : NSObject, NSCoding{
      * Instantiate the instance using the passed dictionary values to set the properties values
      */
     init(fromDictionary dictionary: NSDictionary){
-        if let basicUserDTOData = dictionary["basicUserDTO"] as? NSDictionary{
-            basicUserDTO = BasicUserDTO(fromDictionary: basicUserDTOData)
+        if let basicUserDTOData = dictionary["currentPlayerDTO"] as? NSDictionary{
+            currentPlayerDTO = BasicUserDTO(fromDictionary: basicUserDTOData)
         }
         currentPlayStatus = dictionary["currentPlayStatus"] as? Int
         currentPlayerId = dictionary["currentPlayerId"] as AnyObject
@@ -344,8 +337,8 @@ class HeartModel : NSObject, NSCoding{
     func toDictionary() -> NSDictionary
     {
         let dictionary = NSMutableDictionary()
-        if basicUserDTO != nil{
-            dictionary["basicUserDTO"] = basicUserDTO.toDictionary()
+        if currentPlayerDTO != nil{
+            dictionary["currentPlayerDTO"] = currentPlayerDTO?.toDictionary()
         }
         if currentPlayStatus != nil{
             dictionary["currentPlayStatus"] = currentPlayStatus
@@ -365,7 +358,7 @@ class HeartModel : NSObject, NSCoding{
      */
     @objc required init(coder aDecoder: NSCoder)
     {
-        basicUserDTO = aDecoder.decodeObject(forKey: "basicUserDTO") as? BasicUserDTO
+        currentPlayerDTO = aDecoder.decodeObject(forKey: "currentPlayerDTO") as? BasicUserDTO
         currentPlayStatus = aDecoder.decodeObject(forKey: "currentPlayStatus") as? Int
         currentPlayerId = aDecoder.decodeObject(forKey: "currentPlayerId") as AnyObject
         userList = aDecoder.decodeObject(forKey: "userList") as? [Int]
@@ -378,8 +371,8 @@ class HeartModel : NSObject, NSCoding{
      */
     @objc func encode(with aCoder: NSCoder)
     {
-        if basicUserDTO != nil{
-            aCoder.encode(basicUserDTO, forKey: "basicUserDTO")
+        if currentPlayerDTO != nil{
+            aCoder.encode(currentPlayerDTO, forKey: "currentPlayerDTO")
         }
         if currentPlayStatus != nil{
             aCoder.encode(currentPlayStatus, forKey: "currentPlayStatus")

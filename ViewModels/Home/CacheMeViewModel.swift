@@ -31,10 +31,11 @@ class CacheMeViewModel: BaseViewModel {
     var cameraType = CameraType.Font
     var option = NIMNetCallOption.init()
     
-    var currentUser:SwiftUserModel!
+    var currentUser:BasicUserDTO!
     
     override init() {
         super.init()
+        NIMAVChatSDK.shared().netCallManager.add(self)
     }
     
     deinit {
@@ -44,6 +45,7 @@ class CacheMeViewModel: BaseViewModel {
         if timeHeader != nil {
             timeHeader.invalidate()
         }
+        NIMAVChatSDK.shared().netCallManager.remove(self)
     }
     
     //退出房间后调用拉流停止
@@ -120,7 +122,7 @@ class CacheMeViewModel: BaseViewModel {
             self.cacheMeController.localPreView.isHidden = false
         }
         self.fillUserSetting(option)
-        NIMAVChatSDK.shared().netCallManager.start([self.catchMeModel.machineDTO.playerAccountId], type: NIMNetCallMediaType.video, option: option) { (error, nil) in
+        NIMAVChatSDK.shared().netCallManager.start([self.catchMeModel.machineDTO.playerAccountId], type: .video, option: self.option) { (error, callId) in
             if error == nil {
                 print("建立点对点成功")
             }
@@ -168,11 +170,11 @@ class CacheMeViewModel: BaseViewModel {
                 //设置拉流地址
                 self.cacheMeController.setUpPlayer(url: self.catchMeModel.machineDTO.audiencePullAddressA)
                 self.playUrl = self.catchMeModel.machineDTO.audiencePullAddressA
-                self.getUserInfo()
+                self.getUserInfo(currentUser: self.catchMeModel.currentPlayerDTO)
                 //心跳接口
-//                self.timeHeader = Timer.every(1, {
-//                    self.requestHeader()
-//                })
+                self.timeHeader = Timer.every(10, {
+                    self.requestHeader()
+                })
             }
         }
     }
@@ -185,9 +187,9 @@ class CacheMeViewModel: BaseViewModel {
                 self.catchMeModel = CatchMeModel.init(fromDictionary: resultDic.value as! NSDictionary)
                 self.cacheMeController.setUpPlayer(url: self.catchMeModel.machineDTO.audiencePullAddressA)
                 self.playUrl = self.catchMeModel.machineDTO.audiencePullAddressA
-                self.getUserInfo()
+                self.getUserInfo(currentUser: self.catchMeModel.currentPlayerDTO)
                 //心跳接口
-                self.timeHeader = Timer.every(1, {
+                self.timeHeader = Timer.every(10, {
                     self.requestHeader()
                 })
             }
@@ -211,7 +213,7 @@ class CacheMeViewModel: BaseViewModel {
         BaseNetWorke.sharedInstance.getUrlWithString(Heartbeat, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
                 self.headerModel = HeartModel.init(fromDictionary: resultDic.value as! NSDictionary)
-                self.getUserInfo()
+                self.getUserInfo(currentUser: self.headerModel.currentPlayerDTO)
             }
         }
     }
@@ -330,21 +332,22 @@ class CacheMeViewModel: BaseViewModel {
         }
     }
     
-    func getUserInfo(){
-        if self.catchMeModel.currentPlayStatus == 1 {
-            if self.catchMeModel.currentPlayerId as! Int != self.currentUserId || currentUser == nil {
-                self.currentUserId = self.catchMeModel.currentPlayerId as! Int
-                let parameters = ["userId":self.catchMeModel.currentPlayerId]
-                BaseNetWorke.sharedInstance.getUrlWithString(UserInfoUrl, parameters: parameters as AnyObject).observe({ (resultDic) in
-                    if !resultDic.isCompleted {
-                        self.currentUser = SwiftUserModel.init(fromDictionary: resultDic.value as! NSDictionary)
-                        self.cacheMeController.cacheMeTopView.setData(model: self.currentUser)
-                    }
-                })
+    func getUserInfo(currentUser:BasicUserDTO?){
+        if self.currentUser == nil {
+            self.currentUser = currentUser
+        }else{
+            if currentUser == nil {
+                self.currentUser = currentUser
+            }else{
+                if self.currentUser.id == currentUser?.id {
+                    return
+                }else{
+                    self.currentUser = currentUser
+                }
             }
         }
         
-        
+        self.cacheMeController.cacheMeTopView.setData(model: self.currentUser)
     }
     
     func gotoTopUpVC(){
@@ -378,6 +381,7 @@ class CacheMeViewModel: BaseViewModel {
             }
         }))
     }
+    
 }
 
 extension CacheMeViewModel : NIMNetCallManagerDelegate {
