@@ -135,8 +135,7 @@ class SenderJoysViewModel: BaseViewModel {
         let parameters = ["catchdollIds":senderDolls]
         BaseNetWorke.sharedInstance.postUrlWithString(ApplyShipments, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
-//                self.model = MyCatchDollsModel.init(fromDictionary: resultDic.value! as! NSDictionary)
-//                self.controller?.tableView.reloadData()
+                _ = Tools.shareInstance.showMessage(KWINDOWDS(), msg: "发货成功", autoHidder: true)
             }
         }
     }

@@ -17,7 +17,12 @@ class QuestionViewModel: BaseViewModel {
     }
     
     func submit(){
-        
+        let parameters = ["content":content,"contact":contact,"userId":UserInfoModel.shareInstance().idField]
+        BaseNetWorke.sharedInstance.postUrlWithString(FeedBack, parameters: parameters as AnyObject).observe { (resultDic) in
+            if !resultDic.isCompleted {
+                _ = Tools.shareInstance.showMessage(KWINDOWDS(), msg: "反馈成功", autoHidder: true)
+            }
+        }
     }
     
     func tableViewQuestionDetailTableViewCellSetData(_ indexPath:IndexPath, cell:QuestionDetailTableViewCell) {
