@@ -124,7 +124,16 @@ class SenderJoysViewModel: BaseViewModel {
     }
     
     func requestApplySenderJoy(){
-        BaseNetWorke.sharedInstance.postUrlWithString(ApplyShipments, parameters: nil).observe { (resultDic) in
+        let senderDolls = NSMutableArray.init()
+        for i in 0...selectArrary.count - 1 {
+            if selectArrary[i] as! Bool {
+                for models in modelData[i] as! NSArray {
+                    senderDolls.add(MyCatchDollsModel.init(fromDictionary: models as! NSDictionary).gameId)
+                }
+            }
+        }
+        let parameters = ["catchdollIds":senderDolls]
+        BaseNetWorke.sharedInstance.postUrlWithString(ApplyShipments, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
 //                self.model = MyCatchDollsModel.init(fromDictionary: resultDic.value! as! NSDictionary)
 //                self.controller?.tableView.reloadData()

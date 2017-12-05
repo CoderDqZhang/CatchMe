@@ -30,10 +30,10 @@ class ProfileViewController: BaseViewController {
     
     override func setUpViewNavigationItem() {
         self.navigationItem.title = "个人信息"
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: "保存", style: .plain, target: self, action: #selector(ProfileViewController.rightPress))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: "保存", style: .plain, target: self, action: #selector(self.rightBarButtonPress))
     }
     
-    @objc func rightPress(){
+    @objc func rightBarButtonPress(){        
         (self.viewModel as! ProfileViewModel).changeUserInfo()
     }
     

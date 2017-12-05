@@ -13,10 +13,12 @@ class MineViewModel: BaseViewModel {
     override init() {
         super.init()
         NotificationCenter.default.addObserver(self, selector: #selector(MineViewModel.updataTableView), name: NSNotification.Name(rawValue: LoginStatuesChange), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.updataTableView), name: NSNotification.Name(rawValue: ChangeUserInfoData), object: nil)
     }
     
     deinit {
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: LoginStatuesChange), object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: ChangeUserInfoData), object: nil)
     }
     
     @objc func updataTableView(){

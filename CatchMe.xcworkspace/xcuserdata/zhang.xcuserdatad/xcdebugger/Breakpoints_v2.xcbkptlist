@@ -38,15 +38,6 @@
                </BreakpointActionProxy>
             </Actions>
             <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__clang_call_terminate"
-                  moduleName = "libglInterpose.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  offsetFromSymbolStart = "13328">
-               </Location>
             </Locations>
          </BreakpointContent>
       </BreakpointProxy>
@@ -286,6 +277,38 @@
             endingLineNumber = "36"
             landmarkName = "paySuccess(_:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "CatchMe.TopUpViewModel.__ivar_destroyer"
+                  moduleName = "CatchMe"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/zhang/Desktop/CatchMe/ViewModels/Home/TopUpViewModel.swift"
+                  timestampString = "534148690.993951"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "4">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "CatchMe.TopUpViewModel.__deallocating_deinit"
+                  moduleName = "CatchMe"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/zhang/Desktop/CatchMe/ViewModels/Home/TopUpViewModel.swift"
+                  timestampString = "534148690.999933"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "37"
+                  endingLineNumber = "37"
+                  offsetFromSymbolStart = "17">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -349,6 +372,198 @@
             startingLineNumber = "464"
             endingLineNumber = "464"
             landmarkName = "onCallEstablished(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Global/Net/BaseNetWorke.swift"
+            timestampString = "534148690.529766"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "149"
+            endingLineNumber = "149"
+            landmarkName = "uploadDataFile(_:parameters:images:hud:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Global/Net/BaseNetWorke.swift"
+            timestampString = "534148690.530128"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "162"
+            endingLineNumber = "162"
+            landmarkName = "uploadDataFile(_:parameters:images:hud:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 (Alamofire.SessionManager.MultipartFormDataEncodingResult) -&gt; () in closure #1 (ReactiveSwift.Signal&lt;Any, __ObjC.NSError&gt;.Observer, ReactiveSwift.Lifetime) -&gt; () in CatchMe.BaseNetWorke.uploadDataFile(Swift.String, parameters: Swift.Optional&lt;__ObjC.NSDictionary&gt;, images: Swift.Optional&lt;__ObjC.NSDictionary&gt;, hud: Swift.Optional&lt;__ObjC.MBProgressHUD&gt;) -&gt; ReactiveSwift.Signal&lt;Any, __ObjC.NSError&gt;"
+                  moduleName = "CatchMe"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/zhang/Desktop/CatchMe/Global/Net/BaseNetWorke.swift"
+                  timestampString = "534148691.037607"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "162"
+                  endingLineNumber = "162"
+                  offsetFromSymbolStart = "420">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Alamofire.DataResponse&lt;Swift.String&gt;) -&gt; () in closure #2 (Alamofire.SessionManager.MultipartFormDataEncodingResult) -&gt; () in closure #1 (ReactiveSwift.Signal&lt;Any, __ObjC.NSError&gt;.Observer, ReactiveSwift.Lifetime) -&gt; () in CatchMe.BaseNetWorke.uploadDataFile(Swift.String, parameters: Swift.Optional&lt;__ObjC.NSDictionary&gt;, images: Swift.Optional&lt;__ObjC.NSDictionary&gt;, hud: Swift.Optional&lt;__ObjC.MBProgressHUD&gt;) -&gt; ReactiveSwift.Signal&lt;Any, __ObjC.NSError&gt;"
+                  moduleName = "CatchMe"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/zhang/Desktop/CatchMe/Global/Net/BaseNetWorke.swift"
+                  timestampString = "534148691.04239"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "163"
+                  endingLineNumber = "163"
+                  offsetFromSymbolStart = "234">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Global/Net/BaseNetWorke.swift"
+            timestampString = "534148690.530215"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "163"
+            endingLineNumber = "163"
+            landmarkName = "uploadDataFile(_:parameters:images:hud:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Global/Net/BaseNetWorke.swift"
+            timestampString = "534148690.530285"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "151"
+            endingLineNumber = "151"
+            landmarkName = "uploadDataFile(_:parameters:images:hud:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Alamofire.MultipartFormData) -&gt; () in closure #1 (ReactiveSwift.Signal&lt;Any, __ObjC.NSError&gt;.Observer, ReactiveSwift.Lifetime) -&gt; () in CatchMe.BaseNetWorke.uploadDataFile(Swift.String, parameters: Swift.Optional&lt;__ObjC.NSDictionary&gt;, images: Swift.Optional&lt;__ObjC.NSDictionary&gt;, hud: Swift.Optional&lt;__ObjC.MBProgressHUD&gt;) -&gt; ReactiveSwift.Signal&lt;Any, __ObjC.NSError&gt;"
+                  moduleName = "CatchMe"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/zhang/Desktop/CatchMe/Global/Net/BaseNetWorke.swift"
+                  timestampString = "534148691.059933"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "151"
+                  endingLineNumber = "151"
+                  offsetFromSymbolStart = "2288">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Alamofire.MultipartFormData) -&gt; () in closure #1 (ReactiveSwift.Signal&lt;Any, __ObjC.NSError&gt;.Observer, ReactiveSwift.Lifetime) -&gt; () in CatchMe.BaseNetWorke.uploadDataFile(Swift.String, parameters: Swift.Optional&lt;__ObjC.NSDictionary&gt;, images: Swift.Optional&lt;__ObjC.NSDictionary&gt;, hud: Swift.Optional&lt;__ObjC.MBProgressHUD&gt;) -&gt; ReactiveSwift.Signal&lt;Any, __ObjC.NSError&gt;"
+                  moduleName = "CatchMe"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/zhang/Desktop/CatchMe/Global/Net/BaseNetWorke.swift"
+                  timestampString = "534148691.063636"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "151"
+                  endingLineNumber = "151"
+                  offsetFromSymbolStart = "2682">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ViewModels/Mine/MyJoysViewModel.swift"
+            timestampString = "534148690.530344"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "32"
+            endingLineNumber = "32"
+            landmarkName = "requestMyDolls()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "CatchMe.MyJoysViewModel.requestMyDolls() -&gt; ()"
+                  moduleName = "CatchMe"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/zhang/Desktop/CatchMe/ViewModels/Mine/MyJoysViewModel.swift"
+                  timestampString = "534145405.64214"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "32"
+                  endingLineNumber = "32"
+                  offsetFromSymbolStart = "516">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (ReactiveSwift.Signal&lt;Any, __ObjC.NSError&gt;.Event) -&gt; () in CatchMe.MyJoysViewModel.requestMyDolls() -&gt; ()"
+                  moduleName = "CatchMe"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/zhang/Desktop/CatchMe/ViewModels/Mine/MyJoysViewModel.swift"
+                  timestampString = "534145405.646006"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "33"
+                  endingLineNumber = "33"
+                  offsetFromSymbolStart = "21">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ViewModels/Mine/SenderJoysViewModel.swift"
+            timestampString = "534148690.530639"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "86"
+            endingLineNumber = "86"
+            landmarkName = "senderJoys()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

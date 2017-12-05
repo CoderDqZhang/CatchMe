@@ -59,6 +59,7 @@ let GaoDeApiKey = "36cf817a65c10eff954c24c3a9edcb3d"
 
 let ToolViewNotifacationName = "ToolsViewNotification"
 let LoginStatuesChange = "LoginStatuesChange"
+let ChangeUserInfoData = "ChangeUserInfoData"
 
 let PayStatusChange = "PayStatusChange"
 

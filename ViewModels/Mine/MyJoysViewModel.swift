@@ -27,8 +27,8 @@ class MyJoysViewModel: BaseViewModel {
     }
     
     func requestMyDolls(){
-//        let parameters = ["useId":UserInfoModel.shareInstance().idField]
-        let parameters = ["userId":1]
+        let parameters = ["userId":UserInfoModel.shareInstance().idField]
+//        let parameters = ["userId":1]
         BaseNetWorke.sharedInstance.getUrlWithString(CatchedDolls, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
                 self.model = NSMutableArray.mj_keyValuesArray(withObjectArray: resultDic.value as! [Any])

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Alamofire
 
 class ProfileViewModel: BaseViewModel {
 
@@ -32,7 +33,6 @@ class ProfileViewModel: BaseViewModel {
     func tableViewProfileHeaderTableViewCellSetData(_ indexPath:IndexPath, cell:ProfileHeaderTableViewCell) {
         if UserInfoModel.shareInstance().photo! is String {
             cell.cellSetData(imageUrl: UserInfoModel.shareInstance().photo as! String)
-            
         }
     }
     
@@ -83,7 +83,9 @@ class ProfileViewModel: BaseViewModel {
                           "gender":UserInfoModel.shareInstance().gender] as [String : Any]
         BaseNetWorke.sharedInstance.postUrlWithString(ChangeUserInfo, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
-                print(resultDic.value)
+                UserInfoModel.shareInstance().saveOrUpdate(byColumnName: "neteaseAccountId", andColumnValue: "'\(UserInfoModel.shareInstance().neteaseAccountId!)'")
+                Notification(ChangeUserInfoData, value: nil)
+                self.controller?.navigationController?.popViewController()
             }
         }
     }
@@ -91,16 +93,11 @@ class ProfileViewModel: BaseViewModel {
     func uploadImage(image:UIImage) {
         let hud = Tools.shareInstance.showLoading(KWINDOWDS(), msg: "上传中...")
         let fileUrl = SaveImageTools.sharedInstance.getCachesDirectory("photoImage.png", path: "headerImage", isSmall: false)
-        let parameters = [fileUrl:"file"]
-        
+        let parameters = ["file":fileUrl]
         BaseNetWorke.sharedInstance.uploadDataFile(UploadImage, parameters:nil, images: parameters as NSDictionary, hud: hud).observe { (resultDic) in
             if !resultDic.isCompleted {
-                if (resultDic.value is NSDictionary) {
-                    if (resultDic.value as! NSDictionary).object(forKey: "code")! as! Int != 0 {
-                        _  = Tools.shareInstance.showMessage(KWINDOWDS(), msg: (resultDic.value as! NSDictionary).object(forKey: "message") as! String, autoHidder: true)
-                    }
-                }else{
-                    
+                if resultDic.value != nil {
+                    UserInfoModel.shareInstance().photo = resultDic.value as! String
                 }
             }
         }

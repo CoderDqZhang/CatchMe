@@ -17,7 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WeiboSDKDelegate {
     var manager: NeteaseManager!
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        PgyManager.shared().start(withAppId: PGYAPPKEY)
+//        PgyManager.shared().start(withAppId: PGYAPPKEY)
         PlusButtonSubclass.register()
         AppleThemeTool.setUpToolBarColor()
         AppleThemeTool.setUpKeyBoardManager()

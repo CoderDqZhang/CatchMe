@@ -102,7 +102,6 @@ class BaseNetWorke {
                         MainThreanShowErrorMessage(responseError)
                     }else{
                         MainThreanShowNetWorkError(responseError)
-//                        subscriber.send(error: responseError as! NSError)
                     }
                 subscriber.sendCompleted()
             })
@@ -136,39 +135,6 @@ class BaseNetWorke {
         })
     }
     
-    func uploadDevilyPushFile(_ url:String, paratemates:NSDictionary) ->Signal<Any, NSError> {
-        var allKey = paratemates.allKeys
-        var allValue = paratemates.allValues
-        return Signal.init({ (subscriber, liftTime) in
-            Alamofire.upload(multipartFormData: { (multipartFormData) in
-                for i in 0...allKey.count - 1 {
-                    multipartFormData.append(URL.init(fileURLWithPath: allValue[i] as! String), withName: allKey[i] as! String)
-                }
-            }, usingThreshold: 1, to: url, method: .post, headers: [
-                "content-type": "multipart/form-data",
-                "cache-control": "no-cache"
-            ]) { (encodingResult) in
-                switch encodingResult {
-                case .success(let upload, _, _):
-                    upload.responseJSON { response in
-                        if response.response?.statusCode == 200 || response.response?.statusCode == 201 {
-                            subscriber.send(value: response.result.value!)
-                        }else{
-                            subscriber.send(value: ["fail":"error"])
-                        }
-                        //                            debugPrint(response)
-                        subscriber.sendCompleted()
-                    }
-                case .failure(let encodingError):
-                    subscriber.send(value: ["fail":"服务器请求失败"])
-                    print(encodingError)
-                    subscriber.sendCompleted()
-                }
-                subscriber.sendCompleted()
-            }
-        })
-    }
-    
     
     func uploadDataFile(_ url:String, parameters:NSDictionary?, images:NSDictionary?, hud:MBProgressHUD?) ->Signal<Any, NSError> {
         return Signal.init({ (subscriber, liftTime) in
@@ -181,7 +147,7 @@ class BaseNetWorke {
                 
                 if images != nil {
                     for j in 0...(images!).allValues.count - 1 {
-                        multipartFormData.append(URL.init(fileURLWithPath: images!.allValues[j]  as! String), withName: images!.allKeys[j] as! String)
+                        multipartFormData.append(URL.init(fileURLWithPath: images?.allValues[j] as! String), withName: "file")
                     }
                 }
                 
@@ -194,14 +160,14 @@ class BaseNetWorke {
                 case .success(let upload, _, _):
                     upload.responseString(completionHandler: { (response) in
                         if response.response?.statusCode == 200 || response.response?.statusCode == 201 {
-                            let value = self.jsonStringToDic(response.result.value!)
-                            subscriber.send(value: value)
+                            subscriber.send(value: response.result.value ?? "")
                         }else{
                             _ = Tools.shareInstance.showMessage(KWINDOWDS(), msg: "上传失败", autoHidder: true)
                         }
                         if hud != nil {
                             Tools.shareInstance.hiddenLoading(hud: hud!)
                         }
+                        subscriber.sendCompleted()
                     })
                 case .failure(let encodingError):
                     print(encodingError)

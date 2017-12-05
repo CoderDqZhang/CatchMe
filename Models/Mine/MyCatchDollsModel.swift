@@ -12,6 +12,7 @@ class MyCatchDollsModel : NSObject, NSCoding{
     
     var deliveryStatus : Int!
     var desc : String!
+    var gameId : Int!
     var id : Int!
     var images : [String]!
     var name : String!
@@ -26,6 +27,7 @@ class MyCatchDollsModel : NSObject, NSCoding{
     init(fromDictionary dictionary: NSDictionary){
         deliveryStatus = dictionary["deliveryStatus"] as? Int
         desc = dictionary["desc"] as? String
+        gameId = dictionary["gameId"] as? Int
         id = dictionary["id"] as? Int
         images = dictionary["images"] as? [String]
         name = dictionary["name"] as? String
@@ -42,6 +44,9 @@ class MyCatchDollsModel : NSObject, NSCoding{
         let dictionary = NSMutableDictionary()
         if deliveryStatus != nil{
             dictionary["deliveryStatus"] = deliveryStatus
+        }
+        if gameId != nil{
+            dictionary["gameId"] = gameId
         }
         if desc != nil{
             dictionary["desc"] = desc
@@ -76,6 +81,7 @@ class MyCatchDollsModel : NSObject, NSCoding{
         deliveryStatus = aDecoder.decodeObject(forKey: "deliveryStatus") as? Int
         desc = aDecoder.decodeObject(forKey: "desc") as? String
         id = aDecoder.decodeObject(forKey: "id") as? Int
+        gameId = aDecoder.decodeObject(forKey: "gameId") as? Int
         images = aDecoder.decodeObject(forKey: "images") as? [String]
         name = aDecoder.decodeObject(forKey: "name") as? String
         price = aDecoder.decodeObject(forKey: "price") as? Int
@@ -98,6 +104,9 @@ class MyCatchDollsModel : NSObject, NSCoding{
         }
         if id != nil{
             aCoder.encode(id, forKey: "id")
+        }
+        if gameId != nil{
+            aCoder.encode(gameId, forKey: "gameId")
         }
         if images != nil{
             aCoder.encode(images, forKey: "images")
