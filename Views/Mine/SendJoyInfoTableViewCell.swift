@@ -29,12 +29,11 @@ class SendJoyInfoTableViewCell: UITableViewCell {
         self.contentView.addSubview(selectImage)
         
         joyImageView = UIImageView.init()
-        joyImageView.backgroundColor = UIColor.red
         self.contentView.addSubview(joyImageView)
         
         joyName = UILabel.init()
         joyName.text = "布朗变身长颈鹿"
-        joyName.textColor = UIColor.init(hexString: App_Theme_000000_Color)
+        joyName.textColor = UIColor.init(hexString: App_Theme_232326_Color)
         joyName.font = App_Theme_PinFan_M_15_Font
         self.contentView.addSubview(joyName)
         
@@ -55,7 +54,7 @@ class SendJoyInfoTableViewCell: UITableViewCell {
         if isSelect {
             selectImage.image = UIImage.init(named: "check")
         }else{
-            selectImage.image = nil
+            selectImage.image = UIImage.init(named: "uncheck")
         }
         self.updateConstraintsIfNeeded()
     }
@@ -66,6 +65,10 @@ class SendJoyInfoTableViewCell: UITableViewCell {
             
         }
         joyNumber.text = "x\(count)"
+    }
+    
+    func hidderLineLabel(){
+        self.lineLabel.isHidden  = true
     }
     
     required init?(coder aDecoder: NSCoder) {

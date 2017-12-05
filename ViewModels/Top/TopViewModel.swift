@@ -59,9 +59,9 @@ extension TopViewModel: UITableViewDelegate {
         case 0:
             return SCREENWIDTH * 80 / 187.5
         case 1:
-            return 72
+            return 79
         default:
-            return 114
+            return 104
         }
     }
 }

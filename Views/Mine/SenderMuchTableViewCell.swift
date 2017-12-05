@@ -55,7 +55,7 @@ class SenderMuchTableViewCell: UITableViewCell {
     override func updateConstraints() {
         if !didMakeConstraints {
             titleLabel.snp.makeConstraints({ (make) in
-                make.left.equalTo(self.contentView.snp.left).offset(19)
+                make.left.equalTo(self.contentView.snp.left).offset(18)
                 make.centerY.equalTo(self.contentView.snp.centerY).offset(0)
             })
             
@@ -70,9 +70,8 @@ class SenderMuchTableViewCell: UITableViewCell {
             })
             
             muchImage.snp.makeConstraints({ (make) in
-                make.right.equalTo(muchLabel.snp.left).offset(-5)
+                make.right.equalTo(muchLabel.snp.left).offset(-10)
                 make.centerY.equalTo(self.contentView.snp.centerY).offset(0)
-                make.size.equalTo(CGSize.init(width: 22, height: 18))
             })
             
             didMakeConstraints = true

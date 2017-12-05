@@ -31,13 +31,11 @@ class ProfileViewModel: BaseViewModel {
     
     //MARK: UITableViewCellSetData
     func tableViewProfileHeaderTableViewCellSetData(_ indexPath:IndexPath, cell:ProfileHeaderTableViewCell) {
-        if UserInfoModel.shareInstance().photo! is String {
-            cell.cellSetData(imageUrl: UserInfoModel.shareInstance().photo as! String)
-        }
+        cell.cellSetData(imageUrl: UserInfoModel.shareInstance().photo as! String)
     }
     
     func tableViewGloabTitleAndFieldCellSetData(_ indexPath:IndexPath, cell:GloabTitleAndFieldCell) {
-        cell.setData(titleStr[indexPath.row], detail: (detailStr[indexPath.row] as? String)!)
+        cell.setData(titleStr[indexPath.row], detail: (detailStr[indexPath.row] as? String)!, laceholder: "请输入用户名")
         cell.textField.reactive.continuousTextValues.observeValues { (str) in
             UserInfoModel.shareInstance().userName = str
         }
@@ -50,6 +48,7 @@ class ProfileViewModel: BaseViewModel {
     
     func tableViewProfielInfoTableViewCellSetData(_ indexPath:IndexPath, cell:ProfielInfoTableViewCell) {
         cell.cellSetData(title: titleStr[indexPath.row], desc: detailStr[indexPath.row] as! String)
+        
     }
     
     func tableViewDidSelect(_ indexPath:IndexPath) {

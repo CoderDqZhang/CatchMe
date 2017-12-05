@@ -49,12 +49,14 @@ class AboutUsViewController: BaseViewController {
         
         proLabel = UILabel.init()
         proLabel.font = App_Theme_PinFan_R_13_Font
+        proLabel.textAlignment = .center
+        proLabel.numberOfLines = 0
         proLabel.textColor = UIColor.init(hexString: App_Theme_CCCCCC_Color)
-        proLabel.text = "Copyright © 2017 All Rights Reserved"
+        proLabel.text = "Copyright © 2017 All Rights Reserved\n湖南赤子精和信息科技有限公司 "
         self.view.addSubview(proLabel)
         
         versionLabel = UILabel.init()
-        versionLabel.font = App_Theme_PinFan_M_15_Font
+        versionLabel.font = App_Theme_PinFan_R_15_Font
         versionLabel.textColor = UIColor.init(hexString: App_Theme_333333_Color)
         versionLabel.text = "V\(APPVERSION)"
         self.view.addSubview(versionLabel)
@@ -81,7 +83,7 @@ class AboutUsViewController: BaseViewController {
         }
         
         proLabel.snp.makeConstraints { (make) in
-            make.bottom.equalTo(self.view.snp.bottom).offset(-162)
+            make.bottom.equalTo(self.view.snp.bottom).offset(-154)
             make.centerX.equalTo(self.view.snp.centerX).offset(0)
         }
         versionLabel.snp.makeConstraints { (make) in

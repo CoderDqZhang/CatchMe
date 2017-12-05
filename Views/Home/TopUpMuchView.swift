@@ -67,12 +67,12 @@ class MuchView: UIView {
             muchIcon.textColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
             self.layer.borderColor = UIColor.clear.cgColor
             muchIcon.snp.remakeConstraints { (make) in
-                make.left.equalTo(self.snp.left).offset(60)
+                make.centerX.equalTo(self.snp.centerX).offset(12)
                 make.top.equalTo(self.snp.top).offset(9)
             }
             
             muchLable.snp.remakeConstraints { (make) in
-                make.left.equalTo(self.snp.left).offset(60)
+                make.centerX.equalTo(self.snp.centerX).offset(12)
                 make.bottom.equalTo(self.snp.bottom).offset(-8)
             }
         default:
@@ -94,8 +94,11 @@ class MuchView: UIView {
     }
     
     func setUpMuchViewData(much:String, icon:String) {
+        let attributedString = NSMutableAttributedString.init(string: icon)
+        attributedString.addAttributes([NSAttributedStringKey.font:App_Theme_PinFan_M_16_Font!,NSAttributedStringKey.foregroundColor:UIColor.init(hexString: App_Theme_333333_Color)!], range: NSRange.init(location: icon.length - 1, length: 1))
+        attributedString.addAttributes([NSAttributedStringKey.font:App_Theme_PinFan_M_20_Font!,NSAttributedStringKey.foregroundColor:UIColor.init(hexString: App_Theme_333333_Color)!], range: NSRange.init(location: 0, length: icon.length - 1))
+        muchIcon.attributedText = attributedString
         muchLable.text = much
-        muchIcon.text = icon
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -129,7 +132,7 @@ class TopUpMuchView: UIView {
             }else{
                 model = models[i - 1] as! TopUpModel
             }
-            muchView.setUpMuchViewData(much: "￥\(model.rechargeMoney!)", icon: "\(model.rechargeCoin!)币")
+            muchView.setUpMuchViewData(much: "￥\(model.rechargeMoney!)0", icon: "\(model.rechargeCoin!)币")
             if i == 1 {
                 muchView.changeType(type: .select)
             }else{

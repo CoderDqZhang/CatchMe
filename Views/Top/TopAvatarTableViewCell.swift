@@ -21,24 +21,25 @@ class TopAvatarTableViewCell: UITableViewCell {
     
     func setUpView(){
         avatarImage = UIImageView.init()
-        avatarImage.backgroundColor = UIColor.red
+        avatarImage.image = UIImage.init(named: "top_bg")
         self.contentView.addSubview(avatarImage)
         
-        titleLable = UILabel.init()
-        titleLable.text = "北京小疯子占领了大神榜封面"
-        titleLable.textColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
-        titleLable.font = App_Theme_PinFan_M_14_Font
-        titleLable.textAlignment = .center
-        self.contentView.addSubview(titleLable)
+        self.contentView.backgroundColor = UIColor.init(hexString: App_Theme_FC4652_Color)
+//        titleLable = UILabel.init()
+//        titleLable.text = "北京小疯子占领了大神榜封面"
+//        titleLable.textColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
+//        titleLable.font = App_Theme_PinFan_M_14_Font
+//        titleLable.textAlignment = .center
+//        self.contentView.addSubview(titleLable)
         
         self.updateConstraints()
     }
     
     func cellSetData(model:TopWeeklyModel){
-        UIImageViewManger.sd_imageView(url: model.gameStatistics[0].photo is String ? model.gameStatistics[0].photo as! String : "", imageView: avatarImage, placeholderImage: nil) { (image, error, cacheType, url) in
-            
-        }
-        titleLable.text = model.gameStatistics[0].name
+//        UIImageViewManger.sd_imageView(url: model.gameStatistics[0].photo is String ? model.gameStatistics[0].photo as! String : "", imageView: avatarImage, placeholderImage: nil) { (image, error, cacheType, url) in
+//
+//        }
+//        titleLable.text = model.gameStatistics[0].name
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -49,16 +50,14 @@ class TopAvatarTableViewCell: UITableViewCell {
     override func updateConstraints() {
         if !didMakeConstraints {
             avatarImage.snp.makeConstraints({ (make) in
-                make.left.equalTo(self.contentView.snp.left).offset(0)
-                make.right.equalTo(self.contentView.snp.right).offset(0)
-                make.bottom.equalTo(self.contentView.snp.bottom).offset(0)
-                make.top.equalTo(self.contentView.snp.top).offset(0)
+                make.centerX.equalTo(self.contentView.snp.centerX).offset(0)
+                make.bottom.equalTo(self.contentView.snp.bottom).offset(2)
             })
             
-            titleLable.snp.makeConstraints({ (make) in
-                make.bottom.equalTo(self.contentView.snp.bottom).offset(-11)
-                make.centerX.equalTo(self.contentView.snp.centerX).offset(0)
-            })
+//            titleLable.snp.makeConstraints({ (make) in
+//                make.bottom.equalTo(self.contentView.snp.bottom).offset(-11)
+//                make.centerX.equalTo(self.contentView.snp.centerX).offset(0)
+//            })
             
             didMakeConstraints = true
         }

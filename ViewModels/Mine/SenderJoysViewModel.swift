@@ -97,6 +97,9 @@ class SenderJoysViewModel: BaseViewModel {
     
     func tableViewSendJoyInfoTableViewCellSetData(_ indexPath:IndexPath, cell:SendJoyInfoTableViewCell) {
         cell.cellSetData(model: MyCatchDollsModel.init(fromDictionary: (modelData[indexPath.row] as! NSArray)[0] as! NSDictionary), count:(modelData[indexPath.row] as! NSArray).count)
+        if modelData.count - 1 == indexPath.row {
+            cell.hidderLineLabel()
+        }
     }
     
     func tableViewSenderMuchTableViewCellSetData(_ indexPath:IndexPath, cell:SenderMuchTableViewCell) {

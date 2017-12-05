@@ -19,6 +19,7 @@ target 'CatchMe' do
   pod 'NJKWebViewProgress'
   pod 'IQKeyboardManagerSwift'
   pod 'NIMSDK'
+  pod 'DZNEmptyDataSet'
   pod 'CYLTabBarController'
   
   pod 'Pgyer'

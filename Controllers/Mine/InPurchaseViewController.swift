@@ -53,9 +53,9 @@ class InPurchaseViewController: BaseViewController {
     func updateBalance(text:String){
         let strArray = balance.text?.components(separatedBy: " ")
         let attributedString = NSMutableAttributedString.init(string: balance.text!)
-        attributedString.addAttributes([NSAttributedStringKey.font:App_Theme_PinFan_R_20_Font!,NSAttributedStringKey.foregroundColor:UIColor.init(hexString: App_Theme_333333_Color)!], range: NSRange.init(location: 0, length: strArray![0].count))
-        attributedString.addAttributes([NSAttributedStringKey.font:App_Theme_PinFan_R_20_Font!,NSAttributedStringKey.foregroundColor:UIColor.init(hexString: App_Theme_333333_Color)!], range: NSRange.init(location: (balance.text?.length)! - 1, length: 1))
-        attributedString.addAttributes([NSAttributedStringKey.font:App_Theme_PinFan_R_24_Font!,NSAttributedStringKey.foregroundColor:UIColor.init(hexString: App_Theme_FC4652_Color)!], range: NSRange.init(location: strArray![0].count + 1, length: strArray![1].count))
+        attributedString.addAttributes([NSAttributedStringKey.font:App_Theme_PinFan_R_14_Font!,NSAttributedStringKey.foregroundColor:UIColor.init(hexString: App_Theme_333333_Color)!], range: NSRange.init(location: 0, length: strArray![0].count))
+        attributedString.addAttributes([NSAttributedStringKey.font:App_Theme_PinFan_R_14_Font!,NSAttributedStringKey.foregroundColor:UIColor.init(hexString: App_Theme_333333_Color)!], range: NSRange.init(location: (balance.text?.length)! - 1, length: 1))
+        attributedString.addAttributes([NSAttributedStringKey.font:App_Theme_PinFan_M_24_Font!,NSAttributedStringKey.foregroundColor:UIColor.init(hexString: App_Theme_FC4652_Color)!], range: NSRange.init(location: strArray![0].count + 1, length: strArray![1].count))
         balance.attributedText = attributedString
     }
     

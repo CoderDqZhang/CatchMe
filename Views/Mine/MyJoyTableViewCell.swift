@@ -28,7 +28,7 @@ class MyJoyTableViewCell: UITableViewCell {
         dollsView.layer.cornerRadius = 6
         dollsView.layer.borderColor = UIColor.init(hexString: App_Theme_DDE0E5_Color)?.cgColor
         dollsView.backgroundColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
-        dollsView.layer.borderWidth = 1
+        dollsView.layer.borderWidth = 0.5
         self.contentView.addSubview(dollsView)
         
         dollsImage = UIImageView.init()
@@ -38,7 +38,7 @@ class MyJoyTableViewCell: UITableViewCell {
         dollsName.text = "布朗熊变声长颈鹿"
         dollsName.textAlignment = .left
         dollsName.font = App_Theme_PinFan_M_16_Font
-        dollsName.textColor = UIColor.init(hexString: App_Theme_000000_Color)
+        dollsName.textColor = UIColor.init(hexString: App_Theme_222222_Color)
         dollsView.addSubview(dollsName)
         
         dollsDesc = UILabel.init()

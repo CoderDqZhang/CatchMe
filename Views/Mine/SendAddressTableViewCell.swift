@@ -46,7 +46,6 @@ class Address: UIView {
         locationImage.snp.makeConstraints { (make) in
             make.centerY.equalTo(self.snp.centerY).offset(0)
             make.left.equalTo(self.snp.left).offset(21)
-            make.size.equalTo(CGSize.init(width: 18, height: 22))
         }
         
         userName = UILabel.init()
@@ -80,7 +79,7 @@ class Address: UIView {
         address.snp.makeConstraints { (make) in
             make.left.equalTo(self.snp.left).offset(52)
             make.right.equalTo(self.snp.right).offset(-43)
-            make.top.equalTo(self.userName.snp.bottom).offset(7)
+            make.top.equalTo(self.userName.snp.bottom).offset(8)
         }
         
     }
@@ -93,6 +92,7 @@ class Address: UIView {
         address.text = "收货地址：\(pronvice)\(city)\(county)\(model.address!)"
         phone.text = model.telephone
         userName.text = "收货人：\(model.consignee!)"
+        UILabel.changeSpace(for: address, withLineSpace: 2, wordSpace: 0)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -104,6 +104,7 @@ class SendAddressTableViewCell: UITableViewCell {
 
     var noneAddressView:NoneAddress!
     var addressView:Address!
+    var bottomImage:UIImageView!
     
     var didMakeConstraints = false
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
@@ -112,6 +113,10 @@ class SendAddressTableViewCell: UITableViewCell {
     }
     
     func setUpView(){
+        bottomImage = UIImageView.init()
+        bottomImage.image = UIImage.init(named: "Combined_Shape")
+        self.contentView.addSubview(bottomImage)
+        
         addressView = Address.init(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: 104))
         self.contentView.addSubview(addressView)
         addressView.isHidden = true
@@ -140,6 +145,11 @@ class SendAddressTableViewCell: UITableViewCell {
     override func updateConstraints() {
         if !didMakeConstraints {
             didMakeConstraints = true
+            bottomImage.snp.makeConstraints({ (make) in
+                make.left.equalTo(self.contentView.snp.left).offset(0)
+                make.right.equalTo(self.contentView.snp.right).offset(30)
+                make.bottom.equalTo(self.contentView.snp.bottom).offset(0)
+            })
         }
         super.updateConstraints()
     }

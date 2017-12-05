@@ -9,6 +9,7 @@
 import UIKit
 import SnapKit
 import MJRefresh
+import DZNEmptyDataSet
 
 typealias NormalHeaderClouse = () -> Void
 
@@ -25,8 +26,13 @@ class BaseViewController: UIViewController {
         self.setUpViewNavigationItem()
         self.setUpLogic()
         self.navigationController?.fd_fullscreenPopGestureRecognizer.isEnabled = true
-
+        self.setupForDismissKeyboard()
         // Do any additional setup after loading the view.
+    }
+    
+    func setDZNEmptyData(){
+        self.tableView.emptyDataSetDelegate = self.viewModel as! DZNEmptyDataSetDelegate
+        self.tableView.emptyDataSetSource = self.viewModel as! DZNEmptyDataSetSource
     }
     
     func viewControllerSetNavigationItemBack(){

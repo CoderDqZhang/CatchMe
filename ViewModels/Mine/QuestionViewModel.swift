@@ -48,7 +48,7 @@ extension QuestionViewModel: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return  section == 0 ? 10 : 50
+        return  section == 0 ? 10 : 40
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

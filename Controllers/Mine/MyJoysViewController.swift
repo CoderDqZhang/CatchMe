@@ -14,6 +14,7 @@ class MyJoysViewController: BaseViewController {
         super.viewDidLoad()
         self.bindViewModel(viewModel: MyJoysViewModel(), controller: self)
         self.setUpTableView(style: .grouped, cells: [MyJoyTableViewCell.self], controller: self)
+        self.setDZNEmptyData()
         // Do any additional setup after loading the view.
     }
 

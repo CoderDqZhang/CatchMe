@@ -27,7 +27,9 @@ class QuestionPhoneTableViewCell: UITableViewCell {
         self.contentView.addSubview(titleLabel)
         
         textField = UITextField.init()
-        textField.placeholder = "(选填)"
+        let str = "(选填)"
+        textField.placeholder = str
+        textField.attributedPlaceholder = NSAttributedString.init(string: str, attributes: [NSAttributedStringKey.font:App_Theme_PinFan_R_14_Font!,NSAttributedStringKey.foregroundColor:UIColor.init(hexString: App_Theme_AAAAAA_Color)!])
         textField.font = App_Theme_PinFan_R_14_Font
         textField.textColor = UIColor.init(hexString: App_Theme_222222_Color)
         self.contentView.addSubview(textField)
@@ -45,13 +47,13 @@ class QuestionPhoneTableViewCell: UITableViewCell {
             titleLabel.snp.makeConstraints({ (make) in
                 make.left.equalTo(self.contentView.snp.left).offset(20)
                 make.centerY.equalTo(self.contentView.snp.centerY).offset(0)
-                make.size.equalTo(CGSize.init(width: 200, height: 20))
+                make.size.equalTo(CGSize.init(width: 100, height: 20))
             })
             
             textField.snp.makeConstraints({ (make) in
                 make.left.equalTo(self.titleLabel.snp.right).offset(7)
                 make.centerY.equalTo(self.contentView.snp.centerY).offset(0)
-                make.left.equalTo(self.titleLabel.snp.right).offset(-20)
+                make.right.equalTo(self.contentView.snp.right).offset(-20)
             })
             
             didMakeConstraints = true

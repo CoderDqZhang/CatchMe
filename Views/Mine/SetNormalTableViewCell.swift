@@ -38,7 +38,7 @@ class SetNormalTableViewCell: UITableViewCell {
         if isSelect {
             normalImage.image = UIImage.init(named: "check")
         }else{
-            normalImage.image = nil
+            normalImage.image = UIImage.init(named: "uncheck")
         }
         self.updateConstraintsIfNeeded()
     }

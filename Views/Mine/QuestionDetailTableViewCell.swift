@@ -21,6 +21,7 @@ class QuestionDetailTableViewCell: UITableViewCell {
     func setUpView(){
         textView = UITextView.init()
         textView.placeholder = "一起聊聊抓我吧"
+        textView.textColor = UIColor.init(hexString: App_Theme_000000_Color)
         textView.placeholderColor = UIColor.init(hexString: App_Theme_888888_Color)
         textView.font = App_Theme_PinFan_R_16_Font
         self.contentView.addSubview(textView)

@@ -47,7 +47,7 @@ class AddressViewController: BaseViewController {
     }
 
     func showCityPickerView(){
-        picker = UIPickerView.init(frame: CGRect.init(x: 0, y: SCREENHEIGHT - 216, width: SCREENWIDTH, height: 216))
+        picker = UIPickerView.init(frame: CGRect.init(x: 0, y: SCREENHEIGHT - 220, width: SCREENWIDTH, height: 220))
         picker.dataSource = self.viewModel as? UIPickerViewDataSource
         picker.delegate = self.viewModel as? UIPickerViewDelegate
         self.view.addSubview(self.showToolBar())
@@ -55,8 +55,9 @@ class AddressViewController: BaseViewController {
     }
     
     func showToolBar() -> UIToolbar{
-        pickerToolBar = UIToolbar.init(frame: CGRect.init(x: 0, y: SCREENHEIGHT - 256, width: SCREENWIDTH, height: 40))
+        pickerToolBar = UIToolbar.init(frame: CGRect.init(x: 0, y: SCREENHEIGHT - 264, width: SCREENWIDTH, height: 44))
         pickerToolBar.barTintColor = UIColor.init(hexString: App_Theme_FC4652_Color)
+        pickerToolBar.backgroundColor =  UIColor.init(hexString: App_Theme_FC4652_Color)
         let barItems = NSMutableArray.init()
         let cancel = UIBarButtonItem.init(title: "取消", style: .plain, target: self, action: #selector(self.cancelSelect))
         barItems.add(cancel)

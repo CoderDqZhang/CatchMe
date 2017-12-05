@@ -150,6 +150,7 @@
 		1F3739C01FD10E160068F1C0 /* LocalJsonFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3739BF1FD10E160068F1C0 /* LocalJsonFile.swift */; };
 		1F3739C41FD1302E0068F1C0 /* AddressValueKey.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1F3739C31FD1302E0068F1C0 /* AddressValueKey.txt */; };
 		1F8432511FD29BDF000D6293 /* SwiftUserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8432501FD29BDF000D6293 /* SwiftUserModel.swift */; };
+		1F85F03F1FD6B5EA00FDF26C /* MyInvitationCodeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F85F03E1FD6B5EA00FDF26C /* MyInvitationCodeViewModel.swift */; };
 		1FCA1FFF1FC47CB50008BF07 /* HomeLables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCA1FFE1FC47CB50008BF07 /* HomeLables.swift */; };
 		1FCA20011FC5202D0008BF07 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCA20001FC5202D0008BF07 /* SettingViewController.swift */; };
 		1FCA20031FC521410008BF07 /* NeteaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCA20021FC521410008BF07 /* NeteaseManager.swift */; };
@@ -385,6 +386,7 @@
 		1F3739C31FD1302E0068F1C0 /* AddressValueKey.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AddressValueKey.txt; sourceTree = "<group>"; };
 		1F8432501FD29BDF000D6293 /* SwiftUserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUserModel.swift; sourceTree = "<group>"; };
 		1F85F03D1FD54E5700FDF26C /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		1F85F03E1FD6B5EA00FDF26C /* MyInvitationCodeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInvitationCodeViewModel.swift; sourceTree = "<group>"; };
 		1FCA1FFE1FC47CB50008BF07 /* HomeLables.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeLables.swift; sourceTree = "<group>"; };
 		1FCA20001FC5202D0008BF07 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		1FCA20021FC521410008BF07 /* NeteaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeteaseManager.swift; sourceTree = "<group>"; };
@@ -837,6 +839,7 @@
 				1F126EDA1FC31049006306D2 /* SenderJoysViewModel.swift */,
 				1F126EE21FC3D89D006306D2 /* AddressViewModel.swift */,
 				1FE1A2C71FC9864B00B715D8 /* QuestionViewModel.swift */,
+				1F85F03E1FD6B5EA00FDF26C /* MyInvitationCodeViewModel.swift */,
 			);
 			path = Mine;
 			sourceTree = "<group>";
@@ -1259,6 +1262,7 @@
 				1FCA200D1FC5CB870008BF07 /* LoginPhoneCodeViewController.swift in Sources */,
 				1F126F001FC4063E006306D2 /* AddressModel.m in Sources */,
 				1FE1A2CE1FCC0CD900B715D8 /* TopUpModel.swift in Sources */,
+				1F85F03F1FD6B5EA00FDF26C /* MyInvitationCodeViewModel.swift in Sources */,
 				1F126ED91FC303EC006306D2 /* TopAvatarTableViewCell.swift in Sources */,
 				1FCA20071FC56BBF0008BF07 /* TopUpMuchView.swift in Sources */,
 				1F126E351FC01DA8006306D2 /* TopViewController.swift in Sources */,

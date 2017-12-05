@@ -50,8 +50,6 @@ let TopUp = "\(BaseURL)recharge/findRechargeRateRuleDTOList"
 let AliPayInfo = "\(BaseURL)recharge/getRechargeAliPayInfo"
 //问题反馈
 let FeedBack = "\(BaseURL)feedback"
-//兑换邀请码
-let ShareCode = "\(BaseURL)shareCode"
 //我抓到的娃娃
 let CatchedDolls = "\(BaseURL)myCatchedDolls"
 //申请发货
@@ -82,6 +80,8 @@ let UserInfoUrl = "\(BaseURL)user/findUserDTOById"
 let PlayAgain = "\(BaseURL)machine/again/start"
 //退出
 let LogOut = "\(BaseURL)user/logout"
+//兑换邀请码
+let ShareCodeUrl = "\(BaseURL)shareCode"
 
 //http://39.106.137.21:8201/machine/again/start?userId=1&machineId=1&lastGameId=357&roomId=1
 //9.106.137.21:8201/rooms?offset=1&limit=20&userId=1

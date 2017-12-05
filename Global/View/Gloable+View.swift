@@ -19,7 +19,7 @@ class GloabLineView: UIView {
     override init(frame: CGRect) {
         super.init(frame:frame)
         lineLabel.frame = CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height)
-        lineLabel.backgroundColor = UIColor.init(hexString: App_Theme_EEEEEE_Color)
+        lineLabel.backgroundColor = UIColor.init(hexString: App_Theme_D8D8D8_Color)
         self.addSubview(lineLabel)
     }
     
@@ -240,7 +240,7 @@ class GloabelShareAndConnectUs: UIView {
             make.top.equalTo(self.snp.top).offset(28)
         }
         
-        lineLabel = GloabLineView.init(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: 1))
+        lineLabel = GloabLineView.init(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: 0.5))
         self.addSubview(lineLabel)
         
         let cancelButton = UIButton.init()
@@ -489,7 +489,6 @@ class GLoabelViewLabel:UIView {
         leftLabel.snp.makeConstraints { (make) in
             make.right.equalTo(label.snp.left).offset(-4)
             make.centerY.equalTo(label.snp.centerY).offset(0)
-            make.size.equalTo(CGSize.init(width: 12, height: 12))
         }
         view.updateConstraintsIfNeeded()
     }
@@ -501,7 +500,6 @@ class GLoabelViewLabel:UIView {
         rightLabel.snp.makeConstraints { (make) in
             make.left.equalTo(label.snp.right).offset(4)
             make.centerY.equalTo(label.snp.centerY).offset(0)
-            make.size.equalTo(CGSize.init(width: 12, height: 12))
         }
         view.updateConstraintsIfNeeded()
     }

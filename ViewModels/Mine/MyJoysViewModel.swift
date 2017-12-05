@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import DZNEmptyDataSet
 
 class MyJoysViewModel: BaseViewModel {
 
@@ -72,5 +73,21 @@ extension MyJoysViewModel: UITableViewDataSource {
         cell.backgroundColor = UIColor.clear
         cell.selectionStyle = .none
         return cell
+    }
+}
+
+extension MyJoysViewModel : DZNEmptyDataSetDelegate {
+    
+}
+
+extension MyJoysViewModel : DZNEmptyDataSetSource {
+    func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
+        let attributed = NSMutableAttributedString.init(string: "抓我！主人，快带我回家吧～")
+        if #available(iOS 11.0, *) {
+            attributed.addAttributes([NSAttributedStringKey.font : App_Theme_PinFan_M_16_Font!,NSAttributedStringKey.foregroundColor:UIColor.init(named: App_Theme_CCCCCC_Color)!], range: NSRange.init(location: 0, length: "抓我！主人，快带我回家吧～".length))
+        } else {
+            // Fallback on earlier versions
+        }
+        return attributed
     }
 }

@@ -55,7 +55,7 @@ class TopDescTableViewCell: UITableViewCell {
                 make.centerX.equalTo(self.contentView.snp.centerX).offset(0)
             })
             timeLable.snp.makeConstraints({ (make) in
-                make.top.equalTo(titleLable.snp.bottom).offset(2)
+                make.top.equalTo(titleLable.snp.bottom).offset(4)
                 make.centerX.equalTo(self.contentView.snp.centerX).offset(0)
             })
             didMakeConstraints = true

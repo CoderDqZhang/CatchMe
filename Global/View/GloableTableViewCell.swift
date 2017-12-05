@@ -36,7 +36,7 @@ class GloableTitleLabelTextFieldCell: UITableViewCell {
         textField.font = App_Theme_PinFan_R_14_Font
         self.contentView.addSubview(textField)
         
-        lineLabel = GloabLineView.init(frame: CGRect.init(x: 23, y: 49.0, width: SCREENWIDTH - 23, height: 0.5))
+        lineLabel = GloabLineView.init(frame: CGRect.init(x: 23, y: 49.0, width: SCREENWIDTH - 46, height: 0.5))
         self.contentView.addSubview(lineLabel)
         self.updateConstraints()
     }
@@ -276,10 +276,10 @@ class GloabTitleAndFieldCell: UITableViewCell {
     
     
     
-    func setData(_ title:String, detail:String) {
+    func setData(_ title:String, detail:String, laceholder:String) {
         titleLabel.text = title
-        textField.placeholder = detail
-        textField.attributedPlaceholder = NSAttributedString.init(string: detail, attributes: [NSAttributedStringKey.font:App_Theme_PinFan_R_13_Font!,NSAttributedStringKey.foregroundColor:UIColor.init(hexString: App_Theme_DDE0E5_Color)!])
+        textField.text = detail
+        textField.attributedPlaceholder = NSAttributedString.init(string: laceholder, attributes: [NSAttributedStringKey.font:App_Theme_PinFan_R_14_Font!,NSAttributedStringKey.foregroundColor:UIColor.init(hexString: App_Theme_DDE0E5_Color)!])
     }
     
     func hideLineLabel() {

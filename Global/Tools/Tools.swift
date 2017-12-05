@@ -61,7 +61,7 @@ class Tools: NSObject {
     func showLoading(_ view:UIView, msg:String?) -> MBProgressHUD {
         let hud = MBProgressHUD.showAdded(to: view, animated: true)
         hud.mode = .indeterminate
-        hud.bezelView.backgroundColor = UIColor.init(hexString: HUDBackGroudColor, andAlpha: 1)
+        hud.bezelView.backgroundColor = UIColor.init(hexString: HUDBackGroudColor, andAlpha: 0.6)
         hud.bezelView.layer.cornerRadius = 12.0
         if msg != nil {
             hud.label.text = msg
@@ -79,7 +79,7 @@ class Tools: NSObject {
     func showMessage(_ view:UIView, msg:String, autoHidder:Bool) -> MBProgressHUD {
         let hud = MBProgressHUD.showAdded(to: view, animated: true)
         hud.mode = .customView
-        hud.bezelView.backgroundColor = UIColor.init(hexString: HUDBackGroudColor, andAlpha: 1)
+        hud.bezelView.backgroundColor = UIColor.init(hexString: HUDBackGroudColor, andAlpha: 0.6)
         hud.bezelView.layer.cornerRadius = 12.0
         hud.label.numberOfLines = 0;
         hud.label.textColor = UIColor.white
