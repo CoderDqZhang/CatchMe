@@ -2,7 +2,7 @@
 //  CYLTabBar.m
 //  CYLTabBarController
 //
-//  v1.14.0 Created by 微博@iOS程序犭袁 ( http://weibo.com/luohanchenyilong/ ) on 10/20/15.
+//  v1.15.0 Created by 微博@iOS程序犭袁 ( http://weibo.com/luohanchenyilong/ ) on 10/20/15.
 //  Copyright © 2015 https://github.com/ChenYilong . All rights reserved.
 //
 
@@ -61,6 +61,15 @@ static void *const CYLTabBarContext = (void*)&CYLTabBarContext;
         sizeThatFits.height = [self cyl_tabBarController].tabBarHeight;
     }
     return sizeThatFits;
+}
+
+- (void)setFrame:(CGRect)frame {
+    if (CYL_IS_IPHONE_X) {
+        if (self.superview && CGRectGetMaxY(self.superview.bounds) != CGRectGetMaxY(frame)) {
+            frame.origin.y = CGRectGetHeight(self.superview.bounds) - CGRectGetHeight(frame);
+        }
+    }
+    [super setFrame:frame];
 }
 
 /**

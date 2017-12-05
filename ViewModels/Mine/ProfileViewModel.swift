@@ -63,9 +63,15 @@ class ProfileViewModel: BaseViewModel {
     }
     
     @objc func logout(){
-        if UserInfoModel.logout() {
-            KWINDOWDS().rootViewController = UINavigationController.init(rootViewController: LoginTypeViewController())
+        let parameters = ["userId":UserInfoModel.shareInstance().idField]
+        BaseNetWorke.sharedInstance.postUrlWithString(LogOut, parameters: parameters as AnyObject).observe { (resultDic) in
+            if !resultDic.isCompleted {
+                if UserInfoModel.logout() {
+                    KWINDOWDS().rootViewController = UINavigationController.init(rootViewController: LoginTypeViewController())
+                }
+            }
         }
+        
     }
     
     //MARK: RequestNet

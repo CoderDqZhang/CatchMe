@@ -52,13 +52,25 @@ class LoginViewModel: BaseViewModel {
     }
     
     func loginNetNetease(){
+        self.getConfig()
         let loginData = NIMAutoLoginData.init()
         loginData.account = UserInfoModel.shareInstance().neteaseAccountId
         loginData.token = UserInfoModel.shareInstance().neteaseToken
         loginData.forcedMode = true
         NIMSDK.shared().loginManager.login(UserInfoModel.shareInstance().neteaseAccountId!, token: UserInfoModel.shareInstance().neteaseToken) { (error) in
             if error == nil {
+                
                 print("登录成功")
+            }
+        }
+    }
+    
+    func getConfig(){
+        let parameters = ["key":"SWITCH_IOS_PAY"]
+        BaseNetWorke.sharedInstance.getUrlWithString(Config, parameters: parameters as AnyObject).observe { (resultDic) in
+            if !resultDic.isCompleted {
+                //                let model = ConfigModel.init(fromDictionary: resultDic.value as! NSDictionary)
+                UserDefaultsSetSynchronize((resultDic.value as! NSDictionary).object(forKey: "value") as AnyObject, key: APPCONFIGSTATUS)
             }
         }
     }

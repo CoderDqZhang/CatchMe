@@ -17,18 +17,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WeiboSDKDelegate {
     var manager: NeteaseManager!
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        
+        PgyManager.shared().start(withAppId: PGYAPPKEY)
         PlusButtonSubclass.register()
-        
         AppleThemeTool.setUpToolBarColor()
         AppleThemeTool.setUpKeyBoardManager()
         //分享控制器
         _ = ShareManager.init()
         //网易云控制器
         manager = NeteaseManager.init()
-        
         self.setUpMainViewContr()
-        self.getConfig()
+        
         self.window?.makeKeyAndVisible()
         // Override point for customization after application launch.
         return true
@@ -48,15 +46,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WeiboSDKDelegate {
         self.window?.rootViewController = loginVC
     }
     
-    func getConfig(){
-        let parameters = ["key":"SWITCH_IOS_PAY"]
-        BaseNetWorke.sharedInstance.getUrlWithString(Config, parameters: parameters as AnyObject).observe { (resultDic) in
-            if !resultDic.isCompleted {
-//                let model = ConfigModel.init(fromDictionary: resultDic.value as! NSDictionary)
-                UserDefaultsSetSynchronize((resultDic.value as! NSDictionary).object(forKey: "value") as AnyObject, key: APPCONFIGSTATUS)
-            }
-        }
-    }
+    
     
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

@@ -20,5 +20,7 @@ target 'CatchMe' do
   pod 'IQKeyboardManagerSwift'
   pod 'NIMSDK'
   pod 'CYLTabBarController'
-
+  
+  pod 'Pgyer'
+  
 end
