@@ -246,7 +246,7 @@ class CacheMeViewModel: BaseViewModel {
     //查看排队情况
     func gameStart(){
         if playGame {
-            if ((UserInfoModel.shareInstance().coinAmount as NSString?)?.integerValue)! < self.catchMeModel.price {
+            if UserInfoModel.shareInstance().coinAmount.int! < self.catchMeModel.price {
                 KWINDOWDS().addSubview(GloableAlertView.init(title: "当前余额不足支付一次游戏\n请先充值", btnTop: "去充值", btnBottom: "取消", image: UIImage.init(named: "pic_fail_1")!, type: GloableAlertViewType.topupfail, clickClouse: { (tag) in
                     if tag == 100 {
                         self.gotoTopUpVC()
@@ -261,8 +261,11 @@ class CacheMeViewModel: BaseViewModel {
                             if !resultDic.isCompleted {
                                 //排队成功调用
                                 self.prepareModel = PrepareGameModel.init(fromDictionary: resultDic.value as! NSDictionary)
-                                if self.prepareModel != nil {
+                                if self.prepareModel != nil && resultDic.value != nil{
                                     //建立点对点连接
+                                    let coinAmount = UserInfoModel.shareInstance().coinAmount.int! - self.catchMeModel.price
+                                    UserInfoModel.shareInstance().coinAmount = "\(coinAmount)"
+                                    UserInfoModel.shareInstance().saveOrUpdate(byColumnName: "neteaseAccountId", andColumnValue: "'\(UserInfoModel.shareInstance().neteaseAccountId!)'")
                                     self.makeGameToUser()
                                 }
                             }
@@ -331,7 +334,10 @@ class CacheMeViewModel: BaseViewModel {
                 self.timeCount = self.timeCount + 1
                 self.getGameStaus()
             })
+        }else{
+            time.fireDate = NSDate.dateNow()
         }
+        
     }
     
     //获取游戏结果
@@ -341,17 +347,16 @@ class CacheMeViewModel: BaseViewModel {
             if !resultDic.isCompleted {
                //抓取成功调用
                 self.gameStatus = GameStatusModel.init(fromDictionary: resultDic.value as! NSDictionary)
-                if self.gameStatus.status == 3 || self.timeCount > 30{
+                if self.gameStatus.status == 3 || self.gameStatus.status == 4 || self.timeCount > 30{
+                    if self.time != nil {
+                        self.time.fireDate = NSDate.distantFuture
+                    }
                     self.shootFail()
-                    let coinAmount = UserInfoModel.shareInstance().coinAmount.int! - self.catchMeModel.price
-                    UserInfoModel.shareInstance().coinAmount = "\(coinAmount)"
-                    UserInfoModel.shareInstance().saveOrUpdate(byColumnName: "neteaseAccountId", andColumnValue: "'\(UserInfoModel.shareInstance().neteaseAccountId!)'")
-                    self.time.invalidate()
+                    
                 }else if self.gameStatus.status == 2 {
-                    self.time.invalidate()
-                    let coinAmount = UserInfoModel.shareInstance().coinAmount.int! - self.catchMeModel.price
-                    UserInfoModel.shareInstance().coinAmount = "\(coinAmount)"
-                    UserInfoModel.shareInstance().saveOrUpdate(byColumnName: "neteaseAccountId", andColumnValue: "'\(UserInfoModel.shareInstance().neteaseAccountId!)'")
+                    if self.time != nil {
+                        self.time.fireDate = NSDate.distantFuture
+                    }
                     self.shootSuccess()
                 }else{
                     print(self.gameStatus.status)
@@ -362,13 +367,22 @@ class CacheMeViewModel: BaseViewModel {
     
     //在玩一次
     func playAgain(){
-        let parameters = ["lastGameId":self.prepareModel.gameId,"userId":UserInfoModel.shareInstance().idField,"roomId":self.catchMeModel.id,"machineId":self.catchMeModel.machineDTO.id] as [String : Any]
-        BaseNetWorke.sharedInstance.getUrlWithString(PlayAgain, parameters: parameters as AnyObject).observe { (resultDic) in
-            if !resultDic.isCompleted {
-                //抓取成功调用
-                let model = PlayGameAgain.init(fromDictionary: resultDic.value as! NSDictionary)
-                self.prepareModel.gameId = model.gameId
-                self.cacheMeController.setUpCountDownView()
+        if UserInfoModel.shareInstance().coinAmount.int! < self.catchMeModel.price {
+            KWINDOWDS().addSubview(GloableAlertView.init(title: "当前余额不足支付一次游戏\n请先充值", btnTop: "去充值", btnBottom: "取消", image: UIImage.init(named: "pic_fail_1")!, type: GloableAlertViewType.topupfail, clickClouse: { (tag) in
+                if tag == 100 {
+                    self.gotoTopUpVC()
+                }
+            }))
+            //4 xia
+        }else{
+            let parameters = ["lastGameId":self.prepareModel.gameId,"userId":UserInfoModel.shareInstance().idField,"roomId":self.catchMeModel.id,"machineId":self.catchMeModel.machineDTO.id] as [String : Any]
+            BaseNetWorke.sharedInstance.getUrlWithString(PlayAgain, parameters: parameters as AnyObject).observe { (resultDic) in
+                if !resultDic.isCompleted {
+                    //抓取成功调用
+                    let model = PlayGameAgain.init(fromDictionary: resultDic.value as! NSDictionary)
+                    self.prepareModel.gameId = model.gameId
+                    self.cacheMeController.setUpCountDownView()
+                }
             }
         }
     }
@@ -416,7 +430,7 @@ class CacheMeViewModel: BaseViewModel {
         KWINDOWDS().addSubview(GloableAlertView.init(title: "好可惜，就差一点了", btnTop: "再试一次5s", btnBottom: "无力再试", image: UIImage.init(named: "pic_fail_1")!, type: GloableAlertViewType.catchfail, clickClouse: { (tag) in
             if tag == 100 {
                 self.playAgain()
-            }else{
+            }else if tag == 200{
                 //断开点对点连接
                 self.handUpConnect()
             }

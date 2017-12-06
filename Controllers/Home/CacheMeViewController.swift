@@ -228,6 +228,18 @@ class CacheMeViewController: BaseViewController {
                 make.left.equalTo(self.countDown.snp.right).offset(2)
                 make.bottom.equalTo(self.countDown.snp.bottom).offset(0)
             }
+        }else{
+            self.countDown.text = "\(self.cacheMeViewModel.prepareModel.maxTime!)"
+            time = Timer.every(1, {
+                let count = (self.countDown.text! as NSString).integerValue
+                let now = count -  1
+                if now == 0 {
+                    self.cacheMeViewModel.playGameGo()
+                    self.time.invalidate()
+                    self.time = nil
+                }
+                self.countDown.text = "\(now)"
+            })
         }
         
     }

@@ -435,7 +435,7 @@ class GloableAlertView: UIView {
                 number = number - 1
                 if number == 0 {
                     self.removeSelf()
-                    self.gloableAlertViewClouse(300)
+                    self.gloableAlertViewClouse(100)
                     self.time.invalidate()
                 }
                 topButton.setTitle("再试一次\(number)s", for: .normal)
