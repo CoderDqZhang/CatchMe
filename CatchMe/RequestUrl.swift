@@ -82,6 +82,8 @@ let PlayAgain = "\(BaseURL)machine/again/start"
 let LogOut = "\(BaseURL)user/logout"
 //兑换邀请码
 let ShareCodeUrl = "\(BaseURL)shareCode"
+//获取用户列表
+let RoomUserList = "\(BaseURL)user/findUserDTOListByIdList"
 
 //http://39.106.137.21:8201/machine/again/start?userId=1&machineId=1&lastGameId=357&roomId=1
 //9.106.137.21:8201/rooms?offset=1&limit=20&userId=1

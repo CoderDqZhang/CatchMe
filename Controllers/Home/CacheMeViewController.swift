@@ -18,6 +18,7 @@ class CacheMeViewController: BaseViewController {
     var localPreView:LocalPreView!
     var bottomToolsView:CacheMeToolsView!
     var cacheMeTopView:CacheMeTopView!
+    var cacheMePlayUserView:CacheMePlayUserView!
     var gameToolsView:GameToolsView!
     var switchCamera:UIButton!
     
@@ -37,11 +38,12 @@ class CacheMeViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.backgroundColor = UIColor.init(hexString: App_Theme_FC4652_Color)
         self.bindViewModel(viewModel: cacheMeViewModel, controller: self)
+        self.setUpFontToolsView()
         self.bindLogicViewModel()
         self.doInitPlayerNotication()
         self.initRemoteGlView()
-        
         // Do any additional setup after loading the view.
     }
     
@@ -93,11 +95,13 @@ class CacheMeViewController: BaseViewController {
             self.liveplayer.setScalingMode(NELPMovieScalingMode.init(0))
             self.liveplayer.setHardwareDecoder(true)
             self.view.addSubview(self.liveplayer.view)
+            self.liveplayer.view.layer.cornerRadius = 5
+            self.liveplayer.view.layer.masksToBounds = true
             self.liveplayer.view.snp.makeConstraints({ (make) in
-                make.left.equalTo(self.view.snp.left).offset(0)
-                make.right.equalTo(self.view.snp.right).offset(0)
-                make.top.equalTo(self.view.snp.top).offset(0)
-                make.bottom.equalTo(self.view.snp.bottom).offset(0)
+                make.centerX.equalTo(self.view.snp.centerX).offset(0)
+                make.top.equalTo(self.view.snp.top).offset(64)
+                make.bottom.equalTo(self.view.snp.bottom).offset(-122)
+                make.size.equalTo(CGSize.init(width: (SCREENHEIGHT - 122 - 64) * 3 / 4, height: SCREENHEIGHT - 122 - 64))
             })
             
             self.view.autoresizesSubviews = true
@@ -106,10 +110,11 @@ class CacheMeViewController: BaseViewController {
             self.liveplayer.setPlaybackTimeout(15 * 1000)
             self.liveplayer.prepareToPlay()
             
+            self.setUpPlayUserView()
+            self.setUpCameraView()
             
             //拉流地址设置成功后执行拉流的一些界面创建
             //根据通知的状态来隐藏和显示视图
-            self.setUpFontToolsView()
             
         } catch {
             print("拉流失败")
@@ -122,8 +127,8 @@ class CacheMeViewController: BaseViewController {
         self.setUpPlayGameView()
         self.setUpToolsView()
         self.setUpCacheMeTopView()
-        self.setUpCameraView()
         self.setUpGameView()
+        self.setUpPlayGameView()
     }
     
     func setUpCountDown(isPlay:Bool, text:String) {
@@ -135,21 +140,26 @@ class CacheMeViewController: BaseViewController {
     
     //创建进来时本地加载界面 后期可能是显示自己的视频，前期显示加载
     func setUpPlayGameView(){
-        localPreView = LocalPreView.init(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: SCREENHEIGHT))
+        localPreView = LocalPreView.init()
         self.view.addSubview(localPreView)
+        self.localPreView.snp.makeConstraints({ (make) in
+            make.centerX.equalTo(self.view.snp.centerX).offset(0)
+            make.top.equalTo(self.view.snp.top).offset(64)
+            make.bottom.equalTo(self.view.snp.bottom).offset(-122)
+            make.size.equalTo(CGSize.init(width: (SCREENHEIGHT - 122 - 64) * 3 / 4, height: SCREENHEIGHT - 122 - 64))
+        })
     }
     
     //创建游戏者视频界面
     func initRemoteGlView(){
-        remoteGLView = UIImageView.init(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: SCREENHEIGHT))
+        remoteGLView = UIImageView.init(frame: CGRect.init(x: 0, y: SCREENHEIGHT - 122, width: SCREENWIDTH, height: 122))
         remoteGLView.isHidden = true
         self.view.addSubview(remoteGLView)
     }
     
     //创建底部工具界面
     func setUpToolsView() {
-        bottomToolsView = CacheMeToolsView.init(frame: CGRect.init(x: 0, y: SCREENHEIGHT - 78, width: SCREENWIDTH, height: 78))
-        bottomToolsView.setData(str: "\(self.cacheMeViewModel.catchMeModel.price!)")
+        bottomToolsView = CacheMeToolsView.init(frame: CGRect.init(x: 0, y: SCREENHEIGHT - 122, width: SCREENWIDTH, height: 122))
         bottomToolsView.cacheMeToolsViewClouse = { tag in
             switch tag {
             case 1:
@@ -167,13 +177,21 @@ class CacheMeViewController: BaseViewController {
     
     //创建顶部导航栏
     func setUpCacheMeTopView(){
-        cacheMeTopView = CacheMeTopView.init(frame: CGRect.init(x: 0, y: 20, width: SCREENWIDTH, height: 68), topViewBackButtonClouse: {
+        cacheMeTopView = CacheMeTopView.init(frame: CGRect.init(x: 0, y: 20, width: SCREENWIDTH, height: 44), topViewBackButtonClouse: {
             self.cacheMeViewModel.requestExitRooms()
             self.navigationController?.popViewController({
                 
             })
         })
         self.view.addSubview(cacheMeTopView)
+    }
+    
+    //创建正在玩用户视图
+    func setUpPlayUserView(){
+        if cacheMePlayUserView == nil {
+            self.cacheMePlayUserView = CacheMePlayUserView.init(frame: CGRect.init(x: self.liveplayer.view.frame.minX, y: self.liveplayer.view.frame.minY + 11, width: 200, height: 57))
+            self.view.addSubview(self.cacheMePlayUserView)
+        }
     }
     
     //创建游戏手柄

@@ -15,29 +15,93 @@ class CacheMeControllerSubViews: NSObject {
 typealias TopViewBackButtonClouse = () ->Void
 class CacheMeTopView : UIView {
     var backButton:UIButton!
-    var playUser:UIView!
     var roomsUser:UIView!
-    var userName:UILabel!
-    var avatar:UIImageView!
-    
     var detail:UILabel!
-    
+    var userName :UILabel!
     init(frame: CGRect,topViewBackButtonClouse:@escaping TopViewBackButtonClouse) {
         super.init(frame: frame)
         backButton = UIButton.init(type: .custom)
         backButton.isUserInteractionEnabled = true
         backButton.layer.masksToBounds = true
         backButton.titleLabel?.textAlignment = .center
-        backButton.setImage(UIImage.init(named: "close_1"), for: .normal)
+        backButton.setImage(UIImage.init(named: "back_bar"), for: .normal)
         backButton.setTitleColor(UIColor.init(hexString: App_Theme_FC4652_Color), for: .normal)
-        backButton.frame = CGRect.init(x: SCREENWIDTH - 56, y: 10, width: 46, height: 46)
+        backButton.frame = CGRect.init(x: 0, y: 0, width: 44, height: 44)
         backButton.reactive.controlEvents(.touchUpInside).observe { (action) in
             topViewBackButtonClouse()
         }
         self.addSubview(backButton)
         
+        self.setUpRoomsUsers()
+    }
+    
+    func setUpRoomsUsers(){
+        roomsUser = UIView.init()
+        roomsUser.frame = CGRect.init(x: 44, y: 0, width: SCREENWIDTH - 44 - 18, height: 44)
+        self.addSubview(roomsUser)
+
+    }
+    
+    func setUpData(models:NSMutableArray, count:String){
+        var maxX = SCREENWIDTH - 44 - 18 - 32
+        for i in 0...models.count - 1{
+            let frame = CGRect.init(x: maxX, y: 6, width: 32, height: 32)
+            let avatar = self.createImageWithModle(frame: frame, model:  SwiftUserModel.init(fromDictionary: models[i] as! NSDictionary))
+            roomsUser.addSubview(avatar)
+            maxX = maxX - 35
+            if i == models.count - 1 {
+                userName = UILabel.init()
+                userName.font = App_Theme_PinFan_M_20_Font
+                self.changeNumberUser(str: "\(count)")
+                userName.textColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
+                roomsUser.addSubview(userName)
+                userName.snp.makeConstraints { (make) in
+                    make.right.equalTo(avatar.snp.left).offset(-5)
+                    make.centerY.equalTo(roomsUser.snp.centerY).offset(0)
+                }
+            }
+        }
+    }
+    
+    func changeNumberUser(str:String){
+        let numberText = "\(str)人在房间"
+
+        let attributedString = NSMutableAttributedString.init(string: numberText)
+        attributedString.addAttributes([NSAttributedStringKey.font:App_Theme_PinFan_M_14_Font!,NSAttributedStringKey.foregroundColor:UIColor.init(hexString: App_Theme_FFFFFF_Color)!], range: NSRange.init(location: numberText.length - 4, length: 4))
+        attributedString.addAttributes([NSAttributedStringKey.font:App_Theme_PinFan_M_16_Font!,NSAttributedStringKey.foregroundColor:UIColor.init(hexString: App_Theme_FFFFFF_Color)!], range: NSRange.init(location: 0, length: numberText.length - 4))
+        userName.attributedText = attributedString
+    }
+    
+    func createImageWithModle(frame:CGRect,model:SwiftUserModel) -> UIImageView{
+        let avatar = UIImageView.init()
+        avatar.frame = frame
+        avatar.layer.cornerRadius = 16
+        avatar.layer.masksToBounds = true
+        UIImageViewManger.sd_imageView(url: model.photo, imageView: avatar, placeholderImage: nil) { (image, error, cacheType, url) in
+            
+        }
+        return avatar
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
+class CacheMePlayUserView:UIView {
+    
+    var playUser:UIView!
+    var userName:UILabel!
+    var avatar:UIImageView!
+    var detail:UILabel!
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         self.setUpPlayUser()
-//        self.setUpRoomsUsers()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     func setUpPlayUser(){
@@ -48,7 +112,7 @@ class CacheMeTopView : UIView {
         self.addSubview(playUser)
         
         playUser.snp.makeConstraints { (make) in
-            make.top.equalTo(self.snp.top).offset(4)
+            make.top.equalTo(self.snp.top).offset(75)
             make.left.equalTo(self.snp.left).offset(-30)
             make.right.equalTo(self.snp.left).offset(162)
             make.height.equalTo(57)
@@ -99,63 +163,6 @@ class CacheMeTopView : UIView {
             }
         }
     }
-    
-    func setUpRoomsUsers(){
-        roomsUser = UIView.init()
-        roomsUser.backgroundColor = UIColor.clear
-        self.addSubview(roomsUser)
-        
-        roomsUser.snp.makeConstraints { (make) in
-            make.top.equalTo(self.snp.top).offset(4)
-            make.left.equalTo(self.playUser.snp.right).offset(29)
-            make.right.equalTo(backButton.snp.left).offset(-15)
-            make.height.equalTo(57)
-        }
-        
-        let avatar1 = UIImageView.init()
-        avatar1.layer.cornerRadius = 22.5
-        avatar1.backgroundColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
-        roomsUser.addSubview(avatar1)
-        avatar1.snp.makeConstraints { (make) in
-            make.right.equalTo(self.roomsUser.snp.right).offset(0)
-            make.centerY.equalTo(roomsUser.snp.centerY).offset(0)
-            make.size.equalTo(CGSize.init(width: 45, height: 45))
-        }
-        
-        let avatar2 = UIImageView.init()
-        avatar2.layer.cornerRadius = 22.5
-        avatar2.backgroundColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
-        roomsUser.addSubview(avatar2)
-        avatar2.snp.makeConstraints { (make) in
-            make.right.equalTo(avatar1.snp.centerX).offset(0)
-            make.centerY.equalTo(roomsUser.snp.centerY).offset(0)
-            make.size.equalTo(CGSize.init(width: 45, height: 45))
-        }
-        
-        let avatar3 = UIImageView.init()
-        avatar3.layer.cornerRadius = 22.5
-        avatar3.backgroundColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
-        roomsUser.addSubview(avatar3)
-        avatar3.snp.makeConstraints { (make) in
-            make.right.equalTo(avatar2.snp.centerX).offset(0)
-            make.centerY.equalTo(roomsUser.snp.centerY).offset(0)
-            make.size.equalTo(CGSize.init(width: 45, height: 45))
-        }
-        
-        let userName = UILabel.init()
-        userName.font = App_Theme_PinFan_M_20_Font
-        userName.text = "21"
-        userName.textColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
-        playUser.addSubview(userName)
-        userName.snp.makeConstraints { (make) in
-            make.right.equalTo(avatar3.snp.left).offset(-2)
-            make.centerY.equalTo(roomsUser.snp.centerY).offset(0)
-        }
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
 }
 
 class LocalPreView: UIView {
@@ -165,6 +172,8 @@ class LocalPreView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = UIColor.init(hexString: App_Theme_000000_Color, andAlpha: 0.1)
+        self.layer.cornerRadius = 5
+        self.layer.masksToBounds = true
         self.setUpView()
     }
     
@@ -180,14 +189,9 @@ class LocalPreView: UIView {
             make.right.equalTo(self.snp.right).offset(0)
         }
         
-//        let effect = UIBlurEffect.init(style: UIBlurEffectStyle.dark)
-//        let effectView = UIVisualEffectView.init(effect: effect)
-//        effectView.frame = CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: SCREENHEIGHT)
-//        self.addSubview(effectView)
-        
         label = UILabel.init()
         label.frame = CGRect.init(x: 0, y: SCREENHEIGHT/2, width: SCREENWIDTH, height: 22)
-        label.text = "页面加载中..."
+        label.text = "拼命加载中..."
         label.textAlignment = .center
         label.textColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
         label.font = App_Theme_PinFan_M_20_Font
@@ -210,14 +214,28 @@ typealias ToolsViewClouse = ()->Void
 
 class ToolsView: UIView {
     var imageView:UIImageView!
+    var backImageView:UIImageView!
+    var fontImageView:UIImageView!
     var label:UILabel!
     var blanceLabel:UILabel!
     var toolsViewClouse:ToolsViewClouse!
     
     init(frame: CGRect, title:String, blance:String?, image:UIImage, tag:Int, toolsViewTap:@escaping ToolsViewClouse) {
         super.init(frame: frame)
-        self.backgroundColor = UIColor.init(hexString: App_Theme_000000_Color, andAlpha: 0.3)
-        self.layer.cornerRadius = 16
+        
+        backImageView = UIImageView.init()
+        backImageView.layer.cornerRadius = 30
+        backImageView.backgroundColor = UIColor.init(hexString: App_Theme_CCCCCC_Color)
+        backImageView.frame = CGRect.init(x: 0, y: 3, width: frame.size.width, height: frame.size.height)
+        self.addSubview(backImageView)
+        
+        fontImageView = UIImageView.init()
+        fontImageView.layer.cornerRadius = 30
+        fontImageView.backgroundColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
+        fontImageView.frame = CGRect.init(x: 0, y: 0, width: frame.size.width, height: frame.size.height)
+        self.addSubview(fontImageView)
+        
+        self.layer.cornerRadius = 30
         
         let singleTap = UITapGestureRecognizer.init(target: self, action: #selector(self.singleTap))
         singleTap.numberOfTapsRequired = 1
@@ -235,7 +253,7 @@ class ToolsView: UIView {
             imageView = UIImageView.init(frame: CGRect.init(x: (frame.size.width  - 22 )/2, y: 9, width: image.size.width, height: image.size.height))
             imageView.image = image
             self.addSubview(imageView)
-            label.textColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
+            label.textColor = UIColor.init(hexString: App_Theme_333333_Color)
 
         }else{
             let width = ((blance! as NSString).width(with: App_Theme_PinFan_M_20_Font, constrainedToHeight: 24)) + 22
@@ -283,26 +301,30 @@ class CacheMeToolsView: UIView {
     //(2x + 75/48x)
     func setUpView(){
         let toolsWidth = (SCREENWIDTH - 36) / (2 + 75/47.5)
-        toolsDesc =  ToolsView.init(frame: CGRect.init(x: 10, y: 0, width: toolsWidth, height: 60), title: "详情", blance: nil, image: UIImage.init(named: "toy")!, tag: 1) {
+        toolsDesc =  ToolsView.init(frame: CGRect.init(x: 10, y: 26, width: toolsWidth, height: 60), title: "详情", blance: nil, image: UIImage.init(named: "toy")!, tag: 1) {
             if self.cacheMeToolsViewClouse != nil {
                 self.cacheMeToolsViewClouse(1)
             }
         }
         self.addSubview(toolsDesc)
         
-        playGame = ToolsView.init(frame: CGRect.init(x: toolsDesc.frame.maxX + 8, y: 0, width: toolsWidth * 75 / 48, height: 60), title: "开始抓娃娃", blance: "30", image: UIImage.init(named: "coin_1")!,tag:2) {
+        playGame = ToolsView.init(frame: CGRect.init(x: toolsDesc.frame.maxX + 8, y: 26, width: toolsWidth * 75 / 48, height: 60), title: "开始抓娃娃", blance: "30", image: UIImage.init(named: "coin_1")!,tag:2) {
             if self.cacheMeToolsViewClouse != nil {
                 self.cacheMeToolsViewClouse(2)
             }
         }
         self.addSubview(playGame)
         
-        topUp = ToolsView.init(frame: CGRect.init(x: playGame.frame.maxX + 8, y: 0, width: toolsWidth, height: 60), title: "充值", blance: nil, image: UIImage.init(named: "coin_1")!,tag:3) {
+        topUp = ToolsView.init(frame: CGRect.init(x: playGame.frame.maxX + 8, y: 26, width: toolsWidth, height: 60), title: "充值", blance: nil, image: UIImage.init(named: "coin_1")!,tag:3) {
             if self.cacheMeToolsViewClouse != nil {
                 self.cacheMeToolsViewClouse(3)
             }
         }
         self.addSubview(topUp)
+    }
+    
+    func changePlayGameCoins(str:String){
+        playGame.blanceLabel.text = str
     }
     
     func setData(str:String){

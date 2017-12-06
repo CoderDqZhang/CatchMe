@@ -32,6 +32,10 @@ class CacheMeViewModel: BaseViewModel {
     var cameraType = CameraType.Font
     var option = NIMNetCallOption.init()
     
+    var olineUserList:[Int]!
+    
+    var numberOlineUser:Int = 0
+    
     var currentUser:BasicUserDTO!
     
     var playGame:Bool = false
@@ -111,6 +115,7 @@ class CacheMeViewModel: BaseViewModel {
 
     //开始游戏成功
     func showGameView(){
+        self.cacheMeController.setUpCountDownView()
         if cacheMeController.localPreView != nil {
             cacheMeController.localPreView.isHidden = true
             cacheMeController.liveplayer.view.isHidden = true
@@ -195,7 +200,8 @@ class CacheMeViewModel: BaseViewModel {
                 //设置拉流地址
                 self.cacheMeController.setUpPlayer(url: self.catchMeModel.machineDTO.audiencePullAddressA)
                 self.playUrl = self.catchMeModel.machineDTO.audiencePullAddressA
-                self.getUserInfo(currentUser: self.catchMeModel.currentPlayerDTO)
+                self.setUpRoomPalyUsers(currentUser: self.catchMeModel.currentPlayerDTO)
+                self.cacheMeController.bottomToolsView.changePlayGameCoins(str: "\(self.catchMeModel.price!)")
                 //心跳接口
                 self.timeHeader = Timer.every(10, {
                     self.requestHeader()
@@ -212,7 +218,8 @@ class CacheMeViewModel: BaseViewModel {
                 self.catchMeModel = CatchMeModel.init(fromDictionary: resultDic.value as! NSDictionary)
                 self.cacheMeController.setUpPlayer(url: self.catchMeModel.machineDTO.audiencePullAddressA)
                 self.playUrl = self.catchMeModel.machineDTO.audiencePullAddressA
-                self.getUserInfo(currentUser: self.catchMeModel.currentPlayerDTO)
+                self.setUpRoomPalyUsers(currentUser: self.catchMeModel.currentPlayerDTO)
+                self.cacheMeController.bottomToolsView.changePlayGameCoins(str: "\(self.catchMeModel.price!)")
                 //心跳接口
                 self.timeHeader = Timer.every(10, {
                     self.requestHeader()
@@ -237,8 +244,12 @@ class CacheMeViewModel: BaseViewModel {
         let parameters = ["machineId":catchMeModel.machineDTO.id,"userId":UserInfoModel.shareInstance().idField] as [String : Any]
         BaseNetWorke.sharedInstance.getUrlWithString(Heartbeat, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
+                if resultDic.error != nil {
+                    self.handUpConnect()
+                    return
+                }
                 self.headerModel = HeartModel.init(fromDictionary: resultDic.value as! NSDictionary)
-                self.getUserInfo(currentUser: self.headerModel.currentPlayerDTO)
+                self.setUpRoomPalyUsers(currentUser: self.headerModel.currentPlayerDTO)
             }
         }
     }
@@ -260,6 +271,10 @@ class CacheMeViewModel: BaseViewModel {
                         BaseNetWorke.sharedInstance.getUrlWithString(GamePrepa, parameters: parameters as AnyObject).observe { (resultDic) in
                             if !resultDic.isCompleted {
                                 //排队成功调用
+                                if resultDic.error != nil {
+                                    self.handUpConnect()
+                                    return
+                                }
                                 self.prepareModel = PrepareGameModel.init(fromDictionary: resultDic.value as! NSDictionary)
                                 if self.prepareModel != nil && resultDic.value != nil{
                                     //建立点对点连接
@@ -293,7 +308,12 @@ class CacheMeViewModel: BaseViewModel {
         BaseNetWorke.sharedInstance.getUrlWithString(StartGame, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
                 //点对点连接成功&&开始游戏成功后创建游戏界面
+                if resultDic.error != nil {
+                    self.handUpConnect()
+                    return
+                }
                 self.showGameView()
+                self.cacheMeController.setUpCountDownView()
             }
         }
     }
@@ -379,12 +399,23 @@ class CacheMeViewModel: BaseViewModel {
             BaseNetWorke.sharedInstance.getUrlWithString(PlayAgain, parameters: parameters as AnyObject).observe { (resultDic) in
                 if !resultDic.isCompleted {
                     //抓取成功调用
+                    if resultDic.error != nil {
+                        self.handUpConnect()
+                        return
+                    }
                     let model = PlayGameAgain.init(fromDictionary: resultDic.value as! NSDictionary)
                     self.prepareModel.gameId = model.gameId
                     self.cacheMeController.setUpCountDownView()
                 }
             }
         }
+    }
+    
+    func setUpRoomPalyUsers(currentUser:BasicUserDTO?){
+        //获取当前真正玩的用户
+        self.getUserInfo(currentUser: currentUser)
+        //获取用户列表
+        self.getRoomUserListInfo()
     }
     
     func getUserInfo(currentUser:BasicUserDTO?){
@@ -402,7 +433,73 @@ class CacheMeViewModel: BaseViewModel {
             }
         }
         
-        self.cacheMeController.cacheMeTopView.setData(model: self.currentUser)
+        self.cacheMeController.cacheMePlayUserView.setData(model: self.currentUser)
+    }
+    
+    func getRoomUserListInfo(){
+        if self.olineUserList == nil {
+            if self.catchMeModel != nil {
+                self.olineUserList = self.catchMeModel.onlineUserList
+            }else{
+                self.olineUserList = self.headerModel.userList
+            }
+        }else{
+            let count = self.headerModel.userList == nil ? self.catchMeModel.onlineUserList.count : self.headerModel.userList.count
+            let olist:[Int] = self.headerModel.userList == nil ? self.catchMeModel.onlineUserList : self.headerModel.userList
+            if self.numberOlineUser != olist.count {
+                self.cacheMeController.cacheMeTopView.changeNumberUser(str: "\(olist.count)")
+            }
+
+            if count > 3 {
+                if self.olineUserList.count > 3 {
+                    var ret:Bool = false
+                    for i in 0...2 {
+                        if self.olineUserList.item(at: i) != olist.item(at: i) {
+                            self.olineUserList.insert(olist.item(at: i)!, at: i)
+                            ret = true
+                        }
+                    }
+                    if ret {
+                        return
+                    }
+                }else{
+                    for i in 0...2 {
+                        self.olineUserList.insert(olist.item(at: i)!, at: i)
+                    }
+                }
+            }else{
+                if self.olineUserList.count == olist.count {
+                    self.olineUserList.removeAll()
+                    for i in 0...olist.count - 1 {
+                        self.olineUserList.insert(olist.item(at: i)!, at: i)
+                    }
+                }else{
+                    var ret:Bool = false
+                    for i in 0...olist.count - 1 {
+                        if self.olineUserList.item(at: i) != olist.item(at: i) {
+                            self.olineUserList.insert(olist.item(at: i)!, at: i)
+                            ret = true
+                        }
+                    }
+                    if ret {
+                        return
+                    }
+                }
+            }
+        }
+        var str:NSString = ""
+        for userId in self.olineUserList {
+            str = str.appending("\(userId),") as NSString
+        }
+        
+        let parameters = ["userIdList":str]
+        BaseNetWorke.sharedInstance.postUrlWithString(RoomUserList, parameters: parameters as AnyObject).observe { (resultDic) in
+            if !resultDic.isCompleted {
+                let models:NSMutableArray = NSMutableArray.mj_objectArray(withKeyValuesArray: resultDic.value)
+                self.numberOlineUser = models.count
+                self.cacheMeController.cacheMeTopView.setUpData(models: models, count: "\(models.count)")
+            }
+        }
     }
     
     func gotoTopUpVC(){

@@ -40,8 +40,10 @@ class BaseNetWorke {
             self.httpRequest(.get, url: url, parameters: parameters, success: { (responseObject) in
                 if (responseObject as! NSDictionary).object(forKey: "code")! as! Int == 0 {
                     subscriber.send(value: (responseObject as! NSDictionary).object(forKey: "data") ?? "")
+                }else if (responseObject as! NSDictionary).object(forKey: "code")! as! Int == 3006  {
+                    subscriber.send(error: NSError.init())
                 }else{
-                    _ = Tools.shareInstance.showMessage(KWINDOWDS(), msg: (responseObject as! NSDictionary).object(forKey: "message") as! String, autoHidder: true)
+                     _ = Tools.shareInstance.showMessage(KWINDOWDS(), msg: (responseObject as! NSDictionary).object(forKey: "message") as! String, autoHidder: true)
                 }
                 subscriber.sendCompleted()
             }, failure: { (responseError) in
