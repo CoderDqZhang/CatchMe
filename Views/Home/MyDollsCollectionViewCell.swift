@@ -70,10 +70,10 @@ class MyDollsCollectionViewCell: UICollectionViewCell {
     }
     
     func cellSetData(model:Labels){
-        dollsName.text = model.skuName
+        dollsName.text = model.name
         coinsNumber.text = "\(model.price!)"
         
-        UIImageViewManger.sd_imageView(url: model.skuImageAddress, imageView: dollsImage, placeholderImage: nil) { (image, error, cahce, url) in
+        UIImageViewManger.sd_imageView(url: model.imageAddress, imageView: dollsImage, placeholderImage: nil) { (image, error, cahce, url) in
             self.dollsImage.image = image
         }
         statusImage.image = model.freeStatus == 1 ? UIImage.init(named: "tag_vacant") : UIImage.init(named: "tag_hot")

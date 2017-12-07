@@ -19,7 +19,8 @@ class GloabLineView: UIView {
     override init(frame: CGRect) {
         super.init(frame:frame)
         lineLabel.frame = CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height)
-        lineLabel.backgroundColor = UIColor.init(hexString: App_Theme_D8D8D8_Color)
+        //gba(216,216,216,1)
+        lineLabel.backgroundColor = UIColor.init(hexString: App_Theme_FAFAFA_Color)
         self.addSubview(lineLabel)
     }
     
@@ -427,9 +428,7 @@ class GloableAlertView: UIView {
         
         let btn = self.createButton(title: btnBottom)
         btn.reactive.controlEvents(.touchUpInside).observe { (active) in
-            if type == .success {
-                self.gloableAlertViewClouse(200)
-            }
+            self.gloableAlertViewClouse(200)
             self.removeSelf()
         }
         detailView.addSubview(btn)
@@ -445,7 +444,7 @@ class GloableAlertView: UIView {
                 number = number - 1
                 if number == 0 {
                     self.removeSelf()
-                    self.gloableAlertViewClouse(100)
+                    self.gloableAlertViewClouse(200)
                     self.time.invalidate()
                 }
                 topButton.setTitle("再试一次\(number)s", for: .normal)

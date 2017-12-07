@@ -29,7 +29,7 @@ class HomeViewController: BaseViewController {
     func setUpCollectView(){
         let layout = UICollectionViewFlowLayout.init()
         layout.headerReferenceSize = CGSize.init(width: SCREENWIDTH, height: SCREENWIDTH * 80 / 188)
-        collectView = UICollectionView.init(frame: CGRect.init(x: 0, y: IPHONEX ? -44 : -20, width: SCREENWIDTH, height: SCREENHEIGHT + (IPHONEX ? 73 : 49)), collectionViewLayout: layout)
+        collectView = UICollectionView.init(frame: CGRect.init(x: 0, y: IPHONEX ? -44 : -20, width: SCREENWIDTH, height: SCREENHEIGHT + (IPHONEX ? 22 : 0)), collectionViewLayout: layout)
         collectView.backgroundColor = UIColor.init(hexString: App_Theme_FAFAFA_Color)
         collectView.delegate = homeViewModel
         collectView.dataSource = homeViewModel
@@ -61,6 +61,10 @@ class HomeViewController: BaseViewController {
             self.homeViewModel.refreshData()
         })
         
+        
+    }
+    
+    func setUpCollectViewLoadMoreData(){
         self.collectView.mj_footer = MJRefreshAutoNormalFooter.init(refreshingBlock: {
             self.homeViewModel.loadMoreData()
         })

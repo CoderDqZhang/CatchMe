@@ -103,5 +103,7 @@ let RoomUserList = "\(BaseURL)user/findUserDTOListByIdList"
 //http://39.106.137.21:8201/machine/shoot?userId=1&machineId=1
 ////抓取接口
 //http://39.106.137.21:8201/game/status?gameId=6
+//停止游戏
+//http://39.106.137.21:8201/machine/stop?userId=1&machineId=1
 //获取游戏结果的接口
 

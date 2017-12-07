@@ -18,7 +18,7 @@ class InPurchaseViewController: BaseViewController {
     var otherBalance:UILabel!
     var line:GloabLineView!
     var topUpMuchView:TopUpMuchView!
-    var productI:Int = 1
+    var productI:Int = 100
     var coinAmount:Int = 0
     var loadingView:MBProgressHUD!
     
@@ -268,8 +268,13 @@ extension InPurchaseViewController : SKProductsRequestDelegate {
             if loadingView != nil {
                 loadingView.hide(animated: true)
             }
-            let payment = SKPayment.init(product: myProduct[self.productI - 1])
-            SKPaymentQueue.default().add(payment)
+            if self.productI  == 100 {
+                let payment = SKPayment.init(product: myProduct[self.productI - 1])
+                SKPaymentQueue.default().add(payment)
+            }else{
+                _ = Tools.shareInstance.showMessage(KWINDOWDS(), msg: "请选择充值金额", autoHidder: true)
+            }
+            
         }else{
             if loadingView != nil {
                 loadingView.hide(animated: true)

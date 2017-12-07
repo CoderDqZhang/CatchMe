@@ -88,6 +88,7 @@ class CacheMeTopView : UIView {
 
 class CacheMePlayUserView:UIView {
     
+    var backImage:UIImageView!
     var playUser:UIView!
     var userName:UILabel!
     var avatar:UIImageView!
@@ -103,17 +104,28 @@ class CacheMePlayUserView:UIView {
     }
     
     func setUpPlayUser(){
+        
         playUser = UIView.init()
         playUser.isHidden = true
-        playUser.backgroundColor = UIColor.init(hexString: App_Theme_000000_Color, andAlpha: 0.4)
+        playUser.backgroundColor = UIColor.clear
         playUser.layer.cornerRadius = 28.5
         self.addSubview(playUser)
-        
         playUser.snp.makeConstraints { (make) in
-            make.top.equalTo(self.snp.top).offset(75)
-            make.left.equalTo(self.snp.left).offset(-30)
-            make.right.equalTo(self.snp.left).offset(162)
-            make.height.equalTo(57)
+            make.top.equalToSuperview()
+            make.bottom.equalToSuperview()
+            make.right.equalToSuperview()
+            make.left.equalToSuperview()
+        }
+
+        backImage = UIImageView.init()
+        backImage.image = UIImage.init(named: "play_user")
+        playUser.addSubview(backImage)
+        
+        backImage.snp.makeConstraints { (make) in
+            make.top.equalTo(playUser.snp.top).offset(0)
+            make.bottom.equalTo(playUser.snp.bottom).offset(0)
+            make.right.equalTo(playUser.snp.right).offset(0)
+            make.left.equalTo(playUser.snp.left).offset(0)
         }
         
         avatar = UIImageView.init()
@@ -121,7 +133,7 @@ class CacheMePlayUserView:UIView {
         avatar.backgroundColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
         playUser.addSubview(avatar)
         avatar.snp.makeConstraints { (make) in
-            make.left.equalTo(self.snp.left).offset(10)
+            make.left.equalTo(self.playUser.snp.left).offset(10)
             make.centerY.equalTo(playUser.snp.centerY).offset(0)
             make.size.equalTo(CGSize.init(width: 45, height: 45))
         }
@@ -142,6 +154,7 @@ class CacheMePlayUserView:UIView {
         detail.font = App_Theme_PinFan_M_14_Font
         detail.textColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
         playUser.addSubview(detail)
+        
         detail.snp.makeConstraints { (make) in
             make.left.equalTo(avatar.snp.right).offset(7)
             make.top.equalTo(userName.snp.bottom).offset(1)
@@ -384,6 +397,8 @@ class GameToolsView : UIView {
     var timeDownClouse:TimeDownClouse!
     var time:Timer!
     
+    var numberCount:Int = 0
+    
     init(frame: CGRect,gameToolsViewClouse: @escaping GameToolsViewClouse) {
         super.init(frame: frame)
         
@@ -455,29 +470,36 @@ class GameToolsView : UIView {
     }
     
     func setCountLabelText(count:Int){
-        var numberCount = count
+        numberCount = count
         var timeDone:Bool = false
         if time == nil {
             time = Timer.every(1, {
-                if numberCount == 0 {
+                if self.numberCount == -1 {
+                    self.setStr(str: "0s")
+                    return
+                }
+                if self.numberCount == 0 {
                     if self.timeDownClouse != nil && !timeDone {
                         timeDone = true
                         self.timeDownClouse()
                     }
                     self.time = nil
                 }else{
-                    numberCount = numberCount - 1
+                    self.numberCount = self.numberCount - 1
                 }
-                let str = "\(numberCount)s"
-                let attributedString = NSMutableAttributedString.init(string: str)
-                attributedString.addAttributes([NSAttributedStringKey.font:App_Theme_PinFan_R_22_Font!,NSAttributedStringKey.foregroundColor:UIColor.init(hexString: App_Theme_FFFFFF_Color)!], range: NSRange.init(location: str.length - 1, length: 1))
-                attributedString.addAttributes([NSAttributedStringKey.font:App_Theme_PinFan_M_24_Font!,NSAttributedStringKey.foregroundColor:UIColor.init(hexString: App_Theme_FFFFFF_Color)!], range: NSRange.init(location: 0, length: str.length - 1))
-                self.countDownLabel.attributedText = attributedString
+                self.setStr(str: "\(self.numberCount)s")
             })
         }else{
             
         }
         
+    }
+    
+    func setStr(str:String) {
+        let attributedString = NSMutableAttributedString.init(string: str)
+        attributedString.addAttributes([NSAttributedStringKey.font:App_Theme_PinFan_R_22_Font!,NSAttributedStringKey.foregroundColor:UIColor.init(hexString: App_Theme_FFFFFF_Color)!], range: NSRange.init(location: str.length - 1, length: 1))
+        attributedString.addAttributes([NSAttributedStringKey.font:App_Theme_PinFan_M_24_Font!,NSAttributedStringKey.foregroundColor:UIColor.init(hexString: App_Theme_FFFFFF_Color)!], range: NSRange.init(location: 0, length: str.length - 1))
+        self.countDownLabel.attributedText = attributedString
     }
     
     func setUpButtonTheme(button:UIButton){

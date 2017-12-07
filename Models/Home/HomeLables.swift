@@ -96,10 +96,10 @@ class Labels : NSObject, NSCoding{
     var freeStatus : Int!
     var id : Int!
     var ownStatus : Int!
-    var skuImageAddress : String!
+    var imageAddress : String!
     var price : Int!
     var skuId : Int!
-    var skuName : String!
+    var name : String!
     
     
     /**
@@ -111,8 +111,8 @@ class Labels : NSObject, NSCoding{
         ownStatus = dictionary["ownStatus"] as? Int
         price = dictionary["price"] as? Int
         skuId = dictionary["skuId"] as? Int
-        skuName = dictionary["skuName"] as? String
-        skuImageAddress = dictionary["skuImageAddress"] as? String
+        name = dictionary["name"] as? String
+        imageAddress = dictionary["imageAddress"] as? String
     }
     
     /**
@@ -136,11 +136,11 @@ class Labels : NSObject, NSCoding{
         if skuId != nil{
             dictionary["skuId"] = skuId
         }
-        if skuName != nil{
-            dictionary["skuName"] = skuName
+        if name != nil{
+            dictionary["name"] = name
         }
-        if skuImageAddress != nil{
-            dictionary["skuImageAddress"] = skuName
+        if imageAddress != nil{
+            dictionary["imageAddress"] = name
         }
         return dictionary
     }
@@ -156,8 +156,8 @@ class Labels : NSObject, NSCoding{
         ownStatus = aDecoder.decodeObject(forKey: "ownStatus") as? Int
         price = aDecoder.decodeObject(forKey: "price") as? Int
         skuId = aDecoder.decodeObject(forKey: "skuId") as? Int
-        skuName = aDecoder.decodeObject(forKey: "skuName") as? String
-        skuImageAddress = aDecoder.decodeObject(forKey: "skuImageAddress") as? String
+        name = aDecoder.decodeObject(forKey: "name") as? String
+        imageAddress = aDecoder.decodeObject(forKey: "imageAddress") as? String
     }
     
     /**
@@ -181,11 +181,11 @@ class Labels : NSObject, NSCoding{
         if skuId != nil{
             aCoder.encode(skuId, forKey: "skuId")
         }
-        if skuName != nil{
-            aCoder.encode(skuName, forKey: "skuName")
+        if name != nil{
+            aCoder.encode(name, forKey: "name")
         }
-        if skuImageAddress != nil{
-            aCoder.encode(skuImageAddress, forKey: "skuImageAddress")
+        if imageAddress != nil{
+            aCoder.encode(imageAddress, forKey: "imageAddress")
         }
         
     }

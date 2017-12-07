@@ -202,7 +202,7 @@ class CacheMeViewController: BaseViewController {
     //创建正在玩用户视图
     func setUpPlayUserView(){
         if cacheMePlayUserView == nil {
-            self.cacheMePlayUserView = CacheMePlayUserView.init(frame: CGRect.init(x: self.liveplayer.view.frame.minX, y: self.liveplayer.view.frame.minY + 11, width: 200, height: 57))
+            self.cacheMePlayUserView = CacheMePlayUserView.init(frame: CGRect.init(x: (SCREENWIDTH - (SCREENHEIGHT - 122 - 64) * 3 / 4) / 2, y: 75, width: 136, height: 57))
             self.view.addSubview(self.cacheMePlayUserView)
         }
     }

@@ -17,8 +17,8 @@ class CatchMeModel : NSObject, NSCoding{
     var onlineUserList : [Int]!
     var price : Int!
     var skuId : Int!
-    var skuImageAddress : String!
-    var skuName : String!
+    var imageAddress : String!
+    var name : String!
     var skuSubId : Int!
     
     
@@ -37,8 +37,8 @@ class CatchMeModel : NSObject, NSCoding{
         onlineUserList = dictionary["onlineUserList"] as? [Int]
         price = dictionary["price"] as? Int
         skuId = dictionary["skuId"] as? Int
-        skuImageAddress = dictionary["skuImageAddress"] as? String
-        skuName = dictionary["skuName"] as? String
+        imageAddress = dictionary["imageAddress"] as? String
+        name = dictionary["name"] as? String
         skuSubId = dictionary["skuSubId"] as? Int
     }
     
@@ -70,11 +70,11 @@ class CatchMeModel : NSObject, NSCoding{
         if skuId != nil{
             dictionary["skuId"] = skuId
         }
-        if skuImageAddress != nil{
-            dictionary["skuImageAddress"] = skuImageAddress
+        if imageAddress != nil{
+            dictionary["imageAddress"] = imageAddress
         }
-        if skuName != nil{
-            dictionary["skuName"] = skuName
+        if name != nil{
+            dictionary["name"] = name
         }
         if skuSubId != nil{
             dictionary["skuSubId"] = skuSubId
@@ -95,8 +95,8 @@ class CatchMeModel : NSObject, NSCoding{
         onlineUserList = aDecoder.decodeObject(forKey: "onlineUserList") as? [Int]
         price = aDecoder.decodeObject(forKey: "price") as? Int
         skuId = aDecoder.decodeObject(forKey: "skuId") as? Int
-        skuImageAddress = aDecoder.decodeObject(forKey: "skuImageAddress") as? String
-        skuName = aDecoder.decodeObject(forKey: "skuName") as? String
+        imageAddress = aDecoder.decodeObject(forKey: "imageAddress") as? String
+        name = aDecoder.decodeObject(forKey: "name") as? String
         skuSubId = aDecoder.decodeObject(forKey: "skuSubId") as? Int
         
     }
@@ -129,11 +129,11 @@ class CatchMeModel : NSObject, NSCoding{
         if skuId != nil{
             aCoder.encode(skuId, forKey: "skuId")
         }
-        if skuImageAddress != nil{
-            aCoder.encode(skuImageAddress, forKey: "skuImageAddress")
+        if imageAddress != nil{
+            aCoder.encode(imageAddress, forKey: "imageAddress")
         }
-        if skuName != nil{
-            aCoder.encode(skuName, forKey: "skuName")
+        if name != nil{
+            aCoder.encode(name, forKey: "name")
         }
         if skuSubId != nil{
             aCoder.encode(skuSubId, forKey: "skuSubId")
@@ -454,7 +454,7 @@ class GameStatusModel : NSObject, NSCoding{
     var price : Int!
     var roomId : Int!
     var skuId : Int!
-    var skuName : String!
+    var name : String!
     var skuSubId : Int!
     var status : Int!
     var userId : Int!
@@ -471,7 +471,7 @@ class GameStatusModel : NSObject, NSCoding{
         price = dictionary["price"] as? Int
         roomId = dictionary["roomId"] as? Int
         skuId = dictionary["skuId"] as? Int
-        skuName = dictionary["skuName"] as? String
+        name = dictionary["name"] as? String
         skuSubId = dictionary["skuSubId"] as? Int
         status = dictionary["status"] as? Int
         userId = dictionary["userId"] as? Int
@@ -504,8 +504,8 @@ class GameStatusModel : NSObject, NSCoding{
         if skuId != nil{
             dictionary["skuId"] = skuId
         }
-        if skuName != nil{
-            dictionary["skuName"] = skuName
+        if name != nil{
+            dictionary["name"] = name
         }
         if skuSubId != nil{
             dictionary["skuSubId"] = skuSubId
@@ -532,7 +532,7 @@ class GameStatusModel : NSObject, NSCoding{
         price = aDecoder.decodeObject(forKey: "price") as? Int
         roomId = aDecoder.decodeObject(forKey: "roomId") as? Int
         skuId = aDecoder.decodeObject(forKey: "skuId") as? Int
-        skuName = aDecoder.decodeObject(forKey: "skuName") as? String
+        name = aDecoder.decodeObject(forKey: "name") as? String
         skuSubId = aDecoder.decodeObject(forKey: "skuSubId") as? Int
         status = aDecoder.decodeObject(forKey: "status") as? Int
         userId = aDecoder.decodeObject(forKey: "userId") as? Int
@@ -566,8 +566,8 @@ class GameStatusModel : NSObject, NSCoding{
         if skuId != nil{
             aCoder.encode(skuId, forKey: "skuId")
         }
-        if skuName != nil{
-            aCoder.encode(skuName, forKey: "skuName")
+        if name != nil{
+            aCoder.encode(name, forKey: "name")
         }
         if skuSubId != nil{
             aCoder.encode(skuSubId, forKey: "skuSubId")
@@ -591,7 +591,7 @@ class PlayGameAgain : NSObject, NSCoding{
     var price : AnyObject!
     var roomDetailDTO : AnyObject!
     var skuId : AnyObject!
-    var skuName : AnyObject!
+    var name : AnyObject!
     var skuSubId : AnyObject!
     
     
@@ -605,7 +605,7 @@ class PlayGameAgain : NSObject, NSCoding{
         price = dictionary["price"] as AnyObject
         roomDetailDTO = dictionary["roomDetailDTO"] as AnyObject
         skuId = dictionary["skuId"] as AnyObject
-        skuName = dictionary["skuName"] as AnyObject
+        name = dictionary["name"] as AnyObject
         skuSubId = dictionary["skuSubId"] as AnyObject
     }
     
@@ -633,8 +633,8 @@ class PlayGameAgain : NSObject, NSCoding{
         if skuId != nil{
             dictionary["skuId"] = skuId
         }
-        if skuName != nil{
-            dictionary["skuName"] = skuName
+        if name != nil{
+            dictionary["name"] = name
         }
         if skuSubId != nil{
             dictionary["skuSubId"] = skuSubId
@@ -654,7 +654,7 @@ class PlayGameAgain : NSObject, NSCoding{
         price = aDecoder.decodeObject(forKey:"price") as AnyObject
         roomDetailDTO = aDecoder.decodeObject(forKey:"roomDetailDTO") as AnyObject
         skuId = aDecoder.decodeObject(forKey:"skuId") as AnyObject
-        skuName = aDecoder.decodeObject(forKey:"skuName") as AnyObject
+        name = aDecoder.decodeObject(forKey:"name") as AnyObject
         skuSubId = aDecoder.decodeObject(forKey: "skuSubId") as AnyObject
         
     }
@@ -683,8 +683,8 @@ class PlayGameAgain : NSObject, NSCoding{
         if skuId != nil{
             aCoder.encode(skuId, forKey: "skuId")
         }
-        if skuName != nil{
-            aCoder.encode(skuName, forKey: "skuName")
+        if name != nil{
+            aCoder.encode(name, forKey: "name")
         }
         if skuSubId != nil{
             aCoder.encode(skuSubId, forKey: "skuSubId")

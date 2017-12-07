@@ -13,7 +13,7 @@ import UIKit
 class TopUpViewModel: BaseViewModel {
 
     //topUpMuch 1 == 10,2==20,3==50,4==100,5=200,6==500
-    var topUpMuch:Int = 1
+    var topUpMuch:Int = 100
     var models = NSMutableArray.init()
     
     override init() {
@@ -24,6 +24,7 @@ class TopUpViewModel: BaseViewModel {
     @objc func paySuccess(_ object:Foundation.Notification){
         if Int(object.object as! String) != 100 {
             //支付成功执行更新方法
+            
             let coinAmount = UserInfoModel.shareInstance().coinAmount.int! + TopUpModel.init(fromDictionary: self.models[topUpMuch - 1] as! NSDictionary).rechargeCoin
             UserInfoModel.shareInstance().coinAmount = "\(coinAmount)"
             UserInfoModel.shareInstance().saveOrUpdate(byColumnName: "neteaseAccountId", andColumnValue: "'\(UserInfoModel.shareInstance().neteaseAccountId!)'")
@@ -51,13 +52,18 @@ class TopUpViewModel: BaseViewModel {
     }
     
     func aliPay(){
-        let parameters = ["ruleId":TopUpModel.init(fromDictionary: self.models[self.topUpMuch - 1] as! NSDictionary).id,"userId":UserInfoModel.shareInstance().idField] as [String : Any]
-        BaseNetWorke.sharedInstance.postUrlWithString(AliPayInfo, parameters: parameters as AnyObject).observe { (resultDic) in
-            if !resultDic.isCompleted {
-                AlipaySDK.defaultService().payOrder(resultDic.value! as! String, fromScheme: "CatchMeAlipay") { (resultDic) in
-                    print("resultDic")
+        if self.topUpMuch != 100 {
+            let parameters = ["ruleId":TopUpModel.init(fromDictionary: self.models[self.topUpMuch - 1] as! NSDictionary).id,"userId":UserInfoModel.shareInstance().idField] as [String : Any]
+            BaseNetWorke.sharedInstance.postUrlWithString(AliPayInfo, parameters: parameters as AnyObject).observe { (resultDic) in
+                if !resultDic.isCompleted {
+                    AlipaySDK.defaultService().payOrder(resultDic.value! as! String, fromScheme: "CatchMeAlipay") { (resultDic) in
+                        print("resultDic")
+                    }
                 }
             }
+        }else{
+            _ = Tools.shareInstance.showMessage(KWINDOWDS(), msg: "请选择一个充值金额", autoHidder: true)
         }
+        
     }
 }

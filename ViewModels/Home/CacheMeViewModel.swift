@@ -38,6 +38,8 @@ class CacheMeViewModel: BaseViewModel {
     
     var currentUser:BasicUserDTO!
     
+    var getGameStatus:Bool = false
+    var playGameGoStatus:Bool = false
     var playGame:Bool = false
     
     override init() {
@@ -80,6 +82,7 @@ class CacheMeViewModel: BaseViewModel {
     //退出房间后调用拉流停止
     func exitRoom(){
         self.handUpConnect()
+        self.stopGame()
         if cacheMeController.liveplayer.isPlaying() {
             cacheMeController.liveplayer.shutdown()
         }
@@ -96,6 +99,7 @@ class CacheMeViewModel: BaseViewModel {
         //拉流界面自动断开处理
         if cacheMeController.liveplayer.isPlaying() {
             cacheMeController.liveplayer.view.isHidden = false
+            self.cacheMeController.view.sendSubview(toBack: cacheMeController.liveplayer.view)
             cacheMeController.localPreView.isHidden = false
         }else{
             self.cacheMeController.setUpPlayer(url: self.catchMeModel.machineDTO.audiencePullAddressA)
@@ -110,6 +114,10 @@ class CacheMeViewModel: BaseViewModel {
         }
         if cacheMeController.remoteGLView != nil {
             cacheMeController.remoteGLView.isHidden = true
+            self.cacheMeController.view.sendSubview(toBack: cacheMeController.remoteGLView)
+        }
+        if self.cacheMeController.cacheMePlayUserView != nil {
+            self.cacheMeController.view.bringSubview(toFront: self.cacheMeController.cacheMePlayUserView)
         }
     }
 
@@ -121,8 +129,8 @@ class CacheMeViewModel: BaseViewModel {
         if cacheMeController.localPreView != nil {
             cacheMeController.localPreView.isHidden = true
             cacheMeController.liveplayer.view.isHidden = true
+            self.cacheMeController.view.sendSubview(toBack: cacheMeController.liveplayer.view)
         }
-        
         if cacheMeController.bottomToolsView != nil {
             cacheMeController.bottomToolsView.isHidden = true
         }
@@ -131,6 +139,10 @@ class CacheMeViewModel: BaseViewModel {
         }
         if cacheMeController.remoteGLView != nil {
             cacheMeController.remoteGLView.isHidden = false
+            self.cacheMeController.view.bringSubview(toFront: cacheMeController.remoteGLView)
+        }
+        if self.cacheMeController.cacheMePlayUserView != nil {
+            self.cacheMeController.view.bringSubview(toFront: self.cacheMeController.cacheMePlayUserView)
         }
     }
     
@@ -141,10 +153,8 @@ class CacheMeViewModel: BaseViewModel {
         if self.callID != nil {
             self.cacheMeController.setUpPlayer(url: self.catchMeModel.machineDTO.audiencePullAddressA)
             NIMAVChatSDK.shared().netCallManager.hangup(self.callID)
-        }else{
-            //断开点对点连接失败调用
-            self.prepedPlay()
         }
+        self.prepedPlay()
     }
     
     //建立点对点连接
@@ -344,21 +354,23 @@ class CacheMeViewModel: BaseViewModel {
     
     //抓取
     func playGameGo(){
+        self.playGameGoStatus = true
         let parameters = ["machineId":self.catchMeModel.machineDTO.id,"userId":UserInfoModel.shareInstance().idField] as [String : Any]
         BaseNetWorke.sharedInstance.getUrlWithString(ShootGame, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
+                self.cacheMeController.gameToolsView.setCountLabelText(count: -1)
             }
         }
         //测试
         if time == nil {
-            time = Timer.every(3, {
-                self.timeCount = self.timeCount + 1
-                self.getGameStaus()
+            time = Timer.every(1, {
+                if !self.getGameStatus && self.playGameGoStatus {
+                    self.timeCount = self.timeCount + 1
+                    self.getGameStaus()
+                }
+                
             })
-        }else{
-            time.fireDate = NSDate.dateNow()
         }
-        
     }
     
     //获取游戏结果
@@ -369,19 +381,26 @@ class CacheMeViewModel: BaseViewModel {
                //抓取成功调用
                 self.gameStatus = GameStatusModel.init(fromDictionary: resultDic.value as! NSDictionary)
                 if self.gameStatus.status == 3 || self.gameStatus.status == 4 || self.timeCount > 30{
-                    if self.time != nil {
-                        self.time.fireDate = NSDate.distantFuture
-                    }
+                    self.timeCount = 0
                     self.shootFail()
-                    
+                    self.getGameStatus = true
+                    self.playGameGoStatus = false
                 }else if self.gameStatus.status == 2 {
-                    if self.time != nil {
-                        self.time.fireDate = NSDate.distantFuture
-                    }
+                    self.getGameStatus = true
+                    self.playGameGoStatus = false
                     self.shootSuccess()
                 }else{
                     print(self.gameStatus.status)
                 }
+            }
+        }
+    }
+    
+    func stopGame(){
+        let parameters = ["userId":UserInfoModel.shareInstance().idField,"machineId":self.catchMeModel.machineDTO.id] as [String : Any]
+        BaseNetWorke.sharedInstance.getUrlWithString(StopGame, parameters: parameters as AnyObject).observe { (resultDic) in
+            if !resultDic.isCompleted {
+
             }
         }
     }
@@ -407,6 +426,7 @@ class CacheMeViewModel: BaseViewModel {
                     let model = PlayGameAgain.init(fromDictionary: resultDic.value as! NSDictionary)
                     self.prepareModel.gameId = model.gameId
                     if self.prepareModel != nil {
+                       self.getGameStatus = false
                         self.cacheMeController.gameToolsView.setCountLabelText(count: self.prepareModel.maxTime)
                     }
                 }
@@ -435,8 +455,11 @@ class CacheMeViewModel: BaseViewModel {
                 }
             }
         }
-        
-        self.cacheMeController.cacheMePlayUserView.setData(model: self.currentUser)
+
+        if self.cacheMeController.cacheMePlayUserView != nil {
+            self.cacheMeController.view.bringSubview(toFront: self.cacheMeController.cacheMePlayUserView)
+            self.cacheMeController.cacheMePlayUserView.setData(model: self.currentUser)
+        }
     }
     
     func getRoomUserListInfo(){
@@ -532,6 +555,7 @@ class CacheMeViewModel: BaseViewModel {
                 self.playAgain()
             }else if tag == 200{
                 //断开点对点连接
+                self.stopGame()
                 self.handUpConnect()
             }
         }))

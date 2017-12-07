@@ -78,7 +78,7 @@ class HomeViewModel: BaseViewModel {
     //MARK: RequestNetWorking
     func requestRooms(pageIndex:String){
         let url = HomeRooms
-        let parameters = ["offset":pageIndex,"limit":"10","userId":UserInfoModel.shareInstance().idField] as [String : Any]
+        let parameters = ["offset":pageIndex,"limit":"20","userId":UserInfoModel.shareInstance().idField] as [String : Any]
         BaseNetWorke.sharedInstance.getUrlWithString(url, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
                 if resultDic.value != nil {
@@ -90,11 +90,15 @@ class HomeViewModel: BaseViewModel {
                     }else{
                         self.models = HomeLabels.init(fromDictionary: resultDic.value as! NSDictionary)
                     }
+                    if self.models.data.count >= 20 {
+                        (self.controller as! HomeViewController).setUpCollectViewLoadMoreData()
+                        (self.controller as! HomeViewController).collectView.mj_footer.endRefreshing()
+                    }
                 }
                 (self.controller as! HomeViewController).collectView.reloadData()
             }
             (self.controller as! HomeViewController).collectView.mj_header.endRefreshing()
-            (self.controller as! HomeViewController).collectView.mj_footer.endRefreshing()
+            
         }
     }
     

@@ -113,7 +113,7 @@ class GloableMaxTitleLabelTextFieldCell: UITableViewCell {
         textView.font = App_Theme_PinFan_R_14_Font
         self.contentView.addSubview(textView)
         
-        lineLabel = GloabLineView.init(frame: CGRect.init(x: 23, y: 80.0, width: SCREENWIDTH - 23, height: 0.5))
+        lineLabel = GloabLineView.init(frame: CGRect.init(x: 23, y: 80.0, width: SCREENWIDTH - 46, height: 0.5))
         self.contentView.addSubview(lineLabel)
         self.updateConstraints()
     }
@@ -188,7 +188,7 @@ class GloableTitleLabelTitleDescCell: UITableViewCell {
         titleDesc.font = App_Theme_PinFan_R_14_Font
         self.contentView.addSubview(titleDesc)
         
-        lineLabel = GloabLineView.init(frame: CGRect.init(x: 23, y: 49, width: SCREENWIDTH - 23, height: 0.5))
+        lineLabel = GloabLineView.init(frame: CGRect.init(x: 23, y: 49, width: SCREENWIDTH - 46, height: 0.5))
         self.contentView.addSubview(lineLabel)
         self.updateConstraints()
     }
@@ -263,7 +263,7 @@ class GloabTitleAndFieldCell: UITableViewCell {
         textField.textColor = UIColor.init(hexString: App_Theme_AAAAAA_Color)
         self.contentView.addSubview(textField)
         
-        lineLable = GloabLineView(frame: CGRect(x: 15,y: 0,width: SCREENWIDTH - 15, height: 0.5))
+        lineLable = GloabLineView(frame: CGRect(x: 20,y: 0,width: SCREENWIDTH - 20, height: 0.25))
         self.contentView.addSubview(lineLable)
         
         self.updateConstraintsIfNeeded()
@@ -301,8 +301,7 @@ class GloabTitleAndFieldCell: UITableViewCell {
             })
             
             lineLable.snp.makeConstraints({ (make) in
-                make.left.equalTo(self.contentView.snp.left).offset(15)
-                make.right.equalTo(self.contentView.snp.right).offset(-15)
+                make.left.equalTo(self.contentView.snp.left).offset(20)
                 make.bottom.equalTo(self.contentView.snp.bottom).offset(-0.5)
             })
             

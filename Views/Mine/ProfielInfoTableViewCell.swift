@@ -34,9 +34,6 @@ class ProfielInfoTableViewCell: UITableViewCell {
         detailLabel.textColor = UIColor.init(hexString: App_Theme_AAAAAA_Color)
         self.contentView.addSubview(detailLabel)
         
-//        linLabel = GloabLineView.init(frame: CGRect.init(x: 20, y: 54, width: SCREENWIDTH - 20, height: 0.5))
-//        self.contentView.addSubview(linLabel)
-        
         self.updateConstraints()
     }
     
