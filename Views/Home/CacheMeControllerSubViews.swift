@@ -20,12 +20,10 @@ class CacheMeTopView : UIView {
     var userName :UILabel!
     init(frame: CGRect,topViewBackButtonClouse:@escaping TopViewBackButtonClouse) {
         super.init(frame: frame)
+        self.isUserInteractionEnabled = true
         backButton = UIButton.init(type: .custom)
         backButton.isUserInteractionEnabled = true
-        backButton.layer.masksToBounds = true
-        backButton.titleLabel?.textAlignment = .center
         backButton.setImage(UIImage.init(named: "back_bar"), for: .normal)
-        backButton.setTitleColor(UIColor.init(hexString: App_Theme_FC4652_Color), for: .normal)
         backButton.frame = CGRect.init(x: 0, y: 0, width: 44, height: 44)
         backButton.reactive.controlEvents(.touchUpInside).observe { (action) in
             topViewBackButtonClouse()
@@ -263,7 +261,7 @@ class ToolsView: UIView {
             
             blanceLabel = UILabel.init(frame: CGRect.init(x: imageView.frame.maxX + 4, y: 9, width: width - 22, height: 20))
             blanceLabel.textAlignment = .center
-            blanceLabel.textColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
+            blanceLabel.textColor = UIColor.init(hexString: App_Theme_FC4652_Color)
             blanceLabel.font = App_Theme_PinFan_M_20_Font
             blanceLabel.text = blance!
             self.addSubview(blanceLabel)
@@ -304,6 +302,7 @@ class CacheMeToolsView: UIView {
         toolsDesc =  ToolsView.init(frame: CGRect.init(x: 10, y: 26, width: toolsWidth, height: 60), title: "详情", blance: nil, image: UIImage.init(named: "toy")!, tag: 1) {
             if self.cacheMeToolsViewClouse != nil {
                 self.cacheMeToolsViewClouse(1)
+                AnimationTools.shareInstance.easeInOutAnimation(view: self.toolsDesc, touchStatus: .begin)
             }
         }
         self.addSubview(toolsDesc)
@@ -311,6 +310,7 @@ class CacheMeToolsView: UIView {
         playGame = ToolsView.init(frame: CGRect.init(x: toolsDesc.frame.maxX + 8, y: 26, width: toolsWidth * 75 / 48, height: 60), title: "开始抓娃娃", blance: "30", image: UIImage.init(named: "coin_1")!,tag:2) {
             if self.cacheMeToolsViewClouse != nil {
                 self.cacheMeToolsViewClouse(2)
+                AnimationTools.shareInstance.easeInOutAnimation(view: self.playGame, touchStatus: .begin)
             }
         }
         self.addSubview(playGame)
@@ -318,6 +318,7 @@ class CacheMeToolsView: UIView {
         topUp = ToolsView.init(frame: CGRect.init(x: playGame.frame.maxX + 8, y: 26, width: toolsWidth, height: 60), title: "充值", blance: nil, image: UIImage.init(named: "coin_1")!,tag:3) {
             if self.cacheMeToolsViewClouse != nil {
                 self.cacheMeToolsViewClouse(3)
+                AnimationTools.shareInstance.easeInOutAnimation(view: self.topUp, touchStatus: .begin)
             }
         }
         self.addSubview(topUp)
@@ -334,11 +335,28 @@ class CacheMeToolsView: UIView {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+//    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+//        AnimationTools.shareInstance.easeInOutAnimation(view: self.toolsDesc, touchStatus: .begin)
+//    }
+//
+//    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+//        AnimationTools.shareInstance.easeInOutAnimation(view: self.toolsDesc, touchStatus: .end)
+//    }
+//
+//    func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+//
+//    }
+//
+//    func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+//
+//    }
 }
 
 typealias GameToolsViewClouse = (_ tag:GameToolsLogic) ->Void
 
-let gameBtnWidht = 60
+let gameBtnWidht:CGFloat = (UIImage.init(named: "up")?.size.width)!
+let gameBtnHeight:CGFloat = (UIImage.init(named: "up")?.size.height)!
 
 enum GameToolsLogic:Int {
     case moveTop = 1
@@ -348,6 +366,8 @@ enum GameToolsLogic:Int {
     case moveGO = 5
 }
 
+typealias TimeDownClouse = () -> Void
+
 class GameToolsView : UIView {
     var leftBtn:UIButton!
     var rightBtn:UIButton!
@@ -356,57 +376,111 @@ class GameToolsView : UIView {
     
     var goBtn:UIButton!
     
+    var gameView:UIView!
+    
     var gameToolsViewClouse:GameToolsViewClouse!
+    
+    var countDownLabel:UILabel!
+    var timeDownClouse:TimeDownClouse!
+    var time:Timer!
     
     init(frame: CGRect,gameToolsViewClouse: @escaping GameToolsViewClouse) {
         super.init(frame: frame)
         
-        topBtn = UIButton.init(frame: CGRect.init(x: 100, y: 28, width: gameBtnWidht, height: gameBtnWidht))
+        gameView = UIView.init()
+        self.addSubview(gameView)
+        
+        topBtn = UIButton.init(frame: CGRect.init(x: 53, y: 0, width: gameBtnWidht, height: gameBtnHeight))
         topBtn.setImage(UIImage.init(named: "up"), for: .normal)
         self.setUpButtonTheme(button: topBtn)
         topBtn.reactive.controlEvents(.touchUpInside).observe { (action) in
             gameToolsViewClouse(.moveTop)
         }
-        self.addSubview(topBtn)
+        gameView.addSubview(topBtn)
         
-        leftBtn = UIButton.init(frame: CGRect.init(x: 30, y: 78, width: gameBtnWidht, height: gameBtnWidht))
+        leftBtn = UIButton.init(frame: CGRect.init(x: 0, y: 29, width: gameBtnWidht, height: gameBtnWidht))
         leftBtn.setImage(UIImage.init(named: "left"), for: .normal)
         self.setUpButtonTheme(button: leftBtn)
         leftBtn.reactive.controlEvents(.touchUpInside).observe { (action) in
             gameToolsViewClouse(.moveLeft)
         }
-        self.addSubview(leftBtn)
+        gameView.addSubview(leftBtn)
         
         
-        bottomBtn = UIButton.init(frame: CGRect.init(x: 100, y: 128, width: gameBtnWidht, height: gameBtnWidht))
+        bottomBtn = UIButton.init(frame: CGRect.init(x: 53, y: 57, width: gameBtnWidht, height: gameBtnWidht))
         self.setUpButtonTheme(button: bottomBtn)
         bottomBtn.setImage(UIImage.init(named: "down"), for: .normal)
         bottomBtn.reactive.controlEvents(.touchUpInside).observe { (action) in
             gameToolsViewClouse(.moveDown)
         }
-        self.addSubview(bottomBtn)
+        gameView.addSubview(bottomBtn)
         
-        rightBtn = UIButton.init(frame: CGRect.init(x: 170, y: 78, width: gameBtnWidht, height: gameBtnWidht))
+        rightBtn = UIButton.init(frame: CGRect.init(x: 105, y: 29, width: gameBtnWidht, height: gameBtnWidht))
         self.setUpButtonTheme(button: rightBtn)
         rightBtn.setImage(UIImage.init(named: "right"), for: .normal)
         rightBtn.reactive.controlEvents(.touchUpInside).observe { (action) in
             gameToolsViewClouse(.moveRight)
         }
-        self.addSubview(rightBtn)
+        gameView.addSubview(rightBtn)
         
-        goBtn = UIButton.init(frame: CGRect.init(x: SCREENWIDTH - 84 - 30, y: 64, width: 84, height: 88))
+        let image = UIImage.init(named: "go")
+        goBtn = UIButton.init(frame: CGRect.init(x: 178, y: 12, width: (image?.size.width)!, height: (image?.size.height)!))
         goBtn.backgroundColor = UIColor.clear
         goBtn.titleLabel?.textAlignment = .center
         goBtn.layer.masksToBounds = true
-        goBtn.setImage(UIImage.init(named: "go"), for: .normal)
+        goBtn.setImage(image, for: .normal)
         goBtn.reactive.controlEvents(.touchUpInside).observe { (action) in
             gameToolsViewClouse(.moveGO)
         }
-        self.addSubview(goBtn)
+        gameView.addSubview(goBtn)
+        
+        countDownLabel = UILabel.init()
+        countDownLabel.isHidden = false
+        countDownLabel.backgroundColor = UIColor.clear
+        countDownLabel.layer.masksToBounds = true
+        countDownLabel.textAlignment = .center
+        countDownLabel.textColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
+        countDownLabel.font = App_Theme_PinFan_M_28_Font
+        gameView.addSubview(countDownLabel)
+        countDownLabel.snp.makeConstraints { (make) in
+            make.left.equalTo(self.goBtn.snp.right).offset(7)
+            make.centerY.equalTo(self.snp.centerY).offset(0)
+        }
+        
+        gameView.snp.makeConstraints { (make) in
+            make.top.equalTo(self.snp.top).offset(9)
+            make.size.equalTo(CGSize.init(width: goBtn.frame.maxX + 38, height: 100))
+            make.centerX.equalTo(self.snp.centerX).offset(0)
+        }
+    }
+    
+    func setCountLabelText(count:Int){
+        var numberCount = count
+        var timeDone:Bool = false
+        if time == nil {
+            time = Timer.every(1, {
+                if numberCount == 0 {
+                    if self.timeDownClouse != nil && !timeDone {
+                        timeDone = true
+                        self.timeDownClouse()
+                    }
+                    self.time = nil
+                }else{
+                    numberCount = numberCount - 1
+                }
+                let str = "\(numberCount)s"
+                let attributedString = NSMutableAttributedString.init(string: str)
+                attributedString.addAttributes([NSAttributedStringKey.font:App_Theme_PinFan_R_22_Font!,NSAttributedStringKey.foregroundColor:UIColor.init(hexString: App_Theme_FFFFFF_Color)!], range: NSRange.init(location: str.length - 1, length: 1))
+                attributedString.addAttributes([NSAttributedStringKey.font:App_Theme_PinFan_M_24_Font!,NSAttributedStringKey.foregroundColor:UIColor.init(hexString: App_Theme_FFFFFF_Color)!], range: NSRange.init(location: 0, length: str.length - 1))
+                self.countDownLabel.attributedText = attributedString
+            })
+        }else{
+            
+        }
+        
     }
     
     func setUpButtonTheme(button:UIButton){
-        button.backgroundColor = UIColor.init(hexString: App_Theme_000000_Color, andAlpha: 0.3)
         button.layer.cornerRadius = CGFloat(gameBtnWidht/2)
         button.layer.masksToBounds = true
         button.titleLabel?.textAlignment = .center

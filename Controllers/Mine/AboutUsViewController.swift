@@ -98,21 +98,23 @@ class AboutUsViewController: BaseViewController {
     }
 
     @objc func rightBarButtonPress(){
-        KWINDOWDS().addSubview(GloabelShareAndConnectUs.init(type: .connectUs, clickClouse: { (type) in
-            switch type {
-            case .weChatService:
-                UIPasteboard.general.string = "111"
-                _ = Tools.shareInstance.showMessage(KWINDOWDS(), msg: "已帮您复制微信号，请打开微信联系微信客服", autoHidder: true)
-                break;
-            case .phoneCall:
-                AppCallViewShow(self.view, phone: "4006005355")
-            case .QQService:
-                self.openQQChat(str: "769839948")
-                break;
-            default:
-                break;
-            }
-        }))
+        if KWINDOWDS().viewWithTag(GloabelShareAndConnectUsTag) == nil {
+            KWINDOWDS().addSubview(GloabelShareAndConnectUs.init(type: .connectUs, title: "联系我们", clickClouse: { (type) in
+                switch type {
+                case .weChatService:
+                    UIPasteboard.general.string = "111"
+                    _ = Tools.shareInstance.showMessage(KWINDOWDS(), msg: "已帮您复制微信号，请打开微信联系微信客服", autoHidder: true)
+                    break;
+                case .phoneCall:
+                    AppCallViewShow(self.view, phone: "4006005355")
+                case .QQService:
+                    self.openQQChat(str: "769839948")
+                    break;
+                default:
+                    break;
+                }
+            }))
+        }
     }
     
     func openQQChat(str:String){

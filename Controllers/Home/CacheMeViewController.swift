@@ -95,7 +95,9 @@ class CacheMeViewController: BaseViewController {
             self.liveplayer.setScalingMode(NELPMovieScalingMode.init(0))
             self.liveplayer.setHardwareDecoder(true)
             self.view.addSubview(self.liveplayer.view)
-            self.liveplayer.view.layer.cornerRadius = 5
+            self.liveplayer.view.layer.borderWidth = 0.0001
+            self.liveplayer.view.layer.borderColor = UIColor.clear.cgColor
+            self.liveplayer.view.layer.cornerRadius = 10
             self.liveplayer.view.layer.masksToBounds = true
             self.liveplayer.view.snp.makeConstraints({ (make) in
                 make.centerX.equalTo(self.view.snp.centerX).offset(0)
@@ -105,6 +107,7 @@ class CacheMeViewController: BaseViewController {
             })
             
             self.view.autoresizesSubviews = true
+            self.liveplayer.view.isUserInteractionEnabled = true
             self.liveplayer.setBufferStrategy(NELPBufferStrategy.init(2))
             self.liveplayer.shouldAutoplay = true
             self.liveplayer.setPlaybackTimeout(15 * 1000)
@@ -112,7 +115,7 @@ class CacheMeViewController: BaseViewController {
             
             self.setUpPlayUserView()
             self.setUpCameraView()
-            
+            self.view.bringSubview(toFront: cacheMeTopView)
             //拉流地址设置成功后执行拉流的一些界面创建
             //根据通知的状态来隐藏和显示视图
             
@@ -128,7 +131,6 @@ class CacheMeViewController: BaseViewController {
         self.setUpToolsView()
         self.setUpCacheMeTopView()
         self.setUpGameView()
-        self.setUpPlayGameView()
     }
     
     func setUpCountDown(isPlay:Bool, text:String) {
@@ -141,6 +143,8 @@ class CacheMeViewController: BaseViewController {
     //创建进来时本地加载界面 后期可能是显示自己的视频，前期显示加载
     func setUpPlayGameView(){
         localPreView = LocalPreView.init()
+        localPreView.layer.masksToBounds = true
+        localPreView.layer.cornerRadius = 10
         self.view.addSubview(localPreView)
         self.localPreView.snp.makeConstraints({ (make) in
             make.centerX.equalTo(self.view.snp.centerX).offset(0)
@@ -152,9 +156,17 @@ class CacheMeViewController: BaseViewController {
     
     //创建游戏者视频界面
     func initRemoteGlView(){
-        remoteGLView = UIImageView.init(frame: CGRect.init(x: 0, y: SCREENHEIGHT - 122, width: SCREENWIDTH, height: 122))
+        remoteGLView = UIImageView.init()
         remoteGLView.isHidden = true
+        remoteGLView.layer.cornerRadius = 10
+        remoteGLView.layer.masksToBounds = true
         self.view.addSubview(remoteGLView)
+        self.remoteGLView.snp.makeConstraints({ (make) in
+            make.centerX.equalTo(self.view.snp.centerX).offset(0)
+            make.top.equalTo(self.view.snp.top).offset(64)
+            make.bottom.equalTo(self.view.snp.bottom).offset(-122)
+            make.size.equalTo(CGSize.init(width: (SCREENHEIGHT - 122 - 64) * 3 / 4, height: SCREENHEIGHT - 122 - 64))
+        })
     }
     
     //创建底部工具界面
@@ -184,6 +196,7 @@ class CacheMeViewController: BaseViewController {
             })
         })
         self.view.addSubview(cacheMeTopView)
+        self.view.bringSubview(toFront: cacheMeTopView)
     }
     
     //创建正在玩用户视图
@@ -196,7 +209,7 @@ class CacheMeViewController: BaseViewController {
     
     //创建游戏手柄
     func setUpGameView(){
-        gameToolsView = GameToolsView.init(frame: CGRect.init(x: 0, y: SCREENHEIGHT - 202, width: SCREENWIDTH, height: 202), gameToolsViewClouse: { (tag) in
+        gameToolsView = GameToolsView.init(frame: CGRect.init(x: 0, y: SCREENHEIGHT - 122, width: SCREENWIDTH, height: 122), gameToolsViewClouse: { (tag) in
             switch tag {
             case .moveLeft,.moveRight,.moveTop,.moveDown:
                 //上//下//左//右
@@ -206,62 +219,12 @@ class CacheMeViewController: BaseViewController {
                 self.cacheMeViewModel.playGameGo()
             }
         })
+        self.gameToolsView.timeDownClouse = {
+            self.cacheMeViewModel.playGameGo()
+        }
         self.gameToolsView.isHidden = true
-        self.gameToolsView.backgroundColor = UIColor.clear
         self.view.addSubview(gameToolsView)
     }
-    
-    //倒计时
-    func setUpCountDownView(){
-        if countDown == nil {
-            countDown = UILabel.init()
-            countDown.isHidden = false
-            countDown.backgroundColor = UIColor.clear
-            countDown.layer.masksToBounds = true
-            countDown.textAlignment = .center
-            countDown.textColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
-            countDown.font = App_Theme_PinFan_M_28_Font
-            self.countDown.text = "\(self.cacheMeViewModel.prepareModel.maxTime!)"
-            self.view.addSubview(countDown)
-            countDown.snp.makeConstraints { (make) in
-                make.right.equalTo(self.view.snp.right).offset(-61)
-                make.bottom.equalTo(self.view.snp.bottom).offset(-141)
-            }
-            time = Timer.every(1, {
-                let count = (self.countDown.text! as NSString).integerValue
-                let now = count -  1
-                if now == 0 {
-                    self.cacheMeViewModel.playGameGo()
-                    self.time.invalidate()
-                    self.time = nil
-                }
-                self.countDown.text = "\(now)"
-            })
-            let seconds = UILabel.init()
-            seconds.text = "s"
-            seconds.font = App_Theme_PinFan_R_22_Font
-            seconds.textColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
-            self.view.addSubview(seconds)
-            seconds.snp.makeConstraints { (make) in
-                make.left.equalTo(self.countDown.snp.right).offset(2)
-                make.bottom.equalTo(self.countDown.snp.bottom).offset(0)
-            }
-        }else{
-            self.countDown.text = "\(self.cacheMeViewModel.prepareModel.maxTime!)"
-            time = Timer.every(1, {
-                let count = (self.countDown.text! as NSString).integerValue
-                let now = count -  1
-                if now == 0 {
-                    self.cacheMeViewModel.playGameGo()
-                    self.time.invalidate()
-                    self.time = nil
-                }
-                self.countDown.text = "\(now)"
-            })
-        }
-        
-    }
-    
     //切换摄像头
     func setUpCameraView(){
         switchCamera = UIButton.init(type: .custom)

@@ -100,6 +100,10 @@ class InPurchaseViewController: BaseViewController {
         }
     }
     
+    override func setUpViewNavigationItem() {
+        self.navigationItem.title = "娃娃币充值"
+    }
+    
     func requestPayMent(){
         if SKPaymentQueue.canMakePayments() {
             loadingView = Tools.shareInstance.showLoading(KWINDOWDS(), msg: "加载中")

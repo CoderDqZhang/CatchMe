@@ -297,7 +297,7 @@ class GloabTitleAndFieldCell: UITableViewCell {
             textField.snp.makeConstraints({ (make) in
                 make.left.equalTo(self.titleLabel.snp.right).offset(24)
                 make.centerY.equalTo(self.contentView.snp.centerY).offset(0)
-                make.right.equalTo(self.contentView.snp.right).offset(-15)
+                make.right.equalTo(self.contentView.snp.right).offset(-5)
             })
             
             lineLable.snp.makeConstraints({ (make) in

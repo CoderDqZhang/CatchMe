@@ -7,12 +7,12 @@
     },
     {
       "idiom" : "universal",
-      "filename" : "toy@2x.png",
+      "filename" : "toy-1.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "toy@3x.png",
+      "filename" : "toy-2.png",
       "scale" : "3x"
     }
   ],

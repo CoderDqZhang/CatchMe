@@ -200,7 +200,7 @@ class GloabelImageAndLabel:UIView {
 
 typealias  GloabelShareAndConnectUsClouse = (_ type:ClickType) ->Void
 
-
+let GloabelShareAndConnectUsTag = 1000
 class GloabelShareAndConnectUs: UIView {
     
     var backGroundImage:UIImageView!
@@ -211,8 +211,12 @@ class GloabelShareAndConnectUs: UIView {
     
     var lineLabel:GloabLineView!
     var gloabelShareAndConnectUsClouse:GloabelShareAndConnectUsClouse!
-    init(type:GloabelShareAndConnectUsType,clickClouse:@escaping GloabelShareAndConnectUsClouse) {
-        super.init(frame: CGRect.init(x: 0, y: SCREENHEIGHT - 250, width: SCREENWIDTH, height: 250))
+    init(type:GloabelShareAndConnectUsType,title:String?,clickClouse:@escaping GloabelShareAndConnectUsClouse) {
+        super.init(frame: CGRect.init(x: 0, y: SCREENHEIGHT, width: SCREENWIDTH, height: 250))
+        self.tag = GloabelShareAndConnectUsTag
+        AnimationTools.shareInstance.moveAnimation(view: self, frame: CGRect.init(x: 0, y: SCREENHEIGHT - 250, width: SCREENWIDTH, height: 250), finishClouse: { ret in
+            
+        })
         
         self.gloabelShareAndConnectUsClouse = clickClouse
         backGroundImage = UIImageView.init(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: 250))
@@ -223,9 +227,9 @@ class GloabelShareAndConnectUs: UIView {
         self.setUpNormaleView()
         
         if type == .share {
-            self.setUpShareView()
+            self.setUpShareView(title:title)
         }else{
-            self.setUpConnectUsView()
+            self.setUpConnectUsView(title:title)
         }
     }
     
@@ -258,11 +262,15 @@ class GloabelShareAndConnectUs: UIView {
     }
     
     func removeSelf(){
-        self.removeFromSuperview()
+        AnimationTools.shareInstance.moveAnimation(view: self, frame: CGRect.init(x: 0, y: SCREENHEIGHT + 20, width: SCREENWIDTH, height: 250), finishClouse: { ret in
+            if ret {
+                self.removeFromSuperview()
+            }
+        })
     }
     
-    func setUpShareView(){
-        titleLabel.text = "分享赢娃娃币"
+    func setUpShareView(title:String?){
+        titleLabel.text = title!
         var maxX:CGFloat = 0
         if isHaveWeChat {
             let weChat = GloabelImageAndLabel.init(frame: CGRect.init(x: maxX, y: 0, width: 60, height: 88), title: "微信", image: UIImage.init(named: "wechat")!){
@@ -292,8 +300,8 @@ class GloabelShareAndConnectUs: UIView {
         self.addSubview(detailView)
     }
     
-    func setUpConnectUsView(){
-        titleLabel.text = "联系我们"
+    func setUpConnectUsView(title:String?){
+        titleLabel.text = title!
         var maxX:CGFloat = 0
         if isHaveWeChat {
             let weChat = GloabelImageAndLabel.init(frame: CGRect.init(x: maxX, y: 0, width: 60, height: 88), title: "客服微信", image: UIImage.init(named: "wechat")!){
@@ -326,6 +334,8 @@ class GloabelShareAndConnectUs: UIView {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    
     
 }
 

@@ -115,7 +115,9 @@ class CacheMeViewModel: BaseViewModel {
 
     //开始游戏成功
     func showGameView(){
-        self.cacheMeController.setUpCountDownView()
+        if self.prepareModel != nil {
+            self.cacheMeController.gameToolsView.setCountLabelText(count: self.prepareModel.maxTime)
+        }
         if cacheMeController.localPreView != nil {
             cacheMeController.localPreView.isHidden = true
             cacheMeController.liveplayer.view.isHidden = true
@@ -167,9 +169,9 @@ class CacheMeViewModel: BaseViewModel {
     }
     //配置属性
     func fillVideoCaptureSetting(_ param:NIMNetCallVideoCaptureParam) {
-        param.preferredVideoQuality = .qualityLow
+        param.preferredVideoQuality = .qualityMedium
         param.format = NIMNetCallVideoCaptureFormat.format420v
-        param.videoCrop = NIMNetCallVideoCrop.crop1x1
+        param.videoCrop = NIMNetCallVideoCrop.cropNoCrop
     }
     
     //改变摄像头
@@ -313,7 +315,6 @@ class CacheMeViewModel: BaseViewModel {
                     return
                 }
                 self.showGameView()
-                self.cacheMeController.setUpCountDownView()
             }
         }
     }
@@ -405,7 +406,9 @@ class CacheMeViewModel: BaseViewModel {
                     }
                     let model = PlayGameAgain.init(fromDictionary: resultDic.value as! NSDictionary)
                     self.prepareModel.gameId = model.gameId
-                    self.cacheMeController.setUpCountDownView()
+                    if self.prepareModel != nil {
+                        self.cacheMeController.gameToolsView.setCountLabelText(count: self.prepareModel.maxTime)
+                    }
                 }
             }
         }
