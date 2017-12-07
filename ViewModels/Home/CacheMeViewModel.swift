@@ -40,6 +40,8 @@ class CacheMeViewModel: BaseViewModel {
     
     var getGameStatus:Bool = false
     var playGameGoStatus:Bool = false
+    var isPlayAgain:Bool = true
+    //麦克风权限
     var playGame:Bool = false
     
     override init() {
@@ -97,7 +99,7 @@ class CacheMeViewModel: BaseViewModel {
     //断开点对点连接后调用
     func prepedPlay(){
         //拉流界面自动断开处理
-        if cacheMeController.liveplayer.isPlaying() {
+        if cacheMeController.liveplayer != nil && cacheMeController.liveplayer.isPlaying() {
             cacheMeController.liveplayer.view.isHidden = false
             self.cacheMeController.view.sendSubview(toBack: cacheMeController.liveplayer.view)
             cacheMeController.localPreView.isHidden = false
@@ -290,6 +292,8 @@ class CacheMeViewModel: BaseViewModel {
                                 self.prepareModel = PrepareGameModel.init(fromDictionary: resultDic.value as! NSDictionary)
                                 if self.prepareModel != nil && resultDic.value != nil{
                                     //建立点对点连接
+                                    self.getGameStatus = false
+                                    self.playGameGoStatus = false
                                     let coinAmount = UserInfoModel.shareInstance().coinAmount.int! - self.catchMeModel.price
                                     UserInfoModel.shareInstance().coinAmount = "\(coinAmount)"
                                     UserInfoModel.shareInstance().saveOrUpdate(byColumnName: "neteaseAccountId", andColumnValue: "'\(UserInfoModel.shareInstance().neteaseAccountId!)'")
@@ -427,6 +431,7 @@ class CacheMeViewModel: BaseViewModel {
                     self.prepareModel.gameId = model.gameId
                     if self.prepareModel != nil {
                        self.getGameStatus = false
+                       self.playGameGoStatus = false
                         self.cacheMeController.gameToolsView.setCountLabelText(count: self.prepareModel.maxTime)
                     }
                 }

@@ -415,6 +415,9 @@ class GloableAlertView: UIView {
     func setUpView(btnTop:String, btnBottom:String, type:GloableAlertViewType) {
         let topButton = self.createButton(title: btnTop)
         topButton.reactive.controlEvents(.touchUpInside).observe { (active) in
+            if self.time != nil {
+                self.time.invalidate()
+            }
             self.gloableAlertViewClouse(100)
             self.removeSelf()
         }
@@ -428,6 +431,9 @@ class GloableAlertView: UIView {
         
         let btn = self.createButton(title: btnBottom)
         btn.reactive.controlEvents(.touchUpInside).observe { (active) in
+            if self.time != nil {
+                self.time.invalidate()
+            }
             self.gloableAlertViewClouse(200)
             self.removeSelf()
         }
