@@ -128,7 +128,6 @@
 		1F126ED11FC2C6FE006306D2 /* MyJoyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F126ED01FC2C6FE006306D2 /* MyJoyTableViewCell.swift */; };
 		1F126ED31FC30349006306D2 /* TopViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F126ED21FC30349006306D2 /* TopViewModel.swift */; };
 		1F126ED51FC30399006306D2 /* TopDescTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F126ED41FC30399006306D2 /* TopDescTableViewCell.swift */; };
-		1F126ED71FC303B3006306D2 /* TopUserInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F126ED61FC303B2006306D2 /* TopUserInfoTableViewCell.swift */; };
 		1F126ED91FC303EC006306D2 /* TopAvatarTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F126ED81FC303EC006306D2 /* TopAvatarTableViewCell.swift */; };
 		1F126EDB1FC3104A006306D2 /* SenderJoysViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F126EDA1FC31049006306D2 /* SenderJoysViewModel.swift */; };
 		1F126EDD1FC3109F006306D2 /* SendAddressTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F126EDC1FC3109F006306D2 /* SendAddressTableViewCell.swift */; };
@@ -152,6 +151,7 @@
 		1F8432511FD29BDF000D6293 /* SwiftUserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8432501FD29BDF000D6293 /* SwiftUserModel.swift */; };
 		1F85F03F1FD6B5EA00FDF26C /* MyInvitationCodeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F85F03E1FD6B5EA00FDF26C /* MyInvitationCodeViewModel.swift */; };
 		1F85F0411FD930AD00FDF26C /* AnimationTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F85F0401FD930AC00FDF26C /* AnimationTools.swift */; };
+		1FB5EFFD1FDBA472007D2257 /* TopUserInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB5EFFC1FDBA471007D2257 /* TopUserInfoTableViewCell.swift */; };
 		1FCA1FFF1FC47CB50008BF07 /* HomeLables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCA1FFE1FC47CB50008BF07 /* HomeLables.swift */; };
 		1FCA20011FC5202D0008BF07 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCA20001FC5202D0008BF07 /* SettingViewController.swift */; };
 		1FCA20031FC521410008BF07 /* NeteaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCA20021FC521410008BF07 /* NeteaseManager.swift */; };
@@ -363,7 +363,6 @@
 		1F126ED01FC2C6FE006306D2 /* MyJoyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyJoyTableViewCell.swift; sourceTree = "<group>"; };
 		1F126ED21FC30349006306D2 /* TopViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopViewModel.swift; sourceTree = "<group>"; };
 		1F126ED41FC30399006306D2 /* TopDescTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopDescTableViewCell.swift; sourceTree = "<group>"; };
-		1F126ED61FC303B2006306D2 /* TopUserInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TopUserInfoTableViewCell.swift; path = /Users/zhang/Desktop/CatchMe/Views/Top/TopUserInfoTableViewCell.swift; sourceTree = "<absolute>"; };
 		1F126ED81FC303EC006306D2 /* TopAvatarTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopAvatarTableViewCell.swift; sourceTree = "<group>"; };
 		1F126EDA1FC31049006306D2 /* SenderJoysViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SenderJoysViewModel.swift; sourceTree = "<group>"; };
 		1F126EDC1FC3109F006306D2 /* SendAddressTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendAddressTableViewCell.swift; sourceTree = "<group>"; };
@@ -389,6 +388,7 @@
 		1F85F03D1FD54E5700FDF26C /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		1F85F03E1FD6B5EA00FDF26C /* MyInvitationCodeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInvitationCodeViewModel.swift; sourceTree = "<group>"; };
 		1F85F0401FD930AC00FDF26C /* AnimationTools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationTools.swift; sourceTree = "<group>"; };
+		1FB5EFFC1FDBA471007D2257 /* TopUserInfoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopUserInfoTableViewCell.swift; sourceTree = "<group>"; };
 		1FCA1FFE1FC47CB50008BF07 /* HomeLables.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeLables.swift; sourceTree = "<group>"; };
 		1FCA20001FC5202D0008BF07 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		1FCA20021FC521410008BF07 /* NeteaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeteaseManager.swift; sourceTree = "<group>"; };
@@ -887,8 +887,8 @@
 		1F126E441FC07CEE006306D2 /* Top */ = {
 			isa = PBXGroup;
 			children = (
+				1FB5EFFC1FDBA471007D2257 /* TopUserInfoTableViewCell.swift */,
 				1F126ED41FC30399006306D2 /* TopDescTableViewCell.swift */,
-				1F126ED61FC303B2006306D2 /* TopUserInfoTableViewCell.swift */,
 				1F126ED81FC303EC006306D2 /* TopAvatarTableViewCell.swift */,
 			);
 			path = Top;
@@ -1269,7 +1269,6 @@
 				1F126ED91FC303EC006306D2 /* TopAvatarTableViewCell.swift in Sources */,
 				1FCA20071FC56BBF0008BF07 /* TopUpMuchView.swift in Sources */,
 				1F126E351FC01DA8006306D2 /* TopViewController.swift in Sources */,
-				1F126ED71FC303B3006306D2 /* TopUserInfoTableViewCell.swift in Sources */,
 				1FE1A2C81FC9864B00B715D8 /* QuestionViewModel.swift in Sources */,
 				1F126E5B1FC0891D006306D2 /* LoginViewModel.swift in Sources */,
 				1F126D931FBFF36B006306D2 /* BaseNetWorke.swift in Sources */,
@@ -1371,6 +1370,7 @@
 				1F126EE31FC3D89D006306D2 /* AddressViewModel.swift in Sources */,
 				1F126E6B1FC097CE006306D2 /* JoysDetailViewController.swift in Sources */,
 				1F126E001FBFFB76006306D2 /* RequestUrl.swift in Sources */,
+				1FB5EFFD1FDBA472007D2257 /* TopUserInfoTableViewCell.swift in Sources */,
 				1F126EA21FC154A0006306D2 /* yuv420sp.fsh.c in Sources */,
 				1F126E531FC087D0006306D2 /* Gloable+View.swift in Sources */,
 				1F126EEB1FC3FD65006306D2 /* AppForm.swift in Sources */,

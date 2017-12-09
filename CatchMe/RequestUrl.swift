@@ -48,6 +48,8 @@ let GameStatus = "\(BaseURL)game/status"
 let TopUp = "\(BaseURL)recharge/findRechargeRateRuleDTOList"
 //获取支付宝充值信息
 let AliPayInfo = "\(BaseURL)recharge/getRechargeAliPayInfo"
+//微信支付充值信息
+let WeChatPayUrl = "\(BaseURL)recharge/getRechargeWxPayInfo"
 //问题反馈
 let FeedBack = "\(BaseURL)feedback"
 //我抓到的娃娃
@@ -84,6 +86,7 @@ let LogOut = "\(BaseURL)user/logout"
 let ShareCodeUrl = "\(BaseURL)shareCode"
 //获取用户列表
 let RoomUserList = "\(BaseURL)user/findUserDTOListByIdList"
+
 
 //http://39.106.137.21:8201/machine/again/start?userId=1&machineId=1&lastGameId=357&roomId=1
 //9.106.137.21:8201/rooms?offset=1&limit=20&userId=1

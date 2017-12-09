@@ -94,7 +94,7 @@ class AboutUsViewController: BaseViewController {
     
     override func setUpViewNavigationItem() {
         self.navigationItem.title = "关于我们"
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: "联系我们", style: .plain, target: self, action: #selector(self.rightBarButtonPress))
+//        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: "联系我们", style: .plain, target: self, action: #selector(self.rightBarButtonPress))
     }
 
     @objc func rightBarButtonPress(){

@@ -85,8 +85,11 @@ class CacheMeViewModel: BaseViewModel {
     func exitRoom(){
         self.handUpConnect()
         self.stopGame()
-        if cacheMeController.liveplayer.isPlaying() {
-            cacheMeController.liveplayer.shutdown()
+        if cacheMeController.liveplayerA.isPlaying() {
+            cacheMeController.liveplayerA.shutdown()
+        }
+        if cacheMeController.liveplayerB.isPlaying() {
+            cacheMeController.liveplayerB.shutdown()
         }
         if self.timeHeader != nil {
             self.timeHeader.invalidate()
@@ -99,12 +102,11 @@ class CacheMeViewModel: BaseViewModel {
     //断开点对点连接后调用
     func prepedPlay(){
         //拉流界面自动断开处理
-        if cacheMeController.liveplayer != nil && cacheMeController.liveplayer.isPlaying() {
-            cacheMeController.liveplayer.view.isHidden = false
-            self.cacheMeController.view.sendSubview(toBack: cacheMeController.liveplayer.view)
+        if self.cacheMeController.liveplayerView != nil {
+            self.cacheMeController.liveplayerView.isHidden = false
             cacheMeController.localPreView.isHidden = false
         }else{
-            self.cacheMeController.setUpPlayer(url: self.catchMeModel.machineDTO.audiencePullAddressA)
+            self.setUpStreamData()
         }
         
         if cacheMeController.bottomToolsView != nil {
@@ -114,12 +116,18 @@ class CacheMeViewModel: BaseViewModel {
         if cacheMeController.gameToolsView != nil {
             cacheMeController.gameToolsView.isHidden = true
         }
+        
         if cacheMeController.remoteGLView != nil {
             cacheMeController.remoteGLView.isHidden = true
             self.cacheMeController.view.sendSubview(toBack: cacheMeController.remoteGLView)
         }
+        
         if self.cacheMeController.cacheMePlayUserView != nil {
             self.cacheMeController.view.bringSubview(toFront: self.cacheMeController.cacheMePlayUserView)
+        }
+        
+        if self.cacheMeController.switchCamera != nil {
+            self.cacheMeController.view.bringSubview(toFront: self.cacheMeController.switchCamera)
         }
     }
 
@@ -130,8 +138,8 @@ class CacheMeViewModel: BaseViewModel {
         }
         if cacheMeController.localPreView != nil {
             cacheMeController.localPreView.isHidden = true
-            cacheMeController.liveplayer.view.isHidden = true
-            self.cacheMeController.view.sendSubview(toBack: cacheMeController.liveplayer.view)
+            cacheMeController.liveplayerView.isHidden = true
+            self.cacheMeController.view.sendSubview(toBack: cacheMeController.liveplayerView)
         }
         if cacheMeController.bottomToolsView != nil {
             cacheMeController.bottomToolsView.isHidden = true
@@ -146,6 +154,14 @@ class CacheMeViewModel: BaseViewModel {
         if self.cacheMeController.cacheMePlayUserView != nil {
             self.cacheMeController.view.bringSubview(toFront: self.cacheMeController.cacheMePlayUserView)
         }
+        if self.cacheMeController.switchCamera != nil {
+            self.cacheMeController.view.bringSubview(toFront: self.cacheMeController.switchCamera)
+        }
+    }
+    
+    func setUpStreamData(){
+        self.cacheMeController.setUpPlayer(url: [self.catchMeModel.machineDTO.audiencePullAddressA,self.catchMeModel.machineDTO.audiencePullAddressB])
+
     }
     
     func handUpConnect(){
@@ -153,7 +169,7 @@ class CacheMeViewModel: BaseViewModel {
             self.cacheMeController.localPreView.isHidden = false
         }
         if self.callID != nil {
-            self.cacheMeController.setUpPlayer(url: self.catchMeModel.machineDTO.audiencePullAddressA)
+            self.setUpStreamData()
             NIMAVChatSDK.shared().netCallManager.hangup(self.callID)
         }
         self.prepedPlay()
@@ -188,11 +204,15 @@ class CacheMeViewModel: BaseViewModel {
     
     //改变摄像头
     func changeCamera(){
-        if !cacheMeController.liveplayer.view.isHidden {
+        if !cacheMeController.liveplayerView.isHidden {
             //切换拉流地址
-            let url = playUrl == self.catchMeModel.machineDTO.audiencePullAddressA ? self.catchMeModel.machineDTO.audiencePullAddressB : self.catchMeModel.machineDTO.audiencePullAddressA
-            playUrl = url
-            self.cacheMeController.liveplayer.switchContentUrl(URL.init(string: playUrl))
+            if self.cacheMeController.liveplayerA.view.isHidden {
+                self.cacheMeController.liveplayerA.view.isHidden = false
+                self.cacheMeController.liveplayerB.view.isHidden = true
+            }else{
+                self.cacheMeController.liveplayerA.view.isHidden = true
+                self.cacheMeController.liveplayerB.view.isHidden = false
+            }
         }else{
             if self.cameraType == .Font {
                 self.cameraType = .Back
@@ -212,7 +232,7 @@ class CacheMeViewModel: BaseViewModel {
             if !resultDic.isCompleted {
                 self.catchMeModel = CatchMeModel.init(fromDictionary: resultDic.value as! NSDictionary)
                 //设置拉流地址
-                self.cacheMeController.setUpPlayer(url: self.catchMeModel.machineDTO.audiencePullAddressA)
+                self.setUpStreamData()
                 self.playUrl = self.catchMeModel.machineDTO.audiencePullAddressA
                 self.setUpRoomPalyUsers(currentUser: self.catchMeModel.currentPlayerDTO)
                 self.cacheMeController.bottomToolsView.changePlayGameCoins(str: "\(self.catchMeModel.price!)")
@@ -230,7 +250,7 @@ class CacheMeViewModel: BaseViewModel {
         BaseNetWorke.sharedInstance.getUrlWithString(QuictEnter, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
                 self.catchMeModel = CatchMeModel.init(fromDictionary: resultDic.value as! NSDictionary)
-                self.cacheMeController.setUpPlayer(url: self.catchMeModel.machineDTO.audiencePullAddressA)
+                self.setUpStreamData()
                 self.playUrl = self.catchMeModel.machineDTO.audiencePullAddressA
                 self.setUpRoomPalyUsers(currentUser: self.catchMeModel.currentPlayerDTO)
                 self.cacheMeController.bottomToolsView.changePlayGameCoins(str: "\(self.catchMeModel.price!)")
@@ -244,11 +264,13 @@ class CacheMeViewModel: BaseViewModel {
     
     //退出房间
     func requestExitRooms(){
-        let parameters = ["machineId":catchMeModel.machineDTO.id == nil ? "" : catchMeModel.machineDTO.id,"userId":UserInfoModel.shareInstance().idField] as [String : Any]
-        BaseNetWorke.sharedInstance.getUrlWithString(ExitRoom, parameters: parameters as AnyObject).observe { (resultDic) in
-            if !resultDic.isCompleted {
-                //执行断开点对点连接
-                self.exitRoom()
+        if catchMeModel.machineDTO != nil {
+            let parameters = ["machineId":catchMeModel.machineDTO.id == nil ? "" : catchMeModel.machineDTO.id,"userId":UserInfoModel.shareInstance().idField] as [String : Any]
+            BaseNetWorke.sharedInstance.getUrlWithString(ExitRoom, parameters: parameters as AnyObject).observe { (resultDic) in
+                if !resultDic.isCompleted {
+                    //执行断开点对点连接
+                    self.exitRoom()
+                }
             }
         }
     }
@@ -363,6 +385,7 @@ class CacheMeViewModel: BaseViewModel {
         BaseNetWorke.sharedInstance.getUrlWithString(ShootGame, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
                 self.cacheMeController.gameToolsView.setCountLabelText(count: -1)
+                self.cacheMeController.gameToolsView.setGameToolsType(type: .isWaitGameStatus)
             }
         }
         //测试
@@ -386,10 +409,12 @@ class CacheMeViewModel: BaseViewModel {
                 self.gameStatus = GameStatusModel.init(fromDictionary: resultDic.value as! NSDictionary)
                 if self.gameStatus.status == 3 || self.gameStatus.status == 4 || self.timeCount > 30{
                     self.timeCount = 0
+                    self.cacheMeController.gameToolsView.setGameToolsType(type: .isPlaying)
                     self.shootFail()
                     self.getGameStatus = true
                     self.playGameGoStatus = false
                 }else if self.gameStatus.status == 2 {
+                    self.cacheMeController.gameToolsView.setGameToolsType(type: .isPlaying)
                     self.getGameStatus = true
                     self.playGameGoStatus = false
                     self.shootSuccess()
@@ -566,6 +591,9 @@ class CacheMeViewModel: BaseViewModel {
         }))
     }
     
+    func showShareView(){
+        
+    }
 }
 
 extension CacheMeViewModel : NIMNetCallManagerDelegate {
@@ -603,7 +631,7 @@ extension CacheMeViewModel : NIMNetCallManagerDelegate {
     func onCallEstablished(_ callID: UInt64) {
         print("连接成功\(callID)")
         self.callID = callID
-        self.gameStarts()
+//        self.gameStarts()
     }
     
     func onCallDisconnected(_ callID: UInt64, withError error: Error?) {
@@ -634,6 +662,14 @@ extension CacheMeViewModel : NIMNetCallManagerDelegate {
         
     }
     
+    func onResponse(_ callID: UInt64, from callee: String, accepted: Bool) {
+        if !accepted {
+            self.makeGameToUser()
+        }else{
+            self.gameStarts()
+        }
+    }
+
     func onHangup(_ callID: UInt64, by user: String) {
         self.callID = callID
         self.handUpConnect()

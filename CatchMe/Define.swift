@@ -104,7 +104,7 @@ func UserDefaultsGetSynchronize(_ key:String) -> AnyObject{
     return UserDefaults.standard.object(forKey: key)! as AnyObject
 }
 
-let COFIGVALUE:Bool = (UserDefaultsGetSynchronize(APPCONFIGSTATUS) as! String) == "false" ? false : true
+let COFIGVALUE:Bool = (UserDefaultsGetSynchronize(APPCONFIGSTATUS) as! String) == "false" ? true : true
 
 
 func Storyboard(_ name:String,controllerid:String) -> UIViewController{

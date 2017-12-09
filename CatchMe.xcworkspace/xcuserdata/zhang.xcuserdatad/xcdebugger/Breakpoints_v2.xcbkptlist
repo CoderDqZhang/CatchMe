@@ -20,11 +20,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ViewModels/Home/CacheMeViewModel.swift"
-            timestampString = "534367867.084992"
+            timestampString = "534510565.188728"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "363"
-            endingLineNumber = "363"
+            startingLineNumber = "385"
+            endingLineNumber = "385"
             landmarkName = "playGameGo()"
             landmarkType = "7">
             <Locations>
@@ -68,11 +68,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Views/Home/CacheMeControllerSubViews.swift"
-            timestampString = "534367867.086427"
+            timestampString = "534510565.188834"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "475"
-            endingLineNumber = "475"
+            startingLineNumber = "486"
+            endingLineNumber = "486"
             landmarkName = "setCountLabelText(count:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -84,11 +84,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ViewModels/Home/CacheMeViewModel.swift"
-            timestampString = "534367867.086952"
+            timestampString = "534510565.189461"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "397"
-            endingLineNumber = "397"
+            startingLineNumber = "422"
+            endingLineNumber = "422"
             landmarkName = "getGameStaus()"
             landmarkType = "7">
          </BreakpointContent>
@@ -100,11 +100,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ViewModels/Home/CacheMeViewModel.swift"
-            timestampString = "534367867.087066"
+            timestampString = "534510565.189537"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "382"
-            endingLineNumber = "382"
+            startingLineNumber = "405"
+            endingLineNumber = "405"
             landmarkName = "getGameStaus()"
             landmarkType = "7">
          </BreakpointContent>
@@ -116,11 +116,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ViewModels/Home/CacheMeViewModel.swift"
-            timestampString = "534367867.087206"
+            timestampString = "534510565.189597"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "383"
-            endingLineNumber = "383"
+            startingLineNumber = "406"
+            endingLineNumber = "406"
             landmarkName = "getGameStaus()"
             landmarkType = "7">
             <Locations>
@@ -164,60 +164,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ViewModels/Home/CacheMeViewModel.swift"
-            timestampString = "534367867.08732"
+            timestampString = "534510565.189656"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "381"
-            endingLineNumber = "381"
+            startingLineNumber = "404"
+            endingLineNumber = "404"
             landmarkName = "getGameStaus()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ViewModels/Home/CacheMeViewModel.swift"
-            timestampString = "534367867.087438"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "606"
-            endingLineNumber = "606"
-            landmarkName = "onCallEstablished(_:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ViewModels/Home/CacheMeViewModel.swift"
-            timestampString = "534367867.087612"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "584"
-            endingLineNumber = "584"
-            landmarkName = "onRemoteImageReady(_:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ViewModels/Home/CacheMeViewModel.swift"
-            timestampString = "534367867.087695"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "408"
-            endingLineNumber = "408"
-            landmarkName = "stopGame()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -228,11 +180,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ViewModels/Home/CacheMeViewModel.swift"
-            timestampString = "534367867.087786"
+            timestampString = "534510565.18971"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "546"
-            endingLineNumber = "546"
+            startingLineNumber = "571"
+            endingLineNumber = "571"
             landmarkName = "shootSuccess()"
             landmarkType = "7">
          </BreakpointContent>
@@ -244,11 +196,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ViewModels/Home/CacheMeViewModel.swift"
-            timestampString = "534367867.087931"
+            timestampString = "534510565.189762"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "369"
-            endingLineNumber = "369"
+            startingLineNumber = "392"
+            endingLineNumber = "392"
             landmarkName = "playGameGo()"
             landmarkType = "7">
             <Locations>
@@ -292,11 +244,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ViewModels/Home/CacheMeViewModel.swift"
-            timestampString = "534367867.088048"
+            timestampString = "534510565.189817"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "560"
-            endingLineNumber = "560"
+            startingLineNumber = "585"
+            endingLineNumber = "585"
             landmarkName = "shootFail()"
             landmarkType = "7">
          </BreakpointContent>
@@ -340,12 +292,92 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ViewModels/Home/CacheMeViewModel.swift"
-            timestampString = "534367918.974725"
+            timestampString = "534510565.189942"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "564"
-            endingLineNumber = "564"
+            startingLineNumber = "589"
+            endingLineNumber = "589"
             landmarkName = "shootFail()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ViewModels/Home/CacheMeViewModel.swift"
+            timestampString = "534510565.190017"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "662"
+            endingLineNumber = "662"
+            landmarkName = "onResponsed(byOther:accepted:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ViewModels/Home/CacheMeViewModel.swift"
+            timestampString = "534510565.190078"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "658"
+            endingLineNumber = "658"
+            landmarkName = "onRecordStopped(_:fileURL:uid:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ViewModels/Home/CacheMeViewModel.swift"
+            timestampString = "534510565.190175"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "654"
+            endingLineNumber = "654"
+            landmarkName = "onRecordError(_:callID:uid:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ViewModels/Home/CacheMeViewModel.swift"
+            timestampString = "534510565.190236"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "650"
+            endingLineNumber = "650"
+            landmarkName = "onRecordStarted(_:fileURL:uid:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ViewModels/Home/CacheMeViewModel.swift"
+            timestampString = "534510565.190281"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "666"
+            endingLineNumber = "666"
+            landmarkName = "onResponse(_:from:accepted:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -356,43 +388,43 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ViewModels/Home/CacheMeViewModel.swift"
-            timestampString = "534367971.073209"
+            timestampString = "534510565.190328"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "409"
-            endingLineNumber = "409"
-            landmarkName = "stopGame()"
+            startingLineNumber = "552"
+            endingLineNumber = "552"
+            landmarkName = "getRoomUserListInfo()"
             landmarkType = "7">
             <Locations>
                <Location
                   shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "CatchMe.CacheMeViewModel.stopGame() -&gt; ()"
+                  symbolName = "CatchMe.CacheMeViewModel.getRoomUserListInfo() -&gt; ()"
                   moduleName = "CatchMe"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/zhang/Desktop/CatchMe/ViewModels/Home/CacheMeViewModel.swift"
-                  timestampString = "534367971.086056"
+                  urlString = "file:///Users/zhang/Desktop/zhuawo-iOS/ViewModels/Home/CacheMeViewModel.swift"
+                  timestampString = "534493228.55589"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "409"
-                  endingLineNumber = "409"
-                  offsetFromSymbolStart = "1208">
+                  startingLineNumber = "533"
+                  endingLineNumber = "533"
+                  offsetFromSymbolStart = "9286">
                </Location>
                <Location
                   shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (ReactiveSwift.Signal&lt;Any, __ObjC.NSError&gt;.Event) -&gt; () in CatchMe.CacheMeViewModel.stopGame() -&gt; ()"
+                  symbolName = "closure #1 (ReactiveSwift.Signal&lt;Any, __ObjC.NSError&gt;.Event) -&gt; () in CatchMe.CacheMeViewModel.getRoomUserListInfo() -&gt; ()"
                   moduleName = "CatchMe"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/zhang/Desktop/CatchMe/ViewModels/Home/CacheMeViewModel.swift"
-                  timestampString = "534367971.089803"
+                  urlString = "file:///Users/zhang/Desktop/zhuawo-iOS/ViewModels/Home/CacheMeViewModel.swift"
+                  timestampString = "534493228.559741"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "409"
-                  endingLineNumber = "409"
-                  offsetFromSymbolStart = "312">
+                  startingLineNumber = "534"
+                  endingLineNumber = "534"
+                  offsetFromSymbolStart = "21">
                </Location>
             </Locations>
          </BreakpointContent>

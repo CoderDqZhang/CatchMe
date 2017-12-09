@@ -13,7 +13,7 @@ import UIKit
 class TopUpViewModel: BaseViewModel {
 
     //topUpMuch 1 == 10,2==20,3==50,4==100,5=200,6==500
-    var topUpMuch:Int = 100
+    var topUpMuch:Int = 1
     var models = NSMutableArray.init()
     
     override init() {
@@ -48,7 +48,24 @@ class TopUpViewModel: BaseViewModel {
     }
     
     func wxPay(){
-        
+        if self.topUpMuch != 100 {
+            let parameters = ["ruleId":TopUpModel.init(fromDictionary: self.models[self.topUpMuch - 1] as! NSDictionary).id,"userId":UserInfoModel.shareInstance().idField] as [String : Any]
+            BaseNetWorke.sharedInstance.postUrlWithString(WeChatPayUrl, parameters: parameters as AnyObject).observe { (resultDic) in
+                if !resultDic.isCompleted {
+                    let model = Wxpay.init(fromDictionary: resultDic.value as! NSDictionary)
+                    let request = PayReq()
+                    request.prepayId = model.prepayid
+                    request.partnerId = model.partnerid
+                    request.package = model.package
+                    request.nonceStr = model.noncestr
+                    request.timeStamp = UInt32(model.timestamp)!
+                    request.sign = model.sign
+                    WXApi.send(request)
+                }
+            }
+        }else{
+            _ = Tools.shareInstance.showMessage(KWINDOWDS(), msg: "请选择一个充值金额", autoHidder: true)
+        }
     }
     
     func aliPay(){

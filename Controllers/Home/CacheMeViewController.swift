@@ -12,7 +12,9 @@ import NIMAVChat
 
 class CacheMeViewController: BaseViewController {
 
-    var liveplayer:NELivePlayer!
+    var liveplayerA:NELivePlayer!
+    var liveplayerB:NELivePlayer!
+    var liveplayerView:UIView!
     var player:NELivePlayerController!
 
     var localPreView:LocalPreView!
@@ -52,22 +54,29 @@ class CacheMeViewController: BaseViewController {
             time.invalidate()
         }
         // 播放器媒体流初始化完成后触发，收到该通知表示可以开始播放
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.NELivePlayerDidPreparedToPlay, object: self.liveplayer)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.NELivePlayerDidPreparedToPlay, object: self.liveplayerA)
+         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.NELivePlayerDidPreparedToPlay, object: self.liveplayerB)
         // 播放器加载状态发生变化时触发，如开始缓冲，缓冲结束
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.NELivePlayerLoadStateChanged, object: self.liveplayer)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.NELivePlayerLoadStateChanged, object: self.liveplayerA)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.NELivePlayerLoadStateChanged, object: self.liveplayerB)
         //
         // 正常播放结束或播放过程中发生错误导致播放结束时触发的通知
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.NELivePlayerPlaybackFinished, object: self.liveplayer)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.NELivePlayerPlaybackFinished, object: self.liveplayerA)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.NELivePlayerPlaybackFinished, object: self.liveplayerB)
         //
         // 第一帧视频图像显示时触发的通知
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.NELivePlayerFirstVideoDisplayed, object: self.liveplayer)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.NELivePlayerFirstVideoDisplayed, object: self.liveplayerA)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.NELivePlayerFirstVideoDisplayed, object: self.liveplayerB)
         //
         // 第一帧音频播放时触发的通知
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.NELivePlayerFirstAudioDisplayed, object: self.liveplayer)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.NELivePlayerFirstAudioDisplayed, object: self.liveplayerA)
+         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.NELivePlayerFirstAudioDisplayed, object: self.liveplayerB)
         // 资源释放成功后触发的通知
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.NELivePlayerReleaseSueecss, object: self.liveplayer)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.NELivePlayerReleaseSueecss, object: self.liveplayerA)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.NELivePlayerReleaseSueecss, object: self.liveplayerB)
         // 视频码流解析失败时触发的通知
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.NELivePlayerVideoParseError, object: self.liveplayer)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.NELivePlayerVideoParseError, object: self.liveplayerA)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.NELivePlayerVideoParseError, object: self.liveplayerB)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -87,31 +96,22 @@ class CacheMeViewController: BaseViewController {
     }
     
     //拉流地址
-    func setUpPlayer(url:String){
+    func setUpPlayer(url:[String]){
+        liveplayerView = UIView.init()
+        liveplayerView.layer.cornerRadius = 10
+        liveplayerView.layer.masksToBounds = true
+        self.view.addSubview(liveplayerView)
+        liveplayerView.snp.makeConstraints { (make) in
+            make.centerX.equalTo(self.view.snp.centerX).offset(0)
+            make.top.equalTo(self.view.snp.top).offset(64)
+            make.bottom.equalTo(self.view.snp.bottom).offset(-122)
+            make.size.equalTo(CGSize.init(width: (SCREENHEIGHT - 122 - 64) * 3 / 4, height: SCREENHEIGHT - 122 - 64))
+        }
         NELivePlayerController.setLogLevel(NELPLogLevel.LOG_VERBOSE)
         do {
-            try self.liveplayer = NELivePlayerController.init(contentURL: URL.init(string: url))
-
-            self.liveplayer.setScalingMode(NELPMovieScalingMode.init(0))
-            self.liveplayer.setHardwareDecoder(true)
-            self.view.addSubview(self.liveplayer.view)
-            self.liveplayer.view.layer.borderWidth = 0.0001
-            self.liveplayer.view.layer.borderColor = UIColor.clear.cgColor
-            self.liveplayer.view.layer.cornerRadius = 10
-            self.liveplayer.view.layer.masksToBounds = true
-            self.liveplayer.view.snp.makeConstraints({ (make) in
-                make.centerX.equalTo(self.view.snp.centerX).offset(0)
-                make.top.equalTo(self.view.snp.top).offset(64)
-                make.bottom.equalTo(self.view.snp.bottom).offset(-122)
-                make.size.equalTo(CGSize.init(width: (SCREENHEIGHT - 122 - 64) * 3 / 4, height: SCREENHEIGHT - 122 - 64))
-            })
-            
-            self.view.autoresizesSubviews = true
-            self.liveplayer.view.isUserInteractionEnabled = true
-            self.liveplayer.setBufferStrategy(NELPBufferStrategy.init(2))
-            self.liveplayer.shouldAutoplay = true
-            self.liveplayer.setPlaybackTimeout(15 * 1000)
-            self.liveplayer.prepareToPlay()
+            try self.liveplayerA = NELivePlayerController.init(contentURL: URL.init(string: url[0]))
+            self.setUpPlayerB(url: url[1])
+            self.configLiveLayer(liveplayer: self.liveplayerA)
             
             self.setUpPlayUserView()
             self.setUpCameraView()
@@ -123,7 +123,41 @@ class CacheMeViewController: BaseViewController {
             print("拉流失败")
             return
         }
+    }
+    
+    func setUpPlayerB(url:String) {
+        do {
+            try self.liveplayerB = NELivePlayerController.init(contentURL: URL.init(string: url))
+            self.configLiveLayer(liveplayer: self.liveplayerB)
+            self.liveplayerB.view.isHidden = true
+            //拉流地址设置成功后执行拉流的一些界面创建
+            //根据通知的状态来隐藏和显示视图
+        } catch {
+            print("拉流失败")
+            return
+        }
+    }
+    
+    func configLiveLayer(liveplayer:NELivePlayer){
+        liveplayer.setScalingMode(NELPMovieScalingMode.init(3))
+        liveplayer.setHardwareDecoder(true)
+        liveplayerView.addSubview(liveplayer.view)
+        liveplayer.view.layer.borderWidth = 0.0001
+        liveplayer.view.layer.borderColor = UIColor.clear.cgColor
+        liveplayer.view.layer.cornerRadius = 10
+        liveplayer.view.layer.masksToBounds = true
+        liveplayer.view.snp.makeConstraints({ (make) in
+            make.left.equalTo(self.liveplayerView.snp.left).offset(0)
+            make.top.equalTo(self.liveplayerView.snp.top).offset(0)
+            make.bottom.equalTo(self.liveplayerView.snp.bottom).offset(0)
+            make.right.equalTo(self.liveplayerView.snp.right).offset(0)
+        })
         
+        liveplayer.view.isUserInteractionEnabled = true
+        liveplayer.setBufferStrategy(NELPBufferStrategy.init(3))
+        liveplayer.shouldAutoplay = true
+        liveplayer.setPlaybackTimeout(15 * 1000)
+        liveplayer.prepareToPlay()
     }
     
     func setUpFontToolsView(){
@@ -150,7 +184,7 @@ class CacheMeViewController: BaseViewController {
             make.centerX.equalTo(self.view.snp.centerX).offset(0)
             make.top.equalTo(self.view.snp.top).offset(64)
             make.bottom.equalTo(self.view.snp.bottom).offset(-122)
-            make.size.equalTo(CGSize.init(width: (SCREENHEIGHT - 122 - 64) * 3 / 4, height: SCREENHEIGHT - 122 - 64))
+            make.size.equalTo(CGSize.init(width: (SCREENHEIGHT - 122 - 64) * 3 / 4 - 10, height: SCREENHEIGHT - 122 - 64))
         })
     }
     
@@ -250,46 +284,71 @@ class CacheMeViewController: BaseViewController {
     
     func doInitPlayerNotication(){
         // 播放器媒体流初始化完成后触发，收到该通知表示可以开始播放
-        NotificationCenter.default.addObserver(self, selector: #selector(self.NELivePlayerDidPreparedToPlay(notification:)), name: NSNotification.Name.NELivePlayerDidPreparedToPlay, object: self.liveplayer)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.NELivePlayerDidPreparedToPlay(notification:)), name: NSNotification.Name.NELivePlayerDidPreparedToPlay, object: self.liveplayerA)
 
+         NotificationCenter.default.addObserver(self, selector: #selector(self.NELivePlayerDidPreparedToPlay(notification:)), name: NSNotification.Name.NELivePlayerDidPreparedToPlay, object: self.liveplayerB)
         // 播放器加载状态发生变化时触发，如开始缓冲，缓冲结束
         NotificationCenter.default.addObserver(self,
             selector:#selector(self.NeLivePlayerloadStateChanged(notification:)),
             name:NSNotification.Name.NELivePlayerLoadStateChanged ,
-            object:self.liveplayer)
+            object:self.liveplayerA)
+        NotificationCenter.default.addObserver(self,
+                                               selector:#selector(self.NeLivePlayerloadStateChanged(notification:)),
+                                               name:NSNotification.Name.NELivePlayerLoadStateChanged ,
+                                               object:self.liveplayerB)
 //
         // 正常播放结束或播放过程中发生错误导致播放结束时触发的通知
         NotificationCenter.default.addObserver(self,
             selector:#selector(self.NELivePlayerPlayBackFinished(notification:)),
             name:NSNotification.Name.NELivePlayerPlaybackFinished,
-            object:self.liveplayer)
+            object:self.liveplayerA)
+        NotificationCenter.default.addObserver(self,
+                                               selector:#selector(self.NELivePlayerPlayBackFinished(notification:)),
+                                               name:NSNotification.Name.NELivePlayerPlaybackFinished,
+                                               object:self.liveplayerB)
 //
         // 第一帧视频图像显示时触发的通知
         NotificationCenter.default.addObserver(self,
             selector:#selector(self.NELivePlayerFirstVideoDisplayed(notification:)),
             name:NSNotification.Name.NELivePlayerFirstVideoDisplayed,
-            object:self.liveplayer)
+            object:self.liveplayerA)
+        NotificationCenter.default.addObserver(self,
+                                               selector:#selector(self.NELivePlayerFirstVideoDisplayed(notification:)),
+                                               name:NSNotification.Name.NELivePlayerFirstVideoDisplayed,
+                                               object:self.liveplayerB)
 //
         // 第一帧音频播放时触发的通知
         NotificationCenter.default.addObserver(self,
             selector:#selector(self.NELivePlayerFirstAudioDisplayed(notification:)),
             name:NSNotification.Name.NELivePlayerFirstAudioDisplayed,
-            object:self.liveplayer)
+            object:self.liveplayerA)
+        NotificationCenter.default.addObserver(self,
+                                               selector:#selector(self.NELivePlayerFirstAudioDisplayed(notification:)),
+                                               name:NSNotification.Name.NELivePlayerFirstAudioDisplayed,
+                                               object:self.liveplayerB)
         // 资源释放成功后触发的通知
         NotificationCenter.default.addObserver(self,
             selector:#selector(self.NELivePlayerReleaseSuccess(notification:)),
             name:NSNotification.Name.NELivePlayerReleaseSueecss,
-            object:self.liveplayer)
+            object:self.liveplayerA)
+        NotificationCenter.default.addObserver(self,
+                                               selector:#selector(self.NELivePlayerReleaseSuccess(notification:)),
+                                               name:NSNotification.Name.NELivePlayerReleaseSueecss,
+                                               object:self.liveplayerB)
 //        // 视频码流解析失败时触发的通知
 
         NotificationCenter.default.addObserver(self,
             selector:#selector(self.NELivePlayerVideoParseError(notification:)),
             name:NSNotification.Name.NELivePlayerVideoParseError,
-            object:self.liveplayer)
+            object:self.liveplayerA)
+        NotificationCenter.default.addObserver(self,
+                                               selector:#selector(self.NELivePlayerVideoParseError(notification:)),
+                                               name:NSNotification.Name.NELivePlayerVideoParseError,
+                                               object:self.liveplayerB)
     }
     
     @objc func NELivePlayerDidPreparedToPlay(notification:Notification){
-        self.liveplayer.play()
+//        self.liveplayerA.play()
     }
     
     @objc func NeLivePlayerloadStateChanged(notification:Notification){

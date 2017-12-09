@@ -41,6 +41,7 @@ class CacheMeTopView : UIView {
     }
     
     func setUpData(models:NSMutableArray, count:String){
+        self.roomsUser.removeSubviews()
         var maxX = SCREENWIDTH - 44 - 18 - 32
         for i in 0...models.count - 1{
             let frame = CGRect.init(x: maxX, y: 6, width: 32, height: 32)
@@ -59,11 +60,11 @@ class CacheMeTopView : UIView {
                 }
             }
         }
+        self.updateConstraintsIfNeeded()
     }
     
     func changeNumberUser(str:String){
         let numberText = "\(str)人在房间"
-
         let attributedString = NSMutableAttributedString.init(string: numberText)
         attributedString.addAttributes([NSAttributedStringKey.font:App_Theme_PinFan_M_14_Font!,NSAttributedStringKey.foregroundColor:UIColor.init(hexString: App_Theme_FFFFFF_Color)!], range: NSRange.init(location: numberText.length - 4, length: 4))
         attributedString.addAttributes([NSAttributedStringKey.font:App_Theme_PinFan_M_16_Font!,NSAttributedStringKey.foregroundColor:UIColor.init(hexString: App_Theme_FFFFFF_Color)!], range: NSRange.init(location: 0, length: numberText.length - 4))
@@ -191,7 +192,7 @@ class LocalPreView: UIView {
     func setUpView(){
         
         imageView = UIImageView.init()
-        imageView.image = UIImage.init(named: "背景图")
+        imageView.image = UIImage.init(named: "bg_loading")
         self.addSubview(imageView)
         imageView.snp.makeConstraints { (make) in
             make.left.equalTo(self.snp.left).offset(0)
@@ -379,6 +380,11 @@ enum GameToolsLogic:Int {
     case moveGO = 5
 }
 
+enum GameToolsViewPlayType {
+    case isWaitGameStatus
+    case isPlaying
+}
+
 typealias TimeDownClouse = () -> Void
 
 class GameToolsView : UIView {
@@ -467,6 +473,11 @@ class GameToolsView : UIView {
             make.size.equalTo(CGSize.init(width: goBtn.frame.maxX + 38, height: 100))
             make.centerX.equalTo(self.snp.centerX).offset(0)
         }
+        leftBtn.setImage(UIImage.init(named: "left_np"), for: .disabled)
+        bottomBtn.setImage(UIImage.init(named: "down_np"), for: .disabled)
+        topBtn.setImage(UIImage.init(named: "up_np"), for: .disabled)
+        goBtn.setImage(UIImage.init(named: "go_np"), for: .disabled)
+        rightBtn.setImage(UIImage.init(named: "right_np"), for: .disabled)
     }
     
     func setCountLabelText(count:Int){
@@ -493,6 +504,23 @@ class GameToolsView : UIView {
             
         }
         
+    }
+    
+    func setGameToolsType(type:GameToolsViewPlayType) {
+        if type == .isPlaying {
+            leftBtn.isEnabled = true
+            rightBtn.isEnabled = true
+            topBtn.isEnabled = true
+            bottomBtn.isEnabled = true
+            goBtn.isEnabled = true
+        }else{
+            leftBtn.isEnabled = false
+            rightBtn.isEnabled = false
+            topBtn.isEnabled = false
+            bottomBtn.isEnabled = false
+            goBtn.isEnabled = false
+            
+        }
     }
     
     func setStr(str:String) {

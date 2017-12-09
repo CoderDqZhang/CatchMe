@@ -157,3 +157,105 @@ class TopUpModel : NSObject, NSCoding{
     }
     
 }
+
+class Wxpay : NSObject, NSCoding{
+    
+    var appid : String!
+    var noncestr : String!
+    var package : String!
+    var partnerid : String!
+    var prepayid : String!
+    var sign : String!
+    var timestamp : String!
+    
+    
+    /**
+     * Instantiate the instance using the passed dictionary values to set the properties values
+     */
+    init(fromDictionary dictionary: NSDictionary){
+        appid = dictionary["appid"] as? String
+        noncestr = dictionary["noncestr"] as? String
+        package = dictionary["package"] as? String
+        partnerid = dictionary["partnerid"] as? String
+        prepayid = dictionary["prepayid"] as? String
+        sign = dictionary["sign"] as? String
+        timestamp = dictionary["timestamp"] as? String
+    }
+    
+    /**
+     * Returns all the available property values in the form of NSDictionary object where the key is the approperiate json key and the value is the value of the corresponding property
+     */
+    func toDictionary() -> NSDictionary
+    {
+        let dictionary = NSMutableDictionary()
+        if appid != nil{
+            dictionary["appid"] = appid
+        }
+        if noncestr != nil{
+            dictionary["noncestr"] = noncestr
+        }
+        if package != nil{
+            dictionary["package"] = package
+        }
+        if partnerid != nil{
+            dictionary["partnerid"] = partnerid
+        }
+        if prepayid != nil{
+            dictionary["prepayid"] = prepayid
+        }
+        if sign != nil{
+            dictionary["sign"] = sign
+        }
+        if timestamp != nil{
+            dictionary["timestamp"] = timestamp
+        }
+        return dictionary
+    }
+    
+    /**
+     * NSCoding required initializer.
+     * Fills the data from the passed decoder
+     */
+    @objc required init(coder aDecoder: NSCoder)
+    {
+        appid = aDecoder.decodeObject(forKey: "appid") as? String
+        noncestr = aDecoder.decodeObject(forKey: "noncestr") as? String
+        package = aDecoder.decodeObject(forKey: "package") as? String
+        partnerid = aDecoder.decodeObject(forKey: "partnerid") as? String
+        prepayid = aDecoder.decodeObject(forKey: "prepayid") as? String
+        sign = aDecoder.decodeObject(forKey: "sign") as? String
+        timestamp = aDecoder.decodeObject(forKey: "timestamp") as? String
+        
+    }
+    
+    /**
+     * NSCoding required method.
+     * Encodes mode properties into the decoder
+     */
+    @objc func encode(with aCoder: NSCoder)
+    {
+        if appid != nil{
+            aCoder.encode(appid, forKey: "appid")
+        }
+        if noncestr != nil{
+            aCoder.encode(noncestr, forKey: "noncestr")
+        }
+        if package != nil{
+            aCoder.encode(package, forKey: "package")
+        }
+        if partnerid != nil{
+            aCoder.encode(partnerid, forKey: "partnerid")
+        }
+        if prepayid != nil{
+            aCoder.encode(prepayid, forKey: "prepayid")
+        }
+        if sign != nil{
+            aCoder.encode(sign, forKey: "sign")
+        }
+        if timestamp != nil{
+            aCoder.encode(timestamp, forKey: "timestamp")
+        }
+        
+    }
+    
+}

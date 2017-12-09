@@ -36,8 +36,8 @@ class BaseWebViewController: BaseViewController {
     }
     
     override func setUpViewNavigationItem() {
-        self.navigationItem.title = bannerModel != nil ? bannerModel.title : "炫耀一下"
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: "分享", style: .plain, target: self, action: #selector(self.rightBarItemPress))
+//        self.navigationItem.title = bannerModel != nil ? bannerModel.title : "炫耀一下"
+//        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: "分享", style: .plain, target: self, action: #selector(self.rightBarItemPress))
     }
     
     override func didReceiveMemoryWarning() {

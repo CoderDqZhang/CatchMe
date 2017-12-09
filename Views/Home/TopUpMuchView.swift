@@ -132,12 +132,12 @@ class TopUpMuchView: UIView {
             }else{
                 model = models[i - 1] as! TopUpModel
             }
-            muchView.setUpMuchViewData(much: "￥\(model.rechargeMoney!)0", icon: "\(model.rechargeCoin!)币")
-//            if i == 1 {
-//                muchView.changeType(type: .select)
-//            }else{
+            muchView.setUpMuchViewData(much: "￥\(model.rechargeMoney!)", icon: "\(model.rechargeCoin!)币")
+            if i == 1 {
+                muchView.changeType(type: .select)
+            }else{
                 muchView.changeType(type: .normal)
-//            }
+            }
             self.addSubview(muchView)
         }
     }
