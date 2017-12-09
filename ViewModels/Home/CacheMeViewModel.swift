@@ -48,6 +48,7 @@ class CacheMeViewModel: BaseViewModel {
         super.init()
         NIMAVChatSDK.shared().netCallManager.add(self)
         self.getAVAuthorizationStatus()
+        AudioPlayManager.shareInstance.play()
     }
     
     deinit {
@@ -85,6 +86,7 @@ class CacheMeViewModel: BaseViewModel {
     func exitRoom(){
         self.handUpConnect()
         self.stopGame()
+        AudioPlayManager.shareInstance.pause()
         if cacheMeController.liveplayerA.isPlaying() {
             cacheMeController.liveplayerA.shutdown()
         }

@@ -148,6 +148,8 @@
 		1F3739BE1FD10D5A0068F1C0 /* address.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1F3739BD1FD10D5A0068F1C0 /* address.txt */; };
 		1F3739C01FD10E160068F1C0 /* LocalJsonFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3739BF1FD10E160068F1C0 /* LocalJsonFile.swift */; };
 		1F3739C41FD1302E0068F1C0 /* AddressValueKey.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1F3739C31FD1302E0068F1C0 /* AddressValueKey.txt */; };
+		1F57EEE11FDBFD4A009D0CAE /* music.mov in Resources */ = {isa = PBXBuildFile; fileRef = 1F57EEE01FDBFD49009D0CAE /* music.mov */; };
+		1F57EEE31FDBFDA0009D0CAE /* AudioPlayManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F57EEE21FDBFDA0009D0CAE /* AudioPlayManager.swift */; };
 		1F8432511FD29BDF000D6293 /* SwiftUserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8432501FD29BDF000D6293 /* SwiftUserModel.swift */; };
 		1F85F03F1FD6B5EA00FDF26C /* MyInvitationCodeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F85F03E1FD6B5EA00FDF26C /* MyInvitationCodeViewModel.swift */; };
 		1F85F0411FD930AD00FDF26C /* AnimationTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F85F0401FD930AC00FDF26C /* AnimationTools.swift */; };
@@ -384,6 +386,8 @@
 		1F3739BD1FD10D5A0068F1C0 /* address.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = address.txt; sourceTree = "<group>"; };
 		1F3739BF1FD10E160068F1C0 /* LocalJsonFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalJsonFile.swift; sourceTree = "<group>"; };
 		1F3739C31FD1302E0068F1C0 /* AddressValueKey.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AddressValueKey.txt; sourceTree = "<group>"; };
+		1F57EEE01FDBFD49009D0CAE /* music.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = music.mov; sourceTree = "<group>"; };
+		1F57EEE21FDBFDA0009D0CAE /* AudioPlayManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayManager.swift; sourceTree = "<group>"; };
 		1F8432501FD29BDF000D6293 /* SwiftUserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUserModel.swift; sourceTree = "<group>"; };
 		1F85F03D1FD54E5700FDF26C /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		1F85F03E1FD6B5EA00FDF26C /* MyInvitationCodeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInvitationCodeViewModel.swift; sourceTree = "<group>"; };
@@ -484,6 +488,7 @@
 				1F3739BD1FD10D5A0068F1C0 /* address.txt */,
 				1F126D661FBFF024006306D2 /* Main.storyboard */,
 				1F126D691FBFF024006306D2 /* Assets.xcassets */,
+				1F57EEE01FDBFD49009D0CAE /* music.mov */,
 				1FE1A2D11FCD095200B715D8 /* Default-568.jpg */,
 				1F126D6B1FBFF024006306D2 /* LaunchScreen.storyboard */,
 				1F126D6E1FBFF024006306D2 /* Info.plist */,
@@ -651,6 +656,7 @@
 			children = (
 				1F126D8E1FBFF354006306D2 /* ShareTools.swift */,
 				1F126D8F1FBFF354006306D2 /* Tools.swift */,
+				1F57EEE21FDBFDA0009D0CAE /* AudioPlayManager.swift */,
 				1F126EBA1FC18CCB006306D2 /* UIImageViewManger.swift */,
 				1F2292811FD01A7C00089174 /* CacheTools.swift */,
 				1F3739BF1FD10E160068F1C0 /* LocalJsonFile.swift */,
@@ -1175,6 +1181,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F57EEE11FDBFD4A009D0CAE /* music.mov in Resources */,
 				1F126DDE1FBFF46A006306D2 /* AlipaySDK.bundle in Resources */,
 				1F3739C41FD1302E0068F1C0 /* AddressValueKey.txt in Resources */,
 				1F126D6D1FBFF024006306D2 /* LaunchScreen.storyboard in Resources */,
@@ -1295,6 +1302,7 @@
 				1F126E471FC07D13006306D2 /* MineHeaderTableViewCell.swift in Sources */,
 				1F126E991FC154A0006306D2 /* common.c in Sources */,
 				1F126DAF1FBFF387006306D2 /* TAPageControl.m in Sources */,
+				1F57EEE31FDBFDA0009D0CAE /* AudioPlayManager.swift in Sources */,
 				1F126EC11FC1A48C006306D2 /* BannerCollectionReusableView.swift in Sources */,
 				1F126E1E1FBFFED9006306D2 /* View+Extntion.swift in Sources */,
 				1F126EA11FC154A0006306D2 /* yuv420p.fsh.c in Sources */,
