@@ -16,6 +16,7 @@ class MyJoyTableViewCell: UITableViewCell {
     var dollsName:UILabel!
     var dollsDesc:UILabel!
     var cacheTime:UILabel!
+    var dollsStatus:UIImageView!
     
     var didMakeConstraints = false
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
@@ -54,6 +55,10 @@ class MyJoyTableViewCell: UITableViewCell {
         cacheTime.font = App_Theme_PinFan_M_13_Font
         cacheTime.textColor = UIColor.init(hexString: App_Theme_AAAAAA_Color)
         dollsView.addSubview(cacheTime)
+        
+        dollsStatus = UIImageView.init()
+        dollsView.addSubview(dollsStatus)
+        
         self.updateConstraints()
     }
     
@@ -68,6 +73,8 @@ class MyJoyTableViewCell: UITableViewCell {
         UIImageViewManger.sd_imageView(url: model.images[0], imageView: dollsImage, placeholderImage: nil) { (image, error, cacheType, url) in
 
         }
+        
+        dollsStatus.image = model.deliveryStatus == 0 ? UIImage.init(named: "tag_待发货") : model.deliveryStatus == 1 ? UIImage.init(named: "tag_已发货") : UIImage.init(named: "tag_已收货")
         
     }
     
@@ -101,6 +108,12 @@ class MyJoyTableViewCell: UITableViewCell {
                 make.left.equalTo(dollsImage.snp.right).offset(5)
                 make.top.equalTo(dollsDesc.snp.bottom).offset(3)
             })
+            
+            dollsStatus.snp.makeConstraints({ (make) in
+                make.top.equalTo(dollsView.snp.top).offset(15)
+                make.right.equalTo(dollsView.snp.right).offset(0)
+            })
+            
             didMakeConstraints = true
         }
         super.updateConstraints()

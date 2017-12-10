@@ -61,6 +61,7 @@ extension MyJoysViewModel: UITableViewDelegate {
 extension MyJoysViewModel: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return self.model.count
+//        return 0
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -81,13 +82,15 @@ extension MyJoysViewModel : DZNEmptyDataSetDelegate {
 }
 
 extension MyJoysViewModel : DZNEmptyDataSetSource {
-//    func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
-//        let attributed = NSMutableAttributedString.init(string: "抓我！主人，快带我回家吧～")
-//        if #available(iOS 11.0, *) {
-//            attributed.addAttributes([NSAttributedStringKey.font : App_Theme_PinFan_M_16_Font!,NSAttributedStringKey.foregroundColor:UIColor.init(named: App_Theme_CCCCCC_Color)!], range: NSRange.init(location: 0, length: "抓我！主人，快带我回家吧～".length))
-//        } else {
-//            // Fallback on earlier versions
-//        }
-//        return attributed
-//    }
+    func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
+        let attributed = "抓我！主人，快带我回家吧～"
+        let attributedString = NSMutableAttributedString.init(string: attributed)
+        attributedString.addAttributes([NSAttributedStringKey.font:App_Theme_PinFan_M_16_Font!,NSAttributedStringKey.foregroundColor:UIColor.init(hexString: App_Theme_CCCCCC_Color)!], range: NSRange.init(location: 0, length: attributed.length))
+        
+        return attributedString
+    }
+    
+    func image(forEmptyDataSet scrollView: UIScrollView!) -> UIImage! {
+        return UIImage.init(named: "pic_toy")
+    }
 }

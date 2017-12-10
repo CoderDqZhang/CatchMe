@@ -41,6 +41,10 @@ class ProfileViewModel: BaseViewModel {
         }
     }
     
+    func tableViewGloabTitleAndSwitchCellSetData(_ indexPath:IndexPath, cell:GloabTitleAndSwitchCell) {
+        
+    }
+    
     func updateCellString(_ tableView:UITableView, str:String, tag:Int) {
         let cell = tableView.cellForRow(at: IndexPath.init(row: 1, section: 1)) as! ProfielInfoTableViewCell
         cell.detailLabel.text = str
@@ -131,7 +135,7 @@ extension ProfileViewModel: UITableViewDelegate {
 
 extension ProfileViewModel: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 3
+        return 4
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -160,6 +164,11 @@ extension ProfileViewModel: UITableViewDataSource {
                 cell.selectionStyle = .none
                 return cell
             }
+        case 2:
+            let cell = tableView.dequeueReusableCell(withIdentifier: GloabTitleAndSwitchCell.description(), for: indexPath)
+            self.tableViewGloabTitleAndSwitchCellSetData(indexPath, cell: cell as! GloabTitleAndSwitchCell)
+            cell.selectionStyle = .none
+            return cell
         default:
             let cell = tableView.dequeueReusableCell(withIdentifier: ProfileLogoutTableViewCell.description(), for: indexPath)
             cell.backgroundColor = UIColor.clear

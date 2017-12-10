@@ -18,7 +18,7 @@ class ProfileViewController: BaseViewController {
         super.viewDidLoad()
 
         self.bindViewModel(viewModel: ProfileViewModel(), controller: self)
-        self.setUpTableView(style: .grouped, cells: [ProfileHeaderTableViewCell.self,GloabTitleAndFieldCell.self,ProfielInfoTableViewCell.self, ProfileLogoutTableViewCell.self], controller: self)
+        self.setUpTableView(style: .grouped, cells: [ProfileHeaderTableViewCell.self,GloabTitleAndFieldCell.self,ProfielInfoTableViewCell.self, ProfileLogoutTableViewCell.self,GloabTitleAndSwitchCell.self], controller: self)
         // Do any additional setup after loading the view.
     }
 

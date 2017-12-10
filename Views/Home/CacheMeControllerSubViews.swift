@@ -12,6 +12,80 @@ class CacheMeControllerSubViews: NSObject {
 
 }
 
+typealias NELivePlayerLoadFailViewClouse = () ->Void
+
+class NELivePlayerLoadFailView : UIView {
+    var imageView:UIImageView!
+    var titleLabel:UILabel!
+    var detailLabel:UILabel!
+    var button:CustomButton!
+    
+    var centerView:UIView!
+    
+    var nELivePlayerLoadFailViewClouse:NELivePlayerLoadFailViewClouse!
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        self.backgroundColor = UIColor.init(hexString: App_Theme_000000_Color, andAlpha: 0.7)
+        self.setUpView()
+    }
+    
+    func setUpView(){
+        centerView = UIView.init()
+        self.addSubview(centerView)
+        
+        
+        imageView = UIImageView.init()
+        imageView.image = UIImage.init(named: "pic_waiting")
+        centerView.addSubview(imageView)
+        imageView.snp.makeConstraints { (make) in
+            make.top.equalTo(self.centerView.snp.top).offset(0)
+            make.centerX.equalTo(self.centerView.snp.centerX).offset(0)
+        }
+        
+        titleLabel = UILabel.init()
+        titleLabel.text = "主人网络略慢, 请耐心等待"
+        titleLabel.font = App_Theme_PinFan_M_18_Font
+        titleLabel.textColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
+        centerView.addSubview(titleLabel)
+        titleLabel.snp.makeConstraints { (make) in
+            make.top.equalTo(self.imageView.snp.bottom).offset(0)
+            make.centerX.equalTo(self.centerView.snp.centerX).offset(0)
+        }
+        
+        detailLabel = UILabel.init()
+        detailLabel.text = "小秘密:有时候重新连接会很快呦"
+        detailLabel.font = App_Theme_PinFan_M_15_Font
+        detailLabel.textColor = UIColor.init(hexString: App_Theme_CCCCCC_Color)
+        centerView.addSubview(detailLabel)
+        detailLabel.snp.makeConstraints { (make) in
+            make.top.equalTo(self.titleLabel.snp.bottom).offset(6)
+            make.centerX.equalTo(self.centerView.snp.centerX).offset(0)
+        }
+        
+        button = CustomButton.init(frame: CGRect.init(x: (SCREENWIDTH - 150)/2, y: 10, width: 150, height: 42), title: "重新连接", tag: 10, titleFont: App_Theme_PinFan_M_17_Font!, type: CustomButtonType.withBackBoarder) { (tag) in
+            if self.nELivePlayerLoadFailViewClouse != nil {
+                self.nELivePlayerLoadFailViewClouse()
+            }
+        }
+        centerView.addSubview(button)
+        button.snp.makeConstraints { (make) in
+            make.top.equalTo(self.detailLabel.snp.bottom).offset(17)
+            make.centerX.equalTo(self.centerView.snp.centerX).offset(0)
+        }
+        
+        centerView.snp.makeConstraints { (make) in
+            make.centerX.equalTo(self.snp.centerX).offset(0)
+            make.centerY.equalTo(self.snp.centerY).offset(0)
+            make.size.equalTo(CGSize.init(width: SCREENWIDTH, height: 258))
+        }
+        
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
 typealias TopViewBackButtonClouse = () ->Void
 class CacheMeTopView : UIView {
     var backButton:UIButton!
@@ -87,6 +161,9 @@ class CacheMeTopView : UIView {
     }
 }
 
+typealias TimeDownClouse = () -> Void
+typealias HidderGameTipClouse = () -> Void
+
 class CacheMePlayUserView:UIView {
     
     var backImage:UIImageView!
@@ -94,6 +171,14 @@ class CacheMePlayUserView:UIView {
     var userName:UILabel!
     var avatar:UIImageView!
     var detail:UILabel!
+    
+    var countDownLabel:UILabel!
+    var timeDownClouse:TimeDownClouse!
+    var time:Timer!
+    
+    var numberCount:Int = 0
+    
+    var hidderGameTipClouse:HidderGameTipClouse!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -125,7 +210,6 @@ class CacheMePlayUserView:UIView {
         backImage.snp.makeConstraints { (make) in
             make.top.equalTo(playUser.snp.top).offset(0)
             make.bottom.equalTo(playUser.snp.bottom).offset(0)
-            make.right.equalTo(playUser.snp.right).offset(0)
             make.left.equalTo(playUser.snp.left).offset(0)
         }
         
@@ -161,6 +245,20 @@ class CacheMePlayUserView:UIView {
             make.top.equalTo(userName.snp.bottom).offset(1)
             make.right.equalTo(playUser.snp.right).offset(-7)
         }
+        
+        
+        countDownLabel = UILabel.init()
+        countDownLabel.isHidden = false
+        countDownLabel.backgroundColor = UIColor.clear
+        countDownLabel.layer.masksToBounds = true
+        countDownLabel.textAlignment = .center
+        countDownLabel.textColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
+        countDownLabel.font = App_Theme_PinFan_M_28_Font
+        self.addSubview(countDownLabel)
+        countDownLabel.snp.makeConstraints { (make) in
+            make.right.equalTo(self.snp.right).offset(-9)
+            make.centerY.equalTo(self.snp.centerY).offset(0)
+        }
     }
     
     func setData(model:BasicUserDTO?){
@@ -174,6 +272,42 @@ class CacheMePlayUserView:UIView {
                 
             }
         }
+    }
+    
+    func setStr(str:String) {
+        let attributedString = NSMutableAttributedString.init(string: str)
+        attributedString.addAttributes([NSAttributedStringKey.font:App_Theme_PinFan_R_22_Font!,NSAttributedStringKey.foregroundColor:UIColor.init(hexString: App_Theme_FC4652_Color)!], range: NSRange.init(location: str.length - 1, length: 1))
+        attributedString.addAttributes([NSAttributedStringKey.font:App_Theme_PinFan_M_24_Font!,NSAttributedStringKey.foregroundColor:UIColor.init(hexString: App_Theme_FC4652_Color)!], range: NSRange.init(location: 0, length: str.length - 1))
+        self.countDownLabel.attributedText = attributedString
+    }
+    
+    func setCountLabelText(count:Int){
+        numberCount = count
+        var timeDone:Bool = false
+        if time == nil {
+            time = Timer.every(1, {
+                if self.numberCount == -1 {
+                    self.setStr(str: "0s")
+                    return
+                }
+                if self.numberCount == 0 {
+                    if self.timeDownClouse != nil && !timeDone {
+                        timeDone = true
+                        self.timeDownClouse()
+                    }
+                    self.time = nil
+                }else{
+                    self.numberCount = self.numberCount - 1
+                }
+                if self.numberCount == 27 && self.hidderGameTipClouse != nil {
+                    self.hidderGameTipClouse()
+                }
+                self.setStr(str: "\(self.numberCount)s")
+            })
+        }else{
+            
+        }
+        
     }
 }
 
@@ -205,7 +339,57 @@ class LocalPreView: UIView {
         label.frame = CGRect.init(x: 0, y: SCREENHEIGHT/2, width: SCREENWIDTH, height: 22)
         label.text = "拼命加载中..."
         label.textAlignment = .center
-        label.textColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
+        label.textColor = UIColor.init(hexString: App_Theme_000000_Color, andAlpha: 0.4)
+        label.font = App_Theme_PinFan_M_20_Font
+        self.addSubview(label)
+        
+        
+        
+    }
+    
+    func changeLabelText(str:String){
+        label.text = str
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
+class QuictEnterLocalPreView: UIView {
+    
+    var label:UILabel!
+    var backGroundImage:UIImageView!
+    var imageView:UIImageView!
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        self.backgroundColor = UIColor.init(hexString: App_Theme_000000_Color, andAlpha: 0.1)
+        self.layer.cornerRadius = 5
+        self.layer.masksToBounds = true
+        self.setUpView()
+    }
+    
+    func setUpView(){
+        
+        backGroundImage = UIImageView.init(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: SCREENHEIGHT))
+        backGroundImage.image = UIImage.init(color: UIColor.init(hexString: App_Theme_FFFFFF_Color, andAlpha: 0.7), size: CGSize.init(width: SCREENWIDTH, height: SCREENHEIGHT))
+        backGroundImage.blur()
+        self.addSubview(backGroundImage)
+        
+        imageView = UIImageView.init()
+        imageView.image = UIImage.init(named: "pic_success")
+        self.addSubview(imageView)
+        imageView.snp.makeConstraints { (make) in
+            make.bottom.equalTo(self.snp.bottom).offset(0)
+            make.centerX.equalTo(self.snp.centerX).offset(0)
+        }
+        
+        label = UILabel.init()
+        label.frame = CGRect.init(x: 0, y: SCREENHEIGHT/2, width: SCREENWIDTH, height: 22)
+        label.text = "随机选取房间中..."
+        label.textAlignment = .center
+        label.textColor = UIColor.init(hexString: App_Theme_CCCCCC_Color)
         label.font = App_Theme_PinFan_M_20_Font
         self.addSubview(label)
         
@@ -385,7 +569,6 @@ enum GameToolsViewPlayType {
     case isPlaying
 }
 
-typealias TimeDownClouse = () -> Void
 
 class GameToolsView : UIView {
     var leftBtn:UIButton!
@@ -399,11 +582,7 @@ class GameToolsView : UIView {
     
     var gameToolsViewClouse:GameToolsViewClouse!
     
-    var countDownLabel:UILabel!
-    var timeDownClouse:TimeDownClouse!
-    var time:Timer!
     
-    var numberCount:Int = 0
     
     init(frame: CGRect,gameToolsViewClouse: @escaping GameToolsViewClouse) {
         super.init(frame: frame)
@@ -411,7 +590,7 @@ class GameToolsView : UIView {
         gameView = UIView.init()
         self.addSubview(gameView)
         
-        topBtn = UIButton.init(frame: CGRect.init(x: 53, y: 0, width: gameBtnWidht, height: gameBtnHeight))
+        topBtn = UIButton.init(frame: CGRect.init(x: 113, y: 0, width: gameBtnWidht, height: gameBtnHeight))
         topBtn.setImage(UIImage.init(named: "up"), for: .normal)
         self.setUpButtonTheme(button: topBtn)
         topBtn.reactive.controlEvents(.touchUpInside).observe { (action) in
@@ -419,7 +598,7 @@ class GameToolsView : UIView {
         }
         gameView.addSubview(topBtn)
         
-        leftBtn = UIButton.init(frame: CGRect.init(x: 0, y: 29, width: gameBtnWidht, height: gameBtnWidht))
+        leftBtn = UIButton.init(frame: CGRect.init(x: 60, y: 29, width: gameBtnWidht, height: gameBtnWidht))
         leftBtn.setImage(UIImage.init(named: "left"), for: .normal)
         self.setUpButtonTheme(button: leftBtn)
         leftBtn.reactive.controlEvents(.touchUpInside).observe { (action) in
@@ -428,7 +607,7 @@ class GameToolsView : UIView {
         gameView.addSubview(leftBtn)
         
         
-        bottomBtn = UIButton.init(frame: CGRect.init(x: 53, y: 57, width: gameBtnWidht, height: gameBtnWidht))
+        bottomBtn = UIButton.init(frame: CGRect.init(x: 113, y: 57, width: gameBtnWidht, height: gameBtnWidht))
         self.setUpButtonTheme(button: bottomBtn)
         bottomBtn.setImage(UIImage.init(named: "down"), for: .normal)
         bottomBtn.reactive.controlEvents(.touchUpInside).observe { (action) in
@@ -436,7 +615,7 @@ class GameToolsView : UIView {
         }
         gameView.addSubview(bottomBtn)
         
-        rightBtn = UIButton.init(frame: CGRect.init(x: 105, y: 29, width: gameBtnWidht, height: gameBtnWidht))
+        rightBtn = UIButton.init(frame: CGRect.init(x: 166, y: 29, width: gameBtnWidht, height: gameBtnWidht))
         self.setUpButtonTheme(button: rightBtn)
         rightBtn.setImage(UIImage.init(named: "right"), for: .normal)
         rightBtn.reactive.controlEvents(.touchUpInside).observe { (action) in
@@ -445,7 +624,7 @@ class GameToolsView : UIView {
         gameView.addSubview(rightBtn)
         
         let image = UIImage.init(named: "go")
-        goBtn = UIButton.init(frame: CGRect.init(x: 178, y: 12, width: (image?.size.width)!, height: (image?.size.height)!))
+        goBtn = UIButton.init(frame: CGRect.init(x: SCREENWIDTH - 60 - (image?.size.width)!, y: 12, width: (image?.size.width)!, height: (image?.size.height)!))
         goBtn.backgroundColor = UIColor.clear
         goBtn.titleLabel?.textAlignment = .center
         goBtn.layer.masksToBounds = true
@@ -455,22 +634,10 @@ class GameToolsView : UIView {
         }
         gameView.addSubview(goBtn)
         
-        countDownLabel = UILabel.init()
-        countDownLabel.isHidden = false
-        countDownLabel.backgroundColor = UIColor.clear
-        countDownLabel.layer.masksToBounds = true
-        countDownLabel.textAlignment = .center
-        countDownLabel.textColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
-        countDownLabel.font = App_Theme_PinFan_M_28_Font
-        gameView.addSubview(countDownLabel)
-        countDownLabel.snp.makeConstraints { (make) in
-            make.left.equalTo(self.goBtn.snp.right).offset(7)
-            make.centerY.equalTo(self.snp.centerY).offset(0)
-        }
-        
         gameView.snp.makeConstraints { (make) in
             make.top.equalTo(self.snp.top).offset(9)
-            make.size.equalTo(CGSize.init(width: goBtn.frame.maxX + 38, height: 100))
+            make.left.equalTo(self.snp.left).offset(0)
+            make.right.equalTo(self.snp.right).offset(0)
             make.centerX.equalTo(self.snp.centerX).offset(0)
         }
         leftBtn.setImage(UIImage.init(named: "left_np"), for: .disabled)
@@ -480,31 +647,7 @@ class GameToolsView : UIView {
         rightBtn.setImage(UIImage.init(named: "right_np"), for: .disabled)
     }
     
-    func setCountLabelText(count:Int){
-        numberCount = count
-        var timeDone:Bool = false
-        if time == nil {
-            time = Timer.every(1, {
-                if self.numberCount == -1 {
-                    self.setStr(str: "0s")
-                    return
-                }
-                if self.numberCount == 0 {
-                    if self.timeDownClouse != nil && !timeDone {
-                        timeDone = true
-                        self.timeDownClouse()
-                    }
-                    self.time = nil
-                }else{
-                    self.numberCount = self.numberCount - 1
-                }
-                self.setStr(str: "\(self.numberCount)s")
-            })
-        }else{
-            
-        }
-        
-    }
+    
     
     func setGameToolsType(type:GameToolsViewPlayType) {
         if type == .isPlaying {
@@ -523,17 +666,56 @@ class GameToolsView : UIView {
         }
     }
     
-    func setStr(str:String) {
-        let attributedString = NSMutableAttributedString.init(string: str)
-        attributedString.addAttributes([NSAttributedStringKey.font:App_Theme_PinFan_R_22_Font!,NSAttributedStringKey.foregroundColor:UIColor.init(hexString: App_Theme_FFFFFF_Color)!], range: NSRange.init(location: str.length - 1, length: 1))
-        attributedString.addAttributes([NSAttributedStringKey.font:App_Theme_PinFan_M_24_Font!,NSAttributedStringKey.foregroundColor:UIColor.init(hexString: App_Theme_FFFFFF_Color)!], range: NSRange.init(location: 0, length: str.length - 1))
-        self.countDownLabel.attributedText = attributedString
-    }
-    
     func setUpButtonTheme(button:UIButton){
         button.layer.cornerRadius = CGFloat(gameBtnWidht/2)
         button.layer.masksToBounds = true
         button.titleLabel?.textAlignment = .center
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
+class GameTipView : UIView {
+    var tipImage:UIImageView!
+    var tipLabel:UILabel!
+    var tipLabelBg:UIImageView!
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        tipLabelBg = UIImageView.init()
+        tipLabelBg.image = UIImage.init(color: UIColor.init(hexString: App_Theme_000000_Color, andAlpha: 0.6), size: CGSize.init(width: 311, height: 54))
+        tipLabelBg.layer.cornerRadius = 5
+        tipLabelBg.layer.masksToBounds = true
+        self.addSubview(tipLabelBg)
+        tipLabelBg.snp.makeConstraints { (make) in
+            make.left.equalTo(self.snp.left).offset(13)
+            make.top.equalTo(self.snp.top).offset(33)
+            make.right.equalTo(self.snp.right).offset(0)
+            make.bottom.equalTo(self.snp.bottom).offset(0)
+        }
+        
+        tipImage = UIImageView.init()
+        tipImage.image = UIImage.init(named: "pic_info")
+        self.addSubview(tipImage)
+        
+        tipImage.snp.makeConstraints { (make) in
+            make.left.equalTo(self.snp.left).offset(0)
+            make.top.equalTo(self.snp.top).offset(0)
+        }
+        
+        tipLabel = UILabel.init()
+        tipLabel.text = "主人红点代表抓娃娃时瞄准的点哦"
+        tipLabel.font = App_Theme_PinFan_M_17_Font
+        tipLabel.textColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
+        self.addSubview(tipLabel)
+        tipLabel.snp.makeConstraints { (make) in
+            make.left.equalTo(self.snp.left).offset(57)
+            make.right.equalTo(self.snp.right).offset(-10)
+            make.bottom.equalTo(self.snp.bottom).offset(-16)
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {

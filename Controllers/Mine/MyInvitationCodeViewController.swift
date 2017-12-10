@@ -65,7 +65,7 @@ class MyInvitationCodeViewController: BaseViewController {
         
         myInvitation = UILabel.init()
         myInvitation.text = "我的邀请码：\(UserInfoModel.shareInstance().shareCode!)"
-        myInvitation.font = App_Theme_PinFan_M_16_Font
+        myInvitation.font = App_Theme_PinFan_M_18_Font
         myInvitation.textColor = UIColor.init(hexString: App_Theme_000000_Color)
         self.view.addSubview(myInvitation)
         GLoabelViewLabel.addLabel(label: myInvitation, view: self.view)
@@ -78,7 +78,7 @@ class MyInvitationCodeViewController: BaseViewController {
         invitationLabel.text = "通过我的邀请下载并登录的新用户，在上面的邀码\n输入框内输入我的邀请码并点击兑换，我即\n可得到60个娃娃币的奖励，上不封顶。"
         UILabel.changeSpace(for: invitationLabel, withLineSpace: 2.5, wordSpace: 0)
         invitationLabel.textAlignment = .center
-        invitationLabel.font = App_Theme_PinFan_R_13_Font
+        invitationLabel.font = App_Theme_PinFan_R_14_Font
         invitationLabel.numberOfLines = 0
         invitationLabel.textColor = UIColor.init(hexString: App_Theme_CCCCCC_Color)
         self.view.addSubview(invitationLabel)

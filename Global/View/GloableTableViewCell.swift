@@ -314,3 +314,50 @@ class GloabTitleAndFieldCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 }
+
+class GloabTitleAndSwitchCell: UITableViewCell {
+    var titleLabel:UILabel!
+    var switchView:UISwitch!
+    
+    var didMakeConstraints:Bool = false
+    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        self.setUpView()
+    }
+    
+    func setUpView() {
+        titleLabel = UILabel()
+        titleLabel.font = App_Theme_PinFan_M_15_Font
+        titleLabel.textColor = UIColor.init(hexString: App_Theme_000000_Color)
+        self.contentView.addSubview(titleLabel)
+        
+        switchView = UISwitch.init()
+        switchView.onImage = UIImage.init(color: UIColor.init(hexString: App_Theme_FC4652_Color), size: CGSize.init(width: 26, height: 26))
+        switchView.onImage = UIImage.init(color: UIColor.init(hexString: App_Theme_888888_Color), size: CGSize.init(width: 26, height: 26))
+        self.contentView.addSubview(switchView)
+        self.updateConstraintsIfNeeded()
+    }
+    
+    override func updateConstraints() {
+        if !self.didMakeConstraints {
+            titleLabel.snp.makeConstraints({ (make) in
+                make.left.equalTo(self.contentView.snp.left).offset(20)
+                make.centerY.equalTo(self.contentView.snp.centerY).offset(0)
+                make.width.equalTo(70)
+            })
+            
+            switchView.snp.makeConstraints({ (make) in
+                make.centerY.equalTo(self.contentView.snp.centerY).offset(0)
+                make.right.equalTo(self.contentView.snp.right).offset(-20)
+            })
+        
+            self.didMakeConstraints = true
+        }
+        super.updateConstraints()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+

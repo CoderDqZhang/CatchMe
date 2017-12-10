@@ -78,7 +78,7 @@ class MyDollsCollectionViewCell: UICollectionViewCell {
         }
         statusImage.image = model.freeStatus == 1 ? UIImage.init(named: "tag_vacant") : UIImage.init(named: "tag_hot")
         statusLabel.text = model.freeStatus == 1 ? "有空闲" : "热抓中"
-        isHaveDolls.isHidden = model.ownStatus == 0 ? false : true
+        isHaveDolls.isHidden = model.ownStatus == 1 ? false : true
     }
     
     override func updateConstraints() {

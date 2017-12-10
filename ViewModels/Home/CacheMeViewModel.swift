@@ -117,6 +117,7 @@ class CacheMeViewModel: BaseViewModel {
         
         if cacheMeController.gameToolsView != nil {
             cacheMeController.gameToolsView.isHidden = true
+            cacheMeController.cacheMePlayUserView.countDownLabel.isHidden = true
         }
         
         if cacheMeController.remoteGLView != nil {
@@ -136,7 +137,7 @@ class CacheMeViewModel: BaseViewModel {
     //开始游戏成功
     func showGameView(){
         if self.prepareModel != nil {
-            self.cacheMeController.gameToolsView.setCountLabelText(count: self.prepareModel.maxTime)
+            self.cacheMeController.cacheMePlayUserView.setCountLabelText(count: self.prepareModel.maxTime)
         }
         if cacheMeController.localPreView != nil {
             cacheMeController.localPreView.isHidden = true
@@ -147,6 +148,7 @@ class CacheMeViewModel: BaseViewModel {
             cacheMeController.bottomToolsView.isHidden = true
         }
         if cacheMeController.gameToolsView != nil {
+            cacheMeController.cacheMePlayUserView.countDownLabel.isHidden = false
             cacheMeController.gameToolsView.isHidden = false
         }
         if cacheMeController.remoteGLView != nil {
@@ -158,6 +160,10 @@ class CacheMeViewModel: BaseViewModel {
         }
         if self.cacheMeController.switchCamera != nil {
             self.cacheMeController.view.bringSubview(toFront: self.cacheMeController.switchCamera)
+        }
+        if self.cacheMeController.gameTipView != nil {
+            self.cacheMeController.gameTipView.isHidden = false
+            self.cacheMeController.view.bringSubview(toFront: self.cacheMeController.gameTipView)
         }
     }
     
@@ -253,6 +259,7 @@ class CacheMeViewModel: BaseViewModel {
             if !resultDic.isCompleted {
                 self.catchMeModel = CatchMeModel.init(fromDictionary: resultDic.value as! NSDictionary)
                 self.setUpStreamData()
+                self.cacheMeController.quictEnterLocalPreView.isHidden = true
                 self.playUrl = self.catchMeModel.machineDTO.audiencePullAddressA
                 self.setUpRoomPalyUsers(currentUser: self.catchMeModel.currentPlayerDTO)
                 self.cacheMeController.bottomToolsView.changePlayGameCoins(str: "\(self.catchMeModel.price!)")
@@ -386,7 +393,7 @@ class CacheMeViewModel: BaseViewModel {
         let parameters = ["machineId":self.catchMeModel.machineDTO.id,"userId":UserInfoModel.shareInstance().idField] as [String : Any]
         BaseNetWorke.sharedInstance.getUrlWithString(ShootGame, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
-                self.cacheMeController.gameToolsView.setCountLabelText(count: -1)
+                self.cacheMeController.cacheMePlayUserView.setCountLabelText(count: -1)
                 self.cacheMeController.gameToolsView.setGameToolsType(type: .isWaitGameStatus)
             }
         }
@@ -459,7 +466,7 @@ class CacheMeViewModel: BaseViewModel {
                     if self.prepareModel != nil {
                        self.getGameStatus = false
                        self.playGameGoStatus = false
-                        self.cacheMeController.gameToolsView.setCountLabelText(count: self.prepareModel.maxTime)
+                        self.cacheMeController.cacheMePlayUserView.setCountLabelText(count: self.prepareModel.maxTime)
                     }
                 }
             }

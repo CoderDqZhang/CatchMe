@@ -12,16 +12,22 @@ import NIMAVChat
 
 class CacheMeViewController: BaseViewController {
 
+    var backImage:UIImageView!
+    
     var liveplayerA:NELivePlayer!
     var liveplayerB:NELivePlayer!
     var liveplayerView:UIView!
     var player:NELivePlayerController!
 
     var localPreView:LocalPreView!
+    var quictEnterLocalPreView:QuictEnterLocalPreView!
+    var nELivePlayerLoadFailView:NELivePlayerLoadFailView!
+
     var bottomToolsView:CacheMeToolsView!
     var cacheMeTopView:CacheMeTopView!
     var cacheMePlayUserView:CacheMePlayUserView!
     var gameToolsView:GameToolsView!
+    var gameTipView:GameTipView!
     var switchCamera:UIButton!
     
     var remoteGLView:UIImageView!
@@ -41,6 +47,7 @@ class CacheMeViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.init(hexString: App_Theme_FC4652_Color)
+        self.setUpBgImageView()
         self.bindViewModel(viewModel: cacheMeViewModel, controller: self)
         self.setUpFontToolsView()
         self.bindLogicViewModel()
@@ -85,13 +92,38 @@ class CacheMeViewController: BaseViewController {
         self.navigationController?.setNavigationBarHidden(true, animated: true)
     }
     
+    func setUpBgImageView(){
+        backImage = UIImageView.init()
+        backImage.image = UIImage.init(named: "bg_game")
+        self.view.addSubview(backImage)
+        backImage.snp.makeConstraints { (make) in
+            make.left.equalToSuperview()
+            make.right.equalToSuperview()
+            make.bottom.equalToSuperview()
+            make.top.equalToSuperview()
+        }
+    }
+    
     func bindLogicViewModel(){
         cacheMeViewModel.cacheMeController = self
         cacheMeViewModel.model = self.roomModel
         if isQuickEnter {
+            self.setUpQuitEntRoom()
+            self.view.bringSubview(toFront: cacheMeTopView)
             cacheMeViewModel.requestQuickEntRooms()
         }else{
             cacheMeViewModel.requestEntRooms()
+        }
+    }
+    
+    func setUpNELivePlayerLoadFailView(){
+        if nELivePlayerLoadFailView == nil {
+            nELivePlayerLoadFailView = NELivePlayerLoadFailView.init(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: SCREENHEIGHT))
+            nELivePlayerLoadFailView.nELivePlayerLoadFailViewClouse = {
+                self.nELivePlayerLoadFailView.removeFromSuperview()
+                self.cacheMeViewModel.setUpStreamData()
+            }
+            self.view.addSubview(nELivePlayerLoadFailView)
         }
     }
     
@@ -115,11 +147,13 @@ class CacheMeViewController: BaseViewController {
             
             self.setUpPlayUserView()
             self.setUpCameraView()
+            self.setUpNELivePlayerLoadFailView()
             self.view.bringSubview(toFront: cacheMeTopView)
             //拉流地址设置成功后执行拉流的一些界面创建
             //根据通知的状态来隐藏和显示视图
             
         } catch {
+            self.setUpNELivePlayerLoadFailView()
             print("拉流失败")
             return
         }
@@ -165,12 +199,21 @@ class CacheMeViewController: BaseViewController {
         self.setUpToolsView()
         self.setUpCacheMeTopView()
         self.setUpGameView()
+        self.setUpGameTipView()
     }
     
     func setUpCountDown(isPlay:Bool, text:String) {
         if self.countDown != nil {
             self.countDown.isHidden = !isPlay
             self.countDown.text = text
+        }
+    }
+    
+    func setUpGameTipView(){
+        if gameTipView == nil {
+           gameTipView = GameTipView.init(frame: CGRect.init(x: (SCREENWIDTH - 323)/2, y: SCREENHEIGHT - 65 - 122 - 64, width: 323, height: 87))
+            gameTipView.isHidden = true
+            self.view.addSubview(gameTipView)
         }
     }
     
@@ -185,6 +228,18 @@ class CacheMeViewController: BaseViewController {
             make.top.equalTo(self.view.snp.top).offset(64)
             make.bottom.equalTo(self.view.snp.bottom).offset(-122)
             make.size.equalTo(CGSize.init(width: (SCREENHEIGHT - 122 - 64) * 3 / 4 - 10, height: SCREENHEIGHT - 122 - 64))
+        })
+    }
+    
+    //快速进入房间
+    func setUpQuitEntRoom(){
+        quictEnterLocalPreView = QuictEnterLocalPreView.init()
+        self.view.addSubview(quictEnterLocalPreView)
+        self.quictEnterLocalPreView.snp.makeConstraints({ (make) in
+            make.left.equalTo(self.view.snp.left).offset(0)
+            make.top.equalTo(self.view.snp.top).offset(0)
+            make.bottom.equalTo(self.view.snp.bottom).offset(0)
+            make.right.equalTo(self.view.snp.right).offset(0)
         })
     }
     
@@ -236,7 +291,13 @@ class CacheMeViewController: BaseViewController {
     //创建正在玩用户视图
     func setUpPlayUserView(){
         if cacheMePlayUserView == nil {
-            self.cacheMePlayUserView = CacheMePlayUserView.init(frame: CGRect.init(x: (SCREENWIDTH - (SCREENHEIGHT - 122 - 64) * 3 / 4) / 2, y: 75, width: 136, height: 57))
+            self.cacheMePlayUserView = CacheMePlayUserView.init(frame: CGRect.init(x: (SCREENWIDTH - (SCREENHEIGHT - 122 - 64) * 3 / 4) / 2, y: 75, width: (SCREENHEIGHT - 122 - 64) * 3 / 4, height: 57))
+            self.cacheMePlayUserView.timeDownClouse = {
+                self.cacheMeViewModel.playGameGo()
+            }
+            self.cacheMePlayUserView.hidderGameTipClouse = {
+                self.gameTipView.isHidden = true
+            }
             self.view.addSubview(self.cacheMePlayUserView)
         }
     }
@@ -253,9 +314,7 @@ class CacheMeViewController: BaseViewController {
                 self.cacheMeViewModel.playGameGo()
             }
         })
-        self.gameToolsView.timeDownClouse = {
-            self.cacheMeViewModel.playGameGo()
-        }
+        
         self.gameToolsView.isHidden = true
         self.view.addSubview(gameToolsView)
     }
