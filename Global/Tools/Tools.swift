@@ -16,17 +16,17 @@ let TextLabelMarger:CGFloat = 20
 
 class HUDCustomView: UIView {
     class func customViewWidthMessage(_ message:String) -> AnyObject {
-        let customView =  UIView(frame: CGRect.init(x: CGFloat(UIScreen.main.bounds.size.width - CustomViewWidth) / 2, y: (UIScreen.main.bounds.size.height - 60) / 2, width: CustomViewWidth, height: 60))
+        let customView =  UIView(frame: CGRect.init(x: CGFloat(UIScreen.main.bounds.size.width - CustomViewWidth) / 2, y: (UIScreen.main.bounds.size.height - 60) / 2, width: CustomViewWidth, height: 54))
         let messageHeight = (message as NSString).height(with: CustomViewFont!, constrainedToWidth: CustomViewWidth - TextLabelMarger * 2)
         var frame = customView.frame
-        if messageHeight > 60 {
+        if messageHeight > 54 {
             frame.size.height = messageHeight
             frame.origin.y = (UIScreen.main.bounds.size.height - messageHeight) / 2
         }else{
-            frame.size.height = 60;
+            frame.size.height = 54;
         }
         customView.frame = frame;
-        customView.frame = CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: SCREENHEIGHT)
+        customView.frame = CGRect.init(x: 0, y: 0, width: 270, height: SCREENHEIGHT)
         customView.addSubview(HUDCustomView.setUpLabel(frame, text: message))
         return customView;
     }
@@ -44,7 +44,7 @@ class HUDCustomView: UIView {
     
     class func getHudMinSize(_ msg:String) ->CGSize {
         let minWidth = (msg as NSString).width(with: CustomViewFont!, constrainedToHeight: 14) + 67
-        let minHeigth = (msg as NSString).height(with: CustomViewFont!, constrainedToWidth: minWidth) + 40
+        let minHeigth = (msg as NSString).height(with: CustomViewFont!, constrainedToWidth: minWidth) + 33
         return CGSize(width: minWidth, height: minHeigth)
     }
 }
@@ -62,7 +62,7 @@ class Tools: NSObject {
         let hud = MBProgressHUD.showAdded(to: view, animated: true)
         hud.mode = .indeterminate
         hud.bezelView.backgroundColor = UIColor.init(hexString: HUDBackGroudColor, andAlpha: 0.6)
-        hud.bezelView.layer.cornerRadius = 12.0
+        hud.bezelView.layer.cornerRadius = 10.0
         if msg != nil {
             hud.label.text = msg
             hud.label.numberOfLines = 0;
@@ -80,7 +80,7 @@ class Tools: NSObject {
         let hud = MBProgressHUD.showAdded(to: view, animated: true)
         hud.mode = .customView
         hud.bezelView.backgroundColor = UIColor.init(hexString: HUDBackGroudColor, andAlpha: 0.6)
-        hud.bezelView.layer.cornerRadius = 12.0
+        hud.bezelView.layer.cornerRadius = 10.0
         hud.label.numberOfLines = 0;
         hud.label.textColor = UIColor.white
         hud.label.font = CustomViewFont;

@@ -120,10 +120,13 @@ class CacheMeViewController: BaseViewController {
         if nELivePlayerLoadFailView == nil {
             nELivePlayerLoadFailView = NELivePlayerLoadFailView.init(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: SCREENHEIGHT))
             nELivePlayerLoadFailView.nELivePlayerLoadFailViewClouse = {
-                self.nELivePlayerLoadFailView.removeFromSuperview()
+                self.nELivePlayerLoadFailView.isHidden = true
                 self.cacheMeViewModel.setUpStreamData()
             }
             self.view.addSubview(nELivePlayerLoadFailView)
+        }else{
+            self.view.bringSubview(toFront: self.nELivePlayerLoadFailView)
+            self.nELivePlayerLoadFailView.isHidden = false
         }
     }
     
@@ -147,7 +150,6 @@ class CacheMeViewController: BaseViewController {
             
             self.setUpPlayUserView()
             self.setUpCameraView()
-            self.setUpNELivePlayerLoadFailView()
             self.view.bringSubview(toFront: cacheMeTopView)
             //拉流地址设置成功后执行拉流的一些界面创建
             //根据通知的状态来隐藏和显示视图
@@ -264,6 +266,7 @@ class CacheMeViewController: BaseViewController {
         bottomToolsView.cacheMeToolsViewClouse = { tag in
             switch tag {
             case 1:
+//                _ = Tools.shareInstance.showMessage(KWINDOWDS(), msg: "其他玩家正在使用请稍后~", autoHidder: false)
                 let toViewController = JoysDetailViewController()
                 toViewController.url = "\(DollsDetail)\(self.roomModel.skuId)"
                 NavigationPushView(self, toConroller: toViewController)
@@ -291,7 +294,7 @@ class CacheMeViewController: BaseViewController {
     //创建正在玩用户视图
     func setUpPlayUserView(){
         if cacheMePlayUserView == nil {
-            self.cacheMePlayUserView = CacheMePlayUserView.init(frame: CGRect.init(x: (SCREENWIDTH - (SCREENHEIGHT - 122 - 64) * 3 / 4) / 2, y: 75, width: (SCREENHEIGHT - 122 - 64) * 3 / 4, height: 57))
+            self.cacheMePlayUserView = CacheMePlayUserView.init(frame: CGRect.init(x: (SCREENWIDTH - (SCREENHEIGHT - 122 - 64) * 3 / 4) / 2, y: 75, width: (SCREENHEIGHT - 122 - 64) * 3 / 4, height: 54))
             self.cacheMePlayUserView.timeDownClouse = {
                 self.cacheMeViewModel.playGameGo()
             }
@@ -331,9 +334,9 @@ class CacheMeViewController: BaseViewController {
         }
         self.view.addSubview(switchCamera)
         switchCamera.snp.makeConstraints { (make) in
-            make.right.equalTo(self.view.snp.right).offset(-10)
+            make.right.equalTo(self.view.snp.right).offset(-18)
             make.size.equalTo(CGSize.init(width: 60, height: 60))
-            make.centerY.equalTo(self.view.snp.centerY).offset(-20)
+            make.centerY.equalTo(self.view.snp.centerY).offset(-36)
         }
     }
     
@@ -415,7 +418,9 @@ class CacheMeViewController: BaseViewController {
     }
     
     @objc func NELivePlayerPlayBackFinished(notification:Notification){
-        
+//        if (notification.userInfo! as NSDictionary).object(forKey: "NELivePlayerPlaybackDidFinishErrorUserInfoKey")! as! Int == -1002 {
+//            self.setUpNELivePlayerLoadFailView()
+//        }
     }
     
     @objc func NELivePlayerFirstVideoDisplayed(notification:Notification) {

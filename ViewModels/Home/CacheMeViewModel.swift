@@ -147,10 +147,7 @@ class CacheMeViewModel: BaseViewModel {
         if cacheMeController.bottomToolsView != nil {
             cacheMeController.bottomToolsView.isHidden = true
         }
-        if cacheMeController.gameToolsView != nil {
-            cacheMeController.cacheMePlayUserView.countDownLabel.isHidden = false
-            cacheMeController.gameToolsView.isHidden = false
-        }
+        
         if cacheMeController.remoteGLView != nil {
             cacheMeController.remoteGLView.isHidden = false
             self.cacheMeController.view.bringSubview(toFront: cacheMeController.remoteGLView)
@@ -161,9 +158,15 @@ class CacheMeViewModel: BaseViewModel {
         if self.cacheMeController.switchCamera != nil {
             self.cacheMeController.view.bringSubview(toFront: self.cacheMeController.switchCamera)
         }
-        if self.cacheMeController.gameTipView != nil {
-            self.cacheMeController.gameTipView.isHidden = false
-            self.cacheMeController.view.bringSubview(toFront: self.cacheMeController.gameTipView)
+//        if self.cacheMeController.gameTipView != nil {
+//            self.cacheMeController.gameTipView.isHidden = false
+//            self.cacheMeController.view.bringSubview(toFront: self.cacheMeController.gameTipView)
+//        }
+        
+        if cacheMeController.gameToolsView != nil {
+            cacheMeController.cacheMePlayUserView.countDownLabel.isHidden = false
+            cacheMeController.gameToolsView.isHidden = false
+            self.cacheMeController.view.bringSubview(toFront: self.cacheMeController.gameToolsView)
         }
     }
     
@@ -273,7 +276,7 @@ class CacheMeViewModel: BaseViewModel {
     
     //退出房间
     func requestExitRooms(){
-        if catchMeModel.machineDTO != nil {
+        if catchMeModel != nil {
             let parameters = ["machineId":catchMeModel.machineDTO.id == nil ? "" : catchMeModel.machineDTO.id,"userId":UserInfoModel.shareInstance().idField] as [String : Any]
             BaseNetWorke.sharedInstance.getUrlWithString(ExitRoom, parameters: parameters as AnyObject).observe { (resultDic) in
                 if !resultDic.isCompleted {

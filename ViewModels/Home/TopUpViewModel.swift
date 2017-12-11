@@ -1,4 +1,4 @@
-//
+ //
 //  TopUpViewModel.swift
 //  CatchMe
 //
@@ -14,7 +14,7 @@ class TopUpViewModel: BaseViewModel {
 
     //topUpMuch 1 == 10,2==20,3==50,4==100,5=200,6==500
     var topUpMuch:Int = 1
-    var models = NSMutableArray.init()
+    var models:TopUpModel!
     
     override init() {
         super.init()
@@ -25,7 +25,7 @@ class TopUpViewModel: BaseViewModel {
         if Int(object.object as! String) != 100 {
             //支付成功执行更新方法
             
-            let coinAmount = UserInfoModel.shareInstance().coinAmount.int! + TopUpModel.init(fromDictionary: self.models[topUpMuch - 1] as! NSDictionary).rechargeCoin
+            let coinAmount = UserInfoModel.shareInstance().coinAmount.int! + models.rechargeRateRuleDTOList[topUpMuch - 1].rechargeCoin
             UserInfoModel.shareInstance().coinAmount = "\(coinAmount)"
             UserInfoModel.shareInstance().saveOrUpdate(byColumnName: "neteaseAccountId", andColumnValue: "'\(UserInfoModel.shareInstance().neteaseAccountId!)'")
             (self.controller as! TopUpViewController).setBalanceText(str: "\(coinAmount)")
@@ -41,15 +41,16 @@ class TopUpViewModel: BaseViewModel {
     func requestTopUp(){
         BaseNetWorke.sharedInstance.postUrlWithString(TopUp, parameters: nil).observe { (resultDic) in
             if !resultDic.isCompleted {
-                self.models = NSMutableArray.mj_objectArray(withKeyValuesArray: resultDic.value)
+                self.models = TopUpModel.init(fromDictionary: resultDic.value as! NSDictionary)
                 (self.controller as! TopUpViewController).setUpTopView()
+                (self.controller as! TopUpViewController).setUpWeekView()
             }
         }
     }
     
     func wxPay(){
         if self.topUpMuch != 100 {
-            let parameters = ["ruleId":TopUpModel.init(fromDictionary: self.models[self.topUpMuch - 1] as! NSDictionary).id,"userId":UserInfoModel.shareInstance().idField] as [String : Any]
+            let parameters = ["ruleId":models.rechargeRateRuleDTOList[topUpMuch - 1].id,"userId":UserInfoModel.shareInstance().idField] as [String : Any]
             BaseNetWorke.sharedInstance.postUrlWithString(WeChatPayUrl, parameters: parameters as AnyObject).observe { (resultDic) in
                 if !resultDic.isCompleted {
                     let model = Wxpay.init(fromDictionary: resultDic.value as! NSDictionary)
@@ -70,7 +71,7 @@ class TopUpViewModel: BaseViewModel {
     
     func aliPay(){
         if self.topUpMuch != 100 {
-            let parameters = ["ruleId":TopUpModel.init(fromDictionary: self.models[self.topUpMuch - 1] as! NSDictionary).id,"userId":UserInfoModel.shareInstance().idField] as [String : Any]
+            let parameters = ["ruleId":models.rechargeRateRuleDTOList[topUpMuch - 1].id,"userId":UserInfoModel.shareInstance().idField] as [String : Any]
             BaseNetWorke.sharedInstance.postUrlWithString(AliPayInfo, parameters: parameters as AnyObject).observe { (resultDic) in
                 if !resultDic.isCompleted {
                     AlipaySDK.defaultService().payOrder(resultDic.value! as! String, fromScheme: "CatchMeAlipay") { (resultDic) in

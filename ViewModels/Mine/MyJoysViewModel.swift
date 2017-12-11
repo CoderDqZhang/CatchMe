@@ -19,6 +19,7 @@ class MyJoysViewModel: BaseViewModel {
     //MARK: UITableViewCellSetData
     func tableViewMyJoyTableViewCellSetData(_ indexPath:IndexPath, cell:MyJoyTableViewCell) {
         cell.cellSetData(model: MyCatchDollsModel.init(fromDictionary: model[indexPath.section] as! NSDictionary) )
+        
     }
     
     func tableViewDidSelect(_ indexPath:IndexPath) {
@@ -92,5 +93,9 @@ extension MyJoysViewModel : DZNEmptyDataSetSource {
     
     func image(forEmptyDataSet scrollView: UIScrollView!) -> UIImage! {
         return UIImage.init(named: "pic_toy")
+    }
+    
+    func verticalOffset(forEmptyDataSet scrollView: UIScrollView!) -> CGFloat {
+        return -64
     }
 }

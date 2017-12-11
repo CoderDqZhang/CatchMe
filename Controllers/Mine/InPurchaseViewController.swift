@@ -60,7 +60,7 @@ class InPurchaseViewController: BaseViewController {
     }
     
     func setUpTopView(){
-        topUpMuchView = TopUpMuchView.init(frame: CGRect.init(x: 0, y: 96, width: SCREENWIDTH, height: 220), models:self.createTopUpModel())
+        topUpMuchView = TopUpMuchView.init(frame: CGRect.init(x: 0, y: 96, width: SCREENWIDTH, height: 220), models:self.createTopUpModel(), model:nil)
         topUpMuchView.topUpMuchViewClouse = { tag in
             self.productI = tag
         }
@@ -72,7 +72,7 @@ class InPurchaseViewController: BaseViewController {
         let coins = [100,300,3000]
         let rechargeMoney:[Float] = [6.00,12.00,98.00]
         for i in 0...2 {
-            let model = TopUpModel.init()
+            let model = RechargeRateRuleDTOList.init()
             model.rechargeCoin = coins[i]
             model.rechargeMoney = rechargeMoney[i]
             models.add(model)

@@ -45,7 +45,7 @@ let ShootGame = "\(BaseURL)machine/shoot"
 //游戏结果
 let GameStatus = "\(BaseURL)game/status"
 //充值接口
-let TopUp = "\(BaseURL)recharge/findRechargeRateRuleDTOList"
+let TopUp = "\(BaseURL)recharge/findAllRechargeRateRuleDTOList"
 //获取支付宝充值信息
 let AliPayInfo = "\(BaseURL)recharge/getRechargeAliPayInfo"
 //微信支付充值信息

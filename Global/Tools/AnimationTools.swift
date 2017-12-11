@@ -34,7 +34,7 @@ class AnimationTools: NSObject {
     
     func easeInOutAnimation(view:UIView,touchStatus:TouchStatus) {
         if touchStatus == .begin {
-            let scale = self.baseAnimationWithKeyPath("transform.scale", fromValue: 1.0, toValue: 0.9, duration: 0.1, repeatCount: 0, timingFunction: nil)
+            let scale = self.baseAnimationWithKeyPath("transform.scale", fromValue: 1.0, toValue: 0.7, duration: 0.1, repeatCount: 0, timingFunction: nil)
             view.layer.add(scale, forKey: "transformScale")
         }else{
             let scale = self.baseAnimationWithKeyPath("transform.scale", fromValue: 0.5, toValue: 1, duration: 0.1, repeatCount: 0, timingFunction: nil)

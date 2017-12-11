@@ -70,7 +70,10 @@ class LoginViewModel: BaseViewModel {
         BaseNetWorke.sharedInstance.getUrlWithString(Config, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
                 //                let model = ConfigModel.init(fromDictionary: resultDic.value as! NSDictionary)
-                UserDefaultsSetSynchronize((resultDic.value as! NSDictionary).object(forKey: "value") as AnyObject, key: APPCONFIGSTATUS)
+                if resultDic.value != nil {
+                    UserDefaultsSetSynchronize((resultDic.value as! NSDictionary).object(forKey: "value") as AnyObject, key: APPCONFIGSTATUS)
+
+                }
             }
         }
     }

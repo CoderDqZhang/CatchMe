@@ -169,6 +169,8 @@ class CacheMePlayUserView:UIView {
     var backImage:UIImageView!
     var playUser:UIView!
     var userName:UILabel!
+    var userName_bg:UILabel!
+    var detail_bg:UILabel!
     var avatar:UIImageView!
     var detail:UILabel!
     
@@ -214,13 +216,25 @@ class CacheMePlayUserView:UIView {
         }
         
         avatar = UIImageView.init()
-        avatar.layer.cornerRadius = 22.5
+        avatar.layer.cornerRadius = 21
+        avatar.layer.masksToBounds = true
         avatar.backgroundColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
         playUser.addSubview(avatar)
         avatar.snp.makeConstraints { (make) in
-            make.left.equalTo(self.playUser.snp.left).offset(10)
+            make.left.equalTo(self.playUser.snp.left).offset(5)
             make.centerY.equalTo(playUser.snp.centerY).offset(0)
-            make.size.equalTo(CGSize.init(width: 45, height: 45))
+            make.size.equalTo(CGSize.init(width: 42, height: 42))
+        }
+        
+        userName_bg = UILabel.init()
+        userName_bg.font = App_Theme_PinFan_M_14_Font
+        userName_bg.text = "北京小分子"
+        userName_bg.textColor = UIColor.init(hexString: App_Theme_000000_Color)
+        playUser.addSubview(userName_bg)
+        userName_bg.snp.makeConstraints { (make) in
+            make.left.equalTo(avatar.snp.right).offset(7)
+            make.top.equalTo(playUser.snp.top).offset(9)
+            make.right.equalTo(playUser.snp.right).offset(-7)
         }
         
         userName = UILabel.init()
@@ -230,7 +244,19 @@ class CacheMePlayUserView:UIView {
         playUser.addSubview(userName)
         userName.snp.makeConstraints { (make) in
             make.left.equalTo(avatar.snp.right).offset(7)
-            make.top.equalTo(playUser.snp.top).offset(12)
+            make.top.equalTo(playUser.snp.top).offset(8)
+            make.right.equalTo(playUser.snp.right).offset(-7)
+        }
+        
+        detail_bg = UILabel.init()
+        detail_bg.text = "正在抓..."
+        detail_bg.font = App_Theme_PinFan_M_14_Font
+        detail_bg.textColor = UIColor.init(hexString: App_Theme_000000_Color)
+        playUser.addSubview(detail_bg)
+        
+        detail_bg.snp.makeConstraints { (make) in
+            make.left.equalTo(avatar.snp.right).offset(7)
+            make.top.equalTo(userName.snp.bottom).offset(2)
             make.right.equalTo(playUser.snp.right).offset(-7)
         }
         
@@ -268,6 +294,8 @@ class CacheMePlayUserView:UIView {
         }else{
             detail.text = "正在抓..."
             userName.text = model?.userName
+            detail_bg.text = "正在抓..."
+            userName_bg.text = model?.userName
             UIImageViewManger.sd_imageView(url: model?.photo == nil ? "" : (model?.photo)!, imageView: avatar, placeholderImage: nil) { (image, error, cachtType, url) in
                 
             }
@@ -336,14 +364,17 @@ class LocalPreView: UIView {
         }
         
         label = UILabel.init()
-        label.frame = CGRect.init(x: 0, y: SCREENHEIGHT/2, width: SCREENWIDTH, height: 22)
+        label.frame = CGRect.init()
         label.text = "拼命加载中..."
         label.textAlignment = .center
         label.textColor = UIColor.init(hexString: App_Theme_000000_Color, andAlpha: 0.4)
-        label.font = App_Theme_PinFan_M_20_Font
+        label.font = App_Theme_PinFan_M_18_Font
         self.addSubview(label)
         
-        
+        label.snp.makeConstraints { (make) in
+            make.centerX.equalToSuperview()
+            make.centerY.equalTo(self.snp.centerY).offset(58)
+        }
         
     }
     
@@ -422,7 +453,7 @@ class ToolsView: UIView {
         backImageView = UIImageView.init()
         backImageView.layer.cornerRadius = 30
         backImageView.backgroundColor = UIColor.init(hexString: App_Theme_CCCCCC_Color)
-        backImageView.frame = CGRect.init(x: 0, y: 3, width: frame.size.width, height: frame.size.height)
+        backImageView.frame = CGRect.init(x: 0, y: 4, width: frame.size.width, height: frame.size.height)
         self.addSubview(backImageView)
         
         fontImageView = UIImageView.init()
@@ -452,12 +483,12 @@ class ToolsView: UIView {
             label.textColor = UIColor.init(hexString: App_Theme_333333_Color)
 
         }else{
-            let width = ((blance! as NSString).width(with: App_Theme_PinFan_M_20_Font, constrainedToHeight: 24)) + 22
-            imageView = UIImageView.init(frame: CGRect.init(x: (frame.size.width  - width )/2, y: 9, width: image.size.width, height: image.size.height))
+            let width = ((blance! as NSString).width(with: App_Theme_PinFan_M_20_Font, constrainedToHeight: 24))
+            imageView = UIImageView.init(frame: CGRect.init(x: (frame.size.width  - width - image.size.width + 2)/2, y: 9, width: image.size.width, height: image.size.height))
             imageView.image = image
             self.addSubview(imageView)
             
-            blanceLabel = UILabel.init(frame: CGRect.init(x: imageView.frame.maxX + 4, y: 9, width: width - 22, height: 20))
+            blanceLabel = UILabel.init(frame: CGRect.init(x: imageView.frame.maxX + 2, y: 9, width: width, height: 20))
             blanceLabel.textAlignment = .center
             blanceLabel.textColor = UIColor.init(hexString: App_Theme_FC4652_Color)
             blanceLabel.font = App_Theme_PinFan_M_20_Font
@@ -465,6 +496,7 @@ class ToolsView: UIView {
             self.addSubview(blanceLabel)
             
             label.textColor = UIColor.init(hexString: App_Theme_FF515D_Color)
+            self.updateConstraintsIfNeeded()
         }
     }
     
@@ -497,7 +529,7 @@ class CacheMeToolsView: UIView {
     //(2x + 75/48x)
     func setUpView(){
         let toolsWidth = (SCREENWIDTH - 36) / (2 + 75/47.5)
-        toolsDesc =  ToolsView.init(frame: CGRect.init(x: 10, y: 26, width: toolsWidth, height: 60), title: "详情", blance: nil, image: UIImage.init(named: "toy")!, tag: 1) {
+        toolsDesc =  ToolsView.init(frame: CGRect.init(x: 10, y: 25, width: toolsWidth, height: 60), title: "详情", blance: nil, image: UIImage.init(named: "toy")!, tag: 1) {
             if self.cacheMeToolsViewClouse != nil {
                 self.cacheMeToolsViewClouse(1)
                 AnimationTools.shareInstance.easeInOutAnimation(view: self.toolsDesc, touchStatus: .begin)
@@ -505,7 +537,7 @@ class CacheMeToolsView: UIView {
         }
         self.addSubview(toolsDesc)
         
-        playGame = ToolsView.init(frame: CGRect.init(x: toolsDesc.frame.maxX + 8, y: 26, width: toolsWidth * 75 / 48, height: 60), title: "开始抓娃娃", blance: "30", image: UIImage.init(named: "coin_1")!,tag:2) {
+        playGame = ToolsView.init(frame: CGRect.init(x: toolsDesc.frame.maxX + 8, y: 25, width: toolsWidth * 75 / 48, height: 60), title: "开始抓娃娃", blance: "30", image: UIImage.init(named: "coin_1")!,tag:2) {
             if self.cacheMeToolsViewClouse != nil {
                 self.cacheMeToolsViewClouse(2)
                 AnimationTools.shareInstance.easeInOutAnimation(view: self.playGame, touchStatus: .begin)
@@ -513,7 +545,7 @@ class CacheMeToolsView: UIView {
         }
         self.addSubview(playGame)
         
-        topUp = ToolsView.init(frame: CGRect.init(x: playGame.frame.maxX + 8, y: 26, width: toolsWidth, height: 60), title: "充值", blance: nil, image: UIImage.init(named: "coin_1")!,tag:3) {
+        topUp = ToolsView.init(frame: CGRect.init(x: playGame.frame.maxX + 8, y: 25, width: toolsWidth, height: 60), title: "充值", blance: nil, image: UIImage.init(named: "coin_1")!,tag:3) {
             if self.cacheMeToolsViewClouse != nil {
                 self.cacheMeToolsViewClouse(3)
                 AnimationTools.shareInstance.easeInOutAnimation(view: self.topUp, touchStatus: .begin)
@@ -586,8 +618,9 @@ class GameToolsView : UIView {
     
     init(frame: CGRect,gameToolsViewClouse: @escaping GameToolsViewClouse) {
         super.init(frame: frame)
-        
+        self.isUserInteractionEnabled = true
         gameView = UIView.init()
+        
         self.addSubview(gameView)
         
         topBtn = UIButton.init(frame: CGRect.init(x: 113, y: 0, width: gameBtnWidht, height: gameBtnHeight))
@@ -638,13 +671,14 @@ class GameToolsView : UIView {
             make.top.equalTo(self.snp.top).offset(9)
             make.left.equalTo(self.snp.left).offset(0)
             make.right.equalTo(self.snp.right).offset(0)
-            make.centerX.equalTo(self.snp.centerX).offset(0)
+            make.bottom.equalTo(self.snp.bottom).offset(0)
         }
         leftBtn.setImage(UIImage.init(named: "left_np"), for: .disabled)
         bottomBtn.setImage(UIImage.init(named: "down_np"), for: .disabled)
         topBtn.setImage(UIImage.init(named: "up_np"), for: .disabled)
         goBtn.setImage(UIImage.init(named: "go_np"), for: .disabled)
         rightBtn.setImage(UIImage.init(named: "right_np"), for: .disabled)
+        
     }
     
     

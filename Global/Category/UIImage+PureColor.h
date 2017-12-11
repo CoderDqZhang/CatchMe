@@ -20,4 +20,6 @@
 
 + (void)boxblurImage:(UIImage *)image;
 
++ (UIImage *)imageByApplyingAlpha:(CGFloat )alpha  image:(UIImage*)image;
+
 @end

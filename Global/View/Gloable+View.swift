@@ -117,7 +117,7 @@ class CustomViewButton: UIView {
         label.textAlignment = .center
         label.text = title
         label.font = App_Theme_PinFan_R_14_Font
-        label.textColor = UIColor.init(hexString: App_Theme_333333_Color)
+        label.textColor = UIColor.init(hexString: App_Theme_222222_Color)
         self.isUserInteractionEnabled = true
         self.tag = tag!
         self.addSubview(label)
@@ -517,6 +517,44 @@ class GLoabelViewLabel:UIView {
             make.centerY.equalTo(label.snp.centerY).offset(0)
         }
         view.updateConstraintsIfNeeded()
+    }
+}
+
+
+typealias BackButtonClouse = () ->Void
+class GLoabelNavigaitonBar:UIView {
+    var title:UILabel!
+    var backButton:UIButton!
+    
+    init(frame: CGRect, click:@escaping BackButtonClouse) {
+        super.init(frame:frame)
+        title = UILabel.init()
+        title.text = "大神榜"
+        title.font = App_Theme_PinFan_R_17_Font
+        title.textColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
+        self.addSubview(title)
+        
+        title.snp.makeConstraints { (make) in
+            make.centerY.equalTo(self.snp.centerY).offset(3)
+            make.centerX.equalTo(self.snp.centerX).offset(0)
+        }
+        
+        backButton = UIButton.init(type: .custom)
+        backButton.setImage(UIImage.init(named: "back_bar"), for: .normal)
+        backButton.reactive.controlEvents(.touchUpInside).observe { (action) in
+            click()
+        }
+        self.addSubview(backButton)
+        
+        backButton.snp.makeConstraints { (make) in
+            make.centerY.equalTo(self.snp.centerY).offset(0)
+            make.left.equalTo(self.snp.left).offset(6)
+            make.size.equalTo(CGSize.init(width: 40, height: 40))
+        }
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 }
 

@@ -30,8 +30,9 @@ class BannerCollectionReusableView: UICollectionReusableView {
             cycleScrollView = SDCycleScrollView(frame: CGRect(x: 0, y: 0, width: SCREENWIDTH, height: IPHONEWIDTH320 ? 137 : IPHONEWIDTH375 ? 160 : 180), delegate: self, placeholderImage: nil)
             cycleScrollView.pageDotImage = UIImage.init(named: "banner_normal")
             cycleScrollView.currentPageDotImage = UIImage.init(named: "banner_select")
+            cycleScrollView.currentPageDotColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
             cycleScrollView.pageControlStyle = SDCycleScrollViewPageContolStyleAnimated;
-            cycleScrollView.pageControlDotSize = CGSize(width: 8, height: 8)
+            cycleScrollView.pageControlDotSize = CGSize(width: 12, height: 12)
             self.addSubview(cycleScrollView)
             //         --- 轮播时间间隔，默认1.0秒，可自定义
             cycleScrollView.autoScroll = true

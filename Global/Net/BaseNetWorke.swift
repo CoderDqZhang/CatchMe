@@ -203,7 +203,7 @@ class BaseNetWorke {
         }
         var headers:HTTPHeaders? = nil
         if UserInfoModel.isLoggedIn() {
-            headers = url != LoginUrl && url != LoginCode && url != Config && url != LoginWeiChat ? ["X-ui":UserInfoModel.shareInstance().idField,"X-di":"","X-token":UserInfoModel.shareInstance().token == nil ? "" : UserInfoModel.shareInstance().token] as! [String:String] : [:]
+            headers = url != LoginUrl && url != LoginCode && url != LoginWeiChat ? ["X-ui":UserInfoModel.shareInstance().idField,"X-di":"","X-token":UserInfoModel.shareInstance().token == nil ? "" : UserInfoModel.shareInstance().token] as! [String:String] : [:]
         }
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
         Alamofire.request(url, method: methods , parameters: parameters as? [String: Any], encoding: url == AddressUrl || url == ApplyShipments ? JSONEncoding.default : URLEncoding.default, headers: headers).responseJSON { (response) in
@@ -215,7 +215,11 @@ class BaseNetWorke {
             }else{
                 if response.response?.statusCode == 200 || response.response?.statusCode == 201 {
                     print(response)
-                    success(response.result.value! as AnyObject)
+                    if (response.result.value as! NSDictionary).object(forKey: "code")! as! Int == 1003 {
+                        UserInfoModel.logout()
+                    }else{
+                        success(response.result.value! as AnyObject)
+                    }
                 }else{
                     failure(response.result.value! as AnyObject)
                 }

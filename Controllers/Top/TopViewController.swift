@@ -10,21 +10,27 @@ import UIKit
 
 class TopViewController: BaseViewController {
 
+    var gLoabelNavigaitonBar:GLoabelNavigaitonBar!
     override func viewDidLoad() {
         super.viewDidLoad()
         self.bindViewModel(viewModel: TopViewModel(), controller: self)
         self.setUpTableView(style: .plain, cells: [TopUserInfoTableViewCell.self,TopDescTableViewCell.self,TopAvatarTableViewCell.self], controller: self)
+        self.setUpNavigationView()
         // Do any additional setup after loading the view.
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.fd_prefersNavigationBarHidden = false
-        self.navigationController?.setNavigationBarHidden(false, animated: true)
+        self.navigationController?.fd_prefersNavigationBarHidden = true
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
     }
     
-    override func setUpViewNavigationItem() {
+    func setUpNavigationView() {
         self.navigationItem.title = "大神榜"
+        gLoabelNavigaitonBar = GLoabelNavigaitonBar.init(frame: CGRect.init(x: 0, y: 20, width: SCREENWIDTH, height: 44), click: {
+            self.navigationController?.popViewController()
+        })
+        self.view.addSubview(gLoabelNavigaitonBar)
     }
 
     override func didReceiveMemoryWarning() {

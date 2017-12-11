@@ -36,6 +36,8 @@ class TopDescTableViewCell: UITableViewCell {
         self.contentView.addSubview(timeLable)
         GLoabelViewLabel.addLabel(label: timeLable, view: self.contentView)
         self.updateConstraints()
+        
+        self.contentView.backgroundColor = UIColor.init(hexString: App_Theme_FAFAFA_Color)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -51,7 +53,7 @@ class TopDescTableViewCell: UITableViewCell {
     override func updateConstraints() {
         if !didMakeConstraints {
             titleLable.snp.makeConstraints({ (make) in
-                make.top.equalTo(self.contentView.snp.top).offset(16)
+                make.top.equalTo(self.contentView.snp.top).offset(7)
                 make.centerX.equalTo(self.contentView.snp.centerX).offset(0)
             })
             timeLable.snp.makeConstraints({ (make) in

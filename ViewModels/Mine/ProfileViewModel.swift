@@ -42,7 +42,7 @@ class ProfileViewModel: BaseViewModel {
     }
     
     func tableViewGloabTitleAndSwitchCellSetData(_ indexPath:IndexPath, cell:GloabTitleAndSwitchCell) {
-        
+        cell.cellSetData(str: "音乐开关", isOn: false)
     }
     
     func updateCellString(_ tableView:UITableView, str:String, tag:Int) {

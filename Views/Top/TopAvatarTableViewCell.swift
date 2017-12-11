@@ -20,17 +20,10 @@ class TopAvatarTableViewCell: UITableViewCell {
     }
     
     func setUpView(){
+
         avatarImage = UIImageView.init()
         avatarImage.image = UIImage.init(named: "top_bg")
         self.contentView.addSubview(avatarImage)
-        
-        self.contentView.backgroundColor = UIColor.init(hexString: App_Theme_FC4652_Color)
-//        titleLable = UILabel.init()
-//        titleLable.text = "北京小疯子占领了大神榜封面"
-//        titleLable.textColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
-//        titleLable.font = App_Theme_PinFan_M_14_Font
-//        titleLable.textAlignment = .center
-//        self.contentView.addSubview(titleLable)
         
         self.updateConstraints()
     }
@@ -51,7 +44,7 @@ class TopAvatarTableViewCell: UITableViewCell {
         if !didMakeConstraints {
             avatarImage.snp.makeConstraints({ (make) in
                 make.centerX.equalTo(self.contentView.snp.centerX).offset(0)
-                make.bottom.equalTo(self.contentView.snp.bottom).offset(2)
+                make.bottom.equalTo(self.contentView.snp.bottom).offset(0)
             })
             
 //            titleLable.snp.makeConstraints({ (make) in

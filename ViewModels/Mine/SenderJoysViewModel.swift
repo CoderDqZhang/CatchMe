@@ -96,7 +96,10 @@ class SenderJoysViewModel: BaseViewModel {
     }
     
     func tableViewSendJoyInfoTableViewCellSetData(_ indexPath:IndexPath, cell:SendJoyInfoTableViewCell) {
-        cell.cellSetData(model: MyCatchDollsModel.init(fromDictionary: (modelData[indexPath.row] as! NSArray)[0] as! NSDictionary), count:(modelData[indexPath.row] as! NSArray).count)
+        if modelData.count > 0 {
+            cell.cellSetData(model: MyCatchDollsModel.init(fromDictionary: (modelData[0] as! NSArray)[0] as! NSDictionary), count:(modelData[0] as! NSArray).count)
+        }
+//        cell.cellSetData(model: MyCatchDollsModel.init(fromDictionary: (modelData[indexPath.row] as! NSArray)[0] as! NSDictionary), count:(modelData[indexPath.row] as! NSArray).count)
         if modelData.count - 1 == indexPath.row {
             cell.hidderLineLabel()
         }
@@ -191,7 +194,7 @@ extension SenderJoysViewModel: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 1 {
-            return self.modelData == nil ? 0 : self.modelData.count
+            return self.modelData == nil ? 0 : self.modelData.count + 1
         }
         return 1
     }

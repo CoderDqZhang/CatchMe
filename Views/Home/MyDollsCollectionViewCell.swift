@@ -101,7 +101,7 @@ class MyDollsCollectionViewCell: UICollectionViewCell {
             })
             
             coinsImage.snp.makeConstraints({ (make) in
-                make.bottom.equalTo(self.contentView.snp.bottom).offset(-38)
+                make.bottom.equalTo(self.contentView.snp.bottom).offset(-36)
                 make.left.equalTo(self.contentView.snp.left).offset(14)
             })
             

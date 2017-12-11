@@ -16,6 +16,7 @@ class TopUpViewController: BaseViewController {
     var otherBalance:UILabel!
     var line:GloabLineView!
     var topUpMuchView:TopUpMuchView!
+    var topUpWeekView:TopUpWeekView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,13 +37,13 @@ class TopUpViewController: BaseViewController {
     
     override func setUpView() {
         balance = UILabel.init()
-        let str = UserInfoModel.shareInstance().coinAmount == nil ? UserInfoModel.shareInstance().coinAmount : "0"
+        let str = UserInfoModel.shareInstance().coinAmount != nil ? UserInfoModel.shareInstance().coinAmount : "0"
         self.setBalanceText(str:str!)
         self.view.addSubview(balance)
         GLoabelViewLabel.addLabel(label: balance, view: self.view)
         balance.snp.makeConstraints { (make) in
             make.centerX.equalTo(self.view.snp.centerX).offset(0)
-            make.top.equalTo(self.view.snp.top).offset(30)
+            make.top.equalTo(self.view.snp.top).offset(23)
         }
     }
     
@@ -57,20 +58,32 @@ class TopUpViewController: BaseViewController {
     }
     
     func setUpPayButton(){
-        let payView = UIView.init(frame: CGRect.init(x: 0, y: 382, width: SCREENWIDTH, height: SCREENHEIGHT - 382))
+        let payView = UIView.init(frame: CGRect.init(x: 0, y: 448, width: SCREENWIDTH, height: SCREENHEIGHT - 382))
         self.view.addSubview(payView)
-        if WXApi.isWXAppInstalled() {
+        if !WXApi.isWXAppInstalled() {
             let weixinPay = UIButton.init(type: .custom)
             weixinPay.setImage(UIImage.init(named: "wechat_pay"), for: .normal)
             weixinPay.backgroundColor = UIColor.init(hexString: App_Theme_41B035_Color)
-            weixinPay.setTitle("微信支付", for: .normal)
+            weixinPay.setTitle(" 微信支付", for: .normal)
             weixinPay.layer.cornerRadius = 23
             weixinPay.setTitleColor(UIColor.init(hexString: App_Theme_FFFFFF_Color), for: .normal)
             weixinPay.titleLabel?.font = App_Theme_PinFan_M_17_Font
             weixinPay.reactive.controlEvents(.touchUpInside).observe { (active) in
                 (self.viewModel as! TopUpViewModel).wxPay()
             }
+            
+            
+            let backImage = UIImageView.init()
+            backImage.backgroundColor = UIColor.init(hexString: App_Theme_D0F2CC_Color)
+            backImage.layer.cornerRadius = 23
+            backImage.layer.masksToBounds = true
+            payView.addSubview(backImage)
             payView.addSubview(weixinPay)
+            backImage.snp.makeConstraints { (make) in
+                make.top.equalTo(payView.snp.top).offset(2)
+                make.centerX.equalTo(self.view.snp.centerX).offset(0)
+                make.size.equalTo(CGSize.init(width: 220, height: 46))
+            }
             weixinPay.snp.makeConstraints { (make) in
                 make.top.equalTo(payView.snp.top).offset(0)
                 make.centerX.equalTo(self.view.snp.centerX).offset(0)
@@ -80,27 +93,47 @@ class TopUpViewController: BaseViewController {
         let aliPay = UIButton.init(type: .custom)
         aliPay.setImage(UIImage.init(named: "ali_pay"), for: .normal)
         aliPay.backgroundColor = UIColor.init(hexString: App_Theme_009FE8_Color)
-        aliPay.setTitle("支付宝支付", for: .normal)
+        aliPay.setTitle(" 支付宝支付", for: .normal)
         aliPay.layer.cornerRadius = 23
         aliPay.setTitleColor(UIColor.init(hexString: App_Theme_FFFFFF_Color), for: .normal)
         aliPay.titleLabel?.font = App_Theme_PinFan_M_17_Font
         aliPay.reactive.controlEvents(.touchUpInside).observe { (active) in
             (self.viewModel as! TopUpViewModel).aliPay()
         }
+
+        
+        let backImage = UIImageView.init()
+        backImage.backgroundColor = UIColor.init(hexString: App_Theme_CDEFFF_Color)
+        backImage.layer.cornerRadius = 23
+        backImage.layer.masksToBounds = true
+        payView.addSubview(backImage)
+        backImage.snp.makeConstraints { (make) in
+            make.top.equalTo(payView.snp.top).offset(68)
+            make.centerX.equalTo(self.view.snp.centerX).offset(0)
+            make.size.equalTo(CGSize.init(width: 220, height: 46))
+        }
+        
         payView.addSubview(aliPay)
+
         aliPay.snp.makeConstraints { (make) in
-            make.top.equalTo(payView.snp.top).offset(77)
+            make.top.equalTo(payView.snp.top).offset(66)
             make.centerX.equalTo(self.view.snp.centerX).offset(0)
             make.size.equalTo(CGSize.init(width: 220, height: 46))
         }
     }
     
     func setUpTopView(){
-        topUpMuchView = TopUpMuchView.init(frame: CGRect.init(x: 0, y: 96, width: SCREENWIDTH, height: 220), models:(self.viewModel as! TopUpViewModel).models)
+        topUpMuchView = TopUpMuchView.init(frame: CGRect.init(x: 0, y: 184, width: SCREENWIDTH, height: 220), models: nil, model: (self.viewModel as! TopUpViewModel).models.rechargeRateRuleDTOList)
         topUpMuchView.topUpMuchViewClouse = { tag in
             (self.viewModel as! TopUpViewModel).topUpMuch = tag
         }
         self.view.addSubview(topUpMuchView)
+    }
+    
+    func setUpWeekView(){
+        topUpWeekView = TopUpWeekView.init(frame: CGRect.init(x: 20, y: 87, width: SCREENWIDTH - 40, height: 72))
+        topUpWeekView.setData(model: (self.viewModel as! TopUpViewModel).models.weeklyRechargeRateRuleDTO)
+        self.view.addSubview(topUpWeekView)
     }
     
     override func viewWillAppear(_ animated: Bool) {

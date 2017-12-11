@@ -17,7 +17,6 @@ class AppleThemeTool {
         UITabBar.appearance().tintColor = UIColor.init(hexString: App_Theme_F94856_Color)
         UITabBar.appearance().backgroundColor = UIColor.init(hexString: App_Theme_FFFFFF_Color, andAlpha: 0.5)
         
-        
         UINavigationBar.appearance().tintColor = UIColor.white
         UINavigationBar.appearance().barTintColor = UIColor.init(hexString: App_Theme_F94856_Color)
         UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey.font:App_Theme_PinFan_R_17_Font!,NSAttributedStringKey.foregroundColor:UIColor.init(hexString: App_Theme_FFFFFF_Color) ?? ""]

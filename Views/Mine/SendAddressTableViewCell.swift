@@ -56,7 +56,7 @@ class Address: UIView {
         
         userName.snp.makeConstraints { (make) in
             make.left.equalTo(self.snp.left).offset(52)
-            make.top.equalTo(self.snp.top).offset(20)
+            make.top.equalTo(self.snp.top).offset(23)
         }
         
         phone = UILabel.init()
@@ -67,7 +67,7 @@ class Address: UIView {
         
         phone.snp.makeConstraints { (make) in
             make.right.equalTo(self.snp.right).offset(-43)
-            make.top.equalTo(self.snp.top).offset(20)
+            make.top.equalTo(self.snp.top).offset(23)
         }
         
         address = UILabel.init()
@@ -79,7 +79,7 @@ class Address: UIView {
         address.snp.makeConstraints { (make) in
             make.left.equalTo(self.snp.left).offset(52)
             make.right.equalTo(self.snp.right).offset(-43)
-            make.top.equalTo(self.userName.snp.bottom).offset(8)
+            make.top.equalTo(self.userName.snp.bottom).offset(7)
         }
         
     }

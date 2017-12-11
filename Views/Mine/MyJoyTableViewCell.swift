@@ -96,12 +96,12 @@ class MyJoyTableViewCell: UITableViewCell {
             
             dollsName.snp.makeConstraints({ (make) in
                 make.left.equalTo(dollsImage.snp.right).offset(5)
-                make.top.equalTo(dollsView.snp.top).offset(34)
+                make.top.equalTo(dollsView.snp.top).offset(37)
             })
             
             dollsDesc.snp.makeConstraints({ (make) in
                 make.left.equalTo(dollsImage.snp.right).offset(5)
-                make.top.equalTo(dollsName.snp.bottom).offset(11)
+                make.top.equalTo(dollsName.snp.bottom).offset(12)
             })
             
             cacheTime.snp.makeConstraints({ (make) in

@@ -57,10 +57,15 @@ extension TopViewModel: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch indexPath.row {
         case 0:
-            return SCREENWIDTH * 80 / 187.5
+            return SCREENWIDTH * (169 + 64) / 375
         case 1:
-            return 79
+            return 68
         default:
+            if indexPath.row == 4 {
+                return 104 - 7.5
+            }else if indexPath.row > 4 {
+                return 104 - 15
+            }
             return 104
         }
     }
@@ -85,6 +90,7 @@ extension TopViewModel: UITableViewDataSource {
         case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: TopDescTableViewCell.description(), for: indexPath)
             self.tableViewTopDescTableViewCellSetData(indexPath, cell: cell as! TopDescTableViewCell)
+            
             cell.selectionStyle = .none
             return cell
         default:

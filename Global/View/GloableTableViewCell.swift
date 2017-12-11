@@ -338,6 +338,11 @@ class GloabTitleAndSwitchCell: UITableViewCell {
         self.updateConstraintsIfNeeded()
     }
     
+    func cellSetData(str:String, isOn:Bool){
+        titleLabel.text = str
+        switchView.isOn = isOn
+    }
+    
     override func updateConstraints() {
         if !self.didMakeConstraints {
             titleLabel.snp.makeConstraints({ (make) in

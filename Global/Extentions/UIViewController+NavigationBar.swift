@@ -13,8 +13,8 @@ extension UIViewController {
 
     func setNavigationItemBack(){
         let leftImage = UIImage.init(named: "back_bar")
-        let spacBarButton = UIBarButtonItem.init(barButtonSystemItem: .fixedSpace, target: nil, action: nil);
-        self.navigationItem.leftBarButtonItems = [spacBarButton,UIBarButtonItem(image: leftImage?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(UIViewController.backBtnPress(_:)))]
+//        let spacBarButton = UIBarButtonItem.init(barButtonSystemItem: .fixedSpace, target: nil, action: nil);
+        self.navigationItem.leftBarButtonItems = [UIBarButtonItem(image: leftImage?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(UIViewController.backBtnPress(_:)))]
     }
 
     @objc func backBtnPress(_ sender:UIButton){
