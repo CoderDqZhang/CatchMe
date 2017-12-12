@@ -11,46 +11,42 @@ import UIKit
 import AVFoundation
 
 class AudioPlayManager: NSObject {
-    var avPlay:AVPlayer!
 
+    var audioPlayer:AVAudioPlayer!
+    
     override init() {
         super.init()
-        self.avPlay = AVPlayer.init()
     }
     
     static let shareInstance = AudioPlayManager()
     
-    deinit {
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
-    }
-    
-    private func playAudio(){
-        self.avPlay.replaceCurrentItem(with: self.getMuiscItem())
-        NotificationCenter.default.addObserver(self, selector: #selector(self.playAgain), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
-    }
-    
-    func getMuiscItem() -> AVPlayerItem {
-        let audioFile = Bundle.main.path(forResource: "music", ofType: ".mov")
-        let url = URL.init(fileURLWithPath: audioFile!)
-        let item = AVPlayerItem.init(url: url)
-        return item
-    }
-    
-    @objc func playAgain(){
-        self.play()
-    }
-    
-    func play(){
-        if self.avPlay.currentItem == nil {
-            self.playAudio()
-        }else{
-            self.avPlay.replaceCurrentItem(with: self.getMuiscItem())
+    func playBgMusic(name:String){
+        let musicPath = Bundle.main.path(forResource: name, ofType: ".mp3")
+        //指定音乐路径
+        let url = URL.init(fileURLWithPath: musicPath!)
+        do {
+            try audioPlayer = AVAudioPlayer.init(contentsOf: url, fileTypeHint: AVFileType.mp3.rawValue)
+            audioPlayer.numberOfLoops = -1
+            //设置音乐播放次数，-1为循环播放
+            audioPlayer.volume = 1
+            audioPlayer.delegate = self
+            //设置音乐音量，可用范围为0~1
+            audioPlayer.prepareToPlay()
+            audioPlayer.play()
+        } catch  {
+            print("error")
         }
-        self.avPlay.play()
+        
     }
     
     func pause(){
-        self.avPlay.pause()
+        self.audioPlayer.pause()
+    }
+}
+
+extension AudioPlayManager : AVAudioPlayerDelegate {
+    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+        
     }
 }
 

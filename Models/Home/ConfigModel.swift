@@ -10,18 +10,20 @@ import UIKit
 
 class ConfigModel : NSObject, NSCoding{
     
-    var descriptionField : String!
-    var key : String!
-    var value : Bool!
+    var isOnlineVersion : Bool!
+    var musicName : String!
     
+    static let shanreInstance = ConfigModel()
     
+    override init() {
+        super.init()
+    }
     /**
      * Instantiate the instance using the passed dictionary values to set the properties values
      */
     init(fromDictionary dictionary: NSDictionary){
-        descriptionField = dictionary["description"] as? String
-        key = dictionary["key"] as? String
-        value = dictionary["value"] as? Bool
+        isOnlineVersion = dictionary["isOnlineVersion"] as? Bool
+        musicName = dictionary["musicName"] as? String
     }
     
     /**
@@ -30,14 +32,11 @@ class ConfigModel : NSObject, NSCoding{
     func toDictionary() -> NSDictionary
     {
         let dictionary = NSMutableDictionary()
-        if descriptionField != nil{
-            dictionary["description"] = descriptionField
+        if isOnlineVersion != nil{
+            dictionary["isOnlineVersion"] = isOnlineVersion
         }
-        if key != nil{
-            dictionary["key"] = key
-        }
-        if value != nil{
-            dictionary["value"] = value
+        if musicName != nil{
+            dictionary["musicName"] = musicName
         }
         return dictionary
     }
@@ -48,9 +47,8 @@ class ConfigModel : NSObject, NSCoding{
      */
     @objc required init(coder aDecoder: NSCoder)
     {
-        descriptionField = aDecoder.decodeObject(forKey: "description") as? String
-        key = aDecoder.decodeObject(forKey: "key") as? String
-        value = aDecoder.decodeObject(forKey: "value") as? Bool
+        isOnlineVersion = aDecoder.decodeObject(forKey: "isOnlineVersion") as? Bool
+        musicName = aDecoder.decodeObject(forKey: "musicName") as? String
         
     }
     
@@ -60,14 +58,11 @@ class ConfigModel : NSObject, NSCoding{
      */
     @objc func encode(with aCoder: NSCoder)
     {
-        if descriptionField != nil{
-            aCoder.encode(descriptionField, forKey: "description")
+        if isOnlineVersion != nil{
+            aCoder.encode(isOnlineVersion, forKey: "isOnlineVersion")
         }
-        if key != nil{
-            aCoder.encode(key, forKey: "key")
-        }
-        if value != nil{
-            aCoder.encode(value, forKey: "value")
+        if musicName != nil{
+            aCoder.encode(musicName, forKey: "musicName")
         }
         
     }

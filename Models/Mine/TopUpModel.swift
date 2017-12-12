@@ -399,8 +399,124 @@ class WeeklyRechargeRateRuleDTO : NSObject, NSCoding{
     
 }
 
+class AliPayInfoModel : NSObject, NSCoding{
+    
+    var orderNo : String!
+    var payInfo : String!
+    
+    
+    /**
+     * Instantiate the instance using the passed dictionary values to set the properties values
+     */
+    init(fromDictionary dictionary: NSDictionary){
+        orderNo = dictionary["orderNo"] as? String
+        payInfo = dictionary["payInfo"] as? String
+    }
+    
+    /**
+     * Returns all the available property values in the form of NSDictionary object where the key is the approperiate json key and the value is the value of the corresponding property
+     */
+    func toDictionary() -> NSDictionary
+    {
+        let dictionary = NSMutableDictionary()
+        if orderNo != nil{
+            dictionary["orderNo"] = orderNo
+        }
+        if payInfo != nil{
+            dictionary["payInfo"] = payInfo
+        }
+        return dictionary
+    }
+    
+    /**
+     * NSCoding required initializer.
+     * Fills the data from the passed decoder
+     */
+    @objc required init(coder aDecoder: NSCoder)
+    {
+        orderNo = aDecoder.decodeObject(forKey: "orderNo") as? String
+        payInfo = aDecoder.decodeObject(forKey: "payInfo") as? String
+        
+    }
+    
+    /**
+     * NSCoding required method.
+     * Encodes mode properties into the decoder
+     */
+    @objc func encode(with aCoder: NSCoder)
+    {
+        if orderNo != nil{
+            aCoder.encode(orderNo, forKey: "orderNo")
+        }
+        if payInfo != nil{
+            aCoder.encode(payInfo, forKey: "payInfo")
+        }
+        
+    }
+    
+}
+
 class Wxpay : NSObject, NSCoding{
     
+    var orderNo : String!
+    var payInfo : PayInfo!
+    
+    
+    /**
+     * Instantiate the instance using the passed dictionary values to set the properties values
+     */
+    init(fromDictionary dictionary: NSDictionary){
+        orderNo = dictionary["orderNo"] as? String
+        if let payInfoData = dictionary["payInfo"] as? NSDictionary{
+            payInfo = PayInfo(fromDictionary: payInfoData)
+        }
+    }
+    
+    /**
+     * Returns all the available property values in the form of NSDictionary object where the key is the approperiate json key and the value is the value of the corresponding property
+     */
+    func toDictionary() -> NSDictionary
+    {
+        let dictionary = NSMutableDictionary()
+        if orderNo != nil{
+            dictionary["orderNo"] = orderNo
+        }
+        if payInfo != nil{
+            dictionary["payInfo"] = payInfo.toDictionary()
+        }
+        return dictionary
+    }
+    
+    /**
+     * NSCoding required initializer.
+     * Fills the data from the passed decoder
+     */
+    @objc required init(coder aDecoder: NSCoder)
+    {
+        orderNo = aDecoder.decodeObject(forKey: "orderNo") as? String
+        payInfo = aDecoder.decodeObject(forKey: "payInfo") as? PayInfo
+        
+    }
+    
+    /**
+     * NSCoding required method.
+     * Encodes mode properties into the decoder
+     */
+    @objc func encode(with aCoder: NSCoder)
+    {
+        if orderNo != nil{
+            aCoder.encode(orderNo, forKey: "orderNo")
+        }
+        if payInfo != nil{
+            aCoder.encode(payInfo, forKey: "payInfo")
+        }
+        
+    }
+    
+}
+
+class PayInfo: NSObject, NSCoding{
+
     var appid : String!
     var noncestr : String!
     var package : String!

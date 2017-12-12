@@ -59,7 +59,7 @@ let ApplyShipments = "\(BaseURL)apply/shipments"
 //大神榜
 let TopWeekly = "\(BaseURL)top/weekly"
 //全局配置
-let Config = "\(BaseURL)config"
+let Config = "\(BaseURL)allConfig"
 //快速进入
 let QuictEnter = "\(BaseURL)room/quick/enter"
 //娃娃详情
@@ -86,6 +86,10 @@ let LogOut = "\(BaseURL)user/logout"
 let ShareCodeUrl = "\(BaseURL)shareCode"
 //获取用户列表
 let RoomUserList = "\(BaseURL)user/findUserDTOListByIdList"
+//获取订单支付状态
+let RecordByOrderNo = "\(BaseURL)recharge/findRechargeRecordByOrderNo"
+//分享接口
+let Socialsharecard = "\(BaseURL)socialsharecard/config"
 
 
 //http://39.106.137.21:8201/machine/again/start?userId=1&machineId=1&lastGameId=357&roomId=1

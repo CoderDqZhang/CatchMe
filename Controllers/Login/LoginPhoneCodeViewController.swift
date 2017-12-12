@@ -50,8 +50,8 @@ class LoginPhoneCodeViewController: BaseViewController {
         }
         self.view.addSubview(backGroupButton)
         backGroupButton.snp.makeConstraints { (make) in
-            make.left.equalTo(self.view.snp.left).offset(30)
-            make.top.equalTo(self.view.snp.top).offset(30)
+            make.left.equalTo(self.view.snp.left).offset(6)
+            make.top.equalTo(self.view.snp.top).offset(20)
             make.size.equalTo(CGSize.init(width: 40, height: 40))
         }
     }
@@ -187,11 +187,15 @@ class LoginPhoneCodeViewController: BaseViewController {
     func setUpForLableAndLine(){
         lingLabel1 = GloabLineView.init(frame: CGRect.init(x: (SCREENWIDTH - 220)/2, y: 230, width: 40, height: 2))
         self.view.addSubview(lingLabel1)
+        lingLabel1.setLineColor(UIColor.init(hexString: App_Theme_DDDDDD_Color))
         lingLabel2 = GloabLineView.init(frame: CGRect.init(x: lingLabel1.frame.maxX + 20, y: 230, width: 40, height: 2))
         self.view.addSubview(lingLabel2)
+        lingLabel2.setLineColor(UIColor.init(hexString: App_Theme_DDDDDD_Color))
         lingLabel3 = GloabLineView.init(frame: CGRect.init(x: lingLabel2.frame.maxX + 20, y: 230, width: 40, height: 2))
         self.view.addSubview(lingLabel3)
+        lingLabel3.setLineColor(UIColor.init(hexString: App_Theme_DDDDDD_Color))
         lingLabel4 = GloabLineView.init(frame: CGRect.init(x: lingLabel3.frame.maxX + 20, y: 230, width: 40, height: 2))
+        lingLabel4.setLineColor(UIColor.init(hexString: App_Theme_DDDDDD_Color))
         self.view.addSubview(lingLabel4)
         
         codeLabel1 = self.setUpLable()
@@ -251,6 +255,7 @@ class LoginPhoneCodeViewController: BaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        UIApplication.shared.setStatusBarStyle(.default, animated: false)
         self.navigationController?.fd_prefersNavigationBarHidden = true
         self.navigationController?.setNavigationBarHidden(true, animated: true)
     }

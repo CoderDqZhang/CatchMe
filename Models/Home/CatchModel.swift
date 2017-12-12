@@ -317,7 +317,7 @@ class HeartModel : NSObject, NSCoding{
     var currentPlayStatus : Int!
     var currentPlayerId : AnyObject!
     var userList : [Int]!
-    
+    var balance : Int!
     
     /**
      * Instantiate the instance using the passed dictionary values to set the properties values
@@ -329,6 +329,7 @@ class HeartModel : NSObject, NSCoding{
         currentPlayStatus = dictionary["currentPlayStatus"] as? Int
         currentPlayerId = dictionary["currentPlayerId"] as AnyObject
         userList = dictionary["userList"] as? [Int]
+        balance = dictionary["balance"] as? Int
     }
     
     /**
@@ -339,6 +340,9 @@ class HeartModel : NSObject, NSCoding{
         let dictionary = NSMutableDictionary()
         if currentPlayerDTO != nil{
             dictionary["currentPlayerDTO"] = currentPlayerDTO?.toDictionary()
+        }
+        if balance != nil{
+            dictionary["balance"] = balance
         }
         if currentPlayStatus != nil{
             dictionary["currentPlayStatus"] = currentPlayStatus
@@ -362,7 +366,7 @@ class HeartModel : NSObject, NSCoding{
         currentPlayStatus = aDecoder.decodeObject(forKey: "currentPlayStatus") as? Int
         currentPlayerId = aDecoder.decodeObject(forKey: "currentPlayerId") as AnyObject
         userList = aDecoder.decodeObject(forKey: "userList") as? [Int]
-        
+        balance = aDecoder.decodeObject(forKey: "balance") as? Int
     }
     
     /**
@@ -382,6 +386,9 @@ class HeartModel : NSObject, NSCoding{
         }
         if userList != nil{
             aCoder.encode(userList, forKey: "userList")
+        }
+        if balance != nil{
+            aCoder.encode(balance, forKey: "balance")
         }
         
     }

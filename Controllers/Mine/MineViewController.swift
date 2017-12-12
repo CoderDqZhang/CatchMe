@@ -30,7 +30,7 @@ class MineViewController: BaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        UIApplication.shared.setStatusBarStyle(.lightContent, animated: false)
         self.navigationController?.fd_prefersNavigationBarHidden = true
         self.navigationController?.setNavigationBarHidden(true, animated: true)
     }

@@ -88,6 +88,7 @@ class CacheMeViewController: BaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        UIApplication.shared.setStatusBarStyle(.lightContent, animated: false)
         self.navigationController?.fd_prefersNavigationBarHidden = true
         self.navigationController?.setNavigationBarHidden(true, animated: true)
     }
@@ -266,9 +267,9 @@ class CacheMeViewController: BaseViewController {
         bottomToolsView.cacheMeToolsViewClouse = { tag in
             switch tag {
             case 1:
-//                _ = Tools.shareInstance.showMessage(KWINDOWDS(), msg: "其他玩家正在使用请稍后~", autoHidder: false)
+//                self.cacheMeViewModel.shootFail()
                 let toViewController = JoysDetailViewController()
-                toViewController.url = "\(DollsDetail)\(self.roomModel.skuId)"
+                toViewController.url = "\(DollsDetail)\(self.cacheMeViewModel.catchMeModel.skuSubId!)"
                 NavigationPushView(self, toConroller: toViewController)
             case 2:
                 self.playGame()

@@ -12,12 +12,15 @@ import NIMSDK
 import MBProgressHUD
 
 typealias SenderCodeSuccessClouse = () ->Void
+typealias UerInfoUpdateClouse = (_ model:UserInfoModel) -> Void
 
 class LoginViewModel: BaseViewModel {
     
     var loginHud:MBProgressHUD!
     var form = LoginForm()
     var senderCodeSuccessClouse:SenderCodeSuccessClouse!
+    var uerInfoUpdateClouse:UerInfoUpdateClouse!
+    
     override init() {
         super.init()
         NIMSDK.shared().loginManager.add(self)
@@ -52,7 +55,6 @@ class LoginViewModel: BaseViewModel {
     }
     
     func loginNetNetease(){
-        self.getConfig()
         let loginData = NIMAutoLoginData.init()
         loginData.account = UserInfoModel.shareInstance().neteaseAccountId
         loginData.token = UserInfoModel.shareInstance().neteaseToken
@@ -65,15 +67,17 @@ class LoginViewModel: BaseViewModel {
         }
     }
     
-    func getConfig(){
-        let parameters = ["key":"SWITCH_IOS_PAY"]
-        BaseNetWorke.sharedInstance.getUrlWithString(Config, parameters: parameters as AnyObject).observe { (resultDic) in
+    
+    
+    func getUserInfoCoins(uerInfoUpdateClouse:@escaping UerInfoUpdateClouse){
+        let parameters = ["userId":UserInfoModel.shareInstance().idField]
+        BaseNetWorke.sharedInstance.postUrlWithString(UserInfoUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
-                //                let model = ConfigModel.init(fromDictionary: resultDic.value as! NSDictionary)
-                if resultDic.value != nil {
-                    UserDefaultsSetSynchronize((resultDic.value as! NSDictionary).object(forKey: "value") as AnyObject, key: APPCONFIGSTATUS)
-
-                }
+                let model:UserInfoModel = UserInfoModel.init(dictionary: resultDic.value as! [AnyHashable : Any])
+                model.idField = "\((resultDic.value as! NSDictionary).object(forKey: "id")!)"
+                UserDefaultsSetSynchronize(model.neteaseAccountId as AnyObject, key: "neteaseAccountId")
+                model.saveOrUpdate(byColumnName: "neteaseAccountId", andColumnValue: "'\(model.neteaseAccountId!)'")
+                uerInfoUpdateClouse(UserInfoModel.shareInstance())
             }
         }
     }

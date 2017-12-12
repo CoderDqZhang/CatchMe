@@ -227,9 +227,23 @@ class TopUpMuchView: UIView {
         }
     }
     
+    func changeAllTap(){
+        if self.model != nil {
+            for i in 1...self.model.count {
+                let muchView = self.viewWithTag(i) as! MuchView
+                muchView.changeType(type: .normal)
+            }
+        }else{
+            for i in 1...self.models.count {
+                let muchView = self.viewWithTag(i) as! MuchView
+                muchView.changeType(type: .normal)
+            }
+        }
+    }
+    
     func changeAllTag(){
         if self.model != nil {
-            for i in 1...self.models.count {
+            for i in 1...self.model.count {
                 let muchView = self.viewWithTag(i) as! MuchView
                 muchView.changeType(type: .normal)
             }
@@ -250,8 +264,72 @@ class TopUpMuchView: UIView {
 
 class TopUpWeekView : UIView {
     
+    var weekView:WeekView!
+    var imageView:UIImageView!
+    
+    var topUpMuchViewClouse:TopUpMuchViewClouse!
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        self.setUpView()
+    }
+    
+    func setUpView(){
+        
+        self.clipsToBounds = false
+        self.setUpSingleTap()
+        weekView = WeekView.init()
+        self.addSubview(weekView)
+        weekView.snp.makeConstraints { (make) in
+            make.left.equalTo(self.snp.left).offset(0)
+            make.right.equalTo(self.snp.right).offset(0)
+            make.bottom.equalTo(self.snp.bottom).offset(0)
+            make.top.equalTo(self.snp.top).offset(0)
+        }
+        
+        imageView = UIImageView.init()
+        imageView.image = UIImage.init(named: "pic_周卡")
+        self.addSubview(imageView)
+        imageView.snp.makeConstraints { (make) in
+            make.right.equalTo(self.snp.right).offset(-12)
+            make.bottom.equalTo(self.snp.bottom).offset(3)
+            make.size.equalTo(CGSize.init(width: 103, height: 83))
+        }
+        self.setUpSingleTap()
+    }
+    
+    func setData(model:WeeklyRechargeRateRuleDTO){
+        self.weekView.setData(model: model)
+    }
+    
+    func setUpSingleTap(){
+        let singTap = UITapGestureRecognizer.init(target: self, action: #selector(self.singTap(tag:)))
+        singTap.numberOfTapsRequired = 1
+        singTap.numberOfTouchesRequired = 1
+        self.addGestureRecognizer(singTap)
+    }
+    
+    @objc func singTap(tag:UITapGestureRecognizer){
+        if topUpMuchViewClouse != nil {
+            topUpMuchViewClouse(1000)
+        }
+        weekView.changeType(type: .select)
+    }
+    
+    func changeWeekViewType(){
+        weekView.changeType(type: .normal)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
+class WeekView : UIView {
+    
     var titleLabel:UILabel!
     var descLabel:UILabel!
+    var descsLabel:UILabel!
     var imageView:UIImageView!
     
     var topUpMuchViewClouse:TopUpMuchViewClouse!
@@ -267,13 +345,14 @@ class TopUpWeekView : UIView {
         self.layer.borderWidth = 1
         self.layer.cornerRadius = 36
         self.layer.masksToBounds = true
+        self.clipsToBounds = false
         
         imageView = UIImageView.init()
         imageView.image = UIImage.init(named: "pic_周卡")
         self.addSubview(imageView)
         imageView.snp.makeConstraints { (make) in
             make.right.equalTo(self.snp.right).offset(-12)
-            make.bottom.equalTo(self.snp.bottom).offset(0)
+            make.bottom.equalTo(self.snp.bottom).offset(2)
             make.size.equalTo(CGSize.init(width: 103, height: 83))
         }
         
@@ -294,25 +373,21 @@ class TopUpWeekView : UIView {
             make.left.equalTo(self.snp.left).offset(32)
             make.bottom.equalTo(self.snp.bottom).offset(-14)
         }
-        self.setUpSingleTap()
+        descsLabel = UILabel.init()
+        descsLabel.font = App_Theme_PinFan_R_12_Font
+        descsLabel.textColor = UIColor.init(hexString: App_Theme_FC4652_Color)
+        descsLabel.text = "分7天返还"
+        self.addSubview(descsLabel)
+        descsLabel.snp.makeConstraints { (make) in
+            make.left.equalTo(self.descLabel.snp.right).offset(2)
+            make.bottom.equalTo(self.snp.bottom).offset(-14)
+        }
+        
     }
     
     func setData(model:WeeklyRechargeRateRuleDTO){
         titleLabel.text = "花\(model.rechargeMoney!)得\(model.rechargeCoinReal!)币哦~"
         descLabel.text = "多送主人\(model.totalMoreAmount!)币"
-    }
-    
-    func setUpSingleTap(){
-        let singTap = UITapGestureRecognizer.init(target: self, action: #selector(self.singTap(tag:)))
-        singTap.numberOfTapsRequired = 1
-        singTap.numberOfTouchesRequired = 1
-        self.addGestureRecognizer(singTap)
-    }
-    
-    @objc func singTap(tag:UITapGestureRecognizer){
-        if topUpMuchViewClouse != nil {
-            topUpMuchViewClouse(1000)
-        }
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -322,14 +397,15 @@ class TopUpWeekView : UIView {
     func changeType(type:MuchViewType){
         switch type {
         case MuchViewType.select:
-            imageView.isHidden = false
-            self.layer.cornerRadius = 0
             descLabel.textColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
+            descsLabel.textColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
             titleLabel.textColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
-            
+            self.backgroundColor = UIColor.init(hexString: App_Theme_FC4652_Color)
         default:
             descLabel.textColor = UIColor.init(hexString: App_Theme_FC4652_Color)
             titleLabel.textColor = UIColor.init(hexString: App_Theme_FC4652_Color)
+            descsLabel.textColor = UIColor.init(hexString: App_Theme_FC4652_Color)
+            self.backgroundColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
         }
     }
     

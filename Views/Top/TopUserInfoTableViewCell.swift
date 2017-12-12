@@ -56,7 +56,7 @@ class TopUserInfoTableViewCell: UITableViewCell {
 
     func cellSetData(indexPath:IndexPath, model:GameStatistic){
         let numberText = indexPath.row - 1
-        numberLable.text = "\(numberText)"
+        numberLable.text = "\(model.rank!)"
         userName.text = model.name
         UIImageViewManger.sd_imageView(url: model.photo is String ? model.photo as! String : "", imageView: avaterImage, placeholderImage: nil) { (image, error, cacheType, url) in
             

@@ -25,7 +25,6 @@ class LoginSetPhoneViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Do any additional setup after loading the view.
     }
 
@@ -43,8 +42,8 @@ class LoginSetPhoneViewController: BaseViewController {
         }
         self.view.addSubview(backGroupButton)
         backGroupButton.snp.makeConstraints { (make) in
-            make.left.equalTo(self.view.snp.left).offset(30)
-            make.top.equalTo(self.view.snp.top).offset(30)
+            make.left.equalTo(self.view.snp.left).offset(6)
+            make.top.equalTo(self.view.snp.top).offset(20)
             make.size.equalTo(CGSize.init(width: 40, height: 40))
         }
     }
@@ -88,6 +87,7 @@ class LoginSetPhoneViewController: BaseViewController {
         }
         
         lingLabel = GloabLineView.init(frame: CGRect.init(x: 53, y: 230, width: SCREENWIDTH - 106, height: 1))
+        lingLabel.setLineColor(UIColor.init(hexString: App_Theme_DDDDDD_Color))
         self.view.addSubview(lingLabel)
         
         loginButton = UIButton.init(type: .custom)
@@ -135,6 +135,7 @@ class LoginSetPhoneViewController: BaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        UIApplication.shared.setStatusBarStyle(.default, animated: false)
         self.navigationController?.fd_prefersNavigationBarHidden = true
         self.navigationController?.setNavigationBarHidden(true, animated: true)
     }

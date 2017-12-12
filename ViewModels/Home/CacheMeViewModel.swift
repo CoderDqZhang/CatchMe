@@ -48,7 +48,7 @@ class CacheMeViewModel: BaseViewModel {
         super.init()
         NIMAVChatSDK.shared().netCallManager.add(self)
         self.getAVAuthorizationStatus()
-        AudioPlayManager.shareInstance.play()
+        AudioPlayManager.shareInstance.playBgMusic(name: "\(ConfigModel.shanreInstance.musicName!)")
     }
     
     deinit {
@@ -297,6 +297,7 @@ class CacheMeViewModel: BaseViewModel {
                     return
                 }
                 self.headerModel = HeartModel.init(fromDictionary: resultDic.value as! NSDictionary)
+                UserInfoModel.shareInstance().coinAmount = "\(self.headerModel.balance!)"
                 self.setUpRoomPalyUsers(currentUser: self.headerModel.currentPlayerDTO)
             }
         }
@@ -306,7 +307,7 @@ class CacheMeViewModel: BaseViewModel {
     func gameStart(){
         if playGame {
             if UserInfoModel.shareInstance().coinAmount.int! < self.catchMeModel.price {
-                KWINDOWDS().addSubview(GloableAlertView.init(title: "当前余额不足支付一次游戏\n请先充值", btnTop: "去充值", btnBottom: "取消", image: UIImage.init(named: "pic_fail_1")!, type: GloableAlertViewType.topupfail, clickClouse: { (tag) in
+                KWINDOWDS().addSubview(GloableAlertView.init(title: "不足支付一次游戏\n请先充值", btnTop: "去充值", btnBottom: "取消", image: UIImage.init(named: "pic_fail_1")!, type: GloableAlertViewType.topupfail, clickClouse: { (tag) in
                     if tag == 100 {
                         self.gotoTopUpVC()
                     }
@@ -328,9 +329,9 @@ class CacheMeViewModel: BaseViewModel {
                                     //建立点对点连接
                                     self.getGameStatus = false
                                     self.playGameGoStatus = false
-                                    let coinAmount = UserInfoModel.shareInstance().coinAmount.int! - self.catchMeModel.price
-                                    UserInfoModel.shareInstance().coinAmount = "\(coinAmount)"
-                                    UserInfoModel.shareInstance().saveOrUpdate(byColumnName: "neteaseAccountId", andColumnValue: "'\(UserInfoModel.shareInstance().neteaseAccountId!)'")
+                                    LoginViewModel.shareInstance.getUserInfoCoins(uerInfoUpdateClouse: { (userInfo) in
+                                    })
+
                                     self.makeGameToUser()
                                 }
                             }
@@ -366,7 +367,7 @@ class CacheMeViewModel: BaseViewModel {
             }
         }
     }
-    //         1上，2下，3左，4右Font
+    //1上，2下，3左，4右Font
     //1右  2左，3上  4下Back
     //点击上下左右
     func playGameLogic(tag:GameToolsLogic){
@@ -449,7 +450,7 @@ class CacheMeViewModel: BaseViewModel {
     //在玩一次
     func playAgain(){
         if UserInfoModel.shareInstance().coinAmount.int! < self.catchMeModel.price {
-            KWINDOWDS().addSubview(GloableAlertView.init(title: "当前余额不足支付一次游戏\n请先充值", btnTop: "去充值", btnBottom: "取消", image: UIImage.init(named: "pic_fail_1")!, type: GloableAlertViewType.topupfail, clickClouse: { (tag) in
+            KWINDOWDS().addSubview(GloableAlertView.init(title: "余额不足支付一次游戏\n请先充值", btnTop: "去充值", btnBottom: "取消", image: UIImage.init(named: "pic_fail_1")!, type: GloableAlertViewType.topupfail, clickClouse: { (tag) in
                 if tag == 100 {
                     self.gotoTopUpVC()
                 }
@@ -579,20 +580,24 @@ class CacheMeViewModel: BaseViewModel {
     }
     
     func shootSuccess(){
-        KWINDOWDS().addSubview(GloableAlertView.init(title: "好棒，活捉一只娃娃", btnTop: "查看我的娃娃", btnBottom: "炫耀一下", image: UIImage.init(named: "pic_success")!, type: GloableAlertViewType.success, clickClouse: { (tag) in
+        KWINDOWDS().addSubview(GloableAlertView.init(title: "好棒，活捉一只娃娃", btnTop: "再试一次5s", btnBottom: "炫耀一下", image: UIImage.init(named: "pic_success")!, type: GloableAlertViewType.success, clickClouse: { (tag) in
             if tag == 100 {
-                NavigationPushView(self.cacheMeController, toConroller: MyJoysViewController())
-            }else{
+                self.playAgain()
+            }else if tag == 200{
                 let toControllerVC = BaseWebViewController()
                 toControllerVC.url = "\(ShareCatchDoll)\(self.gameStatus.id!)"
                 NavigationPushView(self.cacheMeController, toConroller: toControllerVC)
+                //成功5秒倒计时连接
+            }else if tag == 1000 {
+                self.stopGame()
+                self.handUpConnect()
             }
         }))
     }
     
     func shootFail(){
         //抓取失败
-        KWINDOWDS().addSubview(GloableAlertView.init(title: "好可惜，就差一点了", btnTop: "再试一次5s", btnBottom: "无力再试", image: UIImage.init(named: "pic_fail_1")!, type: GloableAlertViewType.catchfail, clickClouse: { (tag) in
+        KWINDOWDS().addSubview(GloableAlertView.init(title: "好可惜，就差一点了", btnTop: "再试一次5s", btnBottom: "无力再试", image: UIImage.init(named: "pic_fail")!, type: GloableAlertViewType.catchfail, clickClouse: { (tag) in
             if tag == 100 {
                 self.playAgain()
             }else if tag == 200{

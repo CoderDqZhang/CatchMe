@@ -20,7 +20,7 @@ class TopUpViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.bindViewModel(viewModel: TopUpViewModel.init(), controller: self)
+        self.bindViewModel(viewModel: TopUpViewModel(), controller: self)
         self.setUpPayButton()
         self.setUpBindLogic()
         // Do any additional setup after loading the view.
@@ -60,7 +60,7 @@ class TopUpViewController: BaseViewController {
     func setUpPayButton(){
         let payView = UIView.init(frame: CGRect.init(x: 0, y: 448, width: SCREENWIDTH, height: SCREENHEIGHT - 382))
         self.view.addSubview(payView)
-        if !WXApi.isWXAppInstalled() {
+        if WXApi.isWXAppInstalled() {
             let weixinPay = UIButton.init(type: .custom)
             weixinPay.setImage(UIImage.init(named: "wechat_pay"), for: .normal)
             weixinPay.backgroundColor = UIColor.init(hexString: App_Theme_41B035_Color)
@@ -126,6 +126,7 @@ class TopUpViewController: BaseViewController {
         topUpMuchView = TopUpMuchView.init(frame: CGRect.init(x: 0, y: 184, width: SCREENWIDTH, height: 220), models: nil, model: (self.viewModel as! TopUpViewModel).models.rechargeRateRuleDTOList)
         topUpMuchView.topUpMuchViewClouse = { tag in
             (self.viewModel as! TopUpViewModel).topUpMuch = tag
+            self.topUpWeekView.changeWeekViewType()
         }
         self.view.addSubview(topUpMuchView)
     }
@@ -133,6 +134,10 @@ class TopUpViewController: BaseViewController {
     func setUpWeekView(){
         topUpWeekView = TopUpWeekView.init(frame: CGRect.init(x: 20, y: 87, width: SCREENWIDTH - 40, height: 72))
         topUpWeekView.setData(model: (self.viewModel as! TopUpViewModel).models.weeklyRechargeRateRuleDTO)
+        topUpWeekView.topUpMuchViewClouse = { tag in
+            (self.viewModel as! TopUpViewModel).topUpMuch = tag
+            self.topUpMuchView.changeAllTag()
+        }
         self.view.addSubview(topUpWeekView)
     }
     

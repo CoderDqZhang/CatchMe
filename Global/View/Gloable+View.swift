@@ -350,45 +350,68 @@ typealias GloableAlertViewClouse = (_ tag:Int) ->Void
 
 class GloableAlertView: UIView {
     
+    var backView:UIView!
+    
     var detailView:UIView!
     var topImage:UIImageView!
     var time:Timer!
+    var successTime:Timer!
+    var timeDone:Bool = false
     
     var gloableAlertViewClouse:GloableAlertViewClouse!
     init(title:String, btnTop:String, btnBottom:String, image:UIImage, type:GloableAlertViewType, clickClouse:GloableAlertViewClouse!) {
         super.init(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: SCREENHEIGHT))
         self.gloableAlertViewClouse = clickClouse
-        self.backgroundColor = UIColor.init(hexString: App_Theme_000000_Color, andAlpha: 0.5)
+        self.backgroundColor = UIColor.init(hexString: App_Theme_000000_Color, andAlpha: 0.7)
+        
+        backView = UIView.init()
+        self.addSubview(backView)
+        
         detailView = UIView.init()
         detailView.layer.cornerRadius = 10
         detailView.backgroundColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
-        self.addSubview(detailView)
+        backView.addSubview(detailView)
         
-        detailView.snp.makeConstraints { (make) in
-            make.centerX.equalTo(self.snp.centerX).offset(0)
-            make.centerY.equalTo(self.snp.centerY).offset(10)
-            make.size.equalTo(CGSize.init(width: 240, height: 230))
+        if type == .topupfail {
+            detailView.snp.makeConstraints { (make) in
+                make.centerX.equalTo(self.snp.centerX).offset(0)
+                make.centerY.equalTo(self.snp.centerY).offset(7)
+                make.size.equalTo(CGSize.init(width: 240, height: 230))
+            }
+        }else{
+            detailView.snp.makeConstraints { (make) in
+                make.centerX.equalTo(self.snp.centerX).offset(0)
+                make.centerY.equalTo(self.snp.centerY).offset(10)
+                make.size.equalTo(CGSize.init(width: 240, height: 200))
+            }
         }
         
         topImage = UIImageView.init()
         topImage.image = image
-        self.addSubview(topImage)
+        backView.addSubview(topImage)
         topImage.snp.makeConstraints { (make) in
             make.centerX.equalTo(self.snp.centerX).offset(0)
-            make.bottom.equalTo(self.detailView.snp.top).offset(10)
+            make.bottom.equalTo(self.detailView.snp.top).offset(type == .success ? 7 : type == .catchfail ? 21 : 18)
+        }
+        AnimationTools.shareInstance.shakeAnimation(view: backView)
+        backView.snp.makeConstraints { (make) in
+            make.centerX.equalToSuperview()
+            make.centerY.equalToSuperview()
+            make.size.equalTo(CGSize.init(width: SCREENWIDTH, height: (type == .topupfail ? 230 : 200) +  image.size.height))
         }
         
         let titleLabel = UILabel.init()
         titleLabel.font = App_Theme_PinFan_M_18_Font
         titleLabel.textColor = UIColor.init(hexString: App_Theme_333333_Color)
         titleLabel.text = title
-        titleLabel.textAlignment = .center
         titleLabel.numberOfLines = 0
+        UILabel.changeLineSpace(for: titleLabel, withSpace: 4)
+        titleLabel.textAlignment = .center
         detailView.addSubview(titleLabel)
         
         titleLabel.snp.makeConstraints { (make) in
             make.centerX.equalTo(self.detailView.snp.centerX).offset(0)
-            make.top.equalTo(self.detailView.snp.top).offset(26)
+            make.top.equalTo(self.detailView.snp.top).offset(27)
         }
         
         let leftLabel = self.createLabel()
@@ -413,21 +436,68 @@ class GloableAlertView: UIView {
     }
     
     func setUpView(btnTop:String, btnBottom:String, type:GloableAlertViewType) {
+        
+        let topButton_bg = self.createButton(title: btnTop)
+        topButton_bg.backgroundColor = UIColor.init(hexString: App_Theme_FEE3E5_Color)
+        detailView.addSubview(topButton_bg)
+        
         let topButton = self.createButton(title: btnTop)
         topButton.reactive.controlEvents(.touchUpInside).observe { (active) in
             if self.time != nil {
                 self.time.invalidate()
             }
-            self.gloableAlertViewClouse(100)
+            if !self.timeDone {
+                self.gloableAlertViewClouse(100)
+            }
             self.removeSelf()
         }
         detailView.addSubview(topButton)
         
-        topButton.snp.makeConstraints { (make) in
-            make.centerX.equalTo(self.detailView.snp.centerX).offset(0)
-            make.top.equalTo(self.detailView.snp.top).offset(92)
-            make.size.equalTo(CGSize.init(width: 150, height: 42))
+        if type == .topupfail {
+            topButton.snp.makeConstraints { (make) in
+                make.centerX.equalTo(self.detailView.snp.centerX).offset(0)
+                make.top.equalTo(self.detailView.snp.top).offset(92)
+                make.size.equalTo(CGSize.init(width: 150, height: 42))
+            }
+            topButton_bg.snp.makeConstraints { (make) in
+                make.centerX.equalTo(self.detailView.snp.centerX).offset(0)
+                make.top.equalTo(self.detailView.snp.top).offset(94)
+                make.size.equalTo(CGSize.init(width: 150, height: 42))
+            }
+        }else{
+            topButton.snp.makeConstraints { (make) in
+                make.centerX.equalTo(self.detailView.snp.centerX).offset(0)
+                make.top.equalTo(self.detailView.snp.top).offset(67)
+                make.size.equalTo(CGSize.init(width: 150, height: 42))
+            }
+            topButton_bg.snp.makeConstraints { (make) in
+                make.centerX.equalTo(self.detailView.snp.centerX).offset(0)
+                make.top.equalTo(self.detailView.snp.top).offset(69)
+                make.size.equalTo(CGSize.init(width: 150, height: 42))
+            }
         }
+        
+        let btn_bg = self.createButton(title: btnBottom)
+        if type == .topupfail {
+            btn_bg.backgroundColor = UIColor.init(hexString: App_Theme_F5F5F5_Color)
+        }else{
+            btn_bg.backgroundColor = UIColor.init(hexString: App_Theme_FEE3E5_Color)
+        }
+        detailView.addSubview(btn_bg)
+        if type == .topupfail {
+            btn_bg.snp.makeConstraints { (make) in
+                make.centerX.equalTo(self.detailView.snp.centerX).offset(0)
+                make.bottom.equalTo(self.detailView.snp.bottom).offset(-35)
+                make.size.equalTo(CGSize.init(width: 150, height: 42))
+            }
+        }else{
+            btn_bg.snp.makeConstraints { (make) in
+                make.centerX.equalTo(self.detailView.snp.centerX).offset(0)
+                make.bottom.equalTo(self.detailView.snp.bottom).offset(-30)
+                make.size.equalTo(CGSize.init(width: 150, height: 42))
+            }
+        }
+        
         
         let btn = self.createButton(title: btnBottom)
         btn.reactive.controlEvents(.touchUpInside).observe { (active) in
@@ -439,11 +509,22 @@ class GloableAlertView: UIView {
         }
         detailView.addSubview(btn)
         
-        btn.snp.makeConstraints { (make) in
-            make.centerX.equalTo(self.detailView.snp.centerX).offset(0)
-            make.bottom.equalTo(self.detailView.snp.bottom).offset(-32)
-            make.size.equalTo(CGSize.init(width: 150, height: 42))
+        if type == .topupfail {
+            btn.snp.makeConstraints { (make) in
+                make.centerX.equalTo(self.detailView.snp.centerX).offset(0)
+                make.bottom.equalTo(self.detailView.snp.bottom).offset(-37)
+                make.size.equalTo(CGSize.init(width: 150, height: 42))
+            }
+        }else{
+            btn.snp.makeConstraints { (make) in
+                make.centerX.equalTo(self.detailView.snp.centerX).offset(0)
+                make.bottom.equalTo(self.detailView.snp.bottom).offset(-32)
+                make.size.equalTo(CGSize.init(width: 150, height: 42))
+            }
         }
+        
+        
+        
         var number = 5
         if type == .catchfail {
             time = Timer.every(1, {
@@ -457,6 +538,18 @@ class GloableAlertView: UIView {
             })
         }else if type == .topupfail{
             btn.backgroundColor = UIColor.init(hexString: App_Theme_CCCCCC_Color)
+        }else if type == .success {
+            successTime = Timer.every(1, {
+                number = number - 1
+                if number == 0 {
+                    self.timeDone = true
+                    topButton.setTitle("退出按钮", for: .normal)
+                    self.gloableAlertViewClouse(1000)
+                    self.successTime.invalidate()
+                }else{
+                    topButton.setTitle("再试一次\(number)s", for: .normal)
+                }
+            })
         }
     }
     

@@ -38,6 +38,7 @@ class ShareTools: NSObject, TencentSessionDelegate, TencentLoginDelegate {
     }
     
     func shareWeChatTimeLine(_ title:String, description:String, image:UIImage, url:String?){
+        
         let req = self.setUpSendMessageToWXReq(title, description: description, image: image, url: url, type: 1)
         WXApi.send(req)
     }

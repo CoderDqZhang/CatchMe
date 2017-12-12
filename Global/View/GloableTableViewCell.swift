@@ -332,8 +332,10 @@ class GloabTitleAndSwitchCell: UITableViewCell {
         self.contentView.addSubview(titleLabel)
         
         switchView = UISwitch.init()
-        switchView.onImage = UIImage.init(color: UIColor.init(hexString: App_Theme_FC4652_Color), size: CGSize.init(width: 26, height: 26))
-        switchView.onImage = UIImage.init(color: UIColor.init(hexString: App_Theme_888888_Color), size: CGSize.init(width: 26, height: 26))
+        switchView.onTintColor = UIColor.init(hexString: App_Theme_FC4652_Color)
+        
+        switchView.onImage = UIImage.init(named: "on")
+        switchView.offImage = UIImage.init(named: "off")
         self.contentView.addSubview(switchView)
         self.updateConstraintsIfNeeded()
     }

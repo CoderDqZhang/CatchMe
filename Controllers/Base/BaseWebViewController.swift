@@ -19,11 +19,12 @@ class BaseWebViewController: BaseViewController {
         super.viewDidLoad()
 
         if bannerModel != nil {
-            self.url = bannerModel.linkAddress
+            let urls = self.bannerModel.linkAddress.components(separatedBy: "url=")
+            self.url = urls[1].removingPercentEncoding! as String
         }
         
         webView = WKWebView(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: SCREENHEIGHT - 64))
-        webView.load(URLRequest.init(url: URL.init(string: bannerModel != nil ? bannerModel.linkAddress : url)!))
+        webView.load(URLRequest.init(url: URL.init(string:url)!))
         self.view.addSubview(webView)
         // Do any additional setup after loading the view.
     }

@@ -17,6 +17,8 @@ class HomeViewModel: BaseViewModel {
     override init() {
         super.init()
         self.requestBanner()
+        self.getConfig()
+
     }
     
     //MARK: UICollectionCellSetData
@@ -28,6 +30,7 @@ class HomeViewModel: BaseViewModel {
         let controllerVC = CacheMeViewController()
         controllerVC.roomModel = models.data[indexPath.row]
         NavigationPushView(self.controller!, toConroller: controllerVC)
+        
     }
     
     func cellBanner(headerView:BannerCollectionReusableView){
@@ -40,10 +43,22 @@ class HomeViewModel: BaseViewModel {
             }
             self.headerView.setcycleScrollerViewData(imageUrls.mutableCopy() as! NSArray)
             self.headerView.cyCleScrollerViewClouse = { index in
-//                let controllerVC = BaseWebViewController()
-//                controllerVC.bannerModel = BannerModel.init(fromDictionary: self.banners[index] as! NSDictionary)
-//                NavigationPushView(self.controller!, toConroller: controllerVC)
-                NavigationPushView(self.controller!, toConroller: MyInvitationCodeViewController())
+                let banner = BannerModel.init(fromDictionary: self.banners[index] as! NSDictionary)
+                
+                switch banner.type {
+                case 1:
+                    NavigationPushView(self.controller!, toConroller: MyInvitationCodeViewController())
+                case 3:
+                    let controllerVC = BaseWebViewController()
+                    controllerVC.bannerModel = BannerModel.init(fromDictionary: self.banners[index] as! NSDictionary)
+                    NavigationPushView(self.controller!, toConroller: controllerVC)
+                case 2:
+                    let controllerVC = CacheMeViewController()
+                    controllerVC.roomModel = Labels.init(fromDictionary: ["id":banner.roomId as! Int])
+                    NavigationPushView(self.controller!, toConroller: controllerVC)
+                default:
+                    break;
+                }
             }
         }
         
@@ -51,9 +66,11 @@ class HomeViewModel: BaseViewModel {
     
     func cellSetBanner(){
         let imageUrls = NSMutableArray.init()
-        for model in self.banners {
-            let banner =  BannerModel.init(fromDictionary: model as! NSDictionary)
-            imageUrls.add(banner.bannerAddress)
+        if self.banners != nil {
+            for model in self.banners {
+                let banner =  BannerModel.init(fromDictionary: model as! NSDictionary)
+                imageUrls.add(banner.bannerAddress)
+            }
         }
         if self.headerView != nil {
             self.headerView.setcycleScrollerViewData(imageUrls.mutableCopy() as! NSArray)
@@ -113,6 +130,19 @@ class HomeViewModel: BaseViewModel {
         }
     }
     
+    
+    func getConfig(){
+        let parameters = ["platform":"1","version":APPVERSION]
+        BaseNetWorke.sharedInstance.getUrlWithString(Config, parameters: parameters as AnyObject).observe { (resultDic) in
+            if !resultDic.isCompleted {
+                if resultDic.value != nil && resultDic.value is NSDictionary {
+                    let model = ConfigModel.init(fromDictionary: resultDic.value as! NSDictionary)
+                    ConfigModel.shanreInstance.isOnlineVersion = model.isOnlineVersion
+                    ConfigModel.shanreInstance.musicName = model.musicName
+                }
+            }
+        }
+    }
     
 }
 

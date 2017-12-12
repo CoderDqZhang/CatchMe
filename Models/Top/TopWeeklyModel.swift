@@ -98,7 +98,7 @@ class GameStatistic : NSObject, NSCoding{
     var count : Int!
     var name : String!
     var photo : AnyObject!
-    
+    var rank : Int!
     
     /**
      * Instantiate the instance using the passed dictionary values to set the properties values
@@ -107,6 +107,7 @@ class GameStatistic : NSObject, NSCoding{
         count = dictionary["count"] as? Int
         name = dictionary["name"] as? String
         photo = dictionary["photo"] as AnyObject
+        rank = dictionary["rank"] as? Int
     }
     
     /**
@@ -124,6 +125,9 @@ class GameStatistic : NSObject, NSCoding{
         if photo != nil{
             dictionary["photo"] = photo
         }
+        if rank != nil{
+            dictionary["rank"] = rank
+        }
         return dictionary
     }
     
@@ -136,7 +140,7 @@ class GameStatistic : NSObject, NSCoding{
         count = aDecoder.decodeObject(forKey: "count") as? Int
         name = aDecoder.decodeObject(forKey: "name") as? String
         photo = aDecoder.decodeObject(forKey: "photo") as AnyObject
-        
+        rank = aDecoder.decodeObject(forKey: "rank") as? Int
     }
     
     /**
@@ -154,7 +158,9 @@ class GameStatistic : NSObject, NSCoding{
         if photo != nil{
             aCoder.encode(photo, forKey: "photo")
         }
-        
+        if rank != nil{
+            aCoder.encode(rank, forKey: "rank")
+        }
     }
     
 }

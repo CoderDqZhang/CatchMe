@@ -150,7 +150,7 @@ class CacheMeTopView : UIView {
         avatar.frame = frame
         avatar.layer.cornerRadius = 16
         avatar.layer.masksToBounds = true
-        UIImageViewManger.sd_imageView(url: model.photo, imageView: avatar, placeholderImage: nil) { (image, error, cacheType, url) in
+        UIImageViewManger.sd_imageView(url: model.photo == nil ? "" : model.photo, imageView: avatar, placeholderImage: nil) { (image, error, cacheType, url) in
             
         }
         return avatar
@@ -296,7 +296,7 @@ class CacheMePlayUserView:UIView {
             userName.text = model?.userName
             detail_bg.text = "正在抓..."
             userName_bg.text = model?.userName
-            UIImageViewManger.sd_imageView(url: model?.photo == nil ? "" : (model?.photo)!, imageView: avatar, placeholderImage: nil) { (image, error, cachtType, url) in
+            UIImageViewManger.sd_imageView(url: model?.photo == nil ? "" : (model?.photo)!, imageView: avatar, placeholderImage: UIImage.init(named: "默认头像_2")) { (image, error, cachtType, url) in
                 
             }
         }
@@ -623,7 +623,7 @@ class GameToolsView : UIView {
         
         self.addSubview(gameView)
         
-        topBtn = UIButton.init(frame: CGRect.init(x: 113, y: 0, width: gameBtnWidht, height: gameBtnHeight))
+        topBtn = UIButton.init(frame: CGRect.init(x: 111, y: 0, width: gameBtnWidht, height: gameBtnHeight))
         topBtn.setImage(UIImage.init(named: "up"), for: .normal)
         self.setUpButtonTheme(button: topBtn)
         topBtn.reactive.controlEvents(.touchUpInside).observe { (action) in
@@ -631,7 +631,7 @@ class GameToolsView : UIView {
         }
         gameView.addSubview(topBtn)
         
-        leftBtn = UIButton.init(frame: CGRect.init(x: 60, y: 29, width: gameBtnWidht, height: gameBtnWidht))
+        leftBtn = UIButton.init(frame: CGRect.init(x: 58, y: 29, width: gameBtnWidht, height: gameBtnWidht))
         leftBtn.setImage(UIImage.init(named: "left"), for: .normal)
         self.setUpButtonTheme(button: leftBtn)
         leftBtn.reactive.controlEvents(.touchUpInside).observe { (action) in
@@ -640,7 +640,7 @@ class GameToolsView : UIView {
         gameView.addSubview(leftBtn)
         
         
-        bottomBtn = UIButton.init(frame: CGRect.init(x: 113, y: 57, width: gameBtnWidht, height: gameBtnWidht))
+        bottomBtn = UIButton.init(frame: CGRect.init(x: 111, y: 57, width: gameBtnWidht, height: gameBtnWidht))
         self.setUpButtonTheme(button: bottomBtn)
         bottomBtn.setImage(UIImage.init(named: "down"), for: .normal)
         bottomBtn.reactive.controlEvents(.touchUpInside).observe { (action) in
@@ -648,7 +648,7 @@ class GameToolsView : UIView {
         }
         gameView.addSubview(bottomBtn)
         
-        rightBtn = UIButton.init(frame: CGRect.init(x: 166, y: 29, width: gameBtnWidht, height: gameBtnWidht))
+        rightBtn = UIButton.init(frame: CGRect.init(x: 164, y: 29, width: gameBtnWidht, height: gameBtnWidht))
         self.setUpButtonTheme(button: rightBtn)
         rightBtn.setImage(UIImage.init(named: "right"), for: .normal)
         rightBtn.reactive.controlEvents(.touchUpInside).observe { (action) in
@@ -657,7 +657,7 @@ class GameToolsView : UIView {
         gameView.addSubview(rightBtn)
         
         let image = UIImage.init(named: "go")
-        goBtn = UIButton.init(frame: CGRect.init(x: SCREENWIDTH - 60 - (image?.size.width)!, y: 12, width: (image?.size.width)!, height: (image?.size.height)!))
+        goBtn = UIButton.init(frame: CGRect.init(x: SCREENWIDTH - 58 - (image?.size.width)!, y: 12, width: (image?.size.width)!, height: (image?.size.height)!))
         goBtn.backgroundColor = UIColor.clear
         goBtn.titleLabel?.textAlignment = .center
         goBtn.layer.masksToBounds = true

@@ -197,8 +197,11 @@ class BannerModel : NSObject, NSCoding{
     var bannerAddress : String!
     var id : Int!
     var linkAddress : String!
+    var roomId : AnyObject!
     var sequence : Int!
+    var status : Int!
     var title : String!
+    var type : Int!
     
     
     /**
@@ -208,8 +211,11 @@ class BannerModel : NSObject, NSCoding{
         bannerAddress = dictionary["bannerAddress"] as? String
         id = dictionary["id"] as? Int
         linkAddress = dictionary["linkAddress"] as? String
+        roomId = dictionary["roomId"] as AnyObject
         sequence = dictionary["sequence"] as? Int
+        status = dictionary["status"] as? Int
         title = dictionary["title"] as? String
+        type = dictionary["type"] as? Int
     }
     
     /**
@@ -227,11 +233,20 @@ class BannerModel : NSObject, NSCoding{
         if linkAddress != nil{
             dictionary["linkAddress"] = linkAddress
         }
+        if roomId != nil{
+            dictionary["roomId"] = roomId
+        }
         if sequence != nil{
             dictionary["sequence"] = sequence
         }
+        if status != nil{
+            dictionary["status"] = status
+        }
         if title != nil{
             dictionary["title"] = title
+        }
+        if type != nil{
+            dictionary["type"] = type
         }
         return dictionary
     }
@@ -245,8 +260,11 @@ class BannerModel : NSObject, NSCoding{
         bannerAddress = aDecoder.decodeObject(forKey: "bannerAddress") as? String
         id = aDecoder.decodeObject(forKey: "id") as? Int
         linkAddress = aDecoder.decodeObject(forKey: "linkAddress") as? String
+        roomId = aDecoder.decodeObject(forKey: "roomId") as AnyObject
         sequence = aDecoder.decodeObject(forKey: "sequence") as? Int
+        status = aDecoder.decodeObject(forKey: "status") as? Int
         title = aDecoder.decodeObject(forKey: "title") as? String
+        type = aDecoder.decodeObject(forKey: "type") as? Int
         
     }
     
@@ -265,11 +283,20 @@ class BannerModel : NSObject, NSCoding{
         if linkAddress != nil{
             aCoder.encode(linkAddress, forKey: "linkAddress")
         }
+        if roomId != nil{
+            aCoder.encode(roomId, forKey: "roomId")
+        }
         if sequence != nil{
             aCoder.encode(sequence, forKey: "sequence")
         }
+        if status != nil{
+            aCoder.encode(status, forKey: "status")
+        }
         if title != nil{
             aCoder.encode(title, forKey: "title")
+        }
+        if type != nil{
+            aCoder.encode(type, forKey: "type")
         }
     }
 }

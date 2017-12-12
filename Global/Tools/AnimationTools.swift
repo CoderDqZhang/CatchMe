@@ -42,6 +42,22 @@ class AnimationTools: NSObject {
         }
     }
     
+    func shakeAnimation(view:UIView){
+        let shake = CABasicAnimation.init(keyPath: "transform.rotation.z")
+        shake.fromValue = 0.1
+        shake.toValue = -0.1
+        shake.duration = 0.1
+        shake.autoreverses = false //是否重复
+        shake.repeatCount = 2
+        view.layer.add(shake, forKey: "transformRotation")
+        view.alpha = 1.0
+        UIView.animate(withDuration: 2.0, delay: 1, options: .curveEaseIn, animations: {
+            
+        }) { (ret) in
+            
+        }
+    }
+    
     
     func baseAnimationWithKeyPath(_ path : String , fromValue : Any? , toValue : Any?, duration : CFTimeInterval, repeatCount : Float? , timingFunction : String?) -> CABasicAnimation{
         

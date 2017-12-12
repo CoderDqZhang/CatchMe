@@ -93,17 +93,6 @@ class LoginTypeViewController: BaseViewController {
                 print("weixin sendreq failed")
             }
         }
-        //测试登录
-//        let parameters = ["userId":"7"]
-//        BaseNetWorke.sharedInstance.getUrlWithString(UserInfoUrl, parameters: parameters as AnyObject).observe({ (resultDic) in
-//            if !resultDic.isCompleted {
-//                let model:UserInfoModel = UserInfoModel.init(dictionary: resultDic.value as! [AnyHashable : Any])
-//                model.idField = "\((resultDic.value as! NSDictionary).object(forKey: "id")!)"
-//                UserDefaultsSetSynchronize(model.neteaseAccountId as AnyObject, key: "neteaseAccountId")
-//                model.saveOrUpdate(byColumnName: "neteaseAccountId", andColumnValue: "'\(model.neteaseAccountId!)'")
-//                LoginViewModel.shareInstance.loginNetNetease()
-//            }
-//        })
     }
 
     @objc func loginSuccess(_ object:Foundation.Notification){
@@ -122,6 +111,10 @@ class LoginTypeViewController: BaseViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        UIApplication.shared.setStatusBarStyle(.lightContent, animated: false)
     }
     
 

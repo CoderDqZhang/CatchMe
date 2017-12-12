@@ -148,7 +148,10 @@
 		1F3739BE1FD10D5A0068F1C0 /* address.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1F3739BD1FD10D5A0068F1C0 /* address.txt */; };
 		1F3739C01FD10E160068F1C0 /* LocalJsonFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3739BF1FD10E160068F1C0 /* LocalJsonFile.swift */; };
 		1F3739C41FD1302E0068F1C0 /* AddressValueKey.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1F3739C31FD1302E0068F1C0 /* AddressValueKey.txt */; };
-		1F57EEE11FDBFD4A009D0CAE /* music.mov in Resources */ = {isa = PBXBuildFile; fileRef = 1F57EEE01FDBFD49009D0CAE /* music.mov */; };
+		1F4C5B8C1FE04B2F00C9CF66 /* SessionShareModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F4C5B8B1FE04B2F00C9CF66 /* SessionShareModel.swift */; };
+		1F4C5B901FE05A2300C9CF66 /* music_xmas.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 1F4C5B8D1FE05A2200C9CF66 /* music_xmas.mp3 */; };
+		1F4C5B911FE05A2300C9CF66 /* music_normal.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 1F4C5B8E1FE05A2200C9CF66 /* music_normal.mp3 */; };
+		1F4C5B921FE05A2300C9CF66 /* music_hny.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 1F4C5B8F1FE05A2200C9CF66 /* music_hny.mp3 */; };
 		1F57EEE31FDBFDA0009D0CAE /* AudioPlayManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F57EEE21FDBFDA0009D0CAE /* AudioPlayManager.swift */; };
 		1F8432511FD29BDF000D6293 /* SwiftUserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8432501FD29BDF000D6293 /* SwiftUserModel.swift */; };
 		1F85F03F1FD6B5EA00FDF26C /* MyInvitationCodeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F85F03E1FD6B5EA00FDF26C /* MyInvitationCodeViewModel.swift */; };
@@ -386,7 +389,10 @@
 		1F3739BD1FD10D5A0068F1C0 /* address.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = address.txt; sourceTree = "<group>"; };
 		1F3739BF1FD10E160068F1C0 /* LocalJsonFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalJsonFile.swift; sourceTree = "<group>"; };
 		1F3739C31FD1302E0068F1C0 /* AddressValueKey.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AddressValueKey.txt; sourceTree = "<group>"; };
-		1F57EEE01FDBFD49009D0CAE /* music.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = music.mov; sourceTree = "<group>"; };
+		1F4C5B8B1FE04B2F00C9CF66 /* SessionShareModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionShareModel.swift; sourceTree = "<group>"; };
+		1F4C5B8D1FE05A2200C9CF66 /* music_xmas.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = music_xmas.mp3; sourceTree = "<group>"; };
+		1F4C5B8E1FE05A2200C9CF66 /* music_normal.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = music_normal.mp3; sourceTree = "<group>"; };
+		1F4C5B8F1FE05A2200C9CF66 /* music_hny.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = music_hny.mp3; sourceTree = "<group>"; };
 		1F57EEE21FDBFDA0009D0CAE /* AudioPlayManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayManager.swift; sourceTree = "<group>"; };
 		1F8432501FD29BDF000D6293 /* SwiftUserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUserModel.swift; sourceTree = "<group>"; };
 		1F85F03D1FD54E5700FDF26C /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -473,6 +479,9 @@
 		1F126D611FBFF024006306D2 /* CatchMe */ = {
 			isa = PBXGroup;
 			children = (
+				1F4C5B8F1FE05A2200C9CF66 /* music_hny.mp3 */,
+				1F4C5B8E1FE05A2200C9CF66 /* music_normal.mp3 */,
+				1F4C5B8D1FE05A2200C9CF66 /* music_xmas.mp3 */,
 				1F126D621FBFF024006306D2 /* AppDelegate.swift */,
 				1F126D641FBFF024006306D2 /* ViewController.swift */,
 				1F126DF91FBFFB75006306D2 /* AppThemeTool.swift */,
@@ -488,7 +497,6 @@
 				1F3739BD1FD10D5A0068F1C0 /* address.txt */,
 				1F126D661FBFF024006306D2 /* Main.storyboard */,
 				1F126D691FBFF024006306D2 /* Assets.xcassets */,
-				1F57EEE01FDBFD49009D0CAE /* music.mov */,
 				1FE1A2D11FCD095200B715D8 /* Default-568.jpg */,
 				1F126D6B1FBFF024006306D2 /* LaunchScreen.storyboard */,
 				1F126D6E1FBFF024006306D2 /* Info.plist */,
@@ -1061,6 +1069,7 @@
 				1F126EFF1FC4063E006306D2 /* AddressModel.m */,
 				1FE1A2CD1FCC0CD900B715D8 /* TopUpModel.swift */,
 				1FE1A2CF1FCC1A0000B715D8 /* MyCatchDollsModel.swift */,
+				1F4C5B8B1FE04B2F00C9CF66 /* SessionShareModel.swift */,
 			);
 			path = Mine;
 			sourceTree = "<group>";
@@ -1181,15 +1190,17 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1F57EEE11FDBFD4A009D0CAE /* music.mov in Resources */,
 				1F126DDE1FBFF46A006306D2 /* AlipaySDK.bundle in Resources */,
 				1F3739C41FD1302E0068F1C0 /* AddressValueKey.txt in Resources */,
 				1F126D6D1FBFF024006306D2 /* LaunchScreen.storyboard in Resources */,
+				1F4C5B901FE05A2300C9CF66 /* music_xmas.mp3 in Resources */,
 				1F126DFC1FBFFB76006306D2 /* city.plist in Resources */,
 				1F126D6A1FBFF024006306D2 /* Assets.xcassets in Resources */,
 				1F126D891FBFF328006306D2 /* README.txt in Resources */,
 				1F126D8B1FBFF328006306D2 /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
 				1F126D681FBFF024006306D2 /* Main.storyboard in Resources */,
+				1F4C5B911FE05A2300C9CF66 /* music_normal.mp3 in Resources */,
+				1F4C5B921FE05A2300C9CF66 /* music_hny.mp3 in Resources */,
 				1FE1A2D21FCD095300B715D8 /* Default-568.jpg in Resources */,
 				1F3739BE1FD10D5A0068F1C0 /* address.txt in Resources */,
 				1F126E1B1FBFFE35006306D2 /* WeiboSDK.bundle in Resources */,
@@ -1280,6 +1291,7 @@
 				1F126E5B1FC0891D006306D2 /* LoginViewModel.swift in Sources */,
 				1F126D931FBFF36B006306D2 /* BaseNetWorke.swift in Sources */,
 				1FE1A2D01FCC1A0000B715D8 /* MyCatchDollsModel.swift in Sources */,
+				1F4C5B8C1FE04B2F00C9CF66 /* SessionShareModel.swift in Sources */,
 				1F126D651FBFF024006306D2 /* ViewController.swift in Sources */,
 				1FCA200B1FC5C0E20008BF07 /* LoginSetPhoneViewController.swift in Sources */,
 				1F126E061FBFFD70006306D2 /* UIImage+PureColor.m in Sources */,
