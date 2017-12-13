@@ -16,8 +16,8 @@ class LoginViewController: BaseViewController {
     var lineLabel:GloabLineView!
     var lineLabel1:GloabLineView!
     
-    var loginButton:UIButton!
-    var senderCode:UIButton!
+    var loginButton:AnimationButton!
+    var senderCode:AnimationButton!
     var serviceLabel:UILabel!
     
     var phoneStr:String = ""
@@ -84,7 +84,7 @@ class LoginViewController: BaseViewController {
         }
         self.view.addSubview(phontTextField)
         
-        senderCode = UIButton(type: .custom)
+        senderCode = AnimationButton(type: .custom)
         senderCode.backgroundColor = UIColor.init(hexString: App_Theme_DDE0E5_Color)
         senderCode.setTitle("发验证码", for: UIControlState())
         senderCode.titleLabel?.font = App_Theme_PinFan_R_12_Font
@@ -97,7 +97,7 @@ class LoginViewController: BaseViewController {
         }
         self.view.addSubview(senderCode)
         
-        loginButton = UIButton(type: .custom)
+        loginButton = AnimationButton(type: .custom)
         loginButton.buttonSetThemColor(App_Theme_F94856_Color, selectColor: App_Theme_F94856_Color, size:CGSize.init(width: SCREENWIDTH - 30, height: 49))
         loginButton.setTitle("立即登录", for: UIControlState())
         loginButton.titleLabel?.font = App_Theme_PinFan_M_15_Font

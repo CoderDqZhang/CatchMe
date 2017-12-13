@@ -16,6 +16,7 @@ class MyJoysViewModel: BaseViewModel {
         super.init()
         self.requestMyDolls()
     }
+    
     //MARK: UITableViewCellSetData
     func tableViewMyJoyTableViewCellSetData(_ indexPath:IndexPath, cell:MyJoyTableViewCell) {
         cell.cellSetData(model: MyCatchDollsModel.init(fromDictionary: model[indexPath.section] as! NSDictionary) )
@@ -24,13 +25,12 @@ class MyJoysViewModel: BaseViewModel {
     
     func tableViewDidSelect(_ indexPath:IndexPath) {
         let toViewController = JoysDetailViewController()
-        toViewController.url = "\(DollsDetail)\(MyCatchDollsModel.init(fromDictionary: model[indexPath.section] as! NSDictionary).skuId!)"
+        toViewController.url = "\(CatchDolls)\(MyCatchDollsModel.init(fromDictionary: model[indexPath.section] as! NSDictionary).gameId!)"
         NavigationPushView(self.controller!, toConroller: toViewController)
     }
     
     func requestMyDolls(){
         let parameters = ["userId":UserInfoModel.shareInstance().idField]
-//        let parameters = ["userId":1]
         BaseNetWorke.sharedInstance.getUrlWithString(CatchedDolls, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
                 self.model = NSMutableArray.mj_keyValuesArray(withObjectArray: resultDic.value as! [Any])

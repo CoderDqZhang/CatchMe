@@ -21,6 +21,7 @@ target 'CatchMe' do
   pod 'NIMSDK'
   pod 'DZNEmptyDataSet'
   pod 'CYLTabBarController'
+  pod 'pop'
   
   pod 'Pgyer'
   

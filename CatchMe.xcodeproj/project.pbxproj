@@ -176,6 +176,7 @@
 		1FE1A2CE1FCC0CD900B715D8 /* TopUpModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE1A2CD1FCC0CD900B715D8 /* TopUpModel.swift */; };
 		1FE1A2D01FCC1A0000B715D8 /* MyCatchDollsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE1A2CF1FCC1A0000B715D8 /* MyCatchDollsModel.swift */; };
 		1FE1A2D21FCD095300B715D8 /* Default-568.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1FE1A2D11FCD095200B715D8 /* Default-568.jpg */; };
+		1FF3A86B1FE1252E0017326F /* AnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF3A86A1FE1252E0017326F /* AnimationView.swift */; };
 		54C665C6CE13906B598CBB0B /* Pods_CatchMe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 018F762371DA9CCCFF9892F6 /* Pods_CatchMe.framework */; };
 /* End PBXBuildFile section */
 
@@ -418,6 +419,7 @@
 		1FE1A2CD1FCC0CD900B715D8 /* TopUpModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopUpModel.swift; sourceTree = "<group>"; };
 		1FE1A2CF1FCC1A0000B715D8 /* MyCatchDollsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCatchDollsModel.swift; sourceTree = "<group>"; };
 		1FE1A2D11FCD095200B715D8 /* Default-568.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Default-568.jpg"; sourceTree = "<group>"; };
+		1FF3A86A1FE1252E0017326F /* AnimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationView.swift; sourceTree = "<group>"; };
 		599640648AD4571953B84782 /* Pods-CatchMe.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CatchMe.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CatchMe/Pods-CatchMe.debug.xcconfig"; sourceTree = "<group>"; };
 		66871A49004208702649CA5E /* Pods-CatchMe.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CatchMe.release.xcconfig"; path = "Pods/Target Support Files/Pods-CatchMe/Pods-CatchMe.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -948,6 +950,7 @@
 				1F126E6E1FC15456006306D2 /* NTESGLView.h */,
 				1F126E6F1FC15457006306D2 /* NTESGLView.m */,
 				1F126EA71FC16212006306D2 /* ShareView.swift */,
+				1FF3A86A1FE1252E0017326F /* AnimationView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1349,6 +1352,7 @@
 				1F126EC51FC268BF006306D2 /* CacheMeControllerSubViews.swift in Sources */,
 				1F2292821FD01A7C00089174 /* CacheTools.swift in Sources */,
 				1F126E611FC0977F006306D2 /* QuestionViewController.swift in Sources */,
+				1FF3A86B1FE1252E0017326F /* AnimationView.swift in Sources */,
 				1F126DAC1FBFF387006306D2 /* UIView+SDExtension.m in Sources */,
 				1F126E491FC07F1B006306D2 /* MineToolsTableViewCell.swift in Sources */,
 				1F126E9F1FC154A0006306D2 /* renderer.c in Sources */,

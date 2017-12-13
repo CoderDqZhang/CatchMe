@@ -66,6 +66,8 @@ let QuictEnter = "\(BaseURL)room/quick/enter"
 let DollsDetail = "\(BaseH5URL)/catch-me/#/toyDetail?skuSubId="
 //抓到娃娃分享
 let ShareCatchDoll = "\(BaseH5URL)/catch-me/#/shareLanding?gameId="
+//抓到娃娃详情
+let CatchDolls = "\(BaseH5URL)/catch-me/#/toyDetail?gameId="
 //邀请码
 let InviteFriends = "\(BaseH5URL)/catch-me/#/invite"
 //修改用户信息
@@ -90,7 +92,8 @@ let RoomUserList = "\(BaseURL)user/findUserDTOListByIdList"
 let RecordByOrderNo = "\(BaseURL)recharge/findRechargeRecordByOrderNo"
 //分享接口
 let Socialsharecard = "\(BaseURL)socialsharecard/config"
-
+//使用协议
+let ProtocolUrl = "\(BaseURL)catch-me/#/agreement"
 
 //http://39.106.137.21:8201/machine/again/start?userId=1&machineId=1&lastGameId=357&roomId=1
 //9.106.137.21:8201/rooms?offset=1&limit=20&userId=1

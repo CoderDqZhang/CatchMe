@@ -16,7 +16,7 @@ class LoginSetPhoneViewController: BaseViewController {
     var phoneLabel:UILabel!
     var inputPhone:UITextField!
     var lingLabel:GloabLineView!
-    var loginButton:UIButton!
+    var loginButton:AnimationButton!
     
     var comfigLabel:UILabel!
     var proBtn:CustomButton!
@@ -35,7 +35,7 @@ class LoginSetPhoneViewController: BaseViewController {
     }
     
     func setBackBtn(){
-        backGroupButton = UIButton.init()
+        backGroupButton = AnimationButton.init()
         backGroupButton.setImage(UIImage.init(named: "back_bar_black"), for: .normal)
         backGroupButton.reactive.controlEvents(.touchUpInside).observe { (actic) in
             self.navigationController?.popViewController()
@@ -90,7 +90,7 @@ class LoginSetPhoneViewController: BaseViewController {
         lingLabel.setLineColor(UIColor.init(hexString: App_Theme_DDDDDD_Color))
         self.view.addSubview(lingLabel)
         
-        loginButton = UIButton.init(type: .custom)
+        loginButton = AnimationButton.init(type: .custom)
         loginButton.backgroundColor = UIColor.init(hexString: App_Theme_FC4652_Color, andAlpha: 0.7)
         loginButton.setTitle("获取验证码", for: .normal)
         loginButton.layer.cornerRadius = 25

@@ -184,11 +184,7 @@ class TopUpMuchView: UIView {
             let model = models[i - 1]
             
             muchView.setUpMuchViewData(much: "￥\(model.rechargeMoney!)", icon: "\(model.rechargeCoin!)")
-            if i == 1 {
-                muchView.changeType(type: .select)
-            }else{
-                muchView.changeType(type: .normal)
-            }
+            muchView.changeType(type: .normal)
             self.addSubview(muchView)
         }
     }
@@ -286,7 +282,7 @@ class TopUpWeekView : UIView {
             make.bottom.equalTo(self.snp.bottom).offset(0)
             make.top.equalTo(self.snp.top).offset(0)
         }
-        
+        weekView.changeType(type: .select)
         imageView = UIImageView.init()
         imageView.image = UIImage.init(named: "pic_周卡")
         self.addSubview(imageView)

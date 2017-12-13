@@ -267,7 +267,7 @@ class CacheMeViewModel: BaseViewModel {
                 self.setUpRoomPalyUsers(currentUser: self.catchMeModel.currentPlayerDTO)
                 self.cacheMeController.bottomToolsView.changePlayGameCoins(str: "\(self.catchMeModel.price!)")
                 //心跳接口
-                self.timeHeader = Timer.every(10, {
+                self.timeHeader = Timer.every(3, {
                     self.requestHeader()
                 })
             }

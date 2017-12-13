@@ -61,7 +61,7 @@ class TopUpViewController: BaseViewController {
         let payView = UIView.init(frame: CGRect.init(x: 0, y: 448, width: SCREENWIDTH, height: SCREENHEIGHT - 382))
         self.view.addSubview(payView)
         if WXApi.isWXAppInstalled() {
-            let weixinPay = UIButton.init(type: .custom)
+            let weixinPay = AnimationButton.init(type: .custom)
             weixinPay.setImage(UIImage.init(named: "wechat_pay"), for: .normal)
             weixinPay.backgroundColor = UIColor.init(hexString: App_Theme_41B035_Color)
             weixinPay.setTitle(" 微信支付", for: .normal)
@@ -90,7 +90,7 @@ class TopUpViewController: BaseViewController {
                 make.size.equalTo(CGSize.init(width: 220, height: 46))
             }
         }
-        let aliPay = UIButton.init(type: .custom)
+        let aliPay = AnimationButton.init(type: .custom)
         aliPay.setImage(UIImage.init(named: "ali_pay"), for: .normal)
         aliPay.backgroundColor = UIColor.init(hexString: App_Theme_009FE8_Color)
         aliPay.setTitle(" 支付宝支付", for: .normal)

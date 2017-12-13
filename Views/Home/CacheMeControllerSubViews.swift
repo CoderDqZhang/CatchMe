@@ -439,7 +439,8 @@ class QuictEnterLocalPreView: UIView {
 
 typealias ToolsViewClouse = ()->Void
 
-class ToolsView: UIView {
+class ToolsView: AnimationTouchView {
+    
     var imageView:UIImageView!
     var backImageView:UIImageView!
     var fontImageView:UIImageView!
@@ -464,11 +465,7 @@ class ToolsView: UIView {
         
         self.layer.cornerRadius = 30
         
-        let singleTap = UITapGestureRecognizer.init(target: self, action: #selector(self.singleTap))
-        singleTap.numberOfTapsRequired = 1
-        singleTap.numberOfTouchesRequired = 1
         self.toolsViewClouse = toolsViewTap
-        self.addGestureRecognizer(singleTap)
         
         label = UILabel.init(frame: CGRect.init(x: 0, y: frame.size.height - 28, width: frame.size.width, height: 20))
         label.textAlignment = .center
@@ -500,8 +497,13 @@ class ToolsView: UIView {
         }
     }
     
-    @objc func singleTap(){
+    override func viewPress() {
         self.toolsViewClouse()
+    }
+    
+    @objc func singleTap(){
+        
+        
     }
     
     func changeBalance(str:String){
@@ -532,7 +534,6 @@ class CacheMeToolsView: UIView {
         toolsDesc =  ToolsView.init(frame: CGRect.init(x: 10, y: 25, width: toolsWidth, height: 60), title: "详情", blance: nil, image: UIImage.init(named: "toy")!, tag: 1) {
             if self.cacheMeToolsViewClouse != nil {
                 self.cacheMeToolsViewClouse(1)
-                AnimationTools.shareInstance.easeInOutAnimation(view: self.toolsDesc, touchStatus: .begin)
             }
         }
         self.addSubview(toolsDesc)
@@ -540,7 +541,6 @@ class CacheMeToolsView: UIView {
         playGame = ToolsView.init(frame: CGRect.init(x: toolsDesc.frame.maxX + 8, y: 25, width: toolsWidth * 75 / 48, height: 60), title: "开始抓娃娃", blance: "30", image: UIImage.init(named: "coin_1")!,tag:2) {
             if self.cacheMeToolsViewClouse != nil {
                 self.cacheMeToolsViewClouse(2)
-                AnimationTools.shareInstance.easeInOutAnimation(view: self.playGame, touchStatus: .begin)
             }
         }
         self.addSubview(playGame)
@@ -548,7 +548,6 @@ class CacheMeToolsView: UIView {
         topUp = ToolsView.init(frame: CGRect.init(x: playGame.frame.maxX + 8, y: 25, width: toolsWidth, height: 60), title: "充值", blance: nil, image: UIImage.init(named: "coin_1")!,tag:3) {
             if self.cacheMeToolsViewClouse != nil {
                 self.cacheMeToolsViewClouse(3)
-                AnimationTools.shareInstance.easeInOutAnimation(view: self.topUp, touchStatus: .begin)
             }
         }
         self.addSubview(topUp)
@@ -603,12 +602,12 @@ enum GameToolsViewPlayType {
 
 
 class GameToolsView : UIView {
-    var leftBtn:UIButton!
-    var rightBtn:UIButton!
-    var topBtn:UIButton!
-    var bottomBtn:UIButton!
+    var leftBtn:AnimationButton!
+    var rightBtn:AnimationButton!
+    var topBtn:AnimationButton!
+    var bottomBtn:AnimationButton!
     
-    var goBtn:UIButton!
+    var goBtn:AnimationButton!
     
     var gameView:UIView!
     
@@ -623,7 +622,7 @@ class GameToolsView : UIView {
         
         self.addSubview(gameView)
         
-        topBtn = UIButton.init(frame: CGRect.init(x: 111, y: 0, width: gameBtnWidht, height: gameBtnHeight))
+        topBtn = AnimationButton.init(frame: CGRect.init(x: 111, y: 0, width: gameBtnWidht, height: gameBtnHeight))
         topBtn.setImage(UIImage.init(named: "up"), for: .normal)
         self.setUpButtonTheme(button: topBtn)
         topBtn.reactive.controlEvents(.touchUpInside).observe { (action) in
@@ -631,7 +630,7 @@ class GameToolsView : UIView {
         }
         gameView.addSubview(topBtn)
         
-        leftBtn = UIButton.init(frame: CGRect.init(x: 58, y: 29, width: gameBtnWidht, height: gameBtnWidht))
+        leftBtn = AnimationButton.init(frame: CGRect.init(x: 58, y: 29, width: gameBtnWidht, height: gameBtnWidht))
         leftBtn.setImage(UIImage.init(named: "left"), for: .normal)
         self.setUpButtonTheme(button: leftBtn)
         leftBtn.reactive.controlEvents(.touchUpInside).observe { (action) in
@@ -640,7 +639,7 @@ class GameToolsView : UIView {
         gameView.addSubview(leftBtn)
         
         
-        bottomBtn = UIButton.init(frame: CGRect.init(x: 111, y: 57, width: gameBtnWidht, height: gameBtnWidht))
+        bottomBtn = AnimationButton.init(frame: CGRect.init(x: 111, y: 57, width: gameBtnWidht, height: gameBtnWidht))
         self.setUpButtonTheme(button: bottomBtn)
         bottomBtn.setImage(UIImage.init(named: "down"), for: .normal)
         bottomBtn.reactive.controlEvents(.touchUpInside).observe { (action) in
@@ -648,7 +647,7 @@ class GameToolsView : UIView {
         }
         gameView.addSubview(bottomBtn)
         
-        rightBtn = UIButton.init(frame: CGRect.init(x: 164, y: 29, width: gameBtnWidht, height: gameBtnWidht))
+        rightBtn = AnimationButton.init(frame: CGRect.init(x: 164, y: 29, width: gameBtnWidht, height: gameBtnWidht))
         self.setUpButtonTheme(button: rightBtn)
         rightBtn.setImage(UIImage.init(named: "right"), for: .normal)
         rightBtn.reactive.controlEvents(.touchUpInside).observe { (action) in
@@ -657,7 +656,7 @@ class GameToolsView : UIView {
         gameView.addSubview(rightBtn)
         
         let image = UIImage.init(named: "go")
-        goBtn = UIButton.init(frame: CGRect.init(x: SCREENWIDTH - 58 - (image?.size.width)!, y: 12, width: (image?.size.width)!, height: (image?.size.height)!))
+        goBtn = AnimationButton.init(frame: CGRect.init(x: SCREENWIDTH - 58 - (image?.size.width)!, y: 12, width: (image?.size.width)!, height: (image?.size.height)!))
         goBtn.backgroundColor = UIColor.clear
         goBtn.titleLabel?.textAlignment = .center
         goBtn.layer.masksToBounds = true
@@ -700,7 +699,7 @@ class GameToolsView : UIView {
         }
     }
     
-    func setUpButtonTheme(button:UIButton){
+    func setUpButtonTheme(button:AnimationButton){
         button.layer.cornerRadius = CGFloat(gameBtnWidht/2)
         button.layer.masksToBounds = true
         button.titleLabel?.textAlignment = .center

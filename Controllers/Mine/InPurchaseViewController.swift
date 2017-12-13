@@ -83,7 +83,7 @@ class InPurchaseViewController: BaseViewController {
     func setUpPayButton(){
         let payView = UIView.init(frame: CGRect.init(x: 0, y: 382, width: SCREENWIDTH, height: SCREENHEIGHT - 382))
         self.view.addSubview(payView)
-        let aliPay = UIButton.init(type: .custom)
+        let aliPay = AnimationButton.init(type: .custom)
         aliPay.backgroundColor = UIColor.init(hexString: App_Theme_FC4652_Color)
         aliPay.setTitle("充值", for: .normal)
         aliPay.layer.cornerRadius = 23

@@ -12,7 +12,7 @@ import MBProgressHUD
 class TopUpViewModel: BaseViewModel {
 
     //topUpMuch 1 == 10,2==20,3==50,4==100,5=200,6==500
-    var topUpMuch:Int = 1
+    var topUpMuch:Int = 1000
     var models:TopUpModel!
     var model:AliPayInfoModel!
     var weChatModel:Wxpay!

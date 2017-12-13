@@ -12,7 +12,7 @@ class LoginPhoneCodeViewController: BaseViewController {
 
     var backGroupButton:UIButton!
     var phoneLabel:UILabel!
-    var loginButton:UIButton!
+    var loginButton:AnimationButton!
     var senderCode:UIButton!
     var inputCode:UITextField!
     
@@ -29,7 +29,7 @@ class LoginPhoneCodeViewController: BaseViewController {
     var codeLabel4:UILabel!
     
     var comfigLabel:UILabel!
-    var proBtn:CustomButton!
+    var proBtn:UIButton!
     var loginViewModel = LoginViewModel.shareInstance
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,7 +43,7 @@ class LoginPhoneCodeViewController: BaseViewController {
     }
     
     func setBackBtn(){
-        backGroupButton = UIButton.init()
+        backGroupButton = AnimationButton.init()
         backGroupButton.setImage(UIImage.init(named: "back_bar_black"), for: .normal)
         backGroupButton.reactive.controlEvents(.touchUpInside).observe { (actic) in
             self.navigationController?.popViewController()
@@ -126,7 +126,7 @@ class LoginPhoneCodeViewController: BaseViewController {
         
         self.setUpForLableAndLine()
         
-        loginButton = UIButton.init(type: .custom)
+        loginButton = AnimationButton.init(type: .custom)
         loginButton.backgroundColor = UIColor.init(hexString: App_Theme_FC4652_Color, andAlpha: 0.7)
         loginButton.setTitle("登录", for: .normal)
         loginButton.layer.cornerRadius = 25

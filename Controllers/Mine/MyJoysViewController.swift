@@ -36,7 +36,13 @@ class MyJoysViewController: BaseViewController {
     
     @objc func rightBarButtonPress(){
         let toControllerVC = SenderJoysViewController()
-        toControllerVC.models = (self.viewModel as! MyJoysViewModel).model
+        let models = NSMutableArray.init()
+        for model in (self.viewModel as! MyJoysViewModel).model {
+            if (model as! NSDictionary).object(forKey: "deliveryStatus")! as! Int == 0 {
+                models.add(model)
+            }
+        }
+        toControllerVC.models = models
         NavigationPushView(self, toConroller: toControllerVC)
     }
     /*

@@ -42,7 +42,7 @@ enum CustomButtonType {
 }
 
 typealias CustomButtonClouse = (_ tag:NSInteger) -> Void
-class CustomButton: UIButton {
+class CustomButton: AnimationButton {
     
     init(frame:CGRect, title:String, tag:NSInteger?, titleFont:UIFont, type:CustomButtonType, pressClouse:@escaping CustomButtonClouse) {
         super.init(frame: frame)
@@ -248,7 +248,7 @@ class GloabelShareAndConnectUs: UIView {
         lineLabel = GloabLineView.init(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: 0.5))
         self.addSubview(lineLabel)
         
-        let cancelButton = UIButton.init()
+        let cancelButton = AnimationButton.init()
         cancelButton.setImage(UIImage.init(named: "close"), for: .normal)
         cancelButton.reactive.controlEvents(.touchUpInside).observe { (active) in
             self.removeSelf()
@@ -393,7 +393,7 @@ class GloableAlertView: UIView {
             make.centerX.equalTo(self.snp.centerX).offset(0)
             make.bottom.equalTo(self.detailView.snp.top).offset(type == .success ? 7 : type == .catchfail ? 21 : 18)
         }
-        AnimationTools.shareInstance.shakeAnimation(view: backView)
+        AnimationTools.shareInstance.scalAnimation(view: backView)
         backView.snp.makeConstraints { (make) in
             make.centerX.equalToSuperview()
             make.centerY.equalToSuperview()
@@ -558,11 +558,12 @@ class GloableAlertView: UIView {
     }
     
     func removeSelf(){
+        AnimationTools.shareInstance.removeViewAnimation(view: self.backView)
         self.removeFromSuperview()
     }
     
-    func createButton(title:String) ->UIButton{
-        let button = UIButton.init(type: .custom)
+    func createButton(title:String) ->AnimationButton{
+        let button = AnimationButton.init(type: .custom)
         button.setTitle(title, for: .normal)
         button.setTitleColor(UIColor.init(hexString: App_Theme_FFFFFF_Color), for: .normal)
         button.titleLabel?.font = App_Theme_PinFan_M_16_Font
@@ -615,6 +616,7 @@ class GLoabelViewLabel:UIView {
 
 
 typealias BackButtonClouse = () ->Void
+
 class GLoabelNavigaitonBar:UIView {
     var title:UILabel!
     var backButton:UIButton!

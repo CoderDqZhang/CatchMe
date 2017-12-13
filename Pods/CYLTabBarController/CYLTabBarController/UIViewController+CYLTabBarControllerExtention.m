@@ -2,7 +2,7 @@
 //  UIViewController+CYLTabBarControllerExtention.m
 //  CYLTabBarController
 //
-//  v1.15.0 Created by 微博@iOS程序犭袁 ( http://weibo.com/luohanchenyilong/ ) on 16/2/26.
+//  v1.16.0 Created by 微博@iOS程序犭袁 ( http://weibo.com/luohanchenyilong/ ) on 16/2/26.
 //  Copyright © 2016年 https://github.com/ChenYilong .All rights reserved.
 //
 
@@ -98,7 +98,7 @@
 
 - (UIViewController *)cyl_getViewControllerInsteadIOfNavigationController {
     BOOL isNavigationController = [[self class] isSubclassOfClass:[UINavigationController class]];
-    if (isNavigationController) {
+    if (isNavigationController && ((UINavigationController *)self).viewControllers.count > 0) {
         return ((UINavigationController *)self).viewControllers[0];
     }
     return self;
@@ -118,6 +118,7 @@
         return;
     }
     [self.cyl_tabButton cyl_showTabBadgePoint];
+    [[self cyl_tabBarController].tabBar layoutIfNeeded];
 }
 
 - (void)cyl_removeTabBadgePoint {
@@ -125,6 +126,7 @@
         return;
     }
     [self.cyl_tabButton cyl_removeTabBadgePoint];
+    [[self cyl_tabBarController].tabBar layoutIfNeeded];
 }
 
 - (BOOL)cyl_isShowTabBadgePoint {
