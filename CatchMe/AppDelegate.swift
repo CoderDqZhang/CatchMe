@@ -23,11 +23,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WeiboSDKDelegate {
         AppleThemeTool.setUpKeyBoardManager()
         //分享控制器
         _ = ShareManager.init()
+        if UserDefaultsGetSynchronize(MUISCCOGIF) as! String == "nil" {
+            UserDefaultsSetSynchronize("true" as AnyObject, key: MUISCCOGIF)
+        }
         //网易云控制器
         manager = NeteaseManager.init()
         self.setUpMainViewContr()
-        
         self.window?.makeKeyAndVisible()
+        self.window?.addSubview(SpalshView.init(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: SCREENHEIGHT)))
         // Override point for customization after application launch.
         return true
     }

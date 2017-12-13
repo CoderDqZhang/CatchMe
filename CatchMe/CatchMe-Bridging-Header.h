@@ -30,4 +30,6 @@
 #import "UserInfoModel.h"
 #import "AddressModel.h"
 #import <PgySDK/PgyManager.h>
+#import "FLAnimatedImage.h"
+#import "FLAnimatedImageView.h"
 

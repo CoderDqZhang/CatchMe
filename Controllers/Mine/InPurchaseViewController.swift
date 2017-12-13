@@ -43,7 +43,7 @@ class InPurchaseViewController: BaseViewController {
         balance.text = "账户余额 \(str!) 币"
         self.updateBalance(text: balance.text!)
         self.view.addSubview(balance)
-        GLoabelViewLabel.addLabel(label: balance, view: self.view)
+        GLoabelViewLabel.addLabel(label: balance, view: self.view, isWithNumber: true)
         balance.snp.makeConstraints { (make) in
             make.centerX.equalTo(self.view.snp.centerX).offset(0)
             make.top.equalTo(self.view.snp.top).offset(30)

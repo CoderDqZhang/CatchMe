@@ -28,8 +28,6 @@ class MuchView: UIView {
         self.layer.borderWidth = 1
         self.layer.masksToBounds = true
 
-        
-        
         imageView = UIImageView.init()
         imageView.image = UIImage.init(named: "rechang_choosen")?.resizableImage(withCapInsets: UIEdgeInsets.init(top: 0, left: 90, bottom: 0, right: 64), resizingMode: .stretch)
         self.addSubview(imageView)
@@ -51,7 +49,7 @@ class MuchView: UIView {
         muchIconStr.text = "币"
         muchIconStr.font = App_Theme_PinFan_M_16_Font
         muchView.addSubview(muchIconStr)
-        
+                
         imageView.snp.makeConstraints { (make) in
             make.left.equalTo(self.snp.left).offset(0)
             make.top.equalTo(self.snp.top).offset(0)
@@ -59,7 +57,7 @@ class MuchView: UIView {
         }
         
         muchLable.snp.makeConstraints { (make) in
-            make.centerX.equalTo(self.snp.centerX).offset(0)
+            make.centerX.equalTo(self.snp.centerX).offset(-2)
             make.bottom.equalTo(self.snp.bottom).offset(-6.5)
         }
         
@@ -85,36 +83,37 @@ class MuchView: UIView {
             muchIconStr.textColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
 
             self.layer.borderColor = UIColor.clear.cgColor
-           
+            let muchIconWidth = (self.muchIcon.text! as NSString).width(with: App_Theme_PinFan_M_20_Font, constrainedToHeight: 20)
             let frame = self.frame
             self.frame = CGRect.init(x: frame.origin.x, y: frame.origin.y, width: frame.size.width, height: 61)
             muchView.snp.makeConstraints { (make) in
                 make.centerX.equalTo(self.snp.centerX).offset(0)
                 make.top.equalTo(self.snp.top).offset(9)
                 make.height.equalTo(24)
-                make.width.equalTo(40)
+                make.width.equalTo(muchIconWidth + 20)
             }
             muchLable.snp.remakeConstraints { (make) in
-                make.centerX.equalTo(self.snp.centerX).offset(0)
+                make.centerX.equalTo(self.snp.centerX).offset(-2)
                 make.bottom.equalTo(self.snp.bottom).offset(-12)
             }
         default:
             imageView.isHidden = true
             self.layer.cornerRadius = 30
+            let muchIconWidth = (self.muchIcon.text! as NSString).width(with: App_Theme_PinFan_M_20_Font, constrainedToHeight: 20)
             muchLable.textColor = UIColor.init(hexString: App_Theme_FC4652_Color)
             muchIcon.textColor = UIColor.init(hexString: App_Theme_FC4652_Color)
             muchIconStr.textColor = UIColor.init(hexString: App_Theme_FC4652_Color)
             self.layer.borderColor = UIColor.init(hexString: App_Theme_FC4652_Color)?.cgColor
             self.frame = CGRect.init(x: frame.origin.x, y: frame.origin.y, width: frame.size.width, height: 56)
             muchLable.snp.remakeConstraints { (make) in
-                make.centerX.equalTo(self.snp.centerX).offset(0)
+                make.centerX.equalTo(self.snp.centerX).offset(-2)
                 make.bottom.equalTo(self.snp.bottom).offset(-6.5)
             }
             muchView.snp.makeConstraints { (make) in
                 make.centerX.equalTo(self.snp.centerX).offset(0)
                 make.top.equalTo(self.snp.top).offset(9)
                 make.height.equalTo(24)
-                make.width.equalTo(40)
+                make.width.equalTo(muchIconWidth + 20)
             }
         }
     }
@@ -283,14 +282,17 @@ class TopUpWeekView : UIView {
             make.top.equalTo(self.snp.top).offset(0)
         }
         weekView.changeType(type: .select)
-        imageView = UIImageView.init()
-        imageView.image = UIImage.init(named: "pic_周卡")
-        self.addSubview(imageView)
-        imageView.snp.makeConstraints { (make) in
-            make.right.equalTo(self.snp.right).offset(-12)
-            make.bottom.equalTo(self.snp.bottom).offset(3)
-            make.size.equalTo(CGSize.init(width: 103, height: 83))
+        
+        if imageView == nil {
+            imageView = UIImageView.init()
+            imageView.image = UIImage.init(named: "pic_周卡")
+            self.addSubview(imageView)
+            imageView.snp.makeConstraints { (make) in
+                make.right.equalTo(self.snp.right).offset(-12)
+                make.bottom.equalTo(self.snp.bottom).offset(4)
+            }
         }
+        
         self.setUpSingleTap()
     }
     
@@ -338,19 +340,11 @@ class WeekView : UIView {
     func setUpView(){
         
         self.layer.borderColor = UIColor.init(hexString: App_Theme_FC4652_Color)?.cgColor
-        self.layer.borderWidth = 1
+        self.layer.borderWidth = 0
         self.layer.cornerRadius = 36
         self.layer.masksToBounds = true
         self.clipsToBounds = false
-        
-        imageView = UIImageView.init()
-        imageView.image = UIImage.init(named: "pic_周卡")
-        self.addSubview(imageView)
-        imageView.snp.makeConstraints { (make) in
-            make.right.equalTo(self.snp.right).offset(-12)
-            make.bottom.equalTo(self.snp.bottom).offset(2)
-            make.size.equalTo(CGSize.init(width: 103, height: 83))
-        }
+    
         
         titleLabel = UILabel.init()
         titleLabel.font = App_Theme_PinFan_M_13_Font
@@ -358,7 +352,7 @@ class WeekView : UIView {
         self.addSubview(titleLabel)
         titleLabel.snp.makeConstraints { (make) in
             make.left.equalTo(self.snp.left).offset(32)
-            make.top.equalTo(self.snp.top).offset(17)
+            make.top.equalTo(self.snp.top).offset(18)
         }
         
         descLabel = UILabel.init()
@@ -367,22 +361,22 @@ class WeekView : UIView {
         self.addSubview(descLabel)
         descLabel.snp.makeConstraints { (make) in
             make.left.equalTo(self.snp.left).offset(32)
-            make.bottom.equalTo(self.snp.bottom).offset(-14)
+            make.bottom.equalTo(self.snp.bottom).offset(-15)
         }
         descsLabel = UILabel.init()
         descsLabel.font = App_Theme_PinFan_R_12_Font
-        descsLabel.textColor = UIColor.init(hexString: App_Theme_FC4652_Color)
-        descsLabel.text = "分7天返还"
+        descsLabel.textColor = UIColor.init(hexString: App_Theme_FC4652_Color, andAlpha: 0.7)
+        descsLabel.text = "(分7天返还)"
         self.addSubview(descsLabel)
         descsLabel.snp.makeConstraints { (make) in
             make.left.equalTo(self.descLabel.snp.right).offset(2)
-            make.bottom.equalTo(self.snp.bottom).offset(-14)
+            make.bottom.equalTo(self.snp.bottom).offset(-17)
         }
         
     }
     
     func setData(model:WeeklyRechargeRateRuleDTO){
-        titleLabel.text = "花\(model.rechargeMoney!)得\(model.rechargeCoinReal!)币哦~"
+        titleLabel.text = "花\(model.rechargeMoney!)得\(model.totalAmount!)币哦~"
         descLabel.text = "多送主人\(model.totalMoreAmount!)币"
     }
     
@@ -393,14 +387,16 @@ class WeekView : UIView {
     func changeType(type:MuchViewType){
         switch type {
         case MuchViewType.select:
+            self.layer.borderWidth = 0
+            descsLabel.textColor = UIColor.init(hexString: App_Theme_FFFFFF_Color, andAlpha: 0.7)
             descLabel.textColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
-            descsLabel.textColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
             titleLabel.textColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
             self.backgroundColor = UIColor.init(hexString: App_Theme_FC4652_Color)
         default:
-            descLabel.textColor = UIColor.init(hexString: App_Theme_FC4652_Color)
+            self.layer.borderWidth = 1
+            descsLabel.textColor = UIColor.init(hexString: App_Theme_FC4652_Color, andAlpha: 0.7)
             titleLabel.textColor = UIColor.init(hexString: App_Theme_FC4652_Color)
-            descsLabel.textColor = UIColor.init(hexString: App_Theme_FC4652_Color)
+            descLabel.textColor = UIColor.init(hexString: App_Theme_FC4652_Color)
             self.backgroundColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
         }
     }

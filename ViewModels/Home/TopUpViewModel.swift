@@ -46,6 +46,9 @@ class TopUpViewModel: BaseViewModel {
     func requestTopUp(){
         BaseNetWorke.sharedInstance.postUrlWithString(TopUp, parameters: nil).observe { (resultDic) in
             if !resultDic.isCompleted {
+                if (self.controller as! TopUpViewController).isPlayGameView {
+                    self.controller?.navigationController?.popViewController()
+                }
                 self.models = TopUpModel.init(fromDictionary: resultDic.value as! NSDictionary)
                 (self.controller as! TopUpViewController).setUpTopView()
                 (self.controller as! TopUpViewController).setUpWeekView()

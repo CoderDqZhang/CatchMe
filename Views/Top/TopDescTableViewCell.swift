@@ -34,7 +34,7 @@ class TopDescTableViewCell: UITableViewCell {
         timeLable.textAlignment = .center
         timeLable.text = "第64周 11.06~11.12"
         self.contentView.addSubview(timeLable)
-        GLoabelViewLabel.addLabel(label: timeLable, view: self.contentView)
+        GLoabelViewLabel.addLabel(label: timeLable, view: self.contentView, isWithNumber: false)
         self.updateConstraints()
         
         self.contentView.backgroundColor = UIColor.init(hexString: App_Theme_FAFAFA_Color)

@@ -333,7 +333,10 @@ class GloabTitleAndSwitchCell: UITableViewCell {
         
         switchView = UISwitch.init()
         switchView.onTintColor = UIColor.init(hexString: App_Theme_FC4652_Color)
-        
+        switchView.reactive.controlEvents(.valueChanged).observe { (ret) in
+            let str = ret.value!.isOn ? "true" : "false"
+            UserDefaultsSetSynchronize(str as AnyObject, key: MUISCCOGIF)
+        }
         switchView.onImage = UIImage.init(named: "on")
         switchView.offImage = UIImage.init(named: "off")
         self.contentView.addSubview(switchView)

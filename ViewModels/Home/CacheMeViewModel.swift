@@ -44,11 +44,13 @@ class CacheMeViewModel: BaseViewModel {
     //麦克风权限
     var playGame:Bool = false
     
+    var shareCodelModel:SessionShareModel!
+    
     override init() {
         super.init()
         NIMAVChatSDK.shared().netCallManager.add(self)
         self.getAVAuthorizationStatus()
-        AudioPlayManager.shareInstance.playBgMusic(name: "\(ConfigModel.shanreInstance.musicName!)")
+        self.getShareCodeInfo()
     }
     
     deinit {
@@ -85,8 +87,6 @@ class CacheMeViewModel: BaseViewModel {
     //退出房间后调用拉流停止
     func exitRoom(){
         self.handUpConnect()
-        self.stopGame()
-        AudioPlayManager.shareInstance.pause()
         if cacheMeController.liveplayerA.isPlaying() {
             cacheMeController.liveplayerA.shutdown()
         }
@@ -144,6 +144,7 @@ class CacheMeViewModel: BaseViewModel {
             cacheMeController.liveplayerView.isHidden = true
             self.cacheMeController.view.sendSubview(toBack: cacheMeController.liveplayerView)
         }
+        
         if cacheMeController.bottomToolsView != nil {
             cacheMeController.bottomToolsView.isHidden = true
         }
@@ -152,17 +153,16 @@ class CacheMeViewModel: BaseViewModel {
             cacheMeController.remoteGLView.isHidden = false
             self.cacheMeController.view.bringSubview(toFront: cacheMeController.remoteGLView)
         }
+        
         if self.cacheMeController.cacheMePlayUserView != nil {
             self.cacheMeController.view.bringSubview(toFront: self.cacheMeController.cacheMePlayUserView)
         }
+        
         if self.cacheMeController.switchCamera != nil {
             self.cacheMeController.view.bringSubview(toFront: self.cacheMeController.switchCamera)
         }
-//        if self.cacheMeController.gameTipView != nil {
-//            self.cacheMeController.gameTipView.isHidden = false
-//            self.cacheMeController.view.bringSubview(toFront: self.cacheMeController.gameTipView)
-//        }
         
+
         if cacheMeController.gameToolsView != nil {
             cacheMeController.cacheMePlayUserView.countDownLabel.isHidden = false
             cacheMeController.gameToolsView.isHidden = false
@@ -364,6 +364,7 @@ class CacheMeViewModel: BaseViewModel {
                     return
                 }
                 self.showGameView()
+                _ = Tools.shareInstance.showMessage(KWINDOWDS(), msg: "Ready...GO!", autoHidder: true)
             }
         }
     }
@@ -442,7 +443,7 @@ class CacheMeViewModel: BaseViewModel {
         let parameters = ["userId":UserInfoModel.shareInstance().idField,"machineId":self.catchMeModel.machineDTO.id] as [String : Any]
         BaseNetWorke.sharedInstance.getUrlWithString(StopGame, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
-
+                self.getUserInfo(currentUser: nil)
             }
         }
     }
@@ -575,6 +576,8 @@ class CacheMeViewModel: BaseViewModel {
         if !COFIGVALUE {
             NavigationPushView(self.cacheMeController, toConroller: InPurchaseViewController())
         }else{
+            let controllerVC = TopUpViewController()
+            controllerVC.isPlayGameView = true
             NavigationPushView(self.cacheMeController, toConroller: TopUpViewController())
         }
     }
@@ -584,9 +587,7 @@ class CacheMeViewModel: BaseViewModel {
             if tag == 100 {
                 self.playAgain()
             }else if tag == 200{
-                let toControllerVC = BaseWebViewController()
-                toControllerVC.url = "\(ShareCatchDoll)\(self.gameStatus.id!)"
-                NavigationPushView(self.cacheMeController, toConroller: toControllerVC)
+                self.showShareView()
                 //成功5秒倒计时连接
             }else if tag == 1000 {
                 self.stopGame()
@@ -609,7 +610,27 @@ class CacheMeViewModel: BaseViewModel {
     }
     
     func showShareView(){
-        
+        KWINDOWDS().addSubview(GloabelShareAndConnectUs.init(type: GloabelShareAndConnectUsType.share, title: "成功活抓！快邀请朋友们来围观吧~", clickClouse: { (type) in
+            switch type {
+            case .QQChat:
+                ShareTools.shareInstance.shareQQSessionWebUrl(self.shareCodelModel.title, webTitle: self.shareCodelModel.descriptionField, imageUrl: self.shareCodelModel.thumbnailAddress, webDescription: "", webUrl: self.shareCodelModel.url)
+            case .weChatChat:
+                ShareTools.shareInstance.shareWeChatSession(self.shareCodelModel.title, description: self.shareCodelModel.descriptionField, image: UIImage.getFromURL(self.shareCodelModel.thumbnailAddress), url: self.shareCodelModel.url)
+            case .weChatSession:
+                ShareTools.shareInstance.shareWeChatTimeLine(self.shareCodelModel.title, description: self.shareCodelModel.descriptionField, image: UIImage.getFromURL(self.shareCodelModel.thumbnailAddress), url: self.shareCodelModel.url)
+            default:
+                break
+            }
+        }))
+    }
+    
+    func getShareCodeInfo(){
+        let parameters = ["type":"1"]
+        BaseNetWorke.sharedInstance.getUrlWithString(Socialsharecard, parameters: parameters as AnyObject).observe { (resultDic) in
+            if !resultDic.isCompleted {
+                self.shareCodelModel = SessionShareModel.init(fromDictionary: resultDic.value as! NSDictionary)
+            }
+        }
     }
 }
 

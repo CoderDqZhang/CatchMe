@@ -68,7 +68,7 @@ class MyInvitationCodeViewController: BaseViewController {
         myInvitation.font = App_Theme_PinFan_M_18_Font
         myInvitation.textColor = UIColor.init(hexString: App_Theme_000000_Color)
         self.view.addSubview(myInvitation)
-        GLoabelViewLabel.addLabel(label: myInvitation, view: self.view)
+        GLoabelViewLabel.addLabel(label: myInvitation, view: self.view, isWithNumber: false)
         myInvitation.snp.makeConstraints { (make) in
             make.centerX.equalTo(self.view.snp.centerX).offset(0)
             make.top.equalTo(self.conversionBtn.snp.bottom).offset(100)
@@ -93,18 +93,21 @@ class MyInvitationCodeViewController: BaseViewController {
         sharBtn = UIButton.init(type: .custom)
         sharBtn.setBackgroundImage(UIImage.init(named: "pic_invite"), for: .normal)
         sharBtn.reactive.controlEvents(.touchUpInside).observe { (active) in
-            KWINDOWDS().addSubview(GloabelShareAndConnectUs.init(type: GloabelShareAndConnectUsType.share, title: "请输入朋友邀请码", clickClouse: { (type) in
-                switch type {
-                case .QQChat:
-                    ShareTools.shareInstance.shareQQSessionWebUrl(self.myInvitationViewMode.model.title, webTitle: self.myInvitationViewMode.model.descriptionField, imageUrl: self.myInvitationViewMode.model.thumbnailAddress, webDescription: "", webUrl: self.myInvitationViewMode.model.url)
-                case .weChatChat:
-                    ShareTools.shareInstance.shareWeChatSession(self.myInvitationViewMode.model.title, description: self.myInvitationViewMode.model.descriptionField, image: UIImage.getFromURL(self.myInvitationViewMode.model.thumbnailAddress), url: self.myInvitationViewMode.model.url)
-                case .weChatSession:
-                    ShareTools.shareInstance.shareWeChatTimeLine(self.myInvitationViewMode.model.title, description: self.myInvitationViewMode.model.descriptionField, image: UIImage.getFromURL(self.myInvitationViewMode.model.thumbnailAddress), url: self.myInvitationViewMode.model.url)
-                default:
-                    break
-                }
-            }))
+            if self.myInvitationViewMode.model != nil {
+                KWINDOWDS().addSubview(GloabelShareAndConnectUs.init(type: GloabelShareAndConnectUsType.share, title: "每邀请一个好朋友，最高奖200娃娃币", clickClouse: { (type) in
+                    
+                    switch type {
+                    case .QQChat:
+                        ShareTools.shareInstance.shareQQSessionWebUrl(self.myInvitationViewMode.model.title, webTitle: self.myInvitationViewMode.model.descriptionField, imageUrl: self.myInvitationViewMode.model.thumbnailAddress, webDescription: "", webUrl: self.myInvitationViewMode.model.url)
+                    case .weChatChat:
+                        ShareTools.shareInstance.shareWeChatSession(self.myInvitationViewMode.model.title, description: self.myInvitationViewMode.model.descriptionField, image: UIImage.getFromURL(self.myInvitationViewMode.model.thumbnailAddress), url: self.myInvitationViewMode.model.url)
+                    case .weChatSession:
+                        ShareTools.shareInstance.shareWeChatTimeLine(self.myInvitationViewMode.model.title, description: self.myInvitationViewMode.model.descriptionField, image: UIImage.getFromURL(self.myInvitationViewMode.model.thumbnailAddress), url: self.myInvitationViewMode.model.url)
+                    default:
+                        break
+                    }
+                }))
+            }
         }
         
         self.view.addSubview(sharBtn)

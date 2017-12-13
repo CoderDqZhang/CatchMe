@@ -104,7 +104,7 @@ class SenderJoysViewModel: BaseViewModel {
     }
     
     func tableViewSenderMuchTableViewCellSetData(_ indexPath:IndexPath, cell:SenderMuchTableViewCell) {
-        
+        cell.cellSetData(count: self.models.count)
     }
     
     func tableViewDidSelect(_ indexPath:IndexPath, tableView:UITableView) {
@@ -122,9 +122,21 @@ class SenderJoysViewModel: BaseViewModel {
             let cell = tableView.cellForRow(at: indexPath) as! SendJoyInfoTableViewCell
             cell.changeSelectData(isSelect: !cell.isSelect)
             selectArrary.replaceObject(at: indexPath.row, with: cell.isSelect)
+            self.geNumberOfDolls(tableView: tableView)
         default:
             break
         }
+    }
+    
+    func geNumberOfDolls(tableView:UITableView){
+        var count = 0
+        for i in 0...selectArrary.count - 1 {
+            if selectArrary[i] as! Bool {
+                count = (modelData[i] as! NSArray).count + count
+            }
+        }
+        let cell = tableView.cellForRow(at: IndexPath.init(row: 0, section: 2)) as! SenderMuchTableViewCell
+        cell.cellSetData(count: count)
     }
     
     func requestApplySenderJoy(){

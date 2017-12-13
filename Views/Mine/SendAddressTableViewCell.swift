@@ -20,7 +20,7 @@ class NoneAddress: UIView {
         label.font = App_Theme_PinFan_M_18_Font
         label.textColor = UIColor.init(hexString: App_Theme_DDDDDD_Color)
         self.addSubview(label)
-        GLoabelViewLabel.addLabel(label: label, view: self)
+        GLoabelViewLabel.addLabel(label: label, view: self, isWithNumber: false)
     }
     
     required init?(coder aDecoder: NSCoder) {

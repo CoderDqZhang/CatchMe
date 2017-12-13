@@ -73,9 +73,9 @@ class MyJoyTableViewCell: UITableViewCell {
         UIImageViewManger.sd_imageView(url: model.images[0], imageView: dollsImage, placeholderImage: nil) { (image, error, cacheType, url) in
 
         }
-        
-        dollsStatus.image = model.deliveryStatus == 0 ? UIImage.init(named: "tag_待发货") : model.deliveryStatus == 1 ? UIImage.init(named: "tag_已发货") : UIImage.init(named: "tag_已收货")
-        
+        if model.deliveryStatus != 0 {
+            dollsStatus.image = model.deliveryStatus == 1 ? UIImage.init(named: "tag_待发货") : model.deliveryStatus == 2 ? UIImage.init(named: "tag_已发货") : UIImage.init(named: "tag_已收货")
+        }
     }
     
     

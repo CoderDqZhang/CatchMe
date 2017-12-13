@@ -12,7 +12,7 @@ import WebKit
 class BaseWebViewController: BaseViewController {
 
     var webView:WKWebView!
-    var url:String!
+    var url:String = ""
     var bannerModel:BannerModel!
     
     override func viewDidLoad() {

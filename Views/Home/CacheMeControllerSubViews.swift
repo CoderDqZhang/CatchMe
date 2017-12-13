@@ -162,7 +162,6 @@ class CacheMeTopView : UIView {
 }
 
 typealias TimeDownClouse = () -> Void
-typealias HidderGameTipClouse = () -> Void
 
 class CacheMePlayUserView:UIView {
     
@@ -179,8 +178,6 @@ class CacheMePlayUserView:UIView {
     var time:Timer!
     
     var numberCount:Int = 0
-    
-    var hidderGameTipClouse:HidderGameTipClouse!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -327,9 +324,7 @@ class CacheMePlayUserView:UIView {
                 }else{
                     self.numberCount = self.numberCount - 1
                 }
-                if self.numberCount == 27 && self.hidderGameTipClouse != nil {
-                    self.hidderGameTipClouse()
-                }
+                
                 self.setStr(str: "\(self.numberCount)s")
             })
         }else{
@@ -449,7 +444,9 @@ class ToolsView: AnimationTouchView {
     var toolsViewClouse:ToolsViewClouse!
     
     init(frame: CGRect, title:String, blance:String?, image:UIImage, tag:Int, toolsViewTap:@escaping ToolsViewClouse) {
-        super.init(frame: frame)
+        super.init(frame: frame) {
+            toolsViewTap()
+        }
         
         backImageView = UIImageView.init()
         backImageView.layer.cornerRadius = 30
@@ -465,7 +462,7 @@ class ToolsView: AnimationTouchView {
         
         self.layer.cornerRadius = 30
         
-        self.toolsViewClouse = toolsViewTap
+//        self.toolsViewClouse = toolsViewTap
         
         label = UILabel.init(frame: CGRect.init(x: 0, y: frame.size.height - 28, width: frame.size.width, height: 20))
         label.textAlignment = .center
@@ -495,10 +492,6 @@ class ToolsView: AnimationTouchView {
             label.textColor = UIColor.init(hexString: App_Theme_FF515D_Color)
             self.updateConstraintsIfNeeded()
         }
-    }
-    
-    override func viewPress() {
-        self.toolsViewClouse()
     }
     
     @objc func singleTap(){
@@ -715,6 +708,7 @@ class GameTipView : UIView {
     var tipLabel:UILabel!
     var tipLabelBg:UIImageView!
     
+    var time:Timer!
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -749,6 +743,11 @@ class GameTipView : UIView {
             make.right.equalTo(self.snp.right).offset(-10)
             make.bottom.equalTo(self.snp.bottom).offset(-16)
         }
+        
+        time = Timer.after(5, {
+            self.removeFromSuperview()
+            self.time.invalidate()
+        })
     }
     
     required init?(coder aDecoder: NSCoder) {

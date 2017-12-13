@@ -12,13 +12,13 @@ class LoginTypeViewController: BaseViewController {
 
     var loginWithWeChat:UIButton!
     var loginWithPhone:UIButton!
-    var loginImage:UIImageView!
+    var loginImage:FLAnimatedImageView!
     var loginLable:UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(self.loginSuccess(_:)), name: NSNotification.Name(rawValue: WeiXinCode), object: nil)
-        self.view.backgroundColor = UIColor.init(hexString: App_Theme_FC4652_Color)
+        self.view.backgroundColor = UIColor.init(hexString: App_Theme_FC4F5E_Color)
         // Do any additional setup after loading the view.
     }
     
@@ -31,22 +31,28 @@ class LoginTypeViewController: BaseViewController {
     }
     
     override func setUpView() {
-        loginWithWeChat = UIButton.init(type: .custom)
-        loginWithWeChat.setImage(UIImage.init(named: "wechat_login"), for: .normal)
-        loginWithWeChat.backgroundColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
-        loginWithWeChat.setTitle("微信登录", for: .normal)
-        loginWithWeChat.layer.cornerRadius = 25
-        loginWithWeChat.setTitleColor(UIColor.init(hexString: App_Theme_FC4652_Color), for: .normal)
-        loginWithWeChat.titleLabel?.font = App_Theme_PinFan_M_17_Font
-        loginWithWeChat.reactive.controlEvents(.touchUpInside).observe { (active) in
-            self.loginWeiChat()
-        }
-        self.view.addSubview(loginWithWeChat)
-        loginWithWeChat.snp.makeConstraints { (make) in
-            make.centerY.equalTo(self.view.snp.centerY).offset(4)
+        
+        
+        loginImage = FLAnimatedImageView.init()
+        self.view.addSubview(loginImage)
+        
+        loginLable = UILabel.init()
+        loginLable.isUserInteractionEnabled = true
+        loginLable.text = "登录代表同意用户注册协议与隐私条款"
+        loginLable.font = App_Theme_PinFan_R_13_Font
+        loginLable.textColor = UIColor.init(hexString: App_Theme_FFFFFF_Color, andAlpha: 0.35)
+        self.view.addSubview(loginLable)
+        
+        loginLable.snp.makeConstraints { (make) in
+            make.bottom.equalTo(self.view.snp.bottom).offset(-23)
             make.centerX.equalTo(self.view.snp.centerX).offset(0)
-            make.size.equalTo(CGSize.init(width: 200, height: 50))
         }
+        
+        let singleTap = UITapGestureRecognizer.init(target: self, action: #selector(self.buttonClick))
+        singleTap.numberOfTapsRequired = 1
+        singleTap.numberOfTouchesRequired = 1
+        loginLable.addGestureRecognizer(singleTap)
+        
         
         loginWithPhone = UIButton.init(type: .custom)
         loginWithPhone.backgroundColor = UIColor.clear
@@ -58,28 +64,60 @@ class LoginTypeViewController: BaseViewController {
         }
         self.view.addSubview(loginWithPhone)
         loginWithPhone.snp.makeConstraints { (make) in
-            make.top.equalTo(self.loginWithWeChat.snp.bottom).offset(15)
+            make.bottom.equalTo(self.loginLable.snp.top).offset(-70)
             make.centerX.equalTo(self.view.snp.centerX).offset(0)
         }
         
-        loginLable = UILabel.init()
-        loginLable.text = "主人\n带我回家吧"
-        loginLable.font = App_Theme_PinFan_R_65_Font
-        loginLable.numberOfLines = 0
-        loginLable.textColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
-        self.view.addSubview(loginLable)
-        loginLable.snp.makeConstraints { (make) in
+        let loginWithWeChat_bg = UIButton.init(type: .custom)
+        loginWithWeChat_bg.backgroundColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
+        loginWithWeChat_bg.layer.cornerRadius = 25
+        self.view.addSubview(loginWithWeChat_bg)
+        loginWithWeChat_bg.snp.makeConstraints { (make) in
+            make.bottom.equalTo(self.loginWithPhone.snp.top).offset(-13)
             make.centerX.equalTo(self.view.snp.centerX).offset(0)
-            make.centerY.equalTo(self.view.snp.centerY).offset(-190)
+            make.size.equalTo(CGSize.init(width: 200, height: 50))
         }
         
-        loginImage = UIImageView.init()
-        loginImage.image = UIImage.init(named: "pic_login")
-        self.view.addSubview(loginImage)
-        loginImage.snp.makeConstraints { (make) in
+        loginWithWeChat = UIButton.init(type: .custom)
+        loginWithWeChat.setImage(UIImage.init(named: "wechat_login"), for: .normal)
+        loginWithWeChat.backgroundColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
+        loginWithWeChat.setTitle(" 微信登录", for: .normal)
+        loginWithWeChat.layer.cornerRadius = 25
+        loginWithWeChat.setTitleColor(UIColor.init(hexString: App_Theme_FC4652_Color), for: .normal)
+        loginWithWeChat.titleLabel?.font = App_Theme_PinFan_M_17_Font
+        loginWithWeChat.reactive.controlEvents(.touchUpInside).observe { (active) in
+            self.loginWeiChat()
+        }
+        self.view.addSubview(loginWithWeChat)
+        
+        loginWithWeChat.snp.makeConstraints { (make) in
+            make.bottom.equalTo(self.loginWithPhone.snp.top).offset(-15)
             make.centerX.equalTo(self.view.snp.centerX).offset(0)
-            make.size.equalTo(CGSize.init(width: SCREENWIDTH, height: SCREENWIDTH * 207/375))
-            make.bottom.equalTo(self.view.snp.bottom).offset(0)
+            make.size.equalTo(CGSize.init(width: 200, height: 50))
+        }
+        
+        self.setGIfImage()
+    }
+    
+    @objc func buttonClick(){
+        NavigationPushView(self, toConroller: UserProtocolViewController())
+    }
+    
+    func setGIfImage(){
+        let gifPath = Bundle.main.path(forResource: "下场循环", ofType: ".gif")
+        //指定音乐路径
+        let url = URL.init(fileURLWithPath: gifPath!)
+        do {
+            let gifData =  try Data.init(contentsOf: url)
+            let gifImage = FLAnimatedImage.init(animatedGIFData: gifData)
+            loginImage.animatedImage = gifImage
+            loginImage.snp.makeConstraints { (make) in
+                make.top.equalTo(self.view.snp.top).offset(64)
+                make.centerX.equalTo(self.view.snp.centerX).offset(0)
+                make.size.equalTo(CGSize.init(width: SCREENWIDTH, height: SCREENWIDTH * 684 / 750))
+            }
+        } catch  {
+            print("error")
         }
     }
     
@@ -115,6 +153,8 @@ class LoginTypeViewController: BaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         UIApplication.shared.setStatusBarStyle(.lightContent, animated: false)
+        self.navigationController?.fd_prefersNavigationBarHidden = true
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
     }
     
 

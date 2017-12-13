@@ -40,7 +40,7 @@ class AboutUsViewController: BaseViewController {
         aboutLabel.textColor = UIColor.init(hexString: App_Theme_333333_Color)
         aboutLabel.text = "主人，带我回家吧"
         self.view.addSubview(aboutLabel)
-        GLoabelViewLabel.addLabel(label: aboutLabel, view: self.view)
+        GLoabelViewLabel.addLabel(label: aboutLabel, view: self.view, isWithNumber: false)
 
         
         bottomImage = UIImageView.init()

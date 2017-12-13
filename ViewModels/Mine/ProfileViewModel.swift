@@ -24,14 +24,17 @@ class ProfileViewModel: BaseViewModel {
     }
     
     func getUserInfoData(){
-        detailStr.add(UserInfoModel.shareInstance().userName)
-        detailStr.add(UserInfoModel.shareInstance().gender != 0 ? "男" : "女")
+        if UserInfoModel.isLoggedIn() {
+            detailStr.add(UserInfoModel.shareInstance().userName)
+            detailStr.add(UserInfoModel.shareInstance().gender != 0 ? "男" : "女")
+        }
+        
     }
     
     
     //MARK: UITableViewCellSetData
     func tableViewProfileHeaderTableViewCellSetData(_ indexPath:IndexPath, cell:ProfileHeaderTableViewCell) {
-        cell.cellSetData(imageUrl: UserInfoModel.shareInstance().photo as! String)
+        cell.cellSetData(imageUrl: UserInfoModel.shareInstance().photo == nil ? "" : UserInfoModel.shareInstance().photo as! String)
     }
     
     func tableViewGloabTitleAndFieldCellSetData(_ indexPath:IndexPath, cell:GloabTitleAndFieldCell) {
@@ -42,7 +45,8 @@ class ProfileViewModel: BaseViewModel {
     }
     
     func tableViewGloabTitleAndSwitchCellSetData(_ indexPath:IndexPath, cell:GloabTitleAndSwitchCell) {
-        cell.cellSetData(str: "音乐开关", isOn: false)
+        let str = UserDefaultsGetSynchronize(MUISCCOGIF) as! String
+        cell.cellSetData(str: "音乐开关", isOn: str == "true" ? true : false)
     }
     
     func updateCellString(_ tableView:UITableView, str:String, tag:Int) {

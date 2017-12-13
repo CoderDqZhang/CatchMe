@@ -40,10 +40,10 @@ class AnimationTools: NSObject {
         scale?.dynamicsTension = 1000
         scale?.dynamicsMass = 1.3
         scale?.dynamicsFriction = 10.3
-        scale?.springSpeed = 20
+        scale?.springSpeed = 10
         scale?.springBounciness = 15.64
         self.shakeAnimation(view: view)
-        view.layer.pop_add(scale, forKey: "scale")
+//        view.layer.pop_add(scale, forKey: "scale")
     }
     
     func shakeAnimation(view:UIView){
@@ -67,7 +67,16 @@ class AnimationTools: NSObject {
             view.alpha = 0
             view.transform = CGAffineTransform.init(scaleX: 0.75, y: 0.75)
         }) { (ret) in
-            
+            view.removeFromSuperview()
+        }
+    }
+    
+    func removeBigViewAnimation(view:UIView) {
+        UIView.animate(withDuration: 0.2, animations: {
+            view.alpha = 0
+            view.transform = CGAffineTransform.init(scaleX: 1.1, y: 1.1)
+        }) { (ret) in
+            view.removeFromSuperview()
         }
     }
 }

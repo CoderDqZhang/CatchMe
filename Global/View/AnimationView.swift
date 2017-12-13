@@ -12,12 +12,16 @@ import pop
 class AnimationView: UIView {
 }
 
+typealias TouchClickClouse = () -> Void
 class AnimationTouchView: UIView {
-    override init(frame: CGRect) {
+    
+    var touchClickClouse:TouchClickClouse!
+    init(frame: CGRect, click:@escaping TouchClickClouse) {
         super.init(frame: frame)
+        self.touchClickClouse = click
         
         let longPressGestureRecognizer = UILongPressGestureRecognizer.init(target: self, action: #selector(self.longPress(longPress:)))
-        longPressGestureRecognizer.minimumPressDuration = 0.1
+        longPressGestureRecognizer.minimumPressDuration = 0.0001
         self.addGestureRecognizer(longPressGestureRecognizer)
     }
     
@@ -30,12 +34,14 @@ class AnimationTouchView: UIView {
             self.scaleToSmall()
         }else if longPress.state == .ended {
             self.viewPress()
+            self.touchClickClouse()
             self.scleToDefault()
         }
     }
     
     func scaleToSmall(){
         let scaleAnimation = POPBasicAnimation.init(propertyNamed: kPOPLayerScaleXY)
+        scaleAnimation?.duration = 0.0001
         scaleAnimation?.toValue = NSValue.init(cgSize: CGSize.init(width: 0.90, height: 0.90))
         self.layer.pop_add(scaleAnimation, forKey: "layerScaleSmallAnimation")
     }
@@ -45,6 +51,7 @@ class AnimationTouchView: UIView {
         scaleAnimation?.velocity = NSValue.init(cgSize: CGSize.init(width: 3, height: 3))
         scaleAnimation?.toValue = NSValue.init(cgSize: CGSize.init(width: 1, height: 1))
         scaleAnimation?.springBounciness = 18
+        scaleAnimation?.springSpeed = 20
         self.layer.pop_add(scaleAnimation, forKey: "layerScaleSpringAnimation")
     }
     
@@ -55,6 +62,7 @@ class AnimationTouchView: UIView {
     func scleToDefault(){
         let scaleAnimation = POPBasicAnimation.init(propertyNamed: kPOPLayerScaleXY)
         scaleAnimation?.toValue = NSValue.init(cgSize: CGSize.init(width: 1, height: 1))
+        scaleAnimation?.duration = 0.1
         self.layer.pop_add(scaleAnimation, forKey: "layerScaleDefaultAnimation")
     }
 }
@@ -72,22 +80,28 @@ class AnimationButton: UIButton {
     }
     
     @objc func scaleToSmall(){
+        self.next?.becomeFirstResponder()
         let scaleAnimation = POPBasicAnimation.init(propertyNamed: kPOPLayerScaleXY)
         scaleAnimation?.toValue = NSValue.init(cgSize: CGSize.init(width: 0.90, height: 0.90))
+        scaleAnimation?.duration = 0.1
         self.layer.pop_add(scaleAnimation, forKey: "layerScaleSmallAnimation")
     }
     
     @objc func scalAnimation(){
+        self.next?.becomeFirstResponder()
         let scaleAnimation = POPSpringAnimation.init(propertyNamed: kPOPLayerScaleXY)
         scaleAnimation?.velocity = NSValue.init(cgSize: CGSize.init(width: 3, height: 3))
         scaleAnimation?.toValue = NSValue.init(cgSize: CGSize.init(width: 1, height: 1))
         scaleAnimation?.springBounciness = 18
+        scaleAnimation?.springSpeed = 20
         self.layer.pop_add(scaleAnimation, forKey: "layerScaleSpringAnimation")
     }
     
     @objc func scleToDefault(){
+        self.next?.becomeFirstResponder()
         let scaleAnimation = POPBasicAnimation.init(propertyNamed: kPOPLayerScaleXY)
         scaleAnimation?.toValue = NSValue.init(cgSize: CGSize.init(width: 1, height: 1))
+        scaleAnimation?.duration = 0.1
         self.layer.pop_add(scaleAnimation, forKey: "layerScaleDefaultAnimation")
     }
 }

@@ -177,6 +177,11 @@
 		1FE1A2D01FCC1A0000B715D8 /* MyCatchDollsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE1A2CF1FCC1A0000B715D8 /* MyCatchDollsModel.swift */; };
 		1FE1A2D21FCD095300B715D8 /* Default-568.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1FE1A2D11FCD095200B715D8 /* Default-568.jpg */; };
 		1FF3A86B1FE1252E0017326F /* AnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF3A86A1FE1252E0017326F /* AnimationView.swift */; };
+		1FF3A86E1FE15C6F0017326F /* 下场循环.gif in Resources */ = {isa = PBXBuildFile; fileRef = 1FF3A86C1FE15C6E0017326F /* 下场循环.gif */; };
+		1FF3A86F1FE15C6F0017326F /* 出场.gif in Resources */ = {isa = PBXBuildFile; fileRef = 1FF3A86D1FE15C6F0017326F /* 出场.gif */; };
+		1FF3A8751FE15E320017326F /* FLAnimatedImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FF3A8711FE15E320017326F /* FLAnimatedImageView.m */; };
+		1FF3A8761FE15E320017326F /* FLAnimatedImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FF3A8721FE15E320017326F /* FLAnimatedImage.m */; };
+		1FF3A8781FE16C010017326F /* SpalshView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF3A8771FE16C010017326F /* SpalshView.swift */; };
 		54C665C6CE13906B598CBB0B /* Pods_CatchMe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 018F762371DA9CCCFF9892F6 /* Pods_CatchMe.framework */; };
 /* End PBXBuildFile section */
 
@@ -420,6 +425,13 @@
 		1FE1A2CF1FCC1A0000B715D8 /* MyCatchDollsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCatchDollsModel.swift; sourceTree = "<group>"; };
 		1FE1A2D11FCD095200B715D8 /* Default-568.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Default-568.jpg"; sourceTree = "<group>"; };
 		1FF3A86A1FE1252E0017326F /* AnimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationView.swift; sourceTree = "<group>"; };
+		1FF3A86C1FE15C6E0017326F /* 下场循环.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "下场循环.gif"; sourceTree = "<group>"; };
+		1FF3A86D1FE15C6F0017326F /* 出场.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "出场.gif"; sourceTree = "<group>"; };
+		1FF3A8711FE15E320017326F /* FLAnimatedImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLAnimatedImageView.m; sourceTree = "<group>"; };
+		1FF3A8721FE15E320017326F /* FLAnimatedImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLAnimatedImage.m; sourceTree = "<group>"; };
+		1FF3A8731FE15E320017326F /* FLAnimatedImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLAnimatedImageView.h; sourceTree = "<group>"; };
+		1FF3A8741FE15E320017326F /* FLAnimatedImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLAnimatedImage.h; sourceTree = "<group>"; };
+		1FF3A8771FE16C010017326F /* SpalshView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpalshView.swift; sourceTree = "<group>"; };
 		599640648AD4571953B84782 /* Pods-CatchMe.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CatchMe.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CatchMe/Pods-CatchMe.debug.xcconfig"; sourceTree = "<group>"; };
 		66871A49004208702649CA5E /* Pods-CatchMe.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CatchMe.release.xcconfig"; path = "Pods/Target Support Files/Pods-CatchMe/Pods-CatchMe.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -481,6 +493,8 @@
 		1F126D611FBFF024006306D2 /* CatchMe */ = {
 			isa = PBXGroup;
 			children = (
+				1FF3A86C1FE15C6E0017326F /* 下场循环.gif */,
+				1FF3A86D1FE15C6F0017326F /* 出场.gif */,
 				1F4C5B8F1FE05A2200C9CF66 /* music_hny.mp3 */,
 				1F4C5B8E1FE05A2200C9CF66 /* music_normal.mp3 */,
 				1F4C5B8D1FE05A2200C9CF66 /* music_xmas.mp3 */,
@@ -546,6 +560,7 @@
 		1F126D771FBFF21B006306D2 /* Lib */ = {
 			isa = PBXGroup;
 			children = (
+				1FF3A8701FE15E230017326F /* FLAnimation */,
 				1F126EB01FC180FC006306D2 /* DBModel */,
 				1F126E711FC1549F006306D2 /* ijksdl */,
 				1F126E4A1FC08257006306D2 /* FDFullscreenPopGesture */,
@@ -945,6 +960,7 @@
 		1F126E511FC087B9006306D2 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				1FF3A8771FE16C010017326F /* SpalshView.swift */,
 				1F126E521FC087D0006306D2 /* Gloable+View.swift */,
 				1F126EE41FC3F3D5006306D2 /* GloableTableViewCell.swift */,
 				1F126E6E1FC15456006306D2 /* NTESGLView.h */,
@@ -1095,6 +1111,17 @@
 			path = Top;
 			sourceTree = "<group>";
 		};
+		1FF3A8701FE15E230017326F /* FLAnimation */ = {
+			isa = PBXGroup;
+			children = (
+				1FF3A8741FE15E320017326F /* FLAnimatedImage.h */,
+				1FF3A8721FE15E320017326F /* FLAnimatedImage.m */,
+				1FF3A8731FE15E320017326F /* FLAnimatedImageView.h */,
+				1FF3A8711FE15E320017326F /* FLAnimatedImageView.m */,
+			);
+			path = FLAnimation;
+			sourceTree = "<group>";
+		};
 		AB92BE9F4E2397317A00B46E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -1194,6 +1221,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1F126DDE1FBFF46A006306D2 /* AlipaySDK.bundle in Resources */,
+				1FF3A86F1FE15C6F0017326F /* 出场.gif in Resources */,
 				1F3739C41FD1302E0068F1C0 /* AddressValueKey.txt in Resources */,
 				1F126D6D1FBFF024006306D2 /* LaunchScreen.storyboard in Resources */,
 				1F4C5B901FE05A2300C9CF66 /* music_xmas.mp3 in Resources */,
@@ -1203,6 +1231,7 @@
 				1F126D8B1FBFF328006306D2 /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
 				1F126D681FBFF024006306D2 /* Main.storyboard in Resources */,
 				1F4C5B911FE05A2300C9CF66 /* music_normal.mp3 in Resources */,
+				1FF3A86E1FE15C6F0017326F /* 下场循环.gif in Resources */,
 				1F4C5B921FE05A2300C9CF66 /* music_hny.mp3 in Resources */,
 				1FE1A2D21FCD095300B715D8 /* Default-568.jpg in Resources */,
 				1F3739BE1FD10D5A0068F1C0 /* address.txt in Resources */,
@@ -1268,6 +1297,7 @@
 			files = (
 				1F126ED51FC30399006306D2 /* TopDescTableViewCell.swift in Sources */,
 				1F126DBD1FBFF391006306D2 /* UITableView+FDKeyedHeightCache.m in Sources */,
+				1FF3A8761FE15E320017326F /* FLAnimatedImage.m in Sources */,
 				1FD7290B1FCE545E005CF939 /* InPurchaseViewController.swift in Sources */,
 				1F126E3B1FC01EB9006306D2 /* BaseViewModel.swift in Sources */,
 				1F126EBD1FC198D6006306D2 /* HomeViewModel.swift in Sources */,
@@ -1316,6 +1346,7 @@
 				1F22927C1FCF219C00089174 /* ConfigModel.swift in Sources */,
 				1F126E471FC07D13006306D2 /* MineHeaderTableViewCell.swift in Sources */,
 				1F126E991FC154A0006306D2 /* common.c in Sources */,
+				1FF3A8781FE16C010017326F /* SpalshView.swift in Sources */,
 				1F126DAF1FBFF387006306D2 /* TAPageControl.m in Sources */,
 				1F57EEE31FDBFDA0009D0CAE /* AudioPlayManager.swift in Sources */,
 				1F126EC11FC1A48C006306D2 /* BannerCollectionReusableView.swift in Sources */,
@@ -1361,6 +1392,7 @@
 				1F126EAF1FC180B0006306D2 /* UserInfoModel.m in Sources */,
 				1F126E501FC08792006306D2 /* LoginViewController.swift in Sources */,
 				1F126EAA1FC16C50006306D2 /* ShareManager.swift in Sources */,
+				1FF3A8751FE15E320017326F /* FLAnimatedImageView.m in Sources */,
 				1F126ECF1FC2C6BA006306D2 /* MyJoysViewModel.swift in Sources */,
 				1F126E691FC097BC006306D2 /* MyJoysViewController.swift in Sources */,
 				1F8432511FD29BDF000D6293 /* SwiftUserModel.swift in Sources */,

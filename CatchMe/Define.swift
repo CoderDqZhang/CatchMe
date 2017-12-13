@@ -71,6 +71,7 @@ let TalkingDataKey = "AC559E27399F4ECEA0D9880E0C6977FB"
 
 let PGYAPPKEY = "5b3d53cf700a36ad46f07850474fcb14"
 
+let MUISCCOGIF = "MUISCCOGIF"
 
 let APPVERSION = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
 

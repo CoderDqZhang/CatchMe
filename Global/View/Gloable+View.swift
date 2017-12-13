@@ -437,12 +437,7 @@ class GloableAlertView: UIView {
     
     func setUpView(btnTop:String, btnBottom:String, type:GloableAlertViewType) {
         
-        let topButton_bg = self.createButton(title: btnTop)
-        topButton_bg.backgroundColor = UIColor.init(hexString: App_Theme_FEE3E5_Color)
-        detailView.addSubview(topButton_bg)
-        
-        let topButton = self.createButton(title: btnTop)
-        topButton.reactive.controlEvents(.touchUpInside).observe { (active) in
+        let detailTopView = AnimationTouchView.init(frame: CGRect.zero) {
             if self.time != nil {
                 self.time.invalidate()
             }
@@ -451,31 +446,48 @@ class GloableAlertView: UIView {
             }
             self.removeSelf()
         }
-        detailView.addSubview(topButton)
+        detailView.addSubview(detailTopView)
+
+        let topButton_bg = self.createButton(title: btnTop)
+        topButton_bg.backgroundColor = UIColor.init(hexString: App_Theme_FEE3E5_Color)
+        detailTopView.addSubview(topButton_bg)
+        
+        let topButton = self.createButton(title: btnTop)
+        detailTopView.addSubview(topButton)
+        
+        topButton.snp.makeConstraints { (make) in
+            make.left.equalTo(detailTopView.snp.left).offset(0)
+            make.top.equalTo(detailTopView.snp.top).offset(0)
+            make.size.equalTo(CGSize.init(width: 150, height: 42))
+        }
+        topButton_bg.snp.makeConstraints { (make) in
+            make.left.equalTo(detailTopView.snp.left).offset(0)
+            make.top.equalTo(detailTopView.snp.top).offset(2)
+            make.size.equalTo(CGSize.init(width: 150, height: 42))
+        }
         
         if type == .topupfail {
-            topButton.snp.makeConstraints { (make) in
+            detailTopView.snp.makeConstraints { (make) in
                 make.centerX.equalTo(self.detailView.snp.centerX).offset(0)
                 make.top.equalTo(self.detailView.snp.top).offset(92)
-                make.size.equalTo(CGSize.init(width: 150, height: 42))
-            }
-            topButton_bg.snp.makeConstraints { (make) in
-                make.centerX.equalTo(self.detailView.snp.centerX).offset(0)
-                make.top.equalTo(self.detailView.snp.top).offset(94)
-                make.size.equalTo(CGSize.init(width: 150, height: 42))
+                make.size.equalTo(CGSize.init(width: 150, height: 44))
             }
         }else{
-            topButton.snp.makeConstraints { (make) in
+            detailTopView.snp.makeConstraints { (make) in
                 make.centerX.equalTo(self.detailView.snp.centerX).offset(0)
                 make.top.equalTo(self.detailView.snp.top).offset(67)
-                make.size.equalTo(CGSize.init(width: 150, height: 42))
-            }
-            topButton_bg.snp.makeConstraints { (make) in
-                make.centerX.equalTo(self.detailView.snp.centerX).offset(0)
-                make.top.equalTo(self.detailView.snp.top).offset(69)
-                make.size.equalTo(CGSize.init(width: 150, height: 42))
+                make.size.equalTo(CGSize.init(width: 150, height: 44))
             }
         }
+        
+        let detailBottomView = AnimationTouchView.init(frame: CGRect.zero) {
+            if self.time != nil {
+                self.time.invalidate()
+            }
+            self.gloableAlertViewClouse(200)
+            self.removeSelf()
+        }
+        detailView.addSubview(detailBottomView)
         
         let btn_bg = self.createButton(title: btnBottom)
         if type == .topupfail {
@@ -483,47 +495,32 @@ class GloableAlertView: UIView {
         }else{
             btn_bg.backgroundColor = UIColor.init(hexString: App_Theme_FEE3E5_Color)
         }
-        detailView.addSubview(btn_bg)
-        if type == .topupfail {
-            btn_bg.snp.makeConstraints { (make) in
-                make.centerX.equalTo(self.detailView.snp.centerX).offset(0)
-                make.bottom.equalTo(self.detailView.snp.bottom).offset(-35)
-                make.size.equalTo(CGSize.init(width: 150, height: 42))
-            }
-        }else{
-            btn_bg.snp.makeConstraints { (make) in
-                make.centerX.equalTo(self.detailView.snp.centerX).offset(0)
-                make.bottom.equalTo(self.detailView.snp.bottom).offset(-30)
-                make.size.equalTo(CGSize.init(width: 150, height: 42))
-            }
+        detailBottomView.addSubview(btn_bg)
+        btn_bg.snp.makeConstraints { (make) in
+            make.left.equalTo(detailBottomView.snp.left).offset(0)
+            make.top.equalTo(detailBottomView.snp.top).offset(2)
+            make.size.equalTo(CGSize.init(width: 150, height: 42))
         }
-        
-        
         let btn = self.createButton(title: btnBottom)
-        btn.reactive.controlEvents(.touchUpInside).observe { (active) in
-            if self.time != nil {
-                self.time.invalidate()
-            }
-            self.gloableAlertViewClouse(200)
-            self.removeSelf()
+        detailBottomView.addSubview(btn)
+        btn.snp.makeConstraints { (make) in
+            make.left.equalTo(detailBottomView.snp.left).offset(0)
+            make.top.equalTo(detailBottomView.snp.top).offset(0)
+            make.size.equalTo(CGSize.init(width: 150, height: 42))
         }
-        detailView.addSubview(btn)
-        
         if type == .topupfail {
-            btn.snp.makeConstraints { (make) in
+            detailBottomView.snp.makeConstraints { (make) in
                 make.centerX.equalTo(self.detailView.snp.centerX).offset(0)
                 make.bottom.equalTo(self.detailView.snp.bottom).offset(-37)
-                make.size.equalTo(CGSize.init(width: 150, height: 42))
+                make.size.equalTo(CGSize.init(width: 150, height: 44))
             }
         }else{
-            btn.snp.makeConstraints { (make) in
+            detailBottomView.snp.makeConstraints { (make) in
                 make.centerX.equalTo(self.detailView.snp.centerX).offset(0)
                 make.bottom.equalTo(self.detailView.snp.bottom).offset(-32)
-                make.size.equalTo(CGSize.init(width: 150, height: 42))
+                make.size.equalTo(CGSize.init(width: 150, height: 44))
             }
         }
-        
-        
         
         var number = 5
         if type == .catchfail {
@@ -562,8 +559,8 @@ class GloableAlertView: UIView {
         self.removeFromSuperview()
     }
     
-    func createButton(title:String) ->AnimationButton{
-        let button = AnimationButton.init(type: .custom)
+    func createButton(title:String) ->UIButton{
+        let button = UIButton.init(type: .custom)
         button.setTitle(title, for: .normal)
         button.setTitleColor(UIColor.init(hexString: App_Theme_FFFFFF_Color), for: .normal)
         button.titleLabel?.font = App_Theme_PinFan_M_16_Font
@@ -586,29 +583,29 @@ class GloableAlertView: UIView {
 }
 
 class GLoabelViewLabel:UIView {
-    class func addLabel(label:UILabel,view:UIView){
-        GLoabelViewLabel.setUpLeftLabel(label: label, view: view)
-        GLoabelViewLabel.setUpRightLabel(label: label, view: view)
+    class func addLabel(label:UILabel,view:UIView, isWithNumber:Bool){
+        GLoabelViewLabel.setUpLeftLabel(label: label, view: view, isWithNumber: isWithNumber)
+        GLoabelViewLabel.setUpRightLabel(label: label, view: view, isWithNumber: isWithNumber)
     }
     
-    class func setUpLeftLabel(label:UILabel,view:UIView){
+    class func setUpLeftLabel(label:UILabel,view:UIView, isWithNumber:Bool){
         let leftLabel = UIImageView.init()
         leftLabel.image = UIImage.init(named: "left_label")
         view.addSubview(leftLabel)
         leftLabel.snp.makeConstraints { (make) in
             make.right.equalTo(label.snp.left).offset(-4)
-            make.centerY.equalTo(label.snp.centerY).offset(0)
+            make.centerY.equalTo(label.snp.centerY).offset(isWithNumber ? 4 : 0)
         }
         view.updateConstraintsIfNeeded()
     }
     
-    class func setUpRightLabel(label:UILabel,view:UIView){
+    class func setUpRightLabel(label:UILabel,view:UIView, isWithNumber:Bool){
         let rightLabel = UIImageView.init()
         rightLabel.image = UIImage.init(named: "left_label")
         view.addSubview(rightLabel)
         rightLabel.snp.makeConstraints { (make) in
             make.left.equalTo(label.snp.right).offset(4)
-            make.centerY.equalTo(label.snp.centerY).offset(0)
+            make.centerY.equalTo(label.snp.centerY).offset(isWithNumber ? 4 : 0)
         }
         view.updateConstraintsIfNeeded()
     }

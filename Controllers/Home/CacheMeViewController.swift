@@ -44,9 +44,12 @@ class CacheMeViewController: BaseViewController {
     
     var isQuickEnter:Bool = false
     
+    var numberCatch:Int = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.init(hexString: App_Theme_FC4652_Color)
+        self.getNumberEnter()
         self.setUpBgImageView()
         self.bindViewModel(viewModel: cacheMeViewModel, controller: self)
         self.setUpFontToolsView()
@@ -54,6 +57,18 @@ class CacheMeViewController: BaseViewController {
         self.doInitPlayerNotication()
         self.initRemoteGlView()
         // Do any additional setup after loading the view.
+    }
+    
+    func getNumberEnter(){
+        let str = "Number_\(UserInfoModel.shareInstance().idField!)"
+        let number = UserDefaultsGetSynchronize(str)
+        if number as! String == "nil" {
+            self.numberCatch = 1
+            UserDefaultsSetSynchronize("1" as AnyObject, key: str)
+        }else{
+            self.numberCatch = (number as! NSString).integerValue + 1
+            UserDefaultsSetSynchronize("\(self.numberCatch)" as AnyObject, key: str)
+        }
     }
     
     deinit {
@@ -91,6 +106,16 @@ class CacheMeViewController: BaseViewController {
         UIApplication.shared.setStatusBarStyle(.lightContent, animated: false)
         self.navigationController?.fd_prefersNavigationBarHidden = true
         self.navigationController?.setNavigationBarHidden(true, animated: true)
+        if UserDefaultsGetSynchronize(MUISCCOGIF) as! String == "true" {
+            AudioPlayManager.shareInstance.playBgMusic(name: "\(ConfigModel.shanreInstance.musicName!)")
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        if UserDefaultsGetSynchronize(MUISCCOGIF) as! String == "true" {
+            AudioPlayManager.shareInstance.pause()
+        }
     }
     
     func setUpBgImageView(){
@@ -202,7 +227,7 @@ class CacheMeViewController: BaseViewController {
         self.setUpToolsView()
         self.setUpCacheMeTopView()
         self.setUpGameView()
-        self.setUpGameTipView()
+        
     }
     
     func setUpCountDown(isPlay:Bool, text:String) {
@@ -213,9 +238,8 @@ class CacheMeViewController: BaseViewController {
     }
     
     func setUpGameTipView(){
-        if gameTipView == nil {
+        if gameTipView == nil && self.numberCatch < 5{
            gameTipView = GameTipView.init(frame: CGRect.init(x: (SCREENWIDTH - 323)/2, y: SCREENHEIGHT - 65 - 122 - 64, width: 323, height: 87))
-            gameTipView.isHidden = true
             self.view.addSubview(gameTipView)
         }
     }
@@ -267,7 +291,6 @@ class CacheMeViewController: BaseViewController {
         bottomToolsView.cacheMeToolsViewClouse = { tag in
             switch tag {
             case 1:
-//                self.cacheMeViewModel.shootFail()
                 let toViewController = JoysDetailViewController()
                 toViewController.url = "\(DollsDetail)\(self.cacheMeViewModel.catchMeModel.skuSubId!)"
                 NavigationPushView(self, toConroller: toViewController)
@@ -299,9 +322,6 @@ class CacheMeViewController: BaseViewController {
             self.cacheMePlayUserView.timeDownClouse = {
                 self.cacheMeViewModel.playGameGo()
             }
-            self.cacheMePlayUserView.hidderGameTipClouse = {
-                self.gameTipView.isHidden = true
-            }
             self.view.addSubview(self.cacheMePlayUserView)
         }
     }
@@ -324,7 +344,7 @@ class CacheMeViewController: BaseViewController {
     }
     //切换摄像头
     func setUpCameraView(){
-        switchCamera = UIButton.init(type: .custom)
+        switchCamera = AnimationButton.init(type: .custom)
         switchCamera.setImage(UIImage.init(named: "camera"), for: .normal)
         switchCamera.backgroundColor = UIColor.init(hexString: App_Theme_000000_Color, andAlpha: 0.3)
         switchCamera.layer.cornerRadius = 30
@@ -427,6 +447,7 @@ class CacheMeViewController: BaseViewController {
     @objc func NELivePlayerFirstVideoDisplayed(notification:Notification) {
         if self.localPreView != nil {
             self.localPreView.isHidden = true
+            self.setUpGameTipView()
         }
     }
     
