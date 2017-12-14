@@ -180,6 +180,7 @@ class PlusButtonSubclass : CYLPlusButton,CYLPlusButtonSubclassing {
     
       @objc func buttonClicked(sender:CYLPlusButton) {
         let controllerVC = CacheMeViewController()
+        controllerVC.modalPresentationStyle = .currentContext
         controllerVC.isQuickEnter = true
 //        let transition = CATransition.init()
 //        transition.type = kCATransitionPush
@@ -187,7 +188,14 @@ class PlusButtonSubclass : CYLPlusButton,CYLPlusButtonSubclassing {
 //        (KWINDOWDS().rootViewController as! MainTabBarViewController).currentViewController.navigationController?.view.layer.add(transition, forKey: kCATransition)
 //        (KWINDOWDS().rootViewController as! MainTabBarViewController).currentViewController.navigationController?.pushViewController(controllerVC)
         (KWINDOWDS().rootViewController as! MainTabBarViewController).setUpQuitEntRoom()
-        NavigaiontPresentView((KWINDOWDS().rootViewController as! MainTabBarViewController).currentViewController, toController: UINavigationController.init(rootViewController:controllerVC ))
+        _ = Timer.after(3, {
+            let naviController = UINavigationController.init(rootViewController:controllerVC )
+            controllerVC.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
+            controllerVC.transitioningDelegate = self
+            (KWINDOWDS().rootViewController as! MainTabBarViewController).currentViewController.present(naviController, animated: true, completion: {
+                
+            })
+        })
 //        NavigationPushView((KWINDOWDS().rootViewController as! MainTabBarViewController).currentViewController, toConroller: controllerVC)
       }
     
@@ -201,5 +209,32 @@ class PlusButtonSubclass : CYLPlusButton,CYLPlusButtonSubclassing {
     
     static func multiplierOfTabBarHeight(tabBarHeight: CGFloat) -> CGFloat {
         return 0.1
+    }
+}
+
+extension PlusButtonSubclass : UIViewControllerTransitioningDelegate {
+    
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return nil
+    }
+    
+    
+    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return nil
+    }
+    
+    
+    func interactionControllerForPresentation(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+        return nil
+    }
+    
+    
+    func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+        return nil
+    }
+    
+    
+    func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
+        return nil
     }
 }

@@ -406,7 +406,7 @@ class QuictEnterLocalPreView: UIView {
     func setUpView(image:UIImage){
         
         backGroundImage = UIImageView.init(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: SCREENHEIGHT))
-        backGroundImage.alpha = 0.5
+        backGroundImage.alpha = 0.1
         backGroundImage.image = image
         backGroundImage.blur(withStyle: .extraLight)
         self.addSubview(backGroundImage)
@@ -416,16 +416,16 @@ class QuictEnterLocalPreView: UIView {
         imageView.image = image
         self.addSubview(imageView)
         imageView.snp.makeConstraints { (make) in
-            make.bottom.equalTo(self.snp.bottom).offset(0)
+            make.bottom.equalTo(self.snp.bottom).offset(140)
             make.centerX.equalTo(self.snp.centerX).offset(0)
         }
         
-        UIView.animate(withDuration: 0.2, animations: {
+        UIView.animate(withDuration: 0.3, animations: {
             self.backGroundImage.alpha = 1
         }) { (ret) in
             
         }
-        imageView.layer.add(AnimationTools.shareInstance.setUpAnimation(SCREENHEIGHT - (image?.size.height)! / 2, velocity: 6.0), forKey: "wxSession")
+        imageView.layer.add(AnimationTools.shareInstance.setUpAnimation(SCREENHEIGHT - (image?.size.height)! / 2, velocity: 1.0), forKey: "imageViewAnimation")
         
         label = UILabel.init()
         label.frame = CGRect.init(x: 0, y: SCREENHEIGHT/2, width: SCREENWIDTH, height: 22)
@@ -435,8 +435,12 @@ class QuictEnterLocalPreView: UIView {
         label.font = App_Theme_PinFan_M_20_Font
         self.addSubview(label)
         
-        _ = Timer.after(0.9, {
-            self.removeFromSuperview()
+        _ = Timer.after(3, {
+            UIView.animate(withDuration: 0.3, animations: {
+                self.backGroundImage.alpha = 0.5
+            }) { (ret) in
+                self.removeFromSuperview()
+            }
         })
     }
     
