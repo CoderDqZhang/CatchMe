@@ -15,6 +15,7 @@ class TopViewController: BaseViewController {
         super.viewDidLoad()
         self.bindViewModel(viewModel: TopViewModel(), controller: self)
         self.setUpTableView(style: .plain, cells: [TopUserInfoTableViewCell.self,TopDescTableViewCell.self,TopAvatarTableViewCell.self], controller: self)
+        self.navigationController?.fd_fullscreenPopGestureRecognizer.isEnabled = false
         self.setUpNavigationView()
         // Do any additional setup after loading the view.
     }
@@ -27,7 +28,7 @@ class TopViewController: BaseViewController {
     
     func setUpNavigationView() {
         self.navigationItem.title = "大神榜"
-        gLoabelNavigaitonBar = GLoabelNavigaitonBar.init(frame: CGRect.init(x: 0, y: 20, width: SCREENWIDTH, height: 44), click: {
+        gLoabelNavigaitonBar = GLoabelNavigaitonBar.init(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: 64), click: {
             self.navigationController?.popViewController()
         })
         self.view.addSubview(gLoabelNavigaitonBar)

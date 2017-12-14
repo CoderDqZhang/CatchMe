@@ -18,7 +18,7 @@ class AboutUsViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.view.backgroundColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
         // Do any additional setup after loading the view.
     }
     
@@ -49,10 +49,11 @@ class AboutUsViewController: BaseViewController {
         
         proLabel = UILabel.init()
         proLabel.font = App_Theme_PinFan_R_13_Font
-        proLabel.textAlignment = .center
         proLabel.numberOfLines = 0
         proLabel.textColor = UIColor.init(hexString: App_Theme_CCCCCC_Color)
         proLabel.text = "Copyright © 2017 All Rights Reserved\n湖南赤子精和信息科技有限公司 "
+        UILabel.changeLineSpace(for: proLabel, withSpace: 4.0)
+        proLabel.textAlignment = .center
         self.view.addSubview(proLabel)
         
         versionLabel = UILabel.init()
@@ -72,7 +73,7 @@ class AboutUsViewController: BaseViewController {
         }
         
         aboutLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(self.logoImage.snp.bottom).offset(14)
+            make.top.equalTo(self.logoImage.snp.bottom).offset(16)
             make.centerX.equalTo(self.view.snp.centerX).offset(0)
         }
 

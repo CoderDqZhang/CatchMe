@@ -25,8 +25,25 @@ class AnimationTools: NSObject {
     
     static let shareInstance = AnimationTools()
     
+    
+    @available(iOS 9.0, *)
+    func setUpAnimation(_ float:CGFloat,velocity:CGFloat) ->CASpringAnimation{
+        let ani = CASpringAnimation.init(keyPath: "position.y")
+        ani.mass = 10.0; //质量，影响图层运动时的弹簧惯性，质量越大，弹簧拉伸和压缩的幅度越大
+        ani.stiffness = 1000; //刚度系数(劲度系数/弹性系数)，刚度系数越大，形变产生的力就越大，运动越快
+        ani.damping = 100.0;//阻尼系数，阻止弹簧伸缩的系数，阻尼系数越大，停止越快
+        ani.initialVelocity = velocity;//初始速率，动画视图的初始速度大小;速率为正数时，速度方向与运动方向一致，速率为负数时，速度方向与运动方向相反
+        ani.duration = ani.settlingDuration;
+        ani.toValue = float
+        ani.delegate = self
+        ani.isRemovedOnCompletion = false
+        ani.fillMode = kCAFillModeForwards;
+        ani.timingFunction = CAMediaTimingFunction.init(name: kCAMediaTimingFunctionEaseInEaseOut)
+        return ani
+    }
+    
     func moveAnimation(view:UIView?,frame:CGRect,finishClouse:@escaping AnimationFinishClouse){
-        UIView.animate(withDuration: 1.0, delay: 0.0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: UIViewAnimationOptions.allowUserInteraction, animations: {
+        UIView.animate(withDuration: 0.2, delay: 0.1, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: UIViewAnimationOptions.allowUserInteraction, animations: {
             view?.frame = frame
         }) { (ret) in
             finishClouse(ret)
@@ -44,6 +61,17 @@ class AnimationTools: NSObject {
         scale?.springBounciness = 15.64
         self.shakeAnimation(view: view)
 //        view.layer.pop_add(scale, forKey: "scale")
+    }
+    
+    func moveSpringAnimation(view:UIView?){
+        let moveAnimation = POPSpringAnimation.init(propertyNamed: kPOPLayerPositionY)
+//        moveAnimation?.velocity = 100
+        moveAnimation?.autoreverses = true
+        moveAnimation?.fromValue = NSValue.init(cgPoint: CGPoint.init(x: 0, y: -100))
+        moveAnimation?.toValue = NSValue.init(cgPoint: CGPoint.init(x: 0, y: 100))
+//        moveAnimation?.dynamicsMass = 1.3
+//        moveAnimation?.springSpeed = 200
+        view?.layer.pop_add(moveAnimation, forKey: "moveAnimation")
     }
     
     func shakeAnimation(view:UIView){
@@ -79,5 +107,9 @@ class AnimationTools: NSObject {
             view.removeFromSuperview()
         }
     }
+}
+
+extension AnimationTools : CAAnimationDelegate {
+    
 }
 

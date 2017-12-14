@@ -24,7 +24,7 @@ class LoginViewController: BaseViewController {
     var smsCodeStr:String = ""
     
     var comfigLabel:UILabel!
-    var proBtn:CustomButton!
+    var proBtn:UIButton!
     let loginForm = LoginForm()
     var timeDownLabel:CountDown!
     var loginViewModel = LoginViewModel()
@@ -119,10 +119,10 @@ class LoginViewController: BaseViewController {
         
         
         
-        proBtn = CustomButton.init(frame: CGRect.zero, title: "《抓我用户协议》", tag: 1, titleFont: App_Theme_PinFan_R_12_Font!, type: .withNoBoarder, pressClouse: { (tag) in
-            NavigationPushView(self, toConroller: UserProtocolViewController())
-        })
-        self.view.addSubview(proBtn)
+//        proBtn = CustomButton.init(frame: CGRect.zero, title: "《抓我用户协议》", tag: 1, titleFont: App_Theme_PinFan_R_12_Font!, type: .withNoBoarder, pressClouse: { (tag) in
+//            NavigationPushView(self, toConroller: UserProtocolViewController())
+//        })
+//        self.view.addSubview(proBtn)
         
         self.makeConstraints()
 

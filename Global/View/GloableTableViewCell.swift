@@ -37,6 +37,7 @@ class GloableTitleLabelTextFieldCell: UITableViewCell {
         self.contentView.addSubview(textField)
         
         lineLabel = GloabLineView.init(frame: CGRect.init(x: 23, y: 49.0, width: SCREENWIDTH - 46, height: 0.5))
+        lineLabel.setLineColor(UIColor.init(hexString: App_Theme_EEEEEE_Color))
         self.contentView.addSubview(lineLabel)
         self.updateConstraints()
     }
@@ -114,6 +115,7 @@ class GloableMaxTitleLabelTextFieldCell: UITableViewCell {
         self.contentView.addSubview(textView)
         
         lineLabel = GloabLineView.init(frame: CGRect.init(x: 23, y: 80.0, width: SCREENWIDTH - 46, height: 0.5))
+        lineLabel.setLineColor(UIColor.init(hexString: App_Theme_EEEEEE_Color))
         self.contentView.addSubview(lineLabel)
         self.updateConstraints()
     }
@@ -169,6 +171,8 @@ class GloableTitleLabelTitleDescCell: UITableViewCell {
     var titleLabel:UILabel!
     var titleDesc:UILabel!
     
+    var rightImage:UIImageView!
+    
     var lineLabel:GloabLineView!
     
     var didMakeConstraints = false
@@ -189,8 +193,15 @@ class GloableTitleLabelTitleDescCell: UITableViewCell {
         self.contentView.addSubview(titleDesc)
         
         lineLabel = GloabLineView.init(frame: CGRect.init(x: 23, y: 49, width: SCREENWIDTH - 46, height: 0.5))
+        lineLabel.setLineColor(UIColor.init(hexString: App_Theme_EEEEEE_Color))
         self.contentView.addSubview(lineLabel)
+        
+        rightImage = UIImageView.init()
+        rightImage.image = UIImage.init(named: "arrow")
+        self.contentView.addSubview(rightImage)
+     
         self.updateConstraints()
+
     }
     
     func cellSetData(title:String, titleDescStr:String? ){
@@ -221,6 +232,12 @@ class GloableTitleLabelTitleDescCell: UITableViewCell {
                 make.left.equalTo(self.contentView.snp.left).offset(90)
                 make.right.equalTo(self.contentView.snp.right).offset(-15)
             })
+            
+            rightImage.snp.makeConstraints { (make) in
+                make.centerY.equalTo(self.snp.centerY).offset(0)
+                make.right.equalTo(self.snp.right).offset(-20)
+            }
+            
             didMakeConstraints = true
         }
         super.updateConstraints()
@@ -243,6 +260,7 @@ class GloabTitleAndFieldCell: UITableViewCell {
     var titleLabel:UILabel!
     var textField:UITextField!
     var lineLable:GloabLineView!
+    var rightImage:UIImageView!
     
     var didMakeConstraints:Bool = false
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
@@ -263,8 +281,13 @@ class GloabTitleAndFieldCell: UITableViewCell {
         textField.textColor = UIColor.init(hexString: App_Theme_AAAAAA_Color)
         self.contentView.addSubview(textField)
         
-        lineLable = GloabLineView(frame: CGRect(x: 20,y: 0,width: SCREENWIDTH - 20, height: 0.25))
+        lineLable = GloabLineView(frame: CGRect(x: 20,y: 0,width: SCREENWIDTH - 20, height: 0.5))
+        lineLable.setLineColor(UIColor.init(hexString: App_Theme_EEEEEE_Color))
         self.contentView.addSubview(lineLable)
+        
+        rightImage = UIImageView.init()
+        rightImage.image = UIImage.init(named: "arrow")
+        self.addSubview(rightImage)
         
         self.updateConstraintsIfNeeded()
     }
@@ -280,6 +303,8 @@ class GloabTitleAndFieldCell: UITableViewCell {
         titleLabel.text = title
         textField.text = detail
         textField.attributedPlaceholder = NSAttributedString.init(string: laceholder, attributes: [NSAttributedStringKey.font:App_Theme_PinFan_R_14_Font!,NSAttributedStringKey.foregroundColor:UIColor.init(hexString: App_Theme_DDE0E5_Color)!])
+        
+        
     }
     
     func hideLineLabel() {
@@ -297,13 +322,18 @@ class GloabTitleAndFieldCell: UITableViewCell {
             textField.snp.makeConstraints({ (make) in
                 make.left.equalTo(self.titleLabel.snp.right).offset(24)
                 make.centerY.equalTo(self.contentView.snp.centerY).offset(0)
-                make.right.equalTo(self.contentView.snp.right).offset(-5)
+                make.right.equalTo(self.contentView.snp.right).offset(-38)
             })
             
             lineLable.snp.makeConstraints({ (make) in
                 make.left.equalTo(self.contentView.snp.left).offset(20)
                 make.bottom.equalTo(self.contentView.snp.bottom).offset(-0.5)
             })
+            
+            rightImage.snp.makeConstraints { (make) in
+                make.centerY.equalTo(self.snp.centerY).offset(0)
+                make.right.equalTo(self.snp.right).offset(-20)
+            }
             
             self.didMakeConstraints = true
         }
@@ -337,8 +367,7 @@ class GloabTitleAndSwitchCell: UITableViewCell {
             let str = ret.value!.isOn ? "true" : "false"
             UserDefaultsSetSynchronize(str as AnyObject, key: MUISCCOGIF)
         }
-        switchView.onImage = UIImage.init(named: "on")
-        switchView.offImage = UIImage.init(named: "off")
+        switchView.tintColor = UIColor.init(hexString: App_Theme_FC4652_Color)
         self.contentView.addSubview(switchView)
         self.updateConstraintsIfNeeded()
     }

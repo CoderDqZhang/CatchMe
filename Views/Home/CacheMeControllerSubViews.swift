@@ -16,23 +16,34 @@ typealias NELivePlayerLoadFailViewClouse = () ->Void
 
 class NELivePlayerLoadFailView : UIView {
     var imageView:UIImageView!
+    var backImage:UIImageView!
+    
     var titleLabel:UILabel!
     var detailLabel:UILabel!
-    var button:CustomButton!
+    var button:CustomTouchButton!
     
     var centerView:UIView!
     
     var nELivePlayerLoadFailViewClouse:NELivePlayerLoadFailViewClouse!
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = UIColor.init(hexString: App_Theme_000000_Color, andAlpha: 0.7)
         self.setUpView()
     }
     
     func setUpView(){
+        
+        backImage = UIImageView.init()
+        backImage.image = UIImage.init(named: "bg_loading_1")
+        self.addSubview(backImage)
+        backImage.snp.makeConstraints { (make) in
+            make.left.equalTo(self.snp.left).offset(0)
+            make.right.equalTo(self.snp.right).offset(0)
+            make.top.equalTo(self.snp.top).offset(0)
+            make.bottom.equalTo(self.snp.bottom).offset(0)
+        }
+        
         centerView = UIView.init()
         self.addSubview(centerView)
-        
         
         imageView = UIImageView.init()
         imageView.image = UIImage.init(named: "pic_waiting")
@@ -43,9 +54,9 @@ class NELivePlayerLoadFailView : UIView {
         }
         
         titleLabel = UILabel.init()
-        titleLabel.text = "主人网络略慢, 请耐心等待"
+        titleLabel.text = "网络略慢, 主人请耐心等待"
         titleLabel.font = App_Theme_PinFan_M_18_Font
-        titleLabel.textColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
+        titleLabel.textColor = UIColor.init(hexString: App_Theme_000000_Color, andAlpha: 0.4)
         centerView.addSubview(titleLabel)
         titleLabel.snp.makeConstraints { (make) in
             make.top.equalTo(self.imageView.snp.bottom).offset(0)
@@ -58,20 +69,16 @@ class NELivePlayerLoadFailView : UIView {
         detailLabel.textColor = UIColor.init(hexString: App_Theme_CCCCCC_Color)
         centerView.addSubview(detailLabel)
         detailLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(self.titleLabel.snp.bottom).offset(6)
+            make.top.equalTo(self.titleLabel.snp.bottom).offset(3)
             make.centerX.equalTo(self.centerView.snp.centerX).offset(0)
         }
         
-        button = CustomButton.init(frame: CGRect.init(x: (SCREENWIDTH - 150)/2, y: 10, width: 150, height: 42), title: "重新连接", tag: 10, titleFont: App_Theme_PinFan_M_17_Font!, type: CustomButtonType.withBackBoarder) { (tag) in
+        button = CustomTouchButton.init(frame: CGRect.init(x: (SCREENWIDTH - 150)/2, y: 210, width: 150, height: 44), title: "重新连接", tag: 10, titleFont: App_Theme_PinFan_M_17_Font!, type: CustomButtonType.withBackBoarder) { (tag) in
             if self.nELivePlayerLoadFailViewClouse != nil {
                 self.nELivePlayerLoadFailViewClouse()
             }
         }
         centerView.addSubview(button)
-        button.snp.makeConstraints { (make) in
-            make.top.equalTo(self.detailLabel.snp.bottom).offset(17)
-            make.centerX.equalTo(self.centerView.snp.centerX).offset(0)
-        }
         
         centerView.snp.makeConstraints { (make) in
             make.centerX.equalTo(self.snp.centerX).offset(0)
@@ -388,28 +395,37 @@ class QuictEnterLocalPreView: UIView {
     var backGroundImage:UIImageView!
     var imageView:UIImageView!
     
-    override init(frame: CGRect) {
+    init(frame: CGRect,image:UIImage) {
         super.init(frame: frame)
-        self.backgroundColor = UIColor.init(hexString: App_Theme_000000_Color, andAlpha: 0.1)
         self.layer.cornerRadius = 5
+        self.tag = 10000
         self.layer.masksToBounds = true
-        self.setUpView()
+        self.setUpView(image:image)
     }
     
-    func setUpView(){
+    func setUpView(image:UIImage){
         
         backGroundImage = UIImageView.init(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: SCREENHEIGHT))
-        backGroundImage.image = UIImage.init(color: UIColor.init(hexString: App_Theme_FFFFFF_Color, andAlpha: 0.7), size: CGSize.init(width: SCREENWIDTH, height: SCREENHEIGHT))
-        backGroundImage.blur()
+        backGroundImage.alpha = 0.5
+        backGroundImage.image = image
+        backGroundImage.blur(withStyle: .extraLight)
         self.addSubview(backGroundImage)
         
         imageView = UIImageView.init()
-        imageView.image = UIImage.init(named: "pic_success")
+        let image = UIImage.init(named: "pic_animation")
+        imageView.image = image
         self.addSubview(imageView)
         imageView.snp.makeConstraints { (make) in
             make.bottom.equalTo(self.snp.bottom).offset(0)
             make.centerX.equalTo(self.snp.centerX).offset(0)
         }
+        
+        UIView.animate(withDuration: 0.2, animations: {
+            self.backGroundImage.alpha = 1
+        }) { (ret) in
+            
+        }
+        imageView.layer.add(AnimationTools.shareInstance.setUpAnimation(SCREENHEIGHT - (image?.size.height)! / 2, velocity: 6.0), forKey: "wxSession")
         
         label = UILabel.init()
         label.frame = CGRect.init(x: 0, y: SCREENHEIGHT/2, width: SCREENWIDTH, height: 22)
@@ -419,8 +435,9 @@ class QuictEnterLocalPreView: UIView {
         label.font = App_Theme_PinFan_M_20_Font
         self.addSubview(label)
         
-        
-        
+        _ = Timer.after(0.9, {
+            self.removeFromSuperview()
+        })
     }
     
     func changeLabelText(str:String){
@@ -482,7 +499,7 @@ class ToolsView: AnimationTouchView {
             imageView.image = image
             self.addSubview(imageView)
             
-            blanceLabel = UILabel.init(frame: CGRect.init(x: imageView.frame.maxX + 2, y: 9, width: width, height: 20))
+            blanceLabel = UILabel.init(frame: CGRect.init(x: imageView.frame.maxX + 2, y: 9, width: width + 2, height: 20))
             blanceLabel.textAlignment = .center
             blanceLabel.textColor = UIColor.init(hexString: App_Theme_FC4652_Color)
             blanceLabel.font = App_Theme_PinFan_M_20_Font
@@ -503,6 +520,8 @@ class ToolsView: AnimationTouchView {
         self.blanceLabel.text = str
     }
     
+    
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -510,6 +529,10 @@ class ToolsView: AnimationTouchView {
 
 typealias CacheMeToolsViewClouse = (_ tag:NSInteger) ->Void
 
+enum PlayType {
+    case canPlay
+    case canNotPlay
+}
 class CacheMeToolsView: UIView {
     var toolsDesc:ToolsView!
     var playGame:ToolsView!
@@ -544,6 +567,20 @@ class CacheMeToolsView: UIView {
             }
         }
         self.addSubview(topUp)
+    }
+    
+    func changePlayType(type:PlayType){
+        if type == .canNotPlay {
+            playGame.isUserInteractionEnabled = false
+            playGame.blanceLabel.textColor = UIColor.init(hexString: App_Theme_CCCCCC_Color)
+            playGame.imageView.image = UIImage.init(named: "coin_np")
+            playGame.label.textColor = UIColor.init(hexString: App_Theme_CCCCCC_Color)
+        }else{
+            playGame.isUserInteractionEnabled = true
+            playGame.blanceLabel.textColor = UIColor.init(hexString: App_Theme_FC4652_Color)
+            playGame.imageView.image = UIImage.init(named: "coin_1")
+            playGame.label.textColor = UIColor.init(hexString: App_Theme_FF515D_Color)
+        }
     }
     
     func changePlayGameCoins(str:String){
@@ -615,7 +652,7 @@ class GameToolsView : UIView {
         
         self.addSubview(gameView)
         
-        topBtn = AnimationButton.init(frame: CGRect.init(x: 111, y: 0, width: gameBtnWidht, height: gameBtnHeight))
+        topBtn = AnimationButton.init(frame: CGRect.init(x: 108, y: 0, width: gameBtnWidht, height: gameBtnHeight))
         topBtn.setImage(UIImage.init(named: "up"), for: .normal)
         self.setUpButtonTheme(button: topBtn)
         topBtn.reactive.controlEvents(.touchUpInside).observe { (action) in
@@ -623,7 +660,7 @@ class GameToolsView : UIView {
         }
         gameView.addSubview(topBtn)
         
-        leftBtn = AnimationButton.init(frame: CGRect.init(x: 58, y: 29, width: gameBtnWidht, height: gameBtnWidht))
+        leftBtn = AnimationButton.init(frame: CGRect.init(x: 55, y: 29, width: gameBtnWidht, height: gameBtnHeight))
         leftBtn.setImage(UIImage.init(named: "left"), for: .normal)
         self.setUpButtonTheme(button: leftBtn)
         leftBtn.reactive.controlEvents(.touchUpInside).observe { (action) in
@@ -632,7 +669,7 @@ class GameToolsView : UIView {
         gameView.addSubview(leftBtn)
         
         
-        bottomBtn = AnimationButton.init(frame: CGRect.init(x: 111, y: 57, width: gameBtnWidht, height: gameBtnWidht))
+        bottomBtn = AnimationButton.init(frame: CGRect.init(x: 108, y: 57, width: gameBtnWidht, height: gameBtnHeight))
         self.setUpButtonTheme(button: bottomBtn)
         bottomBtn.setImage(UIImage.init(named: "down"), for: .normal)
         bottomBtn.reactive.controlEvents(.touchUpInside).observe { (action) in
@@ -640,7 +677,7 @@ class GameToolsView : UIView {
         }
         gameView.addSubview(bottomBtn)
         
-        rightBtn = AnimationButton.init(frame: CGRect.init(x: 164, y: 29, width: gameBtnWidht, height: gameBtnWidht))
+        rightBtn = AnimationButton.init(frame: CGRect.init(x: 161, y: 29, width: gameBtnWidht, height: gameBtnHeight))
         self.setUpButtonTheme(button: rightBtn)
         rightBtn.setImage(UIImage.init(named: "right"), for: .normal)
         rightBtn.reactive.controlEvents(.touchUpInside).observe { (action) in
@@ -649,7 +686,7 @@ class GameToolsView : UIView {
         gameView.addSubview(rightBtn)
         
         let image = UIImage.init(named: "go")
-        goBtn = AnimationButton.init(frame: CGRect.init(x: SCREENWIDTH - 58 - (image?.size.width)!, y: 12, width: (image?.size.width)!, height: (image?.size.height)!))
+        goBtn = AnimationButton.init(frame: CGRect.init(x: SCREENWIDTH - 55 - (image?.size.width)!, y: 10, width: (image?.size.width)!, height: (image?.size.height)!))
         goBtn.backgroundColor = UIColor.clear
         goBtn.titleLabel?.textAlignment = .center
         goBtn.layer.masksToBounds = true
@@ -660,7 +697,7 @@ class GameToolsView : UIView {
         gameView.addSubview(goBtn)
         
         gameView.snp.makeConstraints { (make) in
-            make.top.equalTo(self.snp.top).offset(9)
+            make.top.equalTo(self.snp.top).offset(6)
             make.left.equalTo(self.snp.left).offset(0)
             make.right.equalTo(self.snp.right).offset(0)
             make.bottom.equalTo(self.snp.bottom).offset(0)

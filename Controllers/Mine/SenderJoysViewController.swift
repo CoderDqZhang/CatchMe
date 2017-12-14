@@ -38,7 +38,7 @@ class SenderJoysViewController: BaseViewController {
             make.centerX.equalTo(self.view.snp.centerX).offset(0)
         }
         
-        let button = CustomButton.init(frame: CGRect.init(x: (SCREENWIDTH - 200)/2, y: 0, width: 200, height: 46), title: "支付并发货", tag: 10, titleFont: App_Theme_PinFan_M_17_Font!, type: CustomButtonType.withBackBoarder) { (tag) in
+        let button = CustomTouchButton.init(frame: CGRect.init(x: (SCREENWIDTH - 200)/2, y: 0, width: 200, height: 48), title: "支付并发货", tag: 10, titleFont: App_Theme_PinFan_M_17_Font!, type: CustomButtonType.withBackBoarder) { (tag) in
             (self.viewModel as! SenderJoysViewModel).senderJoys()
         }
         bottomView.addSubview(button)

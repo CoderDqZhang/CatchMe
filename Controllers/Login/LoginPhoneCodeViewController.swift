@@ -12,7 +12,7 @@ class LoginPhoneCodeViewController: BaseViewController {
 
     var backGroupButton:UIButton!
     var phoneLabel:UILabel!
-    var loginButton:AnimationButton!
+    var loginButton:CustomTouchButton!
     var senderCode:UIButton!
     var inputCode:UITextField!
     
@@ -29,7 +29,7 @@ class LoginPhoneCodeViewController: BaseViewController {
     var codeLabel4:UILabel!
     
     var comfigLabel:UILabel!
-    var proBtn:UIButton!
+    
     var loginViewModel = LoginViewModel.shareInstance
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,7 +65,7 @@ class LoginPhoneCodeViewController: BaseViewController {
         
         phoneLabel.snp.makeConstraints { (make) in
             make.centerX.equalTo(self.view.snp.centerX).offset(0)
-            make.top.equalTo(self.view.snp.top).offset(72)
+            make.top.equalTo(self.view.snp.top).offset(76)
         }
         
         inputCode = UITextField.init()
@@ -76,11 +76,9 @@ class LoginPhoneCodeViewController: BaseViewController {
         inputCode.reactive.continuousTextValues.observeValues { (str) in
             self.loginViewModel.form.code = str!
             if str?.length == 4 {
-                self.loginButton.isEnabled = true
-                self.loginButton.backgroundColor = UIColor.init(hexString: App_Theme_FC4652_Color, andAlpha: 1)
+                self.loginButton.setButtonIsEnabled(isEnabled: true)
             }else{
-                self.loginButton.isEnabled = false
-                self.loginButton.backgroundColor = UIColor.init(hexString: App_Theme_FC4652_Color, andAlpha: 0.7)
+                self.loginButton.setButtonIsEnabled(isEnabled: false)
             }
             let count = (str?.charactersArray.count)!
             switch count {
@@ -123,27 +121,11 @@ class LoginPhoneCodeViewController: BaseViewController {
             make.bottom.equalTo(self.view.snp.bottom).offset(30)
         }
         
-        
         self.setUpForLableAndLine()
-        
-        loginButton = AnimationButton.init(type: .custom)
-        loginButton.backgroundColor = UIColor.init(hexString: App_Theme_FC4652_Color, andAlpha: 0.7)
-        loginButton.setTitle("登录", for: .normal)
-        loginButton.layer.cornerRadius = 25
-        loginButton.setTitleColor(UIColor.init(hexString: App_Theme_FFFFFF_Color), for: .normal)
-        loginButton.titleLabel?.font = App_Theme_PinFan_M_17_Font
-        loginButton.reactive.controlEvents(.touchUpInside).observe { (active) in
+        loginButton = CustomTouchButton.init(frame:  CGRect.init(x: (SCREENWIDTH - 220)/2, y: 268, width: 220, height: 48), title: "登录", tag: 10, titleFont: App_Theme_PinFan_M_17_Font!, type: .withBackBoarder, pressClouse: { (tag) in
             self.loginViewModel.requestLogin(self.loginViewModel.form)
-        }
-        self.loginViewModel.senderCodeSuccessClouse = {
-            NavigationPushView(self, toConroller: LoginPhoneCodeViewController())
-        }
+        })
         self.view.addSubview(loginButton)
-        loginButton.snp.makeConstraints { (make) in
-            make.top.equalTo(self.lingLabel1.snp.bottom).offset(40)
-            make.centerX.equalTo(self.view.snp.centerX).offset(0)
-            make.size.equalTo(CGSize.init(width: 200, height: 50))
-        }
         
         senderCode = UIButton.init(type: .custom)
         senderCode.setTitle("60秒后重发", for: .normal)
@@ -158,60 +140,43 @@ class LoginPhoneCodeViewController: BaseViewController {
         self.view.addSubview(senderCode)
         self.setUpCountDown()
         senderCode.snp.makeConstraints { (make) in
-            make.top.equalTo(self.loginButton.snp.bottom).offset(12)
+            make.top.equalTo(self.loginButton.snp.bottom).offset(8)
             make.centerX.equalTo(self.view.snp.centerX).offset(0)
-        }
-        
-        comfigLabel = UILabel()
-        comfigLabel.text = "登录表示同意"
-        comfigLabel.textColor = UIColor.init(hexString: App_Theme_CCCCCC_Color)
-        comfigLabel.font = App_Theme_PinFan_R_13_Font
-        self.view.addSubview(comfigLabel)
-        
-        proBtn = CustomButton.init(frame: CGRect.zero, title: "用户注册协议与隐私条款", tag: 1, titleFont: App_Theme_PinFan_R_13_Font!, type: .withNoBoarder, pressClouse: { (tag) in
-            NavigationPushView(self, toConroller: UserProtocolViewController())
-        })
-        self.view.addSubview(proBtn)
-        
-        comfigLabel.snp.makeConstraints { (make) in
-            make.bottom.equalTo(self.view.snp.bottom).offset(IPHONE5 ? -226 : -240)
-            make.centerX.equalTo(self.view.snp.centerX).offset(-65)
-        }
-        
-        proBtn.snp.makeConstraints { (make) in
-            make.bottom.equalTo(self.view.snp.bottom).offset(IPHONE5 ? -220 : -234)
-            make.centerX.equalTo(self.view.snp.centerX).offset(49)
         }
     }
     
+    override func setupBaseViewForDismissKeyboard() {
+        
+    }
+    
     func setUpForLableAndLine(){
-        lingLabel1 = GloabLineView.init(frame: CGRect.init(x: (SCREENWIDTH - 220)/2, y: 230, width: 40, height: 2))
+        lingLabel1 = GloabLineView.init(frame: CGRect.init(x: (SCREENWIDTH - 220)/2, y: 227, width: 40, height: 2))
         self.view.addSubview(lingLabel1)
         lingLabel1.setLineColor(UIColor.init(hexString: App_Theme_DDDDDD_Color))
-        lingLabel2 = GloabLineView.init(frame: CGRect.init(x: lingLabel1.frame.maxX + 20, y: 230, width: 40, height: 2))
+        lingLabel2 = GloabLineView.init(frame: CGRect.init(x: lingLabel1.frame.maxX + 20, y: 227, width: 40, height: 2))
         self.view.addSubview(lingLabel2)
         lingLabel2.setLineColor(UIColor.init(hexString: App_Theme_DDDDDD_Color))
-        lingLabel3 = GloabLineView.init(frame: CGRect.init(x: lingLabel2.frame.maxX + 20, y: 230, width: 40, height: 2))
+        lingLabel3 = GloabLineView.init(frame: CGRect.init(x: lingLabel2.frame.maxX + 20, y: 227, width: 40, height: 2))
         self.view.addSubview(lingLabel3)
         lingLabel3.setLineColor(UIColor.init(hexString: App_Theme_DDDDDD_Color))
-        lingLabel4 = GloabLineView.init(frame: CGRect.init(x: lingLabel3.frame.maxX + 20, y: 230, width: 40, height: 2))
+        lingLabel4 = GloabLineView.init(frame: CGRect.init(x: lingLabel3.frame.maxX + 20, y: 227, width: 40, height: 2))
         lingLabel4.setLineColor(UIColor.init(hexString: App_Theme_DDDDDD_Color))
         self.view.addSubview(lingLabel4)
         
         codeLabel1 = self.setUpLable()
-        codeLabel1.frame = CGRect.init(x: (SCREENWIDTH - 220)/2, y: 187, width: 40, height: 28)
+        codeLabel1.frame = CGRect.init(x: (SCREENWIDTH - 220)/2, y: 184, width: 40, height: 28)
         self.view.addSubview(codeLabel1)
         
         codeLabel2 = self.setUpLable()
-        codeLabel2.frame = CGRect.init(x: codeLabel1.frame.maxX + 20, y: 187, width: 40, height: 28)
+        codeLabel2.frame = CGRect.init(x: codeLabel1.frame.maxX + 20, y: 184, width: 40, height: 28)
         self.view.addSubview(codeLabel2)
         
         codeLabel3 = self.setUpLable()
-        codeLabel3.frame = CGRect.init(x: codeLabel2.frame.maxX + 20, y: 187, width: 40, height: 28)
+        codeLabel3.frame = CGRect.init(x: codeLabel2.frame.maxX + 20, y: 184, width: 40, height: 28)
         self.view.addSubview(codeLabel3)
         
         codeLabel4 = self.setUpLable()
-        codeLabel4.frame = CGRect.init(x: codeLabel3.frame.maxX + 20, y: 187, width: 40, height: 28)
+        codeLabel4.frame = CGRect.init(x: codeLabel3.frame.maxX + 20, y: 184, width: 40, height: 28)
         self.view.addSubview(codeLabel4)
     }
     

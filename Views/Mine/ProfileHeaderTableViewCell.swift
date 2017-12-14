@@ -12,6 +12,7 @@ class ProfileHeaderTableViewCell: UITableViewCell {
 
     var titleLabel:UILabel!
     var avatarImage:UIImageView!
+    var rightImage:UIImageView!
     
     var didMakeConstraints = false
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
@@ -28,9 +29,14 @@ class ProfileHeaderTableViewCell: UITableViewCell {
         
         avatarImage = UIImageView.init()
         avatarImage.image = UIImage.init(named: "默认头像_1")
-        avatarImage.layer.cornerRadius = 19
+        avatarImage.layer.cornerRadius = 25
         avatarImage.layer.masksToBounds = true
         self.contentView.addSubview(avatarImage)
+        
+        rightImage = UIImageView.init()
+        rightImage.image = UIImage.init(named: "arrow")
+        self.addSubview(rightImage)
+        
         
         self.updateConstraints()
     }
@@ -54,10 +60,16 @@ class ProfileHeaderTableViewCell: UITableViewCell {
             })
             
             avatarImage.snp.makeConstraints({ (make) in
-                make.right.equalTo(self.contentView.snp.right).offset(-5)
-                make.size.equalTo(CGSize.init(width: 38, height: 38))
+                make.right.equalTo(self.contentView.snp.right).offset(-38)
+                make.size.equalTo(CGSize.init(width: 50, height: 50))
                 make.centerY.equalTo(self.contentView.snp.centerY).offset(0)
             })
+            
+            rightImage.snp.makeConstraints { (make) in
+                make.centerY.equalTo(self.snp.centerY).offset(0)
+                make.right.equalTo(self.snp.right).offset(-20)
+            }
+            
             didMakeConstraints = true
         }
         super.updateConstraints()

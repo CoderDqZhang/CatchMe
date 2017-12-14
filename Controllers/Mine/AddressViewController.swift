@@ -23,6 +23,7 @@ class AddressViewController: BaseViewController {
         self.bindViewModel(viewModel: AddressViewModel(), controller: self)
         self.setUpTableView(style: .plain, cells: [GloableTitleLabelTextFieldCell.self, GloableTitleLabelTitleDescCell.self, GloableMaxTitleLabelTextFieldCell.self,SetNormalTableViewCell.self], controller: self)
         self.bindLoginViewModel()
+        self.tableView.backgroundColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
         // Do any additional setup after loading the view.
     }
 
@@ -56,8 +57,8 @@ class AddressViewController: BaseViewController {
     
     func showToolBar() -> UIToolbar{
         pickerToolBar = UIToolbar.init(frame: CGRect.init(x: 0, y: SCREENHEIGHT - 264, width: SCREENWIDTH, height: 44))
-        pickerToolBar.barTintColor = UIColor.init(hexString: App_Theme_FC4652_Color)
-        pickerToolBar.backgroundColor =  UIColor.init(hexString: App_Theme_FC4652_Color)
+        pickerToolBar.barTintColor = UIColor.init(hexString: App_Theme_FA3A47_Color)
+        pickerToolBar.backgroundColor =  UIColor.init(hexString: App_Theme_FA3A47_Color)
         let barItems = NSMutableArray.init()
         let cancel = UIBarButtonItem.init(title: "取消", style: .plain, target: self, action: #selector(self.cancelSelect))
         barItems.add(cancel)

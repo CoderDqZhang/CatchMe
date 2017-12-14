@@ -22,6 +22,7 @@ class SpalshView: UIView {
         self.backgroundColor = UIColor.init(hexString: App_Theme_FC4F5E_Color)
         self.setGIfImage()
         self.setUpView()
+        UIApplication.shared.setStatusBarStyle(.lightContent, animated: false)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -34,7 +35,7 @@ class SpalshView: UIView {
         self.addSubview(titleLabel)
         
         titleLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(self.spalshView.snp.bottom).offset(15)
+            make.top.equalTo(self.spalshView.snp.bottom).offset(11)
             make.centerX.equalTo(self.snp.centerX).offset(0)
         }
         
@@ -70,12 +71,13 @@ class SpalshView: UIView {
             let gifImage = FLAnimatedImage.init(animatedGIFData: gifData)
             spalshView.animatedImage = gifImage
             spalshView.snp.makeConstraints { (make) in
-                make.top.equalTo(self.snp.top).offset(64)
+                make.top.equalTo(self.snp.top).offset(71)
                 make.centerX.equalTo(self.snp.centerX).offset(0)
                 make.size.equalTo(CGSize.init(width: SCREENWIDTH, height: SCREENWIDTH * 684 / 750))
             }
             time = Timer.after(5, {
                 AnimationTools.shareInstance.removeBigViewAnimation(view: self)
+                UIApplication.shared.setStatusBarStyle(.default, animated: false)
                 self.time.invalidate()
             })
         } catch  {

@@ -80,7 +80,6 @@
 		1F126E421FC07CBF006306D2 /* MineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F126E411FC07CBF006306D2 /* MineViewModel.swift */; };
 		1F126E471FC07D13006306D2 /* MineHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F126E461FC07D13006306D2 /* MineHeaderTableViewCell.swift */; };
 		1F126E491FC07F1B006306D2 /* MineToolsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F126E481FC07F1B006306D2 /* MineToolsTableViewCell.swift */; };
-		1F126E4D1FC08257006306D2 /* UINavigationController+FDFullscreenPopGesture.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F126E4C1FC08257006306D2 /* UINavigationController+FDFullscreenPopGesture.m */; };
 		1F126E501FC08792006306D2 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F126E4F1FC08792006306D2 /* LoginViewController.swift */; };
 		1F126E531FC087D0006306D2 /* Gloable+View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F126E521FC087D0006306D2 /* Gloable+View.swift */; };
 		1F126E551FC08824006306D2 /* UserProtocolViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F126E541FC08824006306D2 /* UserProtocolViewController.swift */; };
@@ -302,8 +301,6 @@
 		1F126E411FC07CBF006306D2 /* MineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineViewModel.swift; sourceTree = "<group>"; };
 		1F126E461FC07D13006306D2 /* MineHeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineHeaderTableViewCell.swift; sourceTree = "<group>"; };
 		1F126E481FC07F1B006306D2 /* MineToolsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineToolsTableViewCell.swift; sourceTree = "<group>"; };
-		1F126E4B1FC08257006306D2 /* UINavigationController+FDFullscreenPopGesture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+FDFullscreenPopGesture.h"; sourceTree = "<group>"; };
-		1F126E4C1FC08257006306D2 /* UINavigationController+FDFullscreenPopGesture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+FDFullscreenPopGesture.m"; sourceTree = "<group>"; };
 		1F126E4F1FC08792006306D2 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		1F126E521FC087D0006306D2 /* Gloable+View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Gloable+View.swift"; sourceTree = "<group>"; };
 		1F126E541FC08824006306D2 /* UserProtocolViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProtocolViewController.swift; sourceTree = "<group>"; };
@@ -563,7 +560,6 @@
 				1FF3A8701FE15E230017326F /* FLAnimation */,
 				1F126EB01FC180FC006306D2 /* DBModel */,
 				1F126E711FC1549F006306D2 /* ijksdl */,
-				1F126E4A1FC08257006306D2 /* FDFullscreenPopGesture */,
 				1F126DB31FBFF391006306D2 /* UITableView-FDTempleateLayoutCell */,
 				1F126D941FBFF387006306D2 /* CountDown */,
 				1F126D971FBFF387006306D2 /* SDCycleScrollView */,
@@ -935,15 +931,6 @@
 				1FCA20061FC56BBF0008BF07 /* TopUpMuchView.swift */,
 			);
 			path = Home;
-			sourceTree = "<group>";
-		};
-		1F126E4A1FC08257006306D2 /* FDFullscreenPopGesture */ = {
-			isa = PBXGroup;
-			children = (
-				1F126E4B1FC08257006306D2 /* UINavigationController+FDFullscreenPopGesture.h */,
-				1F126E4C1FC08257006306D2 /* UINavigationController+FDFullscreenPopGesture.m */,
-			);
-			path = FDFullscreenPopGesture;
 			sourceTree = "<group>";
 		};
 		1F126E4E1FC08678006306D2 /* Login */ = {
@@ -1377,7 +1364,6 @@
 				1F126E0C1FBFFDCB006306D2 /* NSDate+LSCore.m in Sources */,
 				1F126DBC1FBFF391006306D2 /* UITableView+FDTemplateLayoutCell.m in Sources */,
 				1F126E421FC07CBF006306D2 /* MineViewModel.swift in Sources */,
-				1F126E4D1FC08257006306D2 /* UINavigationController+FDFullscreenPopGesture.m in Sources */,
 				1F126DB01FBFF387006306D2 /* TAAnimatedDotView.m in Sources */,
 				1F126E3D1FC021B5006306D2 /* CacheMeViewController.swift in Sources */,
 				1F126EC51FC268BF006306D2 /* CacheMeControllerSubViews.swift in Sources */,

@@ -10,6 +10,7 @@ import UIKit
 import SnapKit
 import MJRefresh
 import DZNEmptyDataSet
+import FDFullscreenPopGesture
 
 typealias NormalHeaderClouse = () -> Void
 
@@ -26,8 +27,12 @@ class BaseViewController: UIViewController {
         self.setUpViewNavigationItem()
         self.setUpLogic()
         self.navigationController?.fd_fullscreenPopGestureRecognizer.isEnabled = true
-        self.setupForDismissKeyboard()
+        self.setupBaseViewForDismissKeyboard()
         // Do any additional setup after loading the view.
+    }
+    
+    func setupBaseViewForDismissKeyboard(){
+        self.setupForDismissKeyboard()
     }
     
     func setDZNEmptyData(){

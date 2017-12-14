@@ -19,7 +19,6 @@ class AnimationTouchView: UIView {
     init(frame: CGRect, click:@escaping TouchClickClouse) {
         super.init(frame: frame)
         self.touchClickClouse = click
-        
         let longPressGestureRecognizer = UILongPressGestureRecognizer.init(target: self, action: #selector(self.longPress(longPress:)))
         longPressGestureRecognizer.minimumPressDuration = 0.0001
         self.addGestureRecognizer(longPressGestureRecognizer)

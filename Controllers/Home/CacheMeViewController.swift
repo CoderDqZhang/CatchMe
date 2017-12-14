@@ -149,7 +149,15 @@ class CacheMeViewController: BaseViewController {
                 self.nELivePlayerLoadFailView.isHidden = true
                 self.cacheMeViewModel.setUpStreamData()
             }
+            nELivePlayerLoadFailView.layer.cornerRadius = 10
+            nELivePlayerLoadFailView.layer.masksToBounds = true
             self.view.addSubview(nELivePlayerLoadFailView)
+            self.nELivePlayerLoadFailView.snp.makeConstraints({ (make) in
+                make.centerX.equalTo(self.view.snp.centerX).offset(0)
+                make.top.equalTo(self.view.snp.top).offset(64)
+                make.bottom.equalTo(self.view.snp.bottom).offset(-122)
+                make.size.equalTo(CGSize.init(width: (SCREENHEIGHT - 122 - 64) * 3 / 4 - 10, height: SCREENHEIGHT - 122 - 64))
+            })
         }else{
             self.view.bringSubview(toFront: self.nELivePlayerLoadFailView)
             self.nELivePlayerLoadFailView.isHidden = false
@@ -238,12 +246,13 @@ class CacheMeViewController: BaseViewController {
     }
     
     func setUpGameTipView(){
-        if gameTipView == nil && self.numberCatch < 5{
-           gameTipView = GameTipView.init(frame: CGRect.init(x: (SCREENWIDTH - 323)/2, y: SCREENHEIGHT - 65 - 122 - 64, width: 323, height: 87))
+        if gameTipView == nil && self.numberCatch < 50{
+           gameTipView = GameTipView.init(frame: CGRect.init(x: (SCREENWIDTH - 323)/2, y: SCREENHEIGHT - 90 - 122 - 64, width: 323, height: 87))
             self.view.addSubview(gameTipView)
         }
     }
     
+    //
     //创建进来时本地加载界面 后期可能是显示自己的视频，前期显示加载
     func setUpPlayGameView(){
         localPreView = LocalPreView.init()
@@ -260,14 +269,8 @@ class CacheMeViewController: BaseViewController {
     
     //快速进入房间
     func setUpQuitEntRoom(){
-        quictEnterLocalPreView = QuictEnterLocalPreView.init()
-        self.view.addSubview(quictEnterLocalPreView)
-        self.quictEnterLocalPreView.snp.makeConstraints({ (make) in
-            make.left.equalTo(self.view.snp.left).offset(0)
-            make.top.equalTo(self.view.snp.top).offset(0)
-            make.bottom.equalTo(self.view.snp.bottom).offset(0)
-            make.right.equalTo(self.view.snp.right).offset(0)
-        })
+//        quictEnterLocalPreView = QuictEnterLocalPreView.init(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: SCREENHEIGHT))
+//        self.view.addSubview(quictEnterLocalPreView)
     }
     
     //创建游戏者视频界面
@@ -291,9 +294,11 @@ class CacheMeViewController: BaseViewController {
         bottomToolsView.cacheMeToolsViewClouse = { tag in
             switch tag {
             case 1:
-                let toViewController = JoysDetailViewController()
-                toViewController.url = "\(DollsDetail)\(self.cacheMeViewModel.catchMeModel.skuSubId!)"
-                NavigationPushView(self, toConroller: toViewController)
+                if self.cacheMeViewModel.catchMeModel != nil {
+                    let toViewController = JoysDetailViewController()
+                    toViewController.url = "\(DollsDetail)\(self.cacheMeViewModel.catchMeModel.skuSubId!)"
+                    NavigationPushView(self, toConroller: toViewController)
+                }
             case 2:
                 self.playGame()
             default:
@@ -307,9 +312,13 @@ class CacheMeViewController: BaseViewController {
     func setUpCacheMeTopView(){
         cacheMeTopView = CacheMeTopView.init(frame: CGRect.init(x: 0, y: 20, width: SCREENWIDTH, height: 44), topViewBackButtonClouse: {
             self.cacheMeViewModel.requestExitRooms()
-            self.navigationController?.popViewController({
-                
-            })
+            if self.isQuickEnter {
+                self.dismiss(animated: true, completion: {
+                    
+                })
+            }else{
+                self.navigationController?.popViewController()
+            }
         })
         self.view.addSubview(cacheMeTopView)
         self.view.bringSubview(toFront: cacheMeTopView)

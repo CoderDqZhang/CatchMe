@@ -262,7 +262,9 @@ class CacheMeViewModel: BaseViewModel {
             if !resultDic.isCompleted {
                 self.catchMeModel = CatchMeModel.init(fromDictionary: resultDic.value as! NSDictionary)
                 self.setUpStreamData()
-                self.cacheMeController.quictEnterLocalPreView.isHidden = true
+                if KWINDOWDS().viewWithTag(10000) != nil {
+                    KWINDOWDS().viewWithTag(10000)?.removeFromSuperview()
+                }
                 self.playUrl = self.catchMeModel.machineDTO.audiencePullAddressA
                 self.setUpRoomPalyUsers(currentUser: self.catchMeModel.currentPlayerDTO)
                 self.cacheMeController.bottomToolsView.changePlayGameCoins(str: "\(self.catchMeModel.price!)")
@@ -297,6 +299,7 @@ class CacheMeViewModel: BaseViewModel {
                     return
                 }
                 self.headerModel = HeartModel.init(fromDictionary: resultDic.value as! NSDictionary)
+                self.cacheMeController.bottomToolsView.changePlayType(type: self.headerModel.currentPlayStatus == 1 ? .canNotPlay : .canPlay)
                 UserInfoModel.shareInstance().coinAmount = "\(self.headerModel.balance!)"
                 self.setUpRoomPalyUsers(currentUser: self.headerModel.currentPlayerDTO)
             }

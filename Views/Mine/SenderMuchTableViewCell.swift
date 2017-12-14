@@ -75,7 +75,7 @@ class SenderMuchTableViewCell: UITableViewCell {
             })
             
             muchImage.snp.makeConstraints({ (make) in
-                make.right.equalTo(muchLabel.snp.left).offset(-10)
+                make.right.equalTo(muchLabel.snp.left).offset(-5)
                 make.centerY.equalTo(self.contentView.snp.centerY).offset(0)
             })
             

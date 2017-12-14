@@ -23,7 +23,6 @@
 #import "NSDate+LSCore.h"
 #import "NELivePlayer.h"
 #import "NELivePlayerController.h"
-#import "UINavigationController+FDFullscreenPopGesture.h"
 #import <NIMAVChat/NIMAVChat.h>
 #import "NTESGLView.h"
 #import "NSString+Utils.h"

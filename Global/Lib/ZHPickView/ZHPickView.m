@@ -5,7 +5,7 @@
 //  Created by liudianling on 14-11-18.
 //  Copyright (c) 2014年 赵恒志. All rights reserved.
 //
-#define ZHToobarHeight 40
+#define ZHToobarHeight 54
 #import "ZHPickView.h"
 
 @interface ZHPickView ()<UIPickerViewDelegate,UIPickerViewDataSource>
@@ -400,7 +400,8 @@
  */
 -(void)setToolbarTintColor:(UIColor *)color{
     
-    _toolbar.barTintColor=color;
+    _toolbar.barTintColor = color;
+    _toolbar.backgroundColor = color;
 }
 -(void)dealloc{
     

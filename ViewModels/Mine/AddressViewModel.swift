@@ -158,7 +158,7 @@ extension AddressViewModel: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return 4
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -171,7 +171,6 @@ extension AddressViewModel: UITableViewDataSource {
         case 2:
             let cell = tableView.dequeueReusableCell(withIdentifier: GloableTitleLabelTitleDescCell.description(), for: indexPath)
             self.tableViewGloableTitleLabelTitleDescCellSetData(indexPath, cell: cell as! GloableTitleLabelTitleDescCell)
-            cell.accessoryType = .disclosureIndicator
             cell.selectionStyle = .none
             return cell
         case 3:

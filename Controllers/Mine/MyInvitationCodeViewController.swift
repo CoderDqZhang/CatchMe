@@ -14,21 +14,23 @@ class MyInvitationCodeViewController: BaseViewController {
     var textField:UITextField!
     var lineLabel:GloabLineView!
     
-    var conversionBtn:CustomButton!
+    var conversionBtn:CustomTouchButton!
     
     var myInvitation:UILabel!
     var invitationLabel:UILabel!
+    var myInvitationCode:UILabel!
     var sharBtn:UIButton!
     
     var myInvitationViewMode = MyInvitationCodeViewModel()
     override func viewDidLoad() {
         super.viewDidLoad()
         self.bindLogicViewModel()
+        self.view.backgroundColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
         // Do any additional setup after loading the view.
     }
     
     override func setUpViewNavigationItem() {
-        self.navigationItem.title = "邀请码"
+        self.navigationItem.title = "邀请兑换"
     }
     
     func bindLogicViewModel(){
@@ -37,9 +39,9 @@ class MyInvitationCodeViewController: BaseViewController {
     
     override func setUpView() {
         textField = UITextField.init()
-        textField.placeholder = "请输入邀请码，每人限兑换一次"
+        textField.placeholder = "请输入朋友邀请码"
         textField.font = App_Theme_PinFan_M_30_Font
-        textField.attributedPlaceholder = NSAttributedString.init(string: "请输入邀请码，每人限兑换一次", attributes: [NSAttributedStringKey.font:App_Theme_PinFan_R_14_Font!,NSAttributedStringKey.foregroundColor:UIColor.init(hexString: App_Theme_666666_Color)!])
+        textField.attributedPlaceholder = NSAttributedString.init(string: "请输入朋友邀请码", attributes: [NSAttributedStringKey.font:App_Theme_PinFan_R_14_Font!,NSAttributedStringKey.foregroundColor:UIColor.init(hexString: App_Theme_666666_Color)!])
         textField.textAlignment = .center
         textField.keyboardType = .numberPad
         textField.reactive.continuousTextValues.observeValues { (str) in
@@ -56,38 +58,74 @@ class MyInvitationCodeViewController: BaseViewController {
         }
         
         lineLabel = GloabLineView.init(frame: CGRect.init(x: 52, y: 120, width: SCREENWIDTH - 104, height: 0.5))
+        lineLabel.setLineColor(UIColor.init(hexString: App_Theme_EEEEEE_Color))
         self.view.addSubview(lineLabel)
         
-        conversionBtn = CustomButton.init(frame: CGRect.init(x: (SCREENWIDTH - 200)/2, y: 150, width: 200, height: 46), title: "兑换邀请码", tag: 10, titleFont: App_Theme_PinFan_M_17_Font!, type: CustomButtonType.withBackBoarder) { (tag) in
+        conversionBtn = CustomTouchButton.init(frame: CGRect.init(x: (SCREENWIDTH - 200)/2, y: 150, width: 200, height: 46), title: "邀请兑换", tag: 10, titleFont: App_Theme_PinFan_M_17_Font!, type: CustomButtonType.withBackBoarder) { (tag) in
             self.myInvitationViewMode.requestShareCode()
         }
         self.view.addSubview(conversionBtn)
         
+        let invitationView = UIView.init()
+        self.view.addSubview(invitationView)
+        
+        let leftLabel = UIImageView.init()
+        leftLabel.image = UIImage.init(named: "left_label")
+        invitationView.addSubview(leftLabel)
+        leftLabel.snp.makeConstraints { (make) in
+            make.left.equalTo(invitationView.snp.left).offset(0)
+            make.centerY.equalTo(invitationView.snp.centerY).offset(0)
+        }
+        
         myInvitation = UILabel.init()
-        myInvitation.text = "我的邀请码：\(UserInfoModel.shareInstance().shareCode!)"
+        myInvitation.text = "我的邀请码:"
         myInvitation.font = App_Theme_PinFan_M_18_Font
         myInvitation.textColor = UIColor.init(hexString: App_Theme_000000_Color)
-        self.view.addSubview(myInvitation)
-        GLoabelViewLabel.addLabel(label: myInvitation, view: self.view, isWithNumber: false)
+        invitationView.addSubview(myInvitation)
         myInvitation.snp.makeConstraints { (make) in
+            make.left.equalTo(leftLabel.snp.right).offset(4)
+            make.top.equalTo(invitationView.snp.top).offset(0)
+        }
+        
+        myInvitationCode = UILabel.init()
+        myInvitationCode.text = "\(UserInfoModel.shareInstance().shareCode!)"
+        myInvitationCode.font = App_Theme_PinFan_M_20_Font
+        myInvitationCode.textColor = UIColor.init(hexString: App_Theme_000000_Color)
+        invitationView.addSubview(myInvitationCode)
+        myInvitationCode.snp.makeConstraints { (make) in
+            make.left.equalTo(myInvitation.snp.right).offset(0)
+            make.top.equalTo(invitationView.snp.top).offset(-1)
+        }
+        
+        let rihgtLabel = UIImageView.init()
+        rihgtLabel.image = UIImage.init(named: "left_label")
+        invitationView.addSubview(rihgtLabel)
+
+        rihgtLabel.snp.makeConstraints { (make) in
+            make.left.equalTo(myInvitationCode.snp.right).offset(4)
+            make.centerY.equalTo(invitationView.snp.centerY).offset(0)
+        }
+        
+        invitationView.snp.makeConstraints { (make) in
             make.centerX.equalTo(self.view.snp.centerX).offset(0)
-            make.top.equalTo(self.conversionBtn.snp.bottom).offset(100)
+            make.top.equalTo(self.conversionBtn.snp.bottom).offset(97)
+            make.size.equalTo(CGSize.init(width: 200, height: 20))
         }
         
         invitationLabel = UILabel.init()
-        invitationLabel.text = "通过我的邀请下载并登录的新用户，在上面的邀码\n输入框内输入我的邀请码并点击兑换，我即\n可得到60个娃娃币的奖励，上不封顶。"
-        UILabel.changeSpace(for: invitationLabel, withLineSpace: 2.5, wordSpace: 0)
+        invitationLabel.text = "邀请朋友来抓我，朋友兑换一次我的邀请码，\n立即奖励我和朋友每人最高200娃娃币"
+        UILabel.changeSpace(for: invitationLabel, withLineSpace: 4.5, wordSpace: 0)
         invitationLabel.textAlignment = .center
         invitationLabel.font = App_Theme_PinFan_R_14_Font
         invitationLabel.numberOfLines = 0
-        invitationLabel.textColor = UIColor.init(hexString: App_Theme_CCCCCC_Color)
+        invitationLabel.textColor = UIColor.init(hexString: App_Theme_888888_Color)
         self.view.addSubview(invitationLabel)
         
         invitationLabel.snp.makeConstraints { (make) in
             make.centerX.equalTo(self.view.snp.centerX).offset(0)
             make.left.equalTo(self.view.snp.left).offset(40)
             make.right.equalTo(self.view.snp.right).offset(-40)
-            make.top.equalTo(self.myInvitation.snp.bottom).offset(9)
+            make.top.equalTo(self.myInvitation.snp.bottom).offset(13)
         }
         
         sharBtn = UIButton.init(type: .custom)
@@ -112,7 +150,7 @@ class MyInvitationCodeViewController: BaseViewController {
         
         self.view.addSubview(sharBtn)
         sharBtn.snp.makeConstraints { (make) in
-            make.top.equalTo(self.invitationLabel.snp.bottom).offset(3)
+            make.top.equalTo(self.invitationLabel.snp.bottom).offset(13)
             make.centerX.equalTo(self.view.snp.centerX).offset(0)
         }
     }

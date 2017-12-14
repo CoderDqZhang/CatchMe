@@ -10,7 +10,6 @@ import UIKit
 
 class ProfileViewController: BaseViewController {
 
-    var sexPickerView:ZHPickView!
     var picker:UIPickerView!
     var pickerToolBar:UIToolbar!
     
@@ -29,7 +28,7 @@ class ProfileViewController: BaseViewController {
     }
     
     override func setUpViewNavigationItem() {
-        self.navigationItem.title = "个人信息"
+        self.navigationItem.title = "设置"
         self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: "保存", style: .plain, target: self, action: #selector(self.rightBarButtonPress))
     }
     
@@ -43,17 +42,38 @@ class ProfileViewController: BaseViewController {
     }
     
     func showSexPickerView(){
-        if sexPickerView == nil {
-            sexPickerView = ZHPickView(pickviewWith: ["男","女"], isHaveNavControler: false)
-            sexPickerView.setPickViewColer(UIColor.white)
-            sexPickerView.setTintColor(UIColor.white)
-            sexPickerView.tag = 2
-            sexPickerView.setToolbarTintColor(UIColor.init(hexString: App_Theme_FC4652_Color))
-            sexPickerView.setTintFont(App_Theme_PinFan_R_13_Font, color: UIColor.init(hexString: App_Theme_FFFFFF_Color))
-            sexPickerView.delegate = self
-        }
-        
-        sexPickerView.show()
+        picker = UIPickerView.init(frame: CGRect.init(x: 0, y: SCREENHEIGHT - 220, width: SCREENWIDTH, height: 220))
+        picker.dataSource = (self.viewModel as! ProfileViewModel)
+        picker.delegate = (self.viewModel as! ProfileViewModel)
+        self.view.addSubview(self.showToolBar())
+        self.view.addSubview(picker)
+    }
+    
+    func showToolBar() -> UIToolbar{
+        pickerToolBar = UIToolbar.init(frame: CGRect.init(x: 0, y: SCREENHEIGHT - 264, width: SCREENWIDTH, height: 44))
+        pickerToolBar.barTintColor = UIColor.init(hexString: App_Theme_FA3A47_Color)
+        pickerToolBar.backgroundColor =  UIColor.clear
+        let barItems = NSMutableArray.init()
+        let cancel = UIBarButtonItem.init(title: "取消", style: .plain, target: self, action: #selector(self.cancelSelect))
+        barItems.add(cancel)
+        let flexSpace = UIBarButtonItem.init(barButtonSystemItem: .fixedSpace, target: self, action: nil)
+        flexSpace.width = SCREENWIDTH - 60
+        barItems.add(flexSpace)
+        let done = UIBarButtonItem.init(title: "确定", style: .plain, target: self, action: #selector(self.doneSelect))
+        barItems.add(done)
+        pickerToolBar.items = barItems as? [UIBarButtonItem]
+        return pickerToolBar
+    }
+    
+    @objc func cancelSelect(){
+        picker.isHidden = true
+        pickerToolBar.isHidden = true
+    }
+    
+    @objc func doneSelect(){
+        picker.isHidden = true
+        pickerToolBar.isHidden = true
+        (self.viewModel as! AddressViewModel).getAddress()
     }
     
     func presentImagePickerView(){

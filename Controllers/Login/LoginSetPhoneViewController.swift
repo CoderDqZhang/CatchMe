@@ -16,10 +16,7 @@ class LoginSetPhoneViewController: BaseViewController {
     var phoneLabel:UILabel!
     var inputPhone:UITextField!
     var lingLabel:GloabLineView!
-    var loginButton:AnimationButton!
-    
-    var comfigLabel:UILabel!
-    var proBtn:CustomButton!
+    var loginButton:CustomTouchButton!
     
     var loginViewModel = LoginViewModel.shareInstance
     
@@ -50,14 +47,14 @@ class LoginSetPhoneViewController: BaseViewController {
     
     func setUpLoginForm(){
         phoneLabel = UILabel.init()
-        phoneLabel.text = "使用手机号码登录"
+        phoneLabel.text = "使用手机号登录"
         phoneLabel.font = App_Theme_PinFan_M_34_Font
         phoneLabel.textColor = UIColor.init(hexString: App_Theme_333333_Color)
         self.view.addSubview(phoneLabel)
         
         phoneLabel.snp.makeConstraints { (make) in
             make.centerX.equalTo(self.view.snp.centerX).offset(0)
-            make.top.equalTo(self.view.snp.top).offset(72)
+            make.top.equalTo(self.view.snp.top).offset(76)
         }
         
         inputPhone = UITextField.init()
@@ -65,15 +62,13 @@ class LoginSetPhoneViewController: BaseViewController {
         inputPhone.textAlignment = .center
         inputPhone.keyboardType = .numberPad
         inputPhone.becomeFirstResponder()
-        inputPhone.font = App_Theme_PinFan_R_24_Font
+        inputPhone.font = App_Theme_PinFan_M_24_Font
         inputPhone.reactive.continuousTextValues.observeValues { (str) in
             self.loginViewModel.form.phone = str!
             if str?.length == 11 {
-                self.loginButton.isEnabled = true
-                self.loginButton.backgroundColor = UIColor.init(hexString: App_Theme_FC4652_Color, andAlpha: 1)
+                self.loginButton.setButtonIsEnabled(isEnabled: true)
             }else{
-                self.loginButton.isEnabled = false
-                self.loginButton.backgroundColor = UIColor.init(hexString: App_Theme_FC4652_Color, andAlpha: 0.7)
+                self.loginButton.setButtonIsEnabled(isEnabled: false)
             }
         }
         inputPhone.textColor = UIColor.init(hexString: App_Theme_333333_Color)
@@ -83,53 +78,21 @@ class LoginSetPhoneViewController: BaseViewController {
             make.centerX.equalTo(self.view.snp.centerX).offset(0)
             make.left.equalTo(self.view.snp.left).offset(10)
             make.right.equalTo(self.view.snp.right).offset(-30)
-            make.top.equalTo(self.phoneLabel.snp.bottom).offset(67)
+            make.top.equalTo(self.phoneLabel.snp.bottom).offset(74)
         }
         
         lingLabel = GloabLineView.init(frame: CGRect.init(x: 53, y: 230, width: SCREENWIDTH - 106, height: 1))
         lingLabel.setLineColor(UIColor.init(hexString: App_Theme_DDDDDD_Color))
         self.view.addSubview(lingLabel)
         
-        loginButton = AnimationButton.init(type: .custom)
-        loginButton.backgroundColor = UIColor.init(hexString: App_Theme_FC4652_Color, andAlpha: 0.7)
-        loginButton.setTitle("获取验证码", for: .normal)
-        loginButton.layer.cornerRadius = 25
-        loginButton.setTitleColor(UIColor.init(hexString: App_Theme_FFFFFF_Color), for: .normal)
-        loginButton.titleLabel?.font = App_Theme_PinFan_M_17_Font
-        loginButton.reactive.controlEvents(.touchUpInside).observe { (active) in
-//            NavigationPushView(self, toConroller: LoginPhoneCodeViewController())
+        loginButton = CustomTouchButton.init(frame:  CGRect.init(x: (SCREENWIDTH - 220)/2, y: 268, width: 220, height: 48), title: "获取验证码", tag: 10, titleFont: App_Theme_PinFan_M_17_Font!, type: .withBackBoarder, pressClouse: { (tag) in
             self.loginViewModel.requestLoginCode(self.loginViewModel.form.phone)
-        }
+        })
         self.loginViewModel.senderCodeSuccessClouse = {
             NavigationPushView(self, toConroller: LoginPhoneCodeViewController())
         }
         self.view.addSubview(loginButton)
-        loginButton.snp.makeConstraints { (make) in
-            make.top.equalTo(self.lingLabel.snp.bottom).offset(40)
-            make.centerX.equalTo(self.view.snp.centerX).offset(0)
-            make.size.equalTo(CGSize.init(width: 200, height: 50))
-        }
-        
-        comfigLabel = UILabel()
-        comfigLabel.text = "登录表示同意"
-        comfigLabel.textColor = UIColor.init(hexString: App_Theme_CCCCCC_Color)
-        comfigLabel.font = App_Theme_PinFan_R_13_Font
-        self.view.addSubview(comfigLabel)
-        
-        proBtn = CustomButton.init(frame: CGRect.zero, title: "用户注册协议与隐私条款", tag: 1, titleFont: App_Theme_PinFan_R_13_Font!, type: .withNoBoarder, pressClouse: { (tag) in
-            NavigationPushView(self, toConroller: UserProtocolViewController())
-        })
-        self.view.addSubview(proBtn)
-        
-        comfigLabel.snp.makeConstraints { (make) in
-            make.bottom.equalTo(self.view.snp.bottom).offset(IPHONE5 ? -226 : -240)
-            make.centerX.equalTo(self.view.snp.centerX).offset(-65)
-        }
-        
-        proBtn.snp.makeConstraints { (make) in
-            make.bottom.equalTo(self.view.snp.bottom).offset(IPHONE5 ? -220 : -234)
-            make.centerX.equalTo(self.view.snp.centerX).offset(49)
-        }
+
         
     }
     
@@ -138,6 +101,10 @@ class LoginSetPhoneViewController: BaseViewController {
         UIApplication.shared.setStatusBarStyle(.default, animated: false)
         self.navigationController?.fd_prefersNavigationBarHidden = true
         self.navigationController?.setNavigationBarHidden(true, animated: true)
+    }
+    
+    override func setupBaseViewForDismissKeyboard() {
+        
     }
     
     override func didReceiveMemoryWarning() {

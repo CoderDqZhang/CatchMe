@@ -42,14 +42,38 @@ enum CustomButtonType {
 }
 
 typealias CustomButtonClouse = (_ tag:NSInteger) -> Void
-class CustomButton: AnimationButton {
+class CustomTouchButton: AnimationTouchView {
+    
+    var topButton:UIButton!
+    var backButton:UIButton!
+    
+    var isEnabled:Bool = false
     
     init(frame:CGRect, title:String, tag:NSInteger?, titleFont:UIFont, type:CustomButtonType, pressClouse:@escaping CustomButtonClouse) {
-        super.init(frame: frame)
-        self.setTitle(title, for: UIControlState())
-        self.titleLabel?.font = titleFont
+        super.init(frame: frame) {
+            pressClouse(tag!)
+        }
+        self.layer.cornerRadius = frame.size.height / 2
         self.layer.masksToBounds = true
-        self.frame = frame
+        
+        
+        if type == .withBackBoarder {
+            backButton = UIButton.init(type: .custom)
+            backButton.backgroundColor = UIColor.init(hexString: App_Theme_FEE3E5_Color)
+            self.addSubview(backButton)
+            backButton.layer.cornerRadius = (frame.size.height - 2) / 2
+            backButton.layer.masksToBounds = true
+            backButton.frame = CGRect.init(x: 0, y: 2, width: frame.size.width, height: frame.size.height - 2)
+        }
+        
+        
+        topButton = UIButton.init(type: .custom)
+        self.addSubview(topButton)
+        topButton.setTitle(title, for: UIControlState())
+        topButton.titleLabel?.font = titleFont
+        topButton.layer.masksToBounds = true
+        topButton.frame = CGRect.init(x: 0, y: 0, width: frame.size.width, height: frame.size.height - 2)
+        
         if tag != nil {
             self.tag = tag!
         }
@@ -57,42 +81,46 @@ class CustomButton: AnimationButton {
         case .withNoBoarder:
             self.setWithNoBoarderButton()
         case .withBoarder:
-            self.layer.cornerRadius = frame.height / 2
+            topButton.layer.cornerRadius = (frame.height - 2) / 2
             self.setWithBoarderButton()
         case .withBackBoarder:
-            self.layer.cornerRadius = frame.height / 2
+            topButton.layer.cornerRadius = (frame.height - 2) / 2
             self.setwithonBoarderButton()
         default:
-            self.layer.cornerRadius = frame.height / 2
+            topButton.layer.cornerRadius = (frame.height - 2) / 2
             self.setWithDisbleBoarderButton()
         }
-        self.reactive.controlEvents(.touchUpInside).observe { (action) in
-            if tag != nil {
-                self.tag = 1000
-            }
-            pressClouse(tag!)
+    }
+    
+    func setButtonIsEnabled(isEnabled:Bool){
+        topButton.isEnabled = isEnabled
+        if isEnabled {
+            topButton.backgroundColor = UIColor.init(hexString: App_Theme_FC4652_Color, andAlpha: 1)
+        }else{
+            topButton.backgroundColor = UIColor.init(hexString: App_Theme_FC4652_Color, andAlpha: 0.7)
         }
     }
     
     func setWithNoBoarderButton(){
-        self.buttonSetTitleColor(App_Theme_CCCCCC_Color, sTitleColor: App_Theme_6D4033_Color)
+        topButton.buttonSetTitleColor(App_Theme_CCCCCC_Color, sTitleColor: App_Theme_6D4033_Color)
     }
     
     func setWithBoarderButton(){
         self.layer.borderColor = UIColor.init(hexString: App_Theme_F94856_Color).cgColor
         self.layer.borderWidth = 1.0
-        self.buttonSetTitleColor(App_Theme_F94856_Color, sTitleColor: App_Theme_6D4033_Color)
+        topButton.buttonSetTitleColor(App_Theme_F94856_Color, sTitleColor: App_Theme_6D4033_Color)
     }
     
     func setWithDisbleBoarderButton(){
         self.layer.borderColor = UIColor.init(hexString: App_Theme_BBC1CB_Color).cgColor
         self.layer.borderWidth = 1.0
-        self.buttonSetTitleColor(App_Theme_BBC1CB_Color, sTitleColor: App_Theme_BBC1CB_Color)
+        topButton.buttonSetTitleColor(App_Theme_BBC1CB_Color, sTitleColor: App_Theme_BBC1CB_Color)
     }
     
     func setwithonBoarderButton(){
-        self.setTitleColor(UIColor.white, for: UIControlState())
-        self.buttonSetThemColor(App_Theme_F94856_Color, selectColor: App_Theme_F94856_Color, size: CGSize.init(width: self.frame.size.width, height: self.frame.size.height))
+        
+        topButton.setTitleColor(UIColor.white, for: UIControlState())
+        topButton.buttonSetThemColor(App_Theme_F94856_Color, selectColor: App_Theme_F94856_Color, size: CGSize.init(width: self.frame.size.width, height: self.frame.size.height))
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -212,13 +240,17 @@ class GloabelShareAndConnectUs: UIView {
     
     var lineLabel:GloabLineView!
     var gloabelShareAndConnectUsClouse:GloabelShareAndConnectUsClouse!
+    
+    var weChat:GloabelImageAndLabel!
+    var weChatSession:GloabelImageAndLabel!
+    var qq:GloabelImageAndLabel!
+    
     init(type:GloabelShareAndConnectUsType,title:String?,clickClouse:@escaping GloabelShareAndConnectUsClouse) {
         super.init(frame: CGRect.init(x: 0, y: SCREENHEIGHT, width: SCREENWIDTH, height: 250))
         self.tag = GloabelShareAndConnectUsTag
         AnimationTools.shareInstance.moveAnimation(view: self, frame: CGRect.init(x: 0, y: SCREENHEIGHT - 250, width: SCREENWIDTH, height: 250), finishClouse: { ret in
             
         })
-        
         self.gloabelShareAndConnectUsClouse = clickClouse
         backGroundImage = UIImageView.init(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: 250))
         backGroundImage.image = UIImage.init(color: UIColor.init(hexString: App_Theme_FFFFFF_Color, andAlpha: 0.75), size: CGSize.init(width: SCREENWIDTH, height: 250))
@@ -246,6 +278,7 @@ class GloabelShareAndConnectUs: UIView {
         }
         
         lineLabel = GloabLineView.init(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: 0.5))
+        lineLabel.setLineColor(UIColor.init(hexString: App_Theme_EEEEEE_Color))
         self.addSubview(lineLabel)
         
         let cancelButton = AnimationButton.init()
@@ -263,7 +296,7 @@ class GloabelShareAndConnectUs: UIView {
     }
     
     func removeSelf(){
-        AnimationTools.shareInstance.moveAnimation(view: self, frame: CGRect.init(x: 0, y: SCREENHEIGHT + 20, width: SCREENWIDTH, height: 250), finishClouse: { ret in
+        AnimationTools.shareInstance.moveAnimation(view: self, frame: CGRect.init(x: 0, y: SCREENHEIGHT, width: SCREENWIDTH, height: 250), finishClouse: { ret in
             if ret {
                 self.removeFromSuperview()
             }
@@ -274,26 +307,29 @@ class GloabelShareAndConnectUs: UIView {
         titleLabel.text = title!
         var maxX:CGFloat = 0
         if isHaveWeChat {
-            let weChat = GloabelImageAndLabel.init(frame: CGRect.init(x: maxX, y: 0, width: 60, height: 88), title: "微信", image: UIImage.init(named: "wechat")!){
+            weChat = GloabelImageAndLabel.init(frame: CGRect.init(x: maxX, y: 90, width: 60, height: 88), title: "微信", image: UIImage.init(named: "wechat")!){
                 self.gloabelShareAndConnectUsClouse(.weChatChat)
                 self.removeSelf()
             }
+            weChat.layer.add(AnimationTools.shareInstance.setUpAnimation(44, velocity: 8.0), forKey: "weChat")
             maxX = weChat.frame.maxX + 45
             detailView.addSubview(weChat)
             
-            let weChatSession = GloabelImageAndLabel.init(frame: CGRect.init(x: maxX, y: 0, width: 60, height: 88), title: "朋友圈", image: UIImage.init(named: "friends")!){
+            weChatSession = GloabelImageAndLabel.init(frame: CGRect.init(x: maxX, y: 90, width: 60, height: 88), title: "朋友圈", image: UIImage.init(named: "friends")!){
                 self.gloabelShareAndConnectUsClouse(.weChatSession)
                 self.removeSelf()
             }
+            weChatSession.layer.add(AnimationTools.shareInstance.setUpAnimation(44, velocity: 6.0), forKey: "weChatSession")
             maxX = weChatSession.frame.maxX + 45
             detailView.addSubview(weChatSession)
         }
         
         if isHaveQQ {
-            let qq = GloabelImageAndLabel.init(frame: CGRect.init(x: maxX, y: 0, width: 60, height: 88), title: "QQ", image: UIImage.init(named: "QQ")!){
+            qq = GloabelImageAndLabel.init(frame: CGRect.init(x: maxX, y: 90, width: 60, height: 88), title: "QQ", image: UIImage.init(named: "QQ")!){
                 self.gloabelShareAndConnectUsClouse(.QQChat)
                 self.removeSelf()
             }
+            qq.layer.add(AnimationTools.shareInstance.setUpAnimation(44, velocity: 2.0), forKey: "qq")
             maxX = qq.frame.maxX + 45
             detailView.addSubview(qq)
         }
@@ -627,7 +663,7 @@ class GLoabelNavigaitonBar:UIView {
         self.addSubview(title)
         
         title.snp.makeConstraints { (make) in
-            make.centerY.equalTo(self.snp.centerY).offset(3)
+            make.centerY.equalTo(self.snp.centerY).offset(13)
             make.centerX.equalTo(self.snp.centerX).offset(0)
         }
         
@@ -639,10 +675,14 @@ class GLoabelNavigaitonBar:UIView {
         self.addSubview(backButton)
         
         backButton.snp.makeConstraints { (make) in
-            make.centerY.equalTo(self.snp.centerY).offset(0)
+            make.centerY.equalTo(self.snp.centerY).offset(10)
             make.left.equalTo(self.snp.left).offset(6)
             make.size.equalTo(CGSize.init(width: 40, height: 40))
         }
+    }
+    
+    func changeBackGroundColor(isTheme:Bool){
+        self.backgroundColor = isTheme ? UIColor.init(hexString: App_Theme_FC4652_Color) : UIColor.clear
     }
     
     required init?(coder aDecoder: NSCoder) {

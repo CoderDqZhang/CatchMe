@@ -69,6 +69,14 @@ extension TopViewModel: UITableViewDelegate {
             return 104
         }
     }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView.contentOffset.y > SCREENWIDTH * (169 + 64) / 375 - 74{
+            (self.controller as! TopViewController).gLoabelNavigaitonBar.changeBackGroundColor(isTheme: true)
+        }else{
+            (self.controller as! TopViewController).gLoabelNavigaitonBar.changeBackGroundColor(isTheme: false)
+        }
+    }
 }
 
 extension TopViewModel: UITableViewDataSource {

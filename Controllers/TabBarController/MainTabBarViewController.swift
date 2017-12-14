@@ -20,6 +20,8 @@ class MainTabBarViewController: CYLTabBarController {
     var mineViewController = MineViewController()
     var currentViewController:UIViewController!
     
+    var quictEnterLocalPreView:QuictEnterLocalPreView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -80,6 +82,12 @@ class MainTabBarViewController: CYLTabBarController {
         return UINavigationController.init(rootViewController: controller!)
     }
     
+    //快速进入房间
+    func setUpQuitEntRoom(){
+        quictEnterLocalPreView = QuictEnterLocalPreView.init(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: SCREENHEIGHT), image: self.screenSnapshot(save: false)!)
+        KWINDOWDS().addSubview(quictEnterLocalPreView)
+    }
+    
     func addEfct() ->UIBlurEffect{
         let blueffect = UIBlurEffect.init(style: .light)
         return blueffect
@@ -93,7 +101,23 @@ class MainTabBarViewController: CYLTabBarController {
     @objc func sigTapGest() {
         let controllerVC = CacheMeViewController()
         controllerVC.isQuickEnter = true
-        NavigationPushView((KWINDOWDS().rootViewController as! MainTabBarViewController).currentViewController, toConroller: controllerVC)
+        let transition = CATransition.init()
+        transition.type = kCATransitionPush
+        transition.subtype = kCATransitionFromTop
+        (KWINDOWDS().rootViewController as! MainTabBarViewController).currentViewController.navigationController?.view.layer.add(transition, forKey: kCATransition)
+        (KWINDOWDS().rootViewController as! MainTabBarViewController).currentViewController.navigationController?.pushViewController(controllerVC)
+        NavigaiontPresentView((KWINDOWDS().rootViewController as! MainTabBarViewController).currentViewController, toController: UINavigationController.init(rootViewController:controllerVC ))
+//        NavigationPushView((KWINDOWDS().rootViewController as! MainTabBarViewController).currentViewController, toConroller: controllerVC)
+    }
+    
+    func screenSnapshot(save: Bool) -> UIImage? {
+        // 用下面这行而不是UIGraphicsBeginImageContext()，因为前者支持Retina
+        UIGraphicsBeginImageContextWithOptions(KWINDOWDS().bounds.size, false, 0.0)
+        KWINDOWDS().layer.render(in: UIGraphicsGetCurrentContext()!)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        if save { UIImageWriteToSavedPhotosAlbum(image!, self, nil, nil) }
+        return image
     }
 
     /*
@@ -157,10 +181,15 @@ class PlusButtonSubclass : CYLPlusButton,CYLPlusButtonSubclassing {
       @objc func buttonClicked(sender:CYLPlusButton) {
         let controllerVC = CacheMeViewController()
         controllerVC.isQuickEnter = true
-        NavigationPushView((KWINDOWDS().rootViewController as! MainTabBarViewController).currentViewController, toConroller: controllerVC)
+//        let transition = CATransition.init()
+//        transition.type = kCATransitionPush
+//        transition.subtype = kCATransitionFromTop
+//        (KWINDOWDS().rootViewController as! MainTabBarViewController).currentViewController.navigationController?.view.layer.add(transition, forKey: kCATransition)
+//        (KWINDOWDS().rootViewController as! MainTabBarViewController).currentViewController.navigationController?.pushViewController(controllerVC)
+        (KWINDOWDS().rootViewController as! MainTabBarViewController).setUpQuitEntRoom()
+        NavigaiontPresentView((KWINDOWDS().rootViewController as! MainTabBarViewController).currentViewController, toController: UINavigationController.init(rootViewController:controllerVC ))
+//        NavigationPushView((KWINDOWDS().rootViewController as! MainTabBarViewController).currentViewController, toConroller: controllerVC)
       }
-    
-    
     
     override func layoutSubviews() {
         super.layoutSubviews()

@@ -12,11 +12,13 @@ import Alamofire
 class ProfileViewModel: BaseViewModel {
 
     var titleStr:[String] = ["昵称","性别"]
+    var pickerStr:[String] = ["男","女"]
     var detailStr = NSMutableArray.init()
     var addressDic = NSMutableArray.init()
     var selectProvince:Int = 0
     var selectCity:Int = 0
     var selectRegion:Int = 0
+    var selectRow:Int = 0
     override init() {
         super.init()
         self.getUserInfoData()
@@ -118,7 +120,7 @@ extension ProfileViewModel: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return section == 0 ? 20 : 10
+        return section == 0 ? 20 : section == 1 ? 10 : section == 2 ? 10 : 28
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
@@ -129,10 +131,8 @@ extension ProfileViewModel: UITableViewDelegate {
         switch indexPath.section {
         case 0:
             return 70
-        case 1:
-            return 50
         default:
-            return 56
+            return 55
         }
     }
 }
@@ -151,20 +151,17 @@ extension ProfileViewModel: UITableViewDataSource {
         case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: ProfileHeaderTableViewCell.description(), for: indexPath)
             self.tableViewProfileHeaderTableViewCellSetData(indexPath, cell: cell as! ProfileHeaderTableViewCell)
-            cell.accessoryType = .disclosureIndicator
             cell.selectionStyle = .none
             return cell
         case 1:
             if indexPath.row == 0 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: GloabTitleAndFieldCell.description(), for: indexPath)
                 self.tableViewGloabTitleAndFieldCellSetData(indexPath, cell: cell as! GloabTitleAndFieldCell)
-                cell.accessoryType = .disclosureIndicator
                 cell.selectionStyle = .none
                 return cell
             }else{
                 let cell = tableView.dequeueReusableCell(withIdentifier: ProfielInfoTableViewCell.description(), for: indexPath)
                 self.tableViewProfielInfoTableViewCellSetData(indexPath, cell: cell as! ProfielInfoTableViewCell)
-                cell.accessoryType = .disclosureIndicator
                 cell.selectionStyle = .none
                 return cell
             }
@@ -174,16 +171,57 @@ extension ProfileViewModel: UITableViewDataSource {
             cell.selectionStyle = .none
             return cell
         default:
-            let cell = tableView.dequeueReusableCell(withIdentifier: ProfileLogoutTableViewCell.description(), for: indexPath)
-            cell.backgroundColor = UIColor.clear
-            let button = CustomButton.init(frame: CGRect.init(x: (SCREENWIDTH - 200)/2, y: 10, width: 200, height: 46), title: "退出", tag: 10, titleFont: App_Theme_PinFan_M_17_Font!, type: CustomButtonType.withBackBoarder) { (tag) in
+            let cell = tableView.dequeueReusableCell(withIdentifier: ProfileLogoutTableViewCell.description(), for: indexPath) as!  ProfileLogoutTableViewCell
+            cell.profileLogoutTableViewCellClouse = {
                 self.logout()
             }
-            cell.contentView.addSubview(button)
+            cell.backgroundColor = UIColor.clear
             cell.selectionStyle = .none
             return cell
         }
     }
 }
+
+extension ProfileViewModel : UIPickerViewDelegate {
+    // returns width of column and height of row for each component.
+    //    @available(iOS 2.0, *)
+    //    optional public func pickerView(_ pickerView: UIPickerView, widthForComponent component: Int) -> CGFloat
+    //
+    //    @available(iOS 2.0, *)
+    //    optional public func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat
+    
+    
+    // these methods return either a plain NSString, a NSAttributedString, or a view (e.g UILabel) to display the row for the component.
+    // for the view versions, we cache any hidden and thus unused views and pass them back for reuse.
+    // If you return back a different object, the old one will be released. the view will be centered in the row rect
+    //    @available(iOS 2.0, *)
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return pickerStr[row]
+    }
+    
+    //    @available(iOS 6.0, *)
+    //    optional public func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? // attributed title is favored if both methods are implemented
+    
+    //     func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView
+    
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        selectRow = row
+    }
+}
+
+extension ProfileViewModel : UIPickerViewDataSource {
+    // returns the number of 'columns' to display.
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    // returns the # of rows in each component..
+    public func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return 2
+    }
+}
+
 
 

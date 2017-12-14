@@ -13,7 +13,6 @@ class SenderJoysViewModel: BaseViewModel {
     var isHaveAddress:Bool = true
     var model:AddressModel!
     var models:NSMutableArray!
-    var modelData:NSMutableArray!
     var selectArrary = NSMutableArray.init()
     
     override init() {
@@ -24,6 +23,7 @@ class SenderJoysViewModel: BaseViewModel {
         }else{
             self.requestDefaultAddress()
         }
+//        isHaveAddress = false
     }
     
     func senderAddress(){
@@ -39,20 +39,9 @@ class SenderJoysViewModel: BaseViewModel {
     }
     
     func changeModels(){
-        modelData = NSMutableArray.init()
-        for i in self.models {
-            modelData.add((i as! NSDictionary).object(forKey: "skuId") as Any)
-        }
-        let set = NSSet.init(array: modelData as! [Any])
-        modelData.removeAllObjects()
-        for str in set.allObjects {
-            print(str)
-            let predicate = NSPredicate.init(format: "skuId = %@", str as! CVarArg)
-            let results = self.models.filtered(using: predicate)
-            modelData.add(results)
+        for _ in self.models {
             selectArrary.add(true)
         }
-        self.controller?.tableView.reloadData()
     }
     
     func senderJoys(){
@@ -60,7 +49,7 @@ class SenderJoysViewModel: BaseViewModel {
         var count:Int = 0
         for i in 0...self.selectArrary.count - 1 {
             if self.selectArrary[i] as! Bool {
-                count = count + (self.modelData[i] as! NSArray).count
+                count = count + 1
                 if count > 2 {
                     isNoneMuch = true
                     break
@@ -97,10 +86,15 @@ class SenderJoysViewModel: BaseViewModel {
     
     func tableViewSendJoyInfoTableViewCellSetData(_ indexPath:IndexPath, cell:SendJoyInfoTableViewCell) {
 
-        cell.cellSetData(model: MyCatchDollsModel.init(fromDictionary: (modelData[indexPath.row] as! NSArray)[0] as! NSDictionary), count:(modelData[indexPath.row] as! NSArray).count)
-        if modelData.count - 1 == indexPath.row {
+//        cell.cellSetData(model: MyCatchDollsModel.init(fromDictionary: (modelData[indexPath.row] as! NSArray)[0] as! NSDictionary), count:(modelData[indexPath.row] as! NSArray).count)
+        cell.cellSetData(model: MyCatchDollsModel.init(fromDictionary: models[0] as! NSDictionary), count: models.count)
+//        cell.cellSetData(model: MyCatchDollsModel.init(fromDictionary: model[indexPath.row] as! NSDictionary), count: models.count)
+        if 1 == indexPath.row {
             cell.hidderLineLabel()
         }
+//        if modelData.count - 1 == indexPath.row {
+//            cell.hidderLineLabel()
+//        }
     }
     
     func tableViewSenderMuchTableViewCellSetData(_ indexPath:IndexPath, cell:SenderMuchTableViewCell) {
@@ -132,7 +126,7 @@ class SenderJoysViewModel: BaseViewModel {
         var count = 0
         for i in 0...selectArrary.count - 1 {
             if selectArrary[i] as! Bool {
-                count = (modelData[i] as! NSArray).count + count
+                count = 1 + count
             }
         }
         let cell = tableView.cellForRow(at: IndexPath.init(row: 0, section: 2)) as! SenderMuchTableViewCell
@@ -143,9 +137,7 @@ class SenderJoysViewModel: BaseViewModel {
         let senderDolls = NSMutableArray.init()
         for i in 0...selectArrary.count - 1 {
             if selectArrary[i] as! Bool {
-                for models in modelData[i] as! NSArray {
-                    senderDolls.add(MyCatchDollsModel.init(fromDictionary: models as! NSDictionary).gameId)
-                }
+                senderDolls.add(MyCatchDollsModel.init(fromDictionary: models[i] as! NSDictionary).gameId)
             }
         }
         let parameters = ["catchdollIds":senderDolls]
@@ -178,7 +170,7 @@ extension SenderJoysViewModel: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return section == 0 ? 0.00001 : 10
+        return section == 0 ? 0.00001 : 12
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
@@ -204,7 +196,7 @@ extension SenderJoysViewModel: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 1 {
-            return self.modelData == nil ? 0 : self.modelData.count
+            return self.models == nil ? 0 : self.models.count + 1
         }
         return 1
     }
@@ -214,9 +206,6 @@ extension SenderJoysViewModel: UITableViewDataSource {
         case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: SendAddressTableViewCell.description(), for: indexPath)
             self.tableViewSendAddressTableViewCellSetData(indexPath, cell: cell as! SendAddressTableViewCell)
-            if isHaveAddress {
-                cell.accessoryType = .disclosureIndicator
-            }
             cell.selectionStyle = .none
             return cell
         case 1:

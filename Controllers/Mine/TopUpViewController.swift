@@ -84,7 +84,7 @@ class TopUpViewController: BaseViewController {
             weChatPayView.addSubview(weixinPay)
             backImage.snp.makeConstraints { (make) in
                 make.top.equalTo(weChatPayView.snp.top).offset(2)
-                make.centerX.equalTo(weChatPayView.snp.left).offset(0)
+                make.left.equalTo(weChatPayView.snp.left).offset(0)
                 make.size.equalTo(CGSize.init(width: 220, height: 46))
             }
             weixinPay.snp.makeConstraints { (make) in
@@ -131,7 +131,6 @@ class TopUpViewController: BaseViewController {
             make.size.equalTo(CGSize.init(width: 220, height: 46))
         }
         
-        
         aliPayView.snp.makeConstraints { (make) in
             make.top.equalTo(payView.snp.top).offset(66)
             make.centerX.equalTo(self.view.snp.centerX).offset(0)
@@ -175,7 +174,7 @@ class TopUpViewController: BaseViewController {
     
     @objc func rightBarItem(){
         let controllerVC = BaseWebViewController()
-        controllerVC.url = ""
+        controllerVC.url = ConsumptionUrl
         NavigationPushView(self, toConroller: controllerVC)
     }
     /*

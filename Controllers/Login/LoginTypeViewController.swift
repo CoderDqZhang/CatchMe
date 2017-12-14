@@ -12,8 +12,13 @@ class LoginTypeViewController: BaseViewController {
 
     var loginWithWeChat:UIButton!
     var loginWithPhone:UIButton!
+    var loginWeChatView:AnimationTouchView!
+    
+    var loginImageProc:UIImageView!
+    
     var loginImage:FLAnimatedImageView!
     var loginLable:UILabel!
+    var titleLabel:UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,6 +41,16 @@ class LoginTypeViewController: BaseViewController {
         loginImage = FLAnimatedImageView.init()
         self.view.addSubview(loginImage)
         
+        loginImageProc = UIImageView.init()
+        loginImageProc.isUserInteractionEnabled = true
+        loginImageProc.image = UIImage.init(named: "check_1")
+        self.view.addSubview(loginImageProc)
+        let sigleTap = UITapGestureRecognizer.init(target: self, action: #selector(self.imageSelect))
+        sigleTap.numberOfTapsRequired = 1
+        sigleTap.numberOfTouchesRequired = 1
+        loginImageProc.addGestureRecognizer(sigleTap)
+        
+        
         loginLable = UILabel.init()
         loginLable.isUserInteractionEnabled = true
         loginLable.text = "登录代表同意用户注册协议与隐私条款"
@@ -45,7 +60,12 @@ class LoginTypeViewController: BaseViewController {
         
         loginLable.snp.makeConstraints { (make) in
             make.bottom.equalTo(self.view.snp.bottom).offset(-23)
-            make.centerX.equalTo(self.view.snp.centerX).offset(0)
+            make.centerX.equalTo(self.view.snp.centerX).offset(4)
+        }
+        
+        loginImageProc.snp.makeConstraints { (make) in
+            make.bottom.equalTo(self.view.snp.bottom).offset(-24)
+            make.right.equalTo(self.loginLable.snp.left).offset(-2)
         }
         
         let singleTap = UITapGestureRecognizer.init(target: self, action: #selector(self.buttonClick))
@@ -56,7 +76,7 @@ class LoginTypeViewController: BaseViewController {
         
         loginWithPhone = UIButton.init(type: .custom)
         loginWithPhone.backgroundColor = UIColor.clear
-        loginWithPhone.setTitle("手机登录", for: .normal)
+        loginWithPhone.setTitle("手机号登录", for: .normal)
         loginWithPhone.titleLabel?.font = App_Theme_PinFan_R_16_Font
         loginWithPhone.setTitleColor(UIColor.init(hexString: App_Theme_FFFFFF_Color), for: .normal)
         loginWithPhone.reactive.controlEvents(.touchUpInside).observe { (active) in
@@ -64,18 +84,24 @@ class LoginTypeViewController: BaseViewController {
         }
         self.view.addSubview(loginWithPhone)
         loginWithPhone.snp.makeConstraints { (make) in
-            make.bottom.equalTo(self.loginLable.snp.top).offset(-70)
+            make.bottom.equalTo(self.loginLable.snp.top).offset(-67)
             make.centerX.equalTo(self.view.snp.centerX).offset(0)
         }
         
+        loginWeChatView = AnimationTouchView.init(frame: CGRect.zero) {
+            self.loginWeiChat()
+        }
+        
+        self.view.addSubview(loginWeChatView)
+        
         let loginWithWeChat_bg = UIButton.init(type: .custom)
-        loginWithWeChat_bg.backgroundColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
+        loginWithWeChat_bg.backgroundColor = UIColor.init(hexString: App_Theme_FF8989_Color)
         loginWithWeChat_bg.layer.cornerRadius = 25
-        self.view.addSubview(loginWithWeChat_bg)
+        loginWeChatView.addSubview(loginWithWeChat_bg)
         loginWithWeChat_bg.snp.makeConstraints { (make) in
-            make.bottom.equalTo(self.loginWithPhone.snp.top).offset(-13)
-            make.centerX.equalTo(self.view.snp.centerX).offset(0)
-            make.size.equalTo(CGSize.init(width: 200, height: 50))
+            make.top.equalTo(self.loginWeChatView.snp.top).offset(2)
+            make.left.equalTo(self.loginWeChatView.snp.left).offset(0)
+            make.size.equalTo(CGSize.init(width: 200, height: 48))
         }
         
         loginWithWeChat = UIButton.init(type: .custom)
@@ -85,18 +111,40 @@ class LoginTypeViewController: BaseViewController {
         loginWithWeChat.layer.cornerRadius = 25
         loginWithWeChat.setTitleColor(UIColor.init(hexString: App_Theme_FC4652_Color), for: .normal)
         loginWithWeChat.titleLabel?.font = App_Theme_PinFan_M_17_Font
-        loginWithWeChat.reactive.controlEvents(.touchUpInside).observe { (active) in
-            self.loginWeiChat()
-        }
-        self.view.addSubview(loginWithWeChat)
+        loginWeChatView.addSubview(loginWithWeChat)
         
         loginWithWeChat.snp.makeConstraints { (make) in
-            make.bottom.equalTo(self.loginWithPhone.snp.top).offset(-15)
+            make.top.equalTo(self.loginWeChatView.snp.top).offset(0)
+            make.left.equalTo(self.loginWeChatView.snp.left).offset(0)
+            make.size.equalTo(CGSize.init(width: 200, height: 48))
+        }
+        
+        loginWeChatView.snp.makeConstraints { (make) in
+            make.bottom.equalTo(self.loginWithPhone.snp.top).offset(-10)
             make.centerX.equalTo(self.view.snp.centerX).offset(0)
             make.size.equalTo(CGSize.init(width: 200, height: 50))
         }
         
         self.setGIfImage()
+        
+        
+        titleLabel = UIImageView.init()
+        titleLabel.image = UIImage.init(named: "text")
+        self.view.addSubview(titleLabel)
+        
+        titleLabel.snp.makeConstraints { (make) in
+            make.top.equalTo(self.loginImage.snp.bottom).offset(11)
+            make.centerX.equalTo(self.view.snp.centerX).offset(0)
+        }
+        
+    }
+    
+    @objc func imageSelect(){
+        if loginImageProc.image == UIImage.init(named: "check_1") {
+            loginImageProc.image = UIImage.init(named: "circle")
+        }else{
+            loginImageProc.image = UIImage.init(named: "check_1")
+        }
     }
     
     @objc func buttonClick(){
@@ -112,7 +160,7 @@ class LoginTypeViewController: BaseViewController {
             let gifImage = FLAnimatedImage.init(animatedGIFData: gifData)
             loginImage.animatedImage = gifImage
             loginImage.snp.makeConstraints { (make) in
-                make.top.equalTo(self.view.snp.top).offset(64)
+                make.top.equalTo(self.view.snp.top).offset(43)
                 make.centerX.equalTo(self.view.snp.centerX).offset(0)
                 make.size.equalTo(CGSize.init(width: SCREENWIDTH, height: SCREENWIDTH * 684 / 750))
             }

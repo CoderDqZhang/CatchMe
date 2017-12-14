@@ -15,6 +15,8 @@ class ProfielInfoTableViewCell: UITableViewCell {
     
     var linLabel:GloabLineView!
     
+    var rightImage:UIImageView!
+    
     var didMakeConstraints = false
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -33,6 +35,10 @@ class ProfielInfoTableViewCell: UITableViewCell {
         detailLabel.font = App_Theme_PinFan_R_14_Font
         detailLabel.textColor = UIColor.init(hexString: App_Theme_AAAAAA_Color)
         self.contentView.addSubview(detailLabel)
+        
+        rightImage = UIImageView.init()
+        rightImage.image = UIImage.init(named: "arrow")
+        self.addSubview(rightImage)
         
         self.updateConstraints()
     }
@@ -60,8 +66,13 @@ class ProfielInfoTableViewCell: UITableViewCell {
             
             detailLabel.snp.makeConstraints({ (make) in
                 make.centerY.equalTo(self.contentView.snp.centerY).offset(0)
-                make.right.equalTo(self.contentView.snp.right).offset(-5)
+                make.right.equalTo(self.contentView.snp.right).offset(-38)
             })
+            
+            rightImage.snp.makeConstraints { (make) in
+                make.centerY.equalTo(self.snp.centerY).offset(0)
+                make.right.equalTo(self.snp.right).offset(-20)
+            }
             didMakeConstraints = true
         }
         super.updateConstraints()

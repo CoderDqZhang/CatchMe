@@ -43,6 +43,10 @@ let App_Theme_CDEFFF_Color = "CDEFFF"
 let App_Theme_FEE3E5_Color = "FEE3E5"
 let App_Theme_F5F5F5_Color = "F5F5F5"
 let App_Theme_FC4F5E_Color = "FC4F5E"
+let App_Theme_FF8989_Color = "FF8989"
+let App_Theme_FFB0B6_Color = "FFB0B6"
+let App_Theme_FA3A47_Color = "FA3A47"
+
 
 let App_Theme_PinFan_L_11_Font = IPHONE_VERSION > 9 ? UIFont.init(name:".SFUIText-Light", size: 11.0):UIFont.init(name: ".HelveticaNeueInterface-Light", size: 11)
 let App_Theme_PinFan_L_12_Font = IPHONE_VERSION > 9 ? UIFont.init(name:".SFUIText-Light", size: 12.0):UIFont.init(name: ".HelveticaNeueInterface-Light", size: 12)

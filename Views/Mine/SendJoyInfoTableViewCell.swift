@@ -13,7 +13,6 @@ class SendJoyInfoTableViewCell: UITableViewCell {
     var selectImage:UIImageView!
     var joyImageView:UIImageView!
     var joyName:UILabel!
-    var joyNumber:UILabel!
     
     var lineLabel:GloabLineView!
     var isSelect:Bool = true
@@ -37,13 +36,8 @@ class SendJoyInfoTableViewCell: UITableViewCell {
         joyName.font = App_Theme_PinFan_M_15_Font
         self.contentView.addSubview(joyName)
         
-        joyNumber = UILabel.init()
-        joyNumber.text = "x1"
-        joyNumber.textColor = UIColor.init(hexString: App_Theme_666666_Color)
-        joyNumber.font = App_Theme_PinFan_R_14_Font
-        self.contentView.addSubview(joyNumber)
-        
         lineLabel = GloabLineView.init(frame: CGRect.init(x: 20, y: 89.5, width: SCREENWIDTH - 20, height: 0.5))
+        lineLabel.setLineColor(UIColor.init(hexString: App_Theme_EEEEEE_Color))
         self.contentView.addSubview(lineLabel)
         
         self.updateConstraints()
@@ -64,7 +58,6 @@ class SendJoyInfoTableViewCell: UITableViewCell {
         UIImageViewManger.sd_imageView(url: model.images[0], imageView: joyImageView, placeholderImage: nil) { (image, error, cacheType, url) in
             
         }
-        joyNumber.text = "x\(count)"
     }
     
     func hidderLineLabel(){
@@ -80,7 +73,6 @@ class SendJoyInfoTableViewCell: UITableViewCell {
         if !didMakeConstraints {
             selectImage.snp.makeConstraints({ (make) in
                 make.left.equalTo(self.snp.left).offset(20)
-                make.size.equalTo(CGSize.init(width: 20, height: 20))
                 make.centerY.equalTo(self.snp.centerY).offset(0)
             })
             
@@ -93,11 +85,6 @@ class SendJoyInfoTableViewCell: UITableViewCell {
             joyName.snp.makeConstraints({ (make) in
                 make.centerY.equalTo(self.contentView.snp.centerY).offset(0)
                 make.left.equalTo(self.joyImageView.snp.right).offset(8)
-            })
-            
-            joyNumber.snp.makeConstraints({ (make) in
-                make.centerY.equalTo(self.contentView.snp.centerY).offset(0)
-                make.right.equalTo(self.contentView.snp.right).offset(-18)
             })
             
             didMakeConstraints = true
