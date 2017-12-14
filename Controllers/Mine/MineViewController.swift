@@ -14,6 +14,7 @@ class MineViewController: BaseViewController {
         super.viewDidLoad()
         self.bindViewModel(viewModel: MineViewModel.init(), controller: self)
         self.setUpTableView(style: .plain, cells: [MineHeaderTableViewCell.self,MineToolsTableViewCell.self], controller: self)
+        
         self.upDataConstraints()
         self.setUpNavigationItem()
         // Do any additional setup after loading the view.
@@ -32,7 +33,11 @@ class MineViewController: BaseViewController {
         super.viewWillAppear(animated)
         UIApplication.shared.setStatusBarStyle(.lightContent, animated: false)
         self.navigationController?.fd_prefersNavigationBarHidden = true
-        self.navigationController?.setNavigationBarHidden(true, animated: true)
+        if (KWINDOWDS().rootViewController as! MainTabBarViewController).currentViewController is HomeViewController {
+            self.navigationController?.setNavigationBarHidden(true, animated: false)
+        }else{
+            self.navigationController?.setNavigationBarHidden(true, animated: true)
+        }
     }
     
     override func setUpView(){

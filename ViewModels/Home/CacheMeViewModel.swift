@@ -366,6 +366,7 @@ class CacheMeViewModel: BaseViewModel {
                     self.handUpConnect()
                     return
                 }
+                self.getUserInfo(currentUser: BasicUserDTO.init(fromDictionary: ["photo":UserInfoModel.shareInstance().photo == nil ? "" : UserInfoModel.shareInstance().photo, "userName":UserInfoModel.shareInstance().userName]))
                 self.showGameView()
                 _ = Tools.shareInstance.showMessage(KWINDOWDS(), msg: "Ready...GO!", autoHidder: true)
             }
@@ -454,7 +455,7 @@ class CacheMeViewModel: BaseViewModel {
     //在玩一次
     func playAgain(){
         if UserInfoModel.shareInstance().coinAmount.int! < self.catchMeModel.price {
-            KWINDOWDS().addSubview(GloableAlertView.init(title: "余额不足支付一次游戏\n请先充值", btnTop: "去充值", btnBottom: "取消", image: UIImage.init(named: "pic_fail_1")!, type: GloableAlertViewType.topupfail, clickClouse: { (tag) in
+            KWINDOWDS().addSubview(GloableAlertView.init(title: "余额不足，主人请先充值\n赶紧来抓我哟", btnTop: "去充值", btnBottom: "取消", image: UIImage.init(named: "pic_fail_1")!, type: GloableAlertViewType.topupfail, clickClouse: { (tag) in
                 if tag == 100 {
                     self.gotoTopUpVC()
                 }

@@ -40,7 +40,7 @@ class AnimationTouchView: UIView {
     
     func scaleToSmall(){
         let scaleAnimation = POPBasicAnimation.init(propertyNamed: kPOPLayerScaleXY)
-        scaleAnimation?.duration = 0.0001
+        scaleAnimation?.duration = 0.00001
         scaleAnimation?.toValue = NSValue.init(cgSize: CGSize.init(width: 0.90, height: 0.90))
         self.layer.pop_add(scaleAnimation, forKey: "layerScaleSmallAnimation")
     }

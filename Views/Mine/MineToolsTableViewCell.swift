@@ -30,7 +30,7 @@ class MineToolsTableViewCell: UITableViewCell {
         self.setUpSingTap(myMoppet)
         self.contentView.addSubview(myMoppet)
         
-        let top = CustomViewButton.init(frame: CGRect.init(x: SCREENWIDTH - 90 - 29, y: 40, width: 90, height: 96), title: "7日大神榜", image: UIImage.init(named: "top")!, tag:3)
+        let top = CustomViewButton.init(frame: CGRect.init(x: SCREENWIDTH - 90 - 29, y: 40, width: 90, height: 96), title: "七日大神榜", image: UIImage.init(named: "top")!, tag:3)
         self.setUpSingTap(top)
         self.contentView.addSubview(top)
         

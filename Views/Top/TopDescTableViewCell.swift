@@ -25,7 +25,7 @@ class TopDescTableViewCell: UITableViewCell {
         titleLable.textColor = UIColor.init(hexString: App_Theme_333333_Color)
         titleLable.font = App_Theme_PinFan_M_14_Font
         titleLable.textAlignment = .center
-        titleLable.text = "七日大神榜"
+        titleLable.text = "七日抓中排行榜"
         self.contentView.addSubview(titleLable)
         
         timeLable = UILabel.init()

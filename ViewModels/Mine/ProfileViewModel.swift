@@ -14,7 +14,6 @@ class ProfileViewModel: BaseViewModel {
     var titleStr:[String] = ["昵称","性别"]
     var pickerStr:[String] = ["男","女"]
     var detailStr = NSMutableArray.init()
-    var addressDic = NSMutableArray.init()
     var selectProvince:Int = 0
     var selectCity:Int = 0
     var selectRegion:Int = 0
@@ -22,7 +21,6 @@ class ProfileViewModel: BaseViewModel {
     override init() {
         super.init()
         self.getUserInfoData()
-        addressDic = LocalJsonFile.init().fileRead(fileName: "address", type: "txt")!.object(forKey: "data") as! NSMutableArray
     }
     
     func getUserInfoData(){
@@ -30,13 +28,17 @@ class ProfileViewModel: BaseViewModel {
             detailStr.add(UserInfoModel.shareInstance().userName)
             detailStr.add(UserInfoModel.shareInstance().gender != 0 ? "男" : "女")
         }
-        
     }
     
     
+    func getSexText(){
+        UserInfoModel.shareInstance().gender = pickerStr[selectRow] == "男" ? 1 : 0
+        self.updateCellString((self.controller as! ProfileViewController).tableView, str: pickerStr[selectRow], tag: 0)
+    }
+    
     //MARK: UITableViewCellSetData
     func tableViewProfileHeaderTableViewCellSetData(_ indexPath:IndexPath, cell:ProfileHeaderTableViewCell) {
-        cell.cellSetData(imageUrl: UserInfoModel.shareInstance().photo == nil ? "" : UserInfoModel.shareInstance().photo as! String)
+        cell.cellSetData(imageUrl: UserInfoModel.shareInstance().photo == nil ? "" : UserInfoModel.shareInstance().photo)
     }
     
     func tableViewGloabTitleAndFieldCellSetData(_ indexPath:IndexPath, cell:GloabTitleAndFieldCell) {
@@ -183,27 +185,10 @@ extension ProfileViewModel: UITableViewDataSource {
 }
 
 extension ProfileViewModel : UIPickerViewDelegate {
-    // returns width of column and height of row for each component.
-    //    @available(iOS 2.0, *)
-    //    optional public func pickerView(_ pickerView: UIPickerView, widthForComponent component: Int) -> CGFloat
-    //
-    //    @available(iOS 2.0, *)
-    //    optional public func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat
     
-    
-    // these methods return either a plain NSString, a NSAttributedString, or a view (e.g UILabel) to display the row for the component.
-    // for the view versions, we cache any hidden and thus unused views and pass them back for reuse.
-    // If you return back a different object, the old one will be released. the view will be centered in the row rect
-    //    @available(iOS 2.0, *)
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return pickerStr[row]
     }
-    
-    //    @available(iOS 6.0, *)
-    //    optional public func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? // attributed title is favored if both methods are implemented
-    
-    //     func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView
-    
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         selectRow = row

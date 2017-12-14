@@ -367,7 +367,6 @@ class GloabTitleAndSwitchCell: UITableViewCell {
             let str = ret.value!.isOn ? "true" : "false"
             UserDefaultsSetSynchronize(str as AnyObject, key: MUISCCOGIF)
         }
-        switchView.tintColor = UIColor.init(hexString: App_Theme_FC4652_Color)
         self.contentView.addSubview(switchView)
         self.updateConstraintsIfNeeded()
     }

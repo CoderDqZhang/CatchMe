@@ -246,7 +246,7 @@ class CacheMeViewController: BaseViewController {
     }
     
     func setUpGameTipView(){
-        if gameTipView == nil && self.numberCatch < 50{
+        if gameTipView == nil && self.numberCatch < 5{
            gameTipView = GameTipView.init(frame: CGRect.init(x: (SCREENWIDTH - 323)/2, y: SCREENHEIGHT - 90 - 122 - 64, width: 323, height: 87))
             self.view.addSubview(gameTipView)
         }

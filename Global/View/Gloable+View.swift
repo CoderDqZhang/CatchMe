@@ -296,11 +296,16 @@ class GloabelShareAndConnectUs: UIView {
     }
     
     func removeSelf(){
-        AnimationTools.shareInstance.moveAnimation(view: self, frame: CGRect.init(x: 0, y: SCREENHEIGHT, width: SCREENWIDTH, height: 250), finishClouse: { ret in
-            if ret {
-                self.removeFromSuperview()
-            }
-        })
+        
+        weChat.frame = CGRect.init(x: weChat.frame.origin.x, y: 90, width: 60, height: 88)
+        weChat.layer.add(AnimationTools.shareInstance.setUpAnimation(244, velocity: 8.0), forKey: "weChat")
+        weChatSession.frame = CGRect.init(x: weChatSession.frame.origin.x, y: 90, width: 60, height: 88)
+        weChatSession.layer.add(AnimationTools.shareInstance.setUpAnimation(244, velocity: 6.0), forKey: "weChat")
+        qq.frame = CGRect.init(x: qq.frame.origin.x, y: 90, width: 60, height: 88)
+        qq.layer.add(AnimationTools.shareInstance.setUpAnimation(244, velocity: 2.0), forKey: "weChat")
+        
+        self.frame = CGRect.init(x: 0, y: SCREENHEIGHT - 250, width: SCREENWIDTH, height: 250)
+        self.layer.add(AnimationTools.shareInstance.setUpAnimation(1050, velocity: 8.0), forKey: "AnimationTools")
     }
     
     func setUpShareView(title:String?){

@@ -137,6 +137,7 @@
 		1F126EE71FC3F715006306D2 /* SetNormalTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F126EE61FC3F715006306D2 /* SetNormalTableViewCell.swift */; };
 		1F126EEB1FC3FD65006306D2 /* AppForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F126EEA1FC3FD65006306D2 /* AppForm.swift */; };
 		1F126F001FC4063E006306D2 /* AddressModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F126EFF1FC4063E006306D2 /* AddressModel.m */; };
+		1F1D149C1FE31A8700CC486B /* music_xmas.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 1F1D149B1FE31A8600CC486B /* music_xmas.mp3 */; };
 		1F22927C1FCF219C00089174 /* ConfigModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F22927B1FCF219C00089174 /* ConfigModel.swift */; };
 		1F22927E1FCFBC6700089174 /* Address.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1F22927D1FCFBC6600089174 /* Address.plist */; };
 		1F2292801FD00F3C00089174 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F22927F1FD00F2500089174 /* Accelerate.framework */; };
@@ -148,7 +149,6 @@
 		1F3739C01FD10E160068F1C0 /* LocalJsonFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3739BF1FD10E160068F1C0 /* LocalJsonFile.swift */; };
 		1F3739C41FD1302E0068F1C0 /* AddressValueKey.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1F3739C31FD1302E0068F1C0 /* AddressValueKey.txt */; };
 		1F4C5B8C1FE04B2F00C9CF66 /* SessionShareModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F4C5B8B1FE04B2F00C9CF66 /* SessionShareModel.swift */; };
-		1F4C5B901FE05A2300C9CF66 /* music_xmas.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 1F4C5B8D1FE05A2200C9CF66 /* music_xmas.mp3 */; };
 		1F4C5B911FE05A2300C9CF66 /* music_normal.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 1F4C5B8E1FE05A2200C9CF66 /* music_normal.mp3 */; };
 		1F4C5B921FE05A2300C9CF66 /* music_hny.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 1F4C5B8F1FE05A2200C9CF66 /* music_hny.mp3 */; };
 		1F57EEE31FDBFDA0009D0CAE /* AudioPlayManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F57EEE21FDBFDA0009D0CAE /* AudioPlayManager.swift */; };
@@ -382,6 +382,7 @@
 		1F126EEA1FC3FD65006306D2 /* AppForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppForm.swift; sourceTree = "<group>"; };
 		1F126EFE1FC4063E006306D2 /* AddressModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddressModel.h; sourceTree = "<group>"; };
 		1F126EFF1FC4063E006306D2 /* AddressModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddressModel.m; sourceTree = "<group>"; };
+		1F1D149B1FE31A8600CC486B /* music_xmas.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = music_xmas.mp3; sourceTree = "<group>"; };
 		1F22927B1FCF219C00089174 /* ConfigModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigModel.swift; sourceTree = "<group>"; };
 		1F22927D1FCFBC6600089174 /* Address.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Address.plist; sourceTree = "<group>"; };
 		1F22927F1FD00F2500089174 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
@@ -393,7 +394,6 @@
 		1F3739BF1FD10E160068F1C0 /* LocalJsonFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalJsonFile.swift; sourceTree = "<group>"; };
 		1F3739C31FD1302E0068F1C0 /* AddressValueKey.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AddressValueKey.txt; sourceTree = "<group>"; };
 		1F4C5B8B1FE04B2F00C9CF66 /* SessionShareModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionShareModel.swift; sourceTree = "<group>"; };
-		1F4C5B8D1FE05A2200C9CF66 /* music_xmas.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = music_xmas.mp3; sourceTree = "<group>"; };
 		1F4C5B8E1FE05A2200C9CF66 /* music_normal.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = music_normal.mp3; sourceTree = "<group>"; };
 		1F4C5B8F1FE05A2200C9CF66 /* music_hny.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = music_hny.mp3; sourceTree = "<group>"; };
 		1F57EEE21FDBFDA0009D0CAE /* AudioPlayManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayManager.swift; sourceTree = "<group>"; };
@@ -494,7 +494,7 @@
 				1FF3A86D1FE15C6F0017326F /* 出场.gif */,
 				1F4C5B8F1FE05A2200C9CF66 /* music_hny.mp3 */,
 				1F4C5B8E1FE05A2200C9CF66 /* music_normal.mp3 */,
-				1F4C5B8D1FE05A2200C9CF66 /* music_xmas.mp3 */,
+				1F1D149B1FE31A8600CC486B /* music_xmas.mp3 */,
 				1F126D621FBFF024006306D2 /* AppDelegate.swift */,
 				1F126D641FBFF024006306D2 /* ViewController.swift */,
 				1F126DF91FBFFB75006306D2 /* AppThemeTool.swift */,
@@ -1209,9 +1209,9 @@
 			files = (
 				1F126DDE1FBFF46A006306D2 /* AlipaySDK.bundle in Resources */,
 				1FF3A86F1FE15C6F0017326F /* 出场.gif in Resources */,
+				1F1D149C1FE31A8700CC486B /* music_xmas.mp3 in Resources */,
 				1F3739C41FD1302E0068F1C0 /* AddressValueKey.txt in Resources */,
 				1F126D6D1FBFF024006306D2 /* LaunchScreen.storyboard in Resources */,
-				1F4C5B901FE05A2300C9CF66 /* music_xmas.mp3 in Resources */,
 				1F126DFC1FBFFB76006306D2 /* city.plist in Resources */,
 				1F126D6A1FBFF024006306D2 /* Assets.xcassets in Resources */,
 				1F126D891FBFF328006306D2 /* README.txt in Resources */,

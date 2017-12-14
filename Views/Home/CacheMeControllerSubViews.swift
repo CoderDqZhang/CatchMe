@@ -771,7 +771,8 @@ class GameTipView : UIView {
         }
         
         tipLabel = UILabel.init()
-        tipLabel.text = "主人红点代表抓娃娃时瞄准的点哦"
+        tipLabel.text = "抓中机器内任意物品都算成功"
+        tipLabel.textAlignment = .center
         tipLabel.font = App_Theme_PinFan_M_17_Font
         tipLabel.textColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
         self.addSubview(tipLabel)

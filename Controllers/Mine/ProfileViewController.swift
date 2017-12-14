@@ -29,10 +29,10 @@ class ProfileViewController: BaseViewController {
     
     override func setUpViewNavigationItem() {
         self.navigationItem.title = "设置"
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: "保存", style: .plain, target: self, action: #selector(self.rightBarButtonPress))
     }
     
-    @objc func rightBarButtonPress(){        
+    override func backBtnPress(_ sender: UIButton) {
+        self.navigationController?.popViewController()
         (self.viewModel as! ProfileViewModel).changeUserInfo()
     }
     
@@ -73,7 +73,7 @@ class ProfileViewController: BaseViewController {
     @objc func doneSelect(){
         picker.isHidden = true
         pickerToolBar.isHidden = true
-        (self.viewModel as! AddressViewModel).getAddress()
+        (self.viewModel as! ProfileViewModel).getSexText()
     }
     
     func presentImagePickerView(){
