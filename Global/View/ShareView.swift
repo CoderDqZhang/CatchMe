@@ -158,6 +158,7 @@ class ShareView: UIView, UIGestureRecognizerDelegate, CAAnimationDelegate {
         self.setUpCancelButton()
         self.addShareButton()
         detailView.frame = CGRect(x: 0, y: SCREENHEIGHT, width: SCREENWIDTH, height: 188)
+        detailView.backgroundColor = UIColor.red
         self.addSubview(detailView)
         
         let singleTap = UITapGestureRecognizer(target: self, action: #selector(ShareView.singleTapPress(_:)))
