@@ -222,7 +222,7 @@ class LoginPhoneCodeViewController: BaseViewController {
         super.viewWillAppear(animated)
         UIApplication.shared.setStatusBarStyle(.default, animated: false)
         self.navigationController?.fd_prefersNavigationBarHidden = true
-        self.navigationController?.setNavigationBarHidden(true, animated: true)
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
     }
 
     override func didReceiveMemoryWarning() {
@@ -247,6 +247,9 @@ extension LoginPhoneCodeViewController : UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         if (textField == self.inputCode) {
             if (self.loginViewModel.form.code.length >= 4) {
+                if string == "" {
+                    return true
+                }
                 return false
             }
         }

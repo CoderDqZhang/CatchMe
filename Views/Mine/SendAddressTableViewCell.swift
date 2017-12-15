@@ -67,7 +67,7 @@ class Address: UIView {
         self.addSubview(phone)
         
         phone.snp.makeConstraints { (make) in
-            make.right.equalTo(self.snp.right).offset(-23)
+            make.right.equalTo(self.snp.right).offset(-43)
             make.top.equalTo(self.snp.top).offset(23)
         }
         
@@ -79,7 +79,7 @@ class Address: UIView {
         self.addSubview(address)
         address.snp.makeConstraints { (make) in
             make.left.equalTo(self.snp.left).offset(52)
-            make.right.equalTo(self.snp.right).offset(-23)
+            make.right.equalTo(self.snp.right).offset(-43)
             make.top.equalTo(self.userName.snp.bottom).offset(7)
         }
         

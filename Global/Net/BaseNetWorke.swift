@@ -205,8 +205,9 @@ class BaseNetWorke {
         if UserInfoModel.isLoggedIn() {
             headers = url != LoginUrl && url != LoginCode && url != LoginWeiChat ? ["X-ui":UserInfoModel.shareInstance().idField,"X-di":"","X-token":UserInfoModel.shareInstance().token == nil ? "" : UserInfoModel.shareInstance().token] as! [String:String] : [:]
         }
+        
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
-        Alamofire.request(url, method: methods , parameters: parameters as? [String: Any], encoding: url == AddressUrl || url == ApplyShipments ? JSONEncoding.default : URLEncoding.default, headers: headers).responseJSON { (response) in
+        Alamofire.request(url, method: methods , parameters: parameters as? [String: Any], encoding: url == AddressUrl || url == AddressUpdate || url == ApplyShipments ? JSONEncoding.default : URLEncoding.default, headers: headers).responseJSON { (response) in
             UIApplication.shared.isNetworkActivityIndicatorVisible = false
             
 //            NetWorkingResponse.sharedInstance.showNetWorkingResPonse(response as AnyObject)

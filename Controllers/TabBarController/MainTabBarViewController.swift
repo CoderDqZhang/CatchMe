@@ -44,7 +44,12 @@ class MainTabBarViewController: CYLTabBarController {
 
         let image = UIImage.init(byApplyingAlpha: 0.7, image: UIImage.init(named: "menu"))
         let imageHeight = SCREENWIDTH * (image?.size.height)! / (image?.size.width)!
-        let imageView = UIImageView.init(frame: CGRect.init(x: 0, y: -(imageHeight - 49), width: SCREENWIDTH, height: imageHeight))
+        let imageView:UIImageView?
+        if IPHONE_VERSION_MINE11 == 1 {
+            imageView = UIImageView.init(frame: CGRect.init(x: 0, y: -(imageHeight - 49), width: SCREENWIDTH, height: imageHeight))
+        }else{
+            imageView = UIImageView.init(frame: CGRect.init(x: 0, y: -(imageHeight - 49), width: SCREENWIDTH, height: imageHeight))
+        }
         let blurEffect = UIBlurEffect(style: .light)
         //接着创建一个承载模糊效果的视图
         let blurView = UIVisualEffectView(effect: blurEffect)
@@ -52,21 +57,21 @@ class MainTabBarViewController: CYLTabBarController {
         blurView.frame = CGRect.init(x: 0, y: imageHeight - 49, width: SCREENWIDTH, height: 48)
         //添加模糊视图到页面view上（模糊视图下方都会有模糊效果）
         
-        imageView.addSubview(blurView)
-        imageView.image = image
+        imageView?.addSubview(blurView)
+        imageView?.image = image
 
-        self.tabBar.addSubview(imageView)
+        self.tabBar.addSubview(imageView!)
         self.tabBar.isTranslucent = true
 //        self.tabBar.backgroundImage = UIImage.createImage(with: UIColor.clear)
         
         self.viewControllers = controllers
-        
-        if #available(iOS 11.0, *) {
-            self.tabBarController?.tabBar.height  =  (self.tabBarController?.tabBar.height)! + 34
-            self.viewSafeAreaInsetsDidChange()
-        } else {
-            // Fallback on earlier versions
-        }
+//        self.tabBarHeight = (self.tabBarController?.tabBar.height)! + 34
+//        if #available(iOS 11.0, *) {
+//            self.tabBarController?.tabBar.height  =  (self.tabBarController?.tabBar.height)! + 34
+//            self.viewSafeAreaInsetsDidChange()
+//        } else {
+//            // Fallback on earlier versions
+//        }
         // Do any additional setup after loading the view.
     }
     

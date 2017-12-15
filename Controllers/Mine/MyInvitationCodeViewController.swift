@@ -61,7 +61,7 @@ class MyInvitationCodeViewController: BaseViewController {
         lineLabel.setLineColor(UIColor.init(hexString: App_Theme_EEEEEE_Color))
         self.view.addSubview(lineLabel)
         
-        conversionBtn = CustomTouchButton.init(frame: CGRect.init(x: (SCREENWIDTH - 200)/2, y: 150, width: 200, height: 46), title: "邀请兑换", tag: 10, titleFont: App_Theme_PinFan_M_17_Font!, type: CustomButtonType.withBackBoarder) { (tag) in
+        conversionBtn = CustomTouchButton.init(frame: CGRect.init(x: (SCREENWIDTH - 200)/2, y: 150, width: 200, height: 46), title: "兑换娃娃币", tag: 10, titleFont: App_Theme_PinFan_M_17_Font!, type: CustomButtonType.withBackBoarder) { (tag) in
             self.myInvitationViewMode.requestShareCode()
         }
         self.view.addSubview(conversionBtn)

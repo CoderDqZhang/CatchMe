@@ -43,14 +43,11 @@ class TopAvatarTableViewCell: UITableViewCell {
     override func updateConstraints() {
         if !didMakeConstraints {
             avatarImage.snp.makeConstraints({ (make) in
-                make.centerX.equalTo(self.contentView.snp.centerX).offset(0)
+                make.top.equalTo(self.contentView.snp.top).offset(0)
+                make.left.equalTo(self.contentView.snp.left).offset(0)
+                make.right.equalTo(self.contentView.snp.right).offset(0)
                 make.bottom.equalTo(self.contentView.snp.bottom).offset(0)
             })
-            
-//            titleLable.snp.makeConstraints({ (make) in
-//                make.bottom.equalTo(self.contentView.snp.bottom).offset(-11)
-//                make.centerX.equalTo(self.contentView.snp.centerX).offset(0)
-//            })
             
             didMakeConstraints = true
         }

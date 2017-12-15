@@ -23,7 +23,6 @@ class SenderJoysViewModel: BaseViewModel {
         }else{
             self.requestDefaultAddress()
         }
-//        isHaveAddress = false
     }
     
     func senderAddress(){
@@ -47,6 +46,10 @@ class SenderJoysViewModel: BaseViewModel {
     func senderJoys(){
         var isNoneMuch:Bool = false
         var count:Int = 0
+        if self.selectArrary.count == 0 {
+            _ = Tools.shareInstance.showMessage(KWINDOWDS(), msg: "您暂时没有娃娃", autoHidder: true)
+            return
+        }
         for i in 0...self.selectArrary.count - 1 {
             if self.selectArrary[i] as! Bool {
                 count = count + 1
@@ -85,16 +88,10 @@ class SenderJoysViewModel: BaseViewModel {
     }
     
     func tableViewSendJoyInfoTableViewCellSetData(_ indexPath:IndexPath, cell:SendJoyInfoTableViewCell) {
-
-//        cell.cellSetData(model: MyCatchDollsModel.init(fromDictionary: (modelData[indexPath.row] as! NSArray)[0] as! NSDictionary), count:(modelData[indexPath.row] as! NSArray).count)
-        cell.cellSetData(model: MyCatchDollsModel.init(fromDictionary: models[0] as! NSDictionary), count: models.count)
-//        cell.cellSetData(model: MyCatchDollsModel.init(fromDictionary: model[indexPath.row] as! NSDictionary), count: models.count)
-        if 1 == indexPath.row {
+        cell.cellSetData(model: MyCatchDollsModel.init(fromDictionary: models[indexPath.row] as! NSDictionary), count: models.count)
+        if models.count - 1 == indexPath.row {
             cell.hidderLineLabel()
         }
-//        if modelData.count - 1 == indexPath.row {
-//            cell.hidderLineLabel()
-//        }
     }
     
     func tableViewSenderMuchTableViewCellSetData(_ indexPath:IndexPath, cell:SenderMuchTableViewCell) {
@@ -156,8 +153,10 @@ class SenderJoysViewModel: BaseViewModel {
                 if (models.count > 0) {
                     self.model = AddressModel.init(dictionary: models[0] as! NSDictionary as! [AnyHashable : Any])
                     self.isHaveAddress = self.model == nil ? false : true
-                    self.controller?.tableView.reloadData()
+                }else{
+                    self.isHaveAddress = false
                 }
+                self.controller?.tableView.reloadData()
             }
         }
     }
@@ -196,7 +195,7 @@ extension SenderJoysViewModel: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 1 {
-            return self.models == nil ? 0 : self.models.count + 1
+            return self.models == nil ? 0 : self.models.count
         }
         return 1
     }

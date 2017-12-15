@@ -47,6 +47,9 @@ class TopUpViewController: BaseViewController {
             make.centerX.equalTo(self.view.snp.centerX).offset(0)
             make.top.equalTo(self.view.snp.top).offset(23)
         }
+        LoginViewModel.shareInstance.getUserInfoCoins { (userInfo) in
+            self.setBalanceText(str: userInfo.coinAmount)
+        }
     }
     
     func setBalanceText(str:String){
@@ -136,10 +139,6 @@ class TopUpViewController: BaseViewController {
             make.centerX.equalTo(self.view.snp.centerX).offset(0)
             make.size.equalTo(CGSize.init(width: 220, height: 48))
         }
-        
-        
-
-        
     }
     
     func setUpTopView(){
@@ -174,7 +173,7 @@ class TopUpViewController: BaseViewController {
     
     @objc func rightBarItem(){
         let controllerVC = BaseWebViewController()
-        controllerVC.url = ConsumptionUrl
+        controllerVC.url = "\(ConsumptionUrl)?uid=\(UserInfoModel.shareInstance().idField!)&token=\(UserInfoModel.shareInstance().token!)"
         NavigationPushView(self, toConroller: controllerVC)
     }
     /*

@@ -50,7 +50,6 @@ class CacheMeViewModel: BaseViewModel {
         super.init()
         NIMAVChatSDK.shared().netCallManager.add(self)
         self.getAVAuthorizationStatus()
-        self.getShareCodeInfo()
     }
     
     deinit {
@@ -98,6 +97,9 @@ class CacheMeViewModel: BaseViewModel {
         }
         if self.time != nil {
             self.time.invalidate()
+        }
+        if UserDefaultsGetSynchronize(MUISCCOGIF) as! String == "true" {
+            AudioPlayManager.shareInstance.pause()
         }
     }
     
@@ -184,6 +186,9 @@ class CacheMeViewModel: BaseViewModel {
             NIMAVChatSDK.shared().netCallManager.hangup(self.callID)
         }
         self.prepedPlay()
+        if UserDefaultsGetSynchronize(MUISCCOGIF) as! String == "true" {
+            AudioPlayManager.shareInstance.playBgMusic(name: "\(ConfigModel.shanreInstance.musicName!)")
+        }
     }
     
     //建立点对点连接
@@ -299,6 +304,7 @@ class CacheMeViewModel: BaseViewModel {
                     return
                 }
                 self.headerModel = HeartModel.init(fromDictionary: resultDic.value as! NSDictionary)
+                self.catchMeModel.currentPlayStatus = self.headerModel.currentPlayStatus
                 self.cacheMeController.bottomToolsView.changePlayType(type: self.headerModel.currentPlayStatus == 1 ? .canNotPlay : .canPlay)
                 UserInfoModel.shareInstance().coinAmount = "\(self.headerModel.balance!)"
                 self.setUpRoomPalyUsers(currentUser: self.headerModel.currentPlayerDTO)
@@ -310,7 +316,7 @@ class CacheMeViewModel: BaseViewModel {
     func gameStart(){
         if playGame {
             if UserInfoModel.shareInstance().coinAmount.int! < self.catchMeModel.price {
-                KWINDOWDS().addSubview(GloableAlertView.init(title: "不足支付一次游戏\n请先充值", btnTop: "去充值", btnBottom: "取消", image: UIImage.init(named: "pic_fail_1")!, type: GloableAlertViewType.topupfail, clickClouse: { (tag) in
+                KWINDOWDS().addSubview(GloableAlertView.init(title: "余额不足，主人请先充值\n赶紧回来抓我哟", btnTop: "去充值", btnBottom: "取消", image: UIImage.init(named: "pic_fail_1")!, type: GloableAlertViewType.topupfail, clickClouse: { (tag) in
                     if tag == 100 {
                         self.gotoTopUpVC()
                     }
@@ -368,7 +374,7 @@ class CacheMeViewModel: BaseViewModel {
                 }
                 self.getUserInfo(currentUser: BasicUserDTO.init(fromDictionary: ["photo":UserInfoModel.shareInstance().photo == nil ? "" : UserInfoModel.shareInstance().photo, "userName":UserInfoModel.shareInstance().userName]))
                 self.showGameView()
-                _ = Tools.shareInstance.showMessage(KWINDOWDS(), msg: "Ready...GO!", autoHidder: true)
+                self.cacheMeController.setUpreadyGogameTipView()
             }
         }
     }
@@ -455,7 +461,7 @@ class CacheMeViewModel: BaseViewModel {
     //在玩一次
     func playAgain(){
         if UserInfoModel.shareInstance().coinAmount.int! < self.catchMeModel.price {
-            KWINDOWDS().addSubview(GloableAlertView.init(title: "余额不足，主人请先充值\n赶紧来抓我哟", btnTop: "去充值", btnBottom: "取消", image: UIImage.init(named: "pic_fail_1")!, type: GloableAlertViewType.topupfail, clickClouse: { (tag) in
+            KWINDOWDS().addSubview(GloableAlertView.init(title: "余额不足，主人请先充值\n赶紧回来抓我哟", btnTop: "去充值", btnBottom: "取消", image: UIImage.init(named: "pic_fail_1")!, type: GloableAlertViewType.topupfail, clickClouse: { (tag) in
                 if tag == 100 {
                     self.gotoTopUpVC()
                 }
@@ -473,6 +479,7 @@ class CacheMeViewModel: BaseViewModel {
                     let model = PlayGameAgain.init(fromDictionary: resultDic.value as! NSDictionary)
                     self.prepareModel.gameId = model.gameId
                     if self.prepareModel != nil {
+                       self.cacheMeController.setUpreadyGogameTipView()
                        self.getGameStatus = false
                        self.playGameGoStatus = false
                         self.cacheMeController.cacheMePlayUserView.setCountLabelText(count: self.prepareModel.maxTime)
@@ -587,6 +594,7 @@ class CacheMeViewModel: BaseViewModel {
     }
     
     func shootSuccess(){
+        self.getShareCodeInfo(gameId: "\(self.prepareModel.gameId!)")
         KWINDOWDS().addSubview(GloableAlertView.init(title: "好棒，活捉一只娃娃", btnTop: "再试一次5s", btnBottom: "炫耀一下", image: UIImage.init(named: "pic_success")!, type: GloableAlertViewType.success, clickClouse: { (tag) in
             if tag == 100 {
                 self.playAgain()
@@ -602,7 +610,7 @@ class CacheMeViewModel: BaseViewModel {
     
     func shootFail(){
         //抓取失败
-        KWINDOWDS().addSubview(GloableAlertView.init(title: "好可惜，就差一点了", btnTop: "再试一次5s", btnBottom: "无力再试", image: UIImage.init(named: "pic_fail")!, type: GloableAlertViewType.catchfail, clickClouse: { (tag) in
+        KWINDOWDS().addSubview(GloableAlertView.init(title: "再来一次, 带我回家吧", btnTop: "再试一次5s", btnBottom: "无力再试", image: UIImage.init(named: "pic_fail")!, type: GloableAlertViewType.catchfail, clickClouse: { (tag) in
             if tag == 100 {
                 self.playAgain()
             }else if tag == 200{
@@ -614,22 +622,24 @@ class CacheMeViewModel: BaseViewModel {
     }
     
     func showShareView(){
-        KWINDOWDS().addSubview(GloabelShareAndConnectUs.init(type: GloabelShareAndConnectUsType.share, title: "成功活抓！快邀请朋友们来围观吧~", clickClouse: { (type) in
-            switch type {
-            case .QQChat:
-                ShareTools.shareInstance.shareQQSessionWebUrl(self.shareCodelModel.title, webTitle: self.shareCodelModel.descriptionField, imageUrl: self.shareCodelModel.thumbnailAddress, webDescription: "", webUrl: self.shareCodelModel.url)
-            case .weChatChat:
-                ShareTools.shareInstance.shareWeChatSession(self.shareCodelModel.title, description: self.shareCodelModel.descriptionField, image: UIImage.getFromURL(self.shareCodelModel.thumbnailAddress), url: self.shareCodelModel.url)
-            case .weChatSession:
-                ShareTools.shareInstance.shareWeChatTimeLine(self.shareCodelModel.title, description: self.shareCodelModel.descriptionField, image: UIImage.getFromURL(self.shareCodelModel.thumbnailAddress), url: self.shareCodelModel.url)
-            default:
-                break
-            }
-        }))
+        if self.shareCodelModel != nil {
+            KWINDOWDS().addSubview(GloabelShareAndConnectUs.init(type: GloabelShareAndConnectUsType.share, title: "成功活抓！快邀请朋友们来围观吧~", clickClouse: { (type) in
+                switch type {
+                case .QQChat:
+                    ShareTools.shareInstance.shareQQSessionWebUrl(self.shareCodelModel.title, webTitle: self.shareCodelModel.descriptionField, imageUrl: self.shareCodelModel.thumbnailAddress, webDescription: "", webUrl: self.shareCodelModel.url)
+                case .weChatChat:
+                    ShareTools.shareInstance.shareWeChatSession(self.shareCodelModel.title, description: self.shareCodelModel.descriptionField, image: UIImage.getFromURL(self.shareCodelModel.thumbnailAddress), url: self.shareCodelModel.url)
+                case .weChatSession:
+                    ShareTools.shareInstance.shareWeChatTimeLine(self.shareCodelModel.title, description: self.shareCodelModel.descriptionField, image: UIImage.getFromURL(self.shareCodelModel.thumbnailAddress), url: self.shareCodelModel.url)
+                default:
+                    break
+                }
+            }))
+        }
     }
     
-    func getShareCodeInfo(){
-        let parameters = ["type":"1"]
+    func getShareCodeInfo(gameId:String){
+        let parameters = ["type":"1","gameId":gameId]
         BaseNetWorke.sharedInstance.getUrlWithString(Socialsharecard, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
                 self.shareCodelModel = SessionShareModel.init(fromDictionary: resultDic.value as! NSDictionary)
@@ -648,10 +658,12 @@ extension CacheMeViewModel : NIMNetCallManagerDelegate {
     }
     
     func onRemoteImageReady(_ image: CGImage) {
-        if cacheMeController.remoteGLView == nil {
-            cacheMeController.initRemoteGlView()
+        if cacheMeController != nil {
+            if cacheMeController.remoteGLView == nil {
+                cacheMeController.initRemoteGlView()
+            }
+            self.cacheMeController.remoteGLView.image = UIImage.init(cgImage: image)
         }
-        self.cacheMeController.remoteGLView.image = UIImage.init(cgImage: image)
     }
     
     func onAudioMixTaskCompleted() {

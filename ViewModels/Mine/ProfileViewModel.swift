@@ -43,9 +43,10 @@ class ProfileViewModel: BaseViewModel {
     
     func tableViewGloabTitleAndFieldCellSetData(_ indexPath:IndexPath, cell:GloabTitleAndFieldCell) {
         cell.setData(titleStr[indexPath.row], detail: (detailStr[indexPath.row] as? String)!, laceholder: "请输入用户名")
-        cell.textField.reactive.continuousTextValues.observeValues { (str) in
-            UserInfoModel.shareInstance().userName = str
-        }
+        cell.textField.isEnabled = false
+//        cell.textField.reactive.continuousTextValues.observeValues { (str) in
+//            UserInfoModel.shareInstance().userName = str
+//        }
     }
     
     func tableViewGloabTitleAndSwitchCellSetData(_ indexPath:IndexPath, cell:GloabTitleAndSwitchCell) {

@@ -69,9 +69,9 @@ class InPurchaseViewController: BaseViewController {
     
     func createTopUpModel() ->NSMutableArray{
         let models = NSMutableArray.init()
-        let coins = [100,300,3000]
-        let rechargeMoney:[Float] = [6.00,12.00,98.00]
-        for i in 0...2 {
+        let coins = [100,300,400,800,1500,3000]
+        let rechargeMoney:[Float] = [6.00,12.00,18.00,30.00,60.00,98.00]
+        for i in 0...5 {
             let model = RechargeRateRuleDTOList.init()
             model.rechargeCoin = coins[i]
             model.rechargeMoney = rechargeMoney[i]
@@ -113,6 +113,11 @@ class InPurchaseViewController: BaseViewController {
         }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.fd_prefersNavigationBarHidden = false
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -130,15 +135,9 @@ class InPurchaseViewController: BaseViewController {
     }
     */
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.navigationController?.fd_prefersNavigationBarHidden = false
-        self.navigationController?.setNavigationBarHidden(false, animated: true)
-    }
-    
     //请求内购
     func requestProduceData() {
-        let str = NSSet.init(array: ["com.zhuawo.catchdoll06","com.zhuawo.catchdoll12","com.zhuawo.catchdoll98"])
+        let str = NSSet.init(array: ["com.zhuawo.catchdoll06","com.zhuawo.catchdoll12","com.zhuawo.catchdoll18","com.zhuawo.catchdoll30","com.zhuawo.catchdoll60","com.zhuawo.catchdoll98"])
         let request = SKProductsRequest(productIdentifiers: str as! Set<String>)
         request.delegate = self
         request.start()
@@ -210,7 +209,7 @@ extension InPurchaseViewController : SKPaymentTransactionObserver {
             switch trannsaction.transactionState {
             case .purchased:
                 print("支付完成")
-                let str = self.coinAmount + self.productI == 1 ? 100 : self.productI == 2 ? 300 : 3000
+                let str = self.coinAmount + self.productI == 1 ? 100 : self.productI == 2 ? 300 : self.productI == 3 ? 400 : self.productI == 4 ? 800 : self.productI == 5 ? 1500 : 3000
                 self.updateBalance(text: "账户余额 \(str) 币")
                 self.completeTransaction(transaction: trannsaction)
             case .failed:
@@ -268,13 +267,8 @@ extension InPurchaseViewController : SKProductsRequestDelegate {
             if loadingView != nil {
                 loadingView.hide(animated: true)
             }
-            if self.productI  == 100 {
-                let payment = SKPayment.init(product: myProduct[self.productI - 1])
-                SKPaymentQueue.default().add(payment)
-            }else{
-                _ = Tools.shareInstance.showMessage(KWINDOWDS(), msg: "请选择充值金额", autoHidder: true)
-            }
-            
+            let payment = SKPayment.init(product: myProduct[self.productI - 1])
+            SKPaymentQueue.default().add(payment)
         }else{
             if loadingView != nil {
                 loadingView.hide(animated: true)

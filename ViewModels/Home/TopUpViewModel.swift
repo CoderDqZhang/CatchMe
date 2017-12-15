@@ -74,6 +74,10 @@ class TopUpViewModel: BaseViewModel {
         }
     }
     
+    func getUserCoins(){
+        
+    }
+    
     func wxPay(){
         var parameters:[String : Any]!
         if self.topUpMuch != 1000 {

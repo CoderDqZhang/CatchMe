@@ -19,11 +19,11 @@ import Foundation
 //ONLINE("http://webfront.zhuawo.com/catch-me/#");
 
 //测试服
-let BaseURL = "http://test.zhuawo.com:8201"
-let BaseH5URL = "http://test.zhuawo.com/catch-me/#"
+//let BaseURL = "http://test.zhuawo.com:8201"
+//let BaseH5URL = "http://test.zhuawo.com/catch-me/#"
 //正式服
-//let BaseURL = "http://backend.zhuawo.com"
-//let BaseH5URL = "http://webfront.zhuawo.com/catch-me/#"
+let BaseURL = "http://backend.zhuawo.com"
+let BaseH5URL = "http://webfront.zhuawo.com/catch-me/#"
 
 let ConsumptionUrl = "\(BaseH5URL)/consumption"
 
@@ -87,6 +87,8 @@ let ChangeUserInfo = "\(BaseURL)/user/updateInfo"
 let UploadImage = "\(BaseURL)/uploadImage"
 //添加地址
 let AddressUrl = "\(BaseURL)/address/add"
+//地址更新
+let AddressUpdate = "\(BaseURL)/address/update"
 //获取默认地址
 let QueryDefault = "\(BaseURL)/address/queryDefault"
 //获取用户信息

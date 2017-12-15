@@ -28,6 +28,7 @@ class CacheMeViewController: BaseViewController {
     var cacheMePlayUserView:CacheMePlayUserView!
     var gameToolsView:GameToolsView!
     var gameTipView:GameTipView!
+    var readyGogameTipView:GameTipView!
     var switchCamera:UIButton!
     
     var remoteGLView:UIImageView!
@@ -56,6 +57,7 @@ class CacheMeViewController: BaseViewController {
         self.bindLogicViewModel()
         self.doInitPlayerNotication()
         self.initRemoteGlView()
+        self.navigationController?.fd_fullscreenPopGestureRecognizer.isEnabled = false
         // Do any additional setup after loading the view.
     }
     
@@ -167,6 +169,15 @@ class CacheMeViewController: BaseViewController {
     //拉流地址
     func setUpPlayer(url:[String]){
         liveplayerView = UIView.init()
+        let imageView = UIImageView.init()
+        imageView.image = UIImage.init(named: "")
+        liveplayerView.addSubview(imageView)
+        imageView.snp.makeConstraints { (make) in
+            make.top.equalTo(liveplayerView.snp.top).offset(0)
+            make.left.equalTo(liveplayerView.snp.left).offset(0)
+            make.bottom.equalTo(liveplayerView.snp.bottom).offset(0)
+            make.right.equalTo(liveplayerView.snp.right).offset(0)
+        }
         liveplayerView.layer.cornerRadius = 10
         liveplayerView.layer.masksToBounds = true
         self.view.addSubview(liveplayerView)
@@ -246,9 +257,33 @@ class CacheMeViewController: BaseViewController {
     }
     
     func setUpGameTipView(){
-        if gameTipView == nil && self.numberCatch < 5{
-           gameTipView = GameTipView.init(frame: CGRect.init(x: (SCREENWIDTH - 323)/2, y: SCREENHEIGHT - 90 - 122 - 64, width: 323, height: 87))
+        if gameTipView == nil && self.numberCatch <= 5{
+            let str = TipString
+            let witdh = (str as NSString).width(with: App_Theme_PinFan_M_17_Font, constrainedToHeight: 20) + 100
+           gameTipView = GameTipView.init(frame: CGRect.init(x: (SCREENWIDTH - witdh)/2, y: SCREENHEIGHT - 90 - 122 - 64, width: witdh, height: 87), tipStr: str)
             self.view.addSubview(gameTipView)
+        }
+    }
+    //开始游戏readyGo
+    func setUpreadyGogameTipView(){
+        if readyGogameTipView == nil{
+            let str = "Ready...GO!"
+            let witdh = (str as NSString).width(with: App_Theme_PinFan_M_17_Font, constrainedToHeight: 20) + 100
+            readyGogameTipView = GameTipView.init(frame: CGRect.init(x: (SCREENWIDTH - witdh)/2, y: SCREENHEIGHT - 90 - 122 - 64, width: witdh, height: 87), tipStr: str)
+            readyGogameTipView.alpha = 0.1
+            self.view.addSubview(readyGogameTipView)
+            
+            UIView.animate(withDuration: 0.5, animations: {
+                self.readyGogameTipView.alpha = 1
+            }, completion: { (ret) in
+                _ = Timer.after(1, {
+                    UIView.animate(withDuration: 1, animations: {
+                        self.readyGogameTipView.alpha = 0.1
+                    }, completion: { (ret) in
+                        self.readyGogameTipView.removeFromSuperview()
+                    })
+                })
+            })
         }
     }
     
@@ -455,8 +490,15 @@ class CacheMeViewController: BaseViewController {
     
     @objc func NELivePlayerFirstVideoDisplayed(notification:Notification) {
         if self.localPreView != nil {
-            self.localPreView.isHidden = true
-            self.setUpGameTipView()
+            _ = Timer.after(2, {
+                UIView.animate(withDuration: 1, animations: {
+                    self.localPreView.alpha = 0.5
+                }, completion: { (ret) in
+                    self.localPreView.isHidden = true
+                    self.localPreView.alpha = 1
+                    self.setUpGameTipView()
+                })
+            })
         }
     }
     
@@ -469,6 +511,7 @@ class CacheMeViewController: BaseViewController {
     }
     
     @objc func NELivePlayerVideoParseError(notification:Notification){
+        self.cacheMeViewModel.setUpStreamData()
         
     }
         

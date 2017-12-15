@@ -165,6 +165,7 @@
 		1FCA200B1FC5C0E20008BF07 /* LoginSetPhoneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCA200A1FC5C0E20008BF07 /* LoginSetPhoneViewController.swift */; };
 		1FCA200D1FC5CB870008BF07 /* LoginPhoneCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCA200C1FC5CB870008BF07 /* LoginPhoneCodeViewController.swift */; };
 		1FCA200F1FC720470008BF07 /* AboutUsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCA200E1FC720470008BF07 /* AboutUsViewController.swift */; };
+		1FD1B6401FE45AEF006E9AAF /* ChangeUserNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD1B63F1FE45AEF006E9AAF /* ChangeUserNameViewController.swift */; };
 		1FD729091FCD9A87005CF939 /* TopWeeklyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD729081FCD9A87005CF939 /* TopWeeklyModel.swift */; };
 		1FD7290B1FCE545E005CF939 /* InPurchaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD7290A1FCE545E005CF939 /* InPurchaseViewController.swift */; };
 		1FD7290D1FCE5E7F005CF939 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FD7290C1FCE5E7F005CF939 /* StoreKit.framework */; };
@@ -411,6 +412,7 @@
 		1FCA200A1FC5C0E20008BF07 /* LoginSetPhoneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginSetPhoneViewController.swift; sourceTree = "<group>"; };
 		1FCA200C1FC5CB870008BF07 /* LoginPhoneCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPhoneCodeViewController.swift; sourceTree = "<group>"; };
 		1FCA200E1FC720470008BF07 /* AboutUsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutUsViewController.swift; sourceTree = "<group>"; };
+		1FD1B63F1FE45AEF006E9AAF /* ChangeUserNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeUserNameViewController.swift; sourceTree = "<group>"; };
 		1FD729081FCD9A87005CF939 /* TopWeeklyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopWeeklyModel.swift; sourceTree = "<group>"; };
 		1FD7290A1FCE545E005CF939 /* InPurchaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InPurchaseViewController.swift; sourceTree = "<group>"; };
 		1FD7290C1FCE5E7F005CF939 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
@@ -848,6 +850,7 @@
 				1FCA20001FC5202D0008BF07 /* SettingViewController.swift */,
 				1FCA200E1FC720470008BF07 /* AboutUsViewController.swift */,
 				1FD7290A1FCE545E005CF939 /* InPurchaseViewController.swift */,
+				1FD1B63F1FE45AEF006E9AAF /* ChangeUserNameViewController.swift */,
 			);
 			path = Mine;
 			sourceTree = "<group>";
@@ -1385,6 +1388,7 @@
 				1F126E6D1FC097FF006306D2 /* TopUpViewController.swift in Sources */,
 				1F126DDA1FBFF3DE006306D2 /* UITextView+Placeholder.m in Sources */,
 				1F126EA61FC154A0006306D2 /* ijksdl_timer.c in Sources */,
+				1FD1B6401FE45AEF006E9AAF /* ChangeUserNameViewController.swift in Sources */,
 				1F126E031FBFFD5F006306D2 /* UIViewController+DismissKeyboard.m in Sources */,
 				1F126EDD1FC3109F006306D2 /* SendAddressTableViewCell.swift in Sources */,
 				1F126DD91FBFF3DE006306D2 /* UIViewController+hideExcessLine.m in Sources */,

@@ -18,6 +18,7 @@ class AddressViewModel: BaseViewModel {
     var selectCity:Int = 0
     var selectRegion:Int = 0
     var parameters:[String:Any]!
+    var isUpdataAddress:Bool = false
     override init() {
         super.init()
         
@@ -57,7 +58,7 @@ class AddressViewModel: BaseViewModel {
                           "city":self.model.city,
                           "county":self.model.county,
                           "address":self.model.address] as [String : Any]
-        BaseNetWorke.sharedInstance.postUrlWithString(AddressUrl, parameters: parameters as? AnyObject).observe { (resultDic) in
+        BaseNetWorke.sharedInstance.postUrlWithString(isUpdataAddress ? AddressUpdate : AddressUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
                 self.model.save()
                 self.controller?.navigationController?.popViewController({
@@ -85,7 +86,7 @@ class AddressViewModel: BaseViewModel {
     }
     
     func tableViewGloableTitleLabelTitleDescCellSetData(_ indexPath:IndexPath, cell:GloableTitleLabelTitleDescCell) {
-        cell.cellSetData(title: titleStr[indexPath.row], titleDescStr: self.getAddressStr())
+        cell.cellSetData(title: titleStr[indexPath.row], titleDescStr: self.model.province == 0 ? "" : self.getAddressStr())
     }
     
     func tableViewGloableMaxTitleLabelTextFieldCellSetData(_ indexPath:IndexPath, cell:GloableMaxTitleLabelTextFieldCell) {

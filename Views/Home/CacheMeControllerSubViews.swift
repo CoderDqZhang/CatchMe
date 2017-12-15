@@ -157,7 +157,7 @@ class CacheMeTopView : UIView {
         avatar.frame = frame
         avatar.layer.cornerRadius = 16
         avatar.layer.masksToBounds = true
-        UIImageViewManger.sd_imageView(url: model.photo == nil ? "" : model.photo, imageView: avatar, placeholderImage: nil) { (image, error, cacheType, url) in
+        UIImageViewManger.sd_imageView(url: model.photo == nil ? "" : model.photo, imageView: avatar, placeholderImage: UIImage.init(named: "默认头像_2")) { (image, error, cacheType, url) in
             
         }
         return avatar
@@ -193,6 +193,12 @@ class CacheMePlayUserView:UIView {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    deinit {
+        if self.time != nil {
+            self.time.invalidate()
+        }
     }
     
     func setUpPlayUser(){
@@ -233,23 +239,25 @@ class CacheMePlayUserView:UIView {
         userName_bg = UILabel.init()
         userName_bg.font = App_Theme_PinFan_M_14_Font
         userName_bg.text = "北京小分子"
+        userName_bg.lineBreakMode = .byTruncatingTail
         userName_bg.textColor = UIColor.init(hexString: App_Theme_000000_Color)
         playUser.addSubview(userName_bg)
         userName_bg.snp.makeConstraints { (make) in
             make.left.equalTo(avatar.snp.right).offset(7)
             make.top.equalTo(playUser.snp.top).offset(9)
-            make.right.equalTo(playUser.snp.right).offset(-7)
+            make.width.equalTo(70)
         }
         
         userName = UILabel.init()
         userName.font = App_Theme_PinFan_M_14_Font
         userName.text = "北京小分子"
+        userName.lineBreakMode = .byTruncatingTail
         userName.textColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
         playUser.addSubview(userName)
         userName.snp.makeConstraints { (make) in
             make.left.equalTo(avatar.snp.right).offset(7)
             make.top.equalTo(playUser.snp.top).offset(8)
-            make.right.equalTo(playUser.snp.right).offset(-7)
+            make.width.equalTo(70)
         }
         
         detail_bg = UILabel.init()
@@ -315,29 +323,22 @@ class CacheMePlayUserView:UIView {
     
     func setCountLabelText(count:Int){
         numberCount = count
-        var timeDone:Bool = false
         if time == nil {
             time = Timer.every(1, {
-                if self.numberCount == -1 {
+                if self.numberCount == 0 {
+                    if self.timeDownClouse != nil {
+                        self.timeDownClouse()
+                    }
+                }
+                self.numberCount = self.numberCount - 1
+                if self.numberCount <= -1 {
                     self.setStr(str: "0s")
                     return
                 }
-                if self.numberCount == 0 {
-                    if self.timeDownClouse != nil && !timeDone {
-                        timeDone = true
-                        self.timeDownClouse()
-                    }
-                    self.time = nil
-                }else{
-                    self.numberCount = self.numberCount - 1
-                }
-                
                 self.setStr(str: "\(self.numberCount)s")
+                
             })
-        }else{
-            
         }
-        
     }
 }
 
@@ -437,7 +438,7 @@ class QuictEnterLocalPreView: UIView {
         
         _ = Timer.after(3, {
             UIView.animate(withDuration: 0.3, animations: {
-                self.backGroundImage.alpha = 0.5
+                self.backGroundImage.alpha = 1
             }) { (ret) in
                 self.removeFromSuperview()
             }
@@ -750,7 +751,7 @@ class GameTipView : UIView {
     var tipLabelBg:UIImageView!
     
     var time:Timer!
-    override init(frame: CGRect) {
+    init(frame: CGRect, tipStr:String) {
         super.init(frame: frame)
         
         tipLabelBg = UIImageView.init()
@@ -775,7 +776,7 @@ class GameTipView : UIView {
         }
         
         tipLabel = UILabel.init()
-        tipLabel.text = "抓中机器内任意物品都算成功"
+        tipLabel.text = tipStr
         tipLabel.textAlignment = .center
         tipLabel.font = App_Theme_PinFan_M_17_Font
         tipLabel.textColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)

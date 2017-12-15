@@ -17,6 +17,7 @@ class TopViewController: BaseViewController {
         self.setUpTableView(style: .plain, cells: [TopUserInfoTableViewCell.self,TopDescTableViewCell.self,TopAvatarTableViewCell.self], controller: self)
         self.navigationController?.fd_fullscreenPopGestureRecognizer.isEnabled = false
         self.setUpNavigationView()
+        self.upDataConstraints()
         // Do any additional setup after loading the view.
     }
     
@@ -32,6 +33,15 @@ class TopViewController: BaseViewController {
             self.navigationController?.popViewController()
         })
         self.view.addSubview(gLoabelNavigaitonBar)
+    }
+        
+     func upDataConstraints(){
+        self.tableView.snp.remakeConstraints { (make) in
+            make.top.equalTo(self.view.snp.top).offset(0)
+            make.left.equalTo(self.view.snp.left).offset(0)
+            make.right.equalTo(self.view.snp.right).offset(0)
+            make.bottom.equalTo(self.view.snp.bottom).offset(0)
+        }
     }
 
     override func didReceiveMemoryWarning() {

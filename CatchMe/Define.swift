@@ -12,7 +12,7 @@ import SwifterSwift
 let IPHONE_VERSION:Int = (UIDevice.current.systemVersion as! NSString).integerValue
 let IPHONE_VERSION_LAST9 = IPHONE_VERSION >= 9 ? 1:0
 let IPHONE_VERSION_LAST10 = IPHONE_VERSION >= 10 ? 1:0
-
+let IPHONE_VERSION_MINE11 = IPHONE_VERSION <= 11 ? 1:0
 
 let IPHONE4 = SCREENHEIGHT == 480 ? true:false
 let IPHONE5 = SCREENHEIGHT == 568 ? true:false
@@ -75,6 +75,8 @@ let MUISCCOGIF = "MUISCCOGIF"
 
 let APPVERSION = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
 
+let TipString = "抓中机器内任意物品都算成功"
+
 func KWINDOWDS() -> UIWindow{
     let window = UIApplication.shared.keyWindow
     return window!
@@ -105,7 +107,7 @@ func UserDefaultsGetSynchronize(_ key:String) -> AnyObject{
     return UserDefaults.standard.object(forKey: key)! as AnyObject
 }
 
-let COFIGVALUE:Bool = (UserDefaultsGetSynchronize(APPCONFIGSTATUS) as! String) == "false" ? true : true
+let COFIGVALUE:Bool = ConfigModel.shanreInstance.isOnlineVersion
 
 
 func Storyboard(_ name:String,controllerid:String) -> UIViewController{

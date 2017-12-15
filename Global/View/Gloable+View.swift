@@ -296,13 +296,18 @@ class GloabelShareAndConnectUs: UIView {
     }
     
     func removeSelf(){
-        
-        weChat.frame = CGRect.init(x: weChat.frame.origin.x, y: 0, width: 60, height: 88)
-        weChat.layer.add(AnimationTools.shareInstance.setUpAnimation(244, velocity: 7.0), forKey: "weChat")
-        weChatSession.frame = CGRect.init(x: weChatSession.frame.origin.x, y: 0, width: 60, height: 88)
-        weChatSession.layer.add(AnimationTools.shareInstance.setUpAnimation(244, velocity: 6.0), forKey: "weChat")
-        qq.frame = CGRect.init(x: qq.frame.origin.x, y: 0, width: 60, height: 88)
-        qq.layer.add(AnimationTools.shareInstance.setUpAnimation(244, velocity: 2.0), forKey: "weChat")
+        if weChat != nil {
+            weChat.frame = CGRect.init(x: weChat.frame.origin.x, y: 0, width: 60, height: 88)
+            weChat.layer.add(AnimationTools.shareInstance.setUpAnimation(244, velocity: 7.0), forKey: "weChat")
+        }
+        if weChatSession != nil {
+            weChatSession.frame = CGRect.init(x: weChatSession.frame.origin.x, y: 0, width: 60, height: 88)
+            weChatSession.layer.add(AnimationTools.shareInstance.setUpAnimation(244, velocity: 7.0), forKey: "weChat")
+        }
+        if qq != nil {
+            qq.frame = CGRect.init(x: qq.frame.origin.x, y: 0, width: 60, height: 88)
+            qq.layer.add(AnimationTools.shareInstance.setUpAnimation(244, velocity: 7.0), forKey: "weChat")
+        }
         
         self.frame = CGRect.init(x: 0, y: SCREENHEIGHT - 250, width: SCREENWIDTH, height: 250)
         self.layer.add(AnimationTools.shareInstance.setUpAnimation(SCREENHEIGHT + 250, velocity: 1.0), forKey: "AnimationTools")
@@ -314,7 +319,7 @@ class GloabelShareAndConnectUs: UIView {
     func setUpShareView(title:String?){
         titleLabel.text = title!
         var maxX:CGFloat = 0
-        if !isHaveWeChat {
+        if isHaveWeChat {
             weChat = GloabelImageAndLabel.init(frame: CGRect.init(x: maxX, y: 90, width: 60, height: 88), title: "微信", image: UIImage.init(named: "wechat")!){
                 self.gloabelShareAndConnectUsClouse(.weChatChat)
                 self.removeSelf()
@@ -323,6 +328,8 @@ class GloabelShareAndConnectUs: UIView {
             maxX = weChat.frame.maxX + 45
             detailView.addSubview(weChat)
             
+            weChat.frame = CGRect.init(x: weChat.frame.origin.x, y: 0, width: 60, height: 88)
+            
             weChatSession = GloabelImageAndLabel.init(frame: CGRect.init(x: maxX, y: 90, width: 60, height: 88), title: "朋友圈", image: UIImage.init(named: "friends")!){
                 self.gloabelShareAndConnectUsClouse(.weChatSession)
                 self.removeSelf()
@@ -330,9 +337,11 @@ class GloabelShareAndConnectUs: UIView {
             weChatSession.layer.add(AnimationTools.shareInstance.setUpAnimation(44, velocity: 6.0), forKey: "weChatSession")
             maxX = weChatSession.frame.maxX + 45
             detailView.addSubview(weChatSession)
+            
+            weChatSession.frame = CGRect.init(x: weChatSession.frame.origin.x, y: 0, width: 60, height: 88)
         }
         
-        if !isHaveQQ {
+        if isHaveQQ {
             qq = GloabelImageAndLabel.init(frame: CGRect.init(x: maxX, y: 90, width: 60, height: 88), title: "QQ", image: UIImage.init(named: "QQ")!){
                 self.gloabelShareAndConnectUsClouse(.QQChat)
                 self.removeSelf()
@@ -340,6 +349,8 @@ class GloabelShareAndConnectUs: UIView {
             qq.layer.add(AnimationTools.shareInstance.setUpAnimation(44, velocity: 2.0), forKey: "qq")
             maxX = qq.frame.maxX + 45
             detailView.addSubview(qq)
+            
+            qq.frame = CGRect.init(x: qq.frame.origin.x, y: 0, width: 60, height: 88)
         }
         detailView.frame = CGRect.init(x: (SCREENWIDTH - maxX + 45)/2, y: 74, width: maxX - 45, height: 88)
         self.addSubview(detailView)
@@ -584,7 +595,7 @@ class GloableAlertView: UIView {
                 number = number - 1
                 if number == 0 {
                     self.timeDone = true
-                    topButton.setTitle("退出按钮", for: .normal)
+                    topButton.setTitle("无力再试", for: .normal)
                     self.gloableAlertViewClouse(1000)
                     self.successTime.invalidate()
                 }else{
