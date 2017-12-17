@@ -9,6 +9,7 @@
 import UIKit
 import CYLTabBarController
 import SwifterSwift
+import MapKit
 
 let SafeAreaBottomHeight = SCREENHEIGHT == 812.0 ? 34 : 0
 
@@ -34,6 +35,7 @@ class MainTabBarViewController: CYLTabBarController {
         let controllers = [createNavigationController(controller: homeViewController),createNavigationController(controller: mineViewController)]
         
         currentViewController = homeViewController
+        
         self.tabBar.barStyle = .default
         self.tabBar.shadowImage = UIImage.init()
         self.tabBar.backgroundImage = UIImage.init()
@@ -41,32 +43,48 @@ class MainTabBarViewController: CYLTabBarController {
         self.tabBar.layer.shadowOffset = .zero
         self.tabBar.layer.shadowRadius = 1
         self.tabBar.layer.shadowOpacity = 0.5
-
-        let image = UIImage.init(byApplyingAlpha: 0.7, image: UIImage.init(named: "menu"))
-        let imageHeight = SCREENWIDTH * (image?.size.height)! / (image?.size.width)!
-        let imageView:UIImageView?
-        if IPHONE_VERSION_MINE11 {
+        
+        if !IPHONE_VERSION_MINE11 {
+            
+            let image = UIImage.init(byApplyingAlpha: 0.7, image: UIImage.init(named: "menu"))
+            let imageHeight = SCREENWIDTH * (image?.size.height)! / (image?.size.width)!
+            let imageView:UIImageView?
             imageView = UIImageView.init(frame: CGRect.init(x: 0, y: -(imageHeight - 49), width: SCREENWIDTH, height: imageHeight))
+            let blurEffect = UIBlurEffect(style: .light)
+            //接着创建一个承载模糊效果的视图
+            let blurView = UIVisualEffectView(effect: blurEffect)
+            //设置模糊视图的大小（全屏）
+            blurView.frame = CGRect.init(x: 0, y: imageHeight - 49, width: SCREENWIDTH, height: 48)
+            //添加模糊视图到页面view上（模糊视图下方都会有模糊效果）
+            
+            imageView?.addSubview(blurView)
+            imageView?.image = image
+            
+            self.tabBar.addSubview(imageView!)
+            
         }else{
-            imageView = UIImageView.init(frame: CGRect.init(x: 0, y: -(imageHeight - 49), width: SCREENWIDTH, height: imageHeight))
+            let image = UIImage.init(byApplyingAlpha: 0.7, image: UIImage.init(named: "menu"))
+            let imageHeight = image?.size.height
+            let imageView:UIImageView?
+            imageView = UIImageView.init(frame: CGRect.init(x: 0, y: -(imageHeight! - 49) - 2, width: SCREENWIDTH, height: imageHeight!))
+            let blurEffect = UIBlurEffect(style: .light)
+            //接着创建一个承载模糊效果的视图
+            let blurView = UIVisualEffectView(effect: blurEffect)
+            //设置模糊视图的大小（全屏）
+            blurView.frame = CGRect.init(x: 0, y: imageHeight! - 49, width: SCREENWIDTH, height: 49)
+            //添加模糊视图到页面view上（模糊视图下方都会有模糊效果）
+            
+            imageView?.addSubview(blurView)
+            imageView?.image = image
+            
+            self.tabBar.addSubview(imageView!)
         }
-        let blurEffect = UIBlurEffect(style: .light)
-        //接着创建一个承载模糊效果的视图
-        let blurView = UIVisualEffectView(effect: blurEffect)
-        //设置模糊视图的大小（全屏）
-        blurView.frame = CGRect.init(x: 0, y: imageHeight - 49, width: SCREENWIDTH, height: 48)
-        //添加模糊视图到页面view上（模糊视图下方都会有模糊效果）
         
-        imageView?.addSubview(blurView)
-        imageView?.image = image
-
-        self.tabBar.addSubview(imageView!)
         self.tabBar.isTranslucent = true
-//        self.tabBar.backgroundImage = UIImage.createImage(with: UIColor.clear)
-        
         self.viewControllers = controllers
         
         AuthorityManager.setUpAuthorityManager(controller: homeViewController)
+        self.checkLocationStatus()
 
     }
     
@@ -119,6 +137,29 @@ class MainTabBarViewController: CYLTabBarController {
         if save { UIImageWriteToSavedPhotosAlbum(image!, self, nil, nil) }
         return image
     }
+    
+    
+    func checkLocationStatus(){
+        // 1
+        let status  = CLLocationManager.authorizationStatus()
+        let locationMgr = CLLocationManager.init()
+        // 2
+        locationMgr.delegate = self
+        locationMgr.startUpdatingLocation()
+        if status == .notDetermined {
+            locationMgr.requestWhenInUseAuthorization()
+            return
+        }
+        if status == .denied || status == .restricted {
+            let alert = UIAlertController(title: "Location Services Disabled", message: "Please enable Location Services in Settings", preferredStyle: .alert)
+            
+            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alert.addAction(okAction)
+            
+            present(alert, animated: true, completion: nil)
+            return
+        }
+    }
 
     /*
     // MARK: - Navigation
@@ -136,6 +177,36 @@ extension MainTabBarViewController : UITabBarControllerDelegate {
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
         viewController.tabBarItem.badgeValue = nil
         currentViewController = viewController.childViewControllers[0]
+    }
+}
+
+extension MainTabBarViewController : CLLocationManagerDelegate{
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        //权限问题
+        switch status {
+        case .denied:
+            break;
+        case .notDetermined:
+            manager.requestWhenInUseAuthorization()
+            //            UIAlertController.shwoAlertControl(KWINDOWDS()!.root, style: .alert, title: "获取地理位置", message: "游戏需要麦克风权限", cancel: "取消", doneTitle: "确定", cancelAction: {
+            //
+            //            }, doneAction: {
+            //                SHARE_APPLICATION.openURL(URL.init(string: UIApplicationOpenSettingsURLString)!)
+        //            })
+        default:
+            break;
+        }
+    }
+    
+    // 1
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let currentLocation = locations.last!
+        print("Current location: \(currentLocation)")
+    }
+    
+    // 2
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print("Error \(error)")
     }
 }
 

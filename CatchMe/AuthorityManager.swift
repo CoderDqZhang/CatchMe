@@ -17,7 +17,6 @@ class AuthorityManager: NSObject, CLLocationManagerDelegate {
         AuthorityManager.checkAudioStatus(controller: controller)
         AuthorityManager.checkVideoStatus(controller: controller)
         AuthorityManager.checkPhotoStauts(controller: controller)
-        AuthorityManager.init().checkLocationStatus(controller: controller)
     }
     
     //获取麦克风权限
@@ -69,41 +68,22 @@ class AuthorityManager: NSObject, CLLocationManagerDelegate {
         switch photoAuthorStatus {
 //        case .authorized:
 //            break;
-//        case .denied:
-//            break;
+        case .denied:
+            break;
         case .notDetermined:
             PHPhotoLibrary.requestAuthorization({ (status) in
                 
             })
-//        case .restricted:
-//            break;
+        case .restricted:
+            UIAlertController.shwoAlertControl(controller!, style: .alert, title: "获取相册权限", message: "游戏需要麦克风权限", cancel: "取消", doneTitle: "确定", cancelAction: {
+                
+            }, doneAction: {
+                SHARE_APPLICATION.openURL(URL.init(string: UIApplicationOpenSettingsURLString)!)
+            })
         default:
             break;
         }
     }
     
     //获取地理信息权限
-    func checkLocationStatus(controller:BaseViewController?){
-        // 1
-        let status  = CLLocationManager.authorizationStatus()
-        let locatioin = CLLocationManager.init()
-        switch status {
-        case .notDetermined:
-            locatioin.requestWhenInUseAuthorization()
-        default:
-            break;
-        }
-        locatioin.delegate = self
-        locatioin.desiredAccuracy = kCLLocationAccuracyBest
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        //权限问题
-        switch status {
-        case .notDetermined:
-            manager.requestWhenInUseAuthorization()
-        default:
-            break;
-        }
-    }
 }
