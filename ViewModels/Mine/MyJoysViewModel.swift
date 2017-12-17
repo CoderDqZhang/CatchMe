@@ -12,15 +12,27 @@ import DZNEmptyDataSet
 class MyJoysViewModel: BaseViewModel {
 
     var model = NSMutableArray.init()
+    var shareCodelModel:SessionShareModel!
+    
     override init() {
         super.init()
-        self.requestMyDolls()
     }
     
     //MARK: UITableViewCellSetData
     func tableViewMyJoyTableViewCellSetData(_ indexPath:IndexPath, cell:MyJoyTableViewCell) {
-        cell.cellSetData(model: MyCatchDollsModel.init(fromDictionary: model[indexPath.section] as! NSDictionary) )
-        
+        var isOwne:Bool = false
+        if (self.controller as! MyJoysViewController).userId == nil {
+            isOwne = true
+        }else{
+            if (self.controller as! MyJoysViewController).userId == UserInfoModel.shareInstance().idField {
+                isOwne = true
+            }
+        }
+        cell.cellSetData(model: MyCatchDollsModel.init(fromDictionary: model[indexPath.section] as! NSDictionary), indexPath: indexPath, isOwn:isOwne)
+        cell.shareImage.reactive.controlEvents(.touchUpInside).observe { (result) in
+            let tag = result.value?.tag
+            self.getShareCodeInfo(tag: tag!)
+        }
     }
     
     func tableViewDidSelect(_ indexPath:IndexPath) {
@@ -29,12 +41,42 @@ class MyJoysViewModel: BaseViewModel {
         NavigationPushView(self.controller!, toConroller: toViewController)
     }
     
-    func requestMyDolls(){
-        let parameters = ["userId":UserInfoModel.shareInstance().idField]
+    func requestMyDolls(userId:String){
+        let parameters = ["userId":userId]
         BaseNetWorke.sharedInstance.getUrlWithString(CatchedDolls, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
                 self.model = NSMutableArray.mj_keyValuesArray(withObjectArray: resultDic.value as! [Any])
                 self.controller?.tableView.reloadData()
+            }
+        }
+    }
+    
+    func getShareCodeInfo(tag:Int){
+        let catchModel = MyCatchDollsModel.init(fromDictionary: model[tag] as! NSDictionary)
+        let parameters = ["type":"1","gameId":catchModel.gameId] as [String : Any]
+        BaseNetWorke.sharedInstance.getUrlWithString(Socialsharecard, parameters: parameters as AnyObject).observe { (resultDic) in
+            if !resultDic.isCompleted {
+                self.shareCodelModel = SessionShareModel.init(fromDictionary: resultDic.value as! NSDictionary)
+                self.showShareView()
+            }
+        }
+    }
+    
+    func showShareView(){
+        if self.shareCodelModel != nil {
+            if KWINDOWDS().viewWithTag(120) == nil {
+                KWINDOWDS().addSubview(GloabelShareAndConnectUs.init(type: GloabelShareAndConnectUsType.share, title: "成功活抓！快邀请朋友们来围观吧~", clickClouse: { (type) in
+                    switch type {
+                    case .QQChat:
+                        ShareTools.shareInstance.shareQQSessionWebUrl(self.shareCodelModel.title, webTitle: self.shareCodelModel.descriptionField, imageUrl: self.shareCodelModel.thumbnailAddress, webDescription: "", webUrl: self.shareCodelModel.url)
+                    case .weChatChat:
+                        ShareTools.shareInstance.shareWeChatSession(self.shareCodelModel.title, description: self.shareCodelModel.descriptionField, image: UIImage.getFromURL(self.shareCodelModel.thumbnailAddress), url: self.shareCodelModel.url)
+                    case .weChatSession:
+                        ShareTools.shareInstance.shareWeChatTimeLine(self.shareCodelModel.title, description: self.shareCodelModel.descriptionField, image: UIImage.getFromURL(self.shareCodelModel.thumbnailAddress), url: self.shareCodelModel.url)
+                    default:
+                        break
+                    }
+                }))
             }
         }
     }

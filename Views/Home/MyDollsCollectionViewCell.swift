@@ -62,6 +62,7 @@ class MyDollsCollectionViewCell: UICollectionViewCell {
         
         dollsName = UILabel.init()
         dollsName.text = "布朗熊变身长颈鹿"
+        dollsName.textAlignment = .left
         dollsName.textColor = UIColor.init(hexString: App_Theme_000000_Color)
         dollsName.font = App_Theme_PinFan_M_16_Font
         self.contentView.addSubview(dollsName)
@@ -113,6 +114,7 @@ class MyDollsCollectionViewCell: UICollectionViewCell {
             dollsName.snp.makeConstraints({ (make) in
                 make.bottom.equalTo(self.contentView.snp.bottom).offset(-11)
                 make.left.equalTo(self.contentView.snp.left).offset(15)
+                make.right.equalTo(self.contentView.snp.right).offset(-15)
             })
             
             isHaveDolls.snp.makeConstraints({ (make) in

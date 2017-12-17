@@ -96,6 +96,7 @@ class TopWeeklyModel : NSObject, NSCoding{
 class GameStatistic : NSObject, NSCoding{
     
     var count : Int!
+    var id : Int!
     var name : String!
     var photo : AnyObject!
     var rank : Int!
@@ -105,6 +106,7 @@ class GameStatistic : NSObject, NSCoding{
      */
     init(fromDictionary dictionary: NSDictionary){
         count = dictionary["count"] as? Int
+        id = dictionary["id"] as? Int
         name = dictionary["name"] as? String
         photo = dictionary["photo"] as AnyObject
         rank = dictionary["rank"] as? Int
@@ -118,6 +120,9 @@ class GameStatistic : NSObject, NSCoding{
         let dictionary = NSMutableDictionary()
         if count != nil{
             dictionary["count"] = count
+        }
+        if id != nil{
+            dictionary["id"] = id
         }
         if name != nil{
             dictionary["name"] = name
@@ -138,6 +143,7 @@ class GameStatistic : NSObject, NSCoding{
     @objc required init(coder aDecoder: NSCoder)
     {
         count = aDecoder.decodeObject(forKey: "count") as? Int
+        id = aDecoder.decodeObject(forKey: "id") as? Int
         name = aDecoder.decodeObject(forKey: "name") as? String
         photo = aDecoder.decodeObject(forKey: "photo") as AnyObject
         rank = aDecoder.decodeObject(forKey: "rank") as? Int
@@ -151,6 +157,9 @@ class GameStatistic : NSObject, NSCoding{
     {
         if count != nil{
             aCoder.encode(count, forKey: "count")
+        }
+        if id != nil{
+            aCoder.encode(id, forKey: "id")
         }
         if name != nil{
             aCoder.encode(name, forKey: "name")

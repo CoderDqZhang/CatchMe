@@ -18,6 +18,8 @@ class TopUpViewController: BaseViewController {
     var topUpMuchView:TopUpMuchView!
     var topUpWeekView:TopUpWeekView!
     
+    var scllocView:UIScrollView!
+    
     var isPlayGameView:Bool = false
     
     override func viewDidLoad() {
@@ -38,14 +40,18 @@ class TopUpViewController: BaseViewController {
     }
     
     override func setUpView() {
+        scllocView = UIScrollView.init(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: SCREENHEIGHT))
+        scllocView.contentSize = CGSize.init(width: SCREENWIDTH, height: 667)
+        self.view.addSubview(scllocView)
+        
         balance = UILabel.init()
         let str = UserInfoModel.shareInstance().coinAmount != nil ? UserInfoModel.shareInstance().coinAmount : "0"
         self.setBalanceText(str:str!)
-        self.view.addSubview(balance)
+        scllocView.addSubview(balance)
         GLoabelViewLabel.addLabel(label: balance, view: self.view, isWithNumber: true)
         balance.snp.makeConstraints { (make) in
-            make.centerX.equalTo(self.view.snp.centerX).offset(0)
-            make.top.equalTo(self.view.snp.top).offset(23)
+            make.centerX.equalTo(scllocView.snp.centerX).offset(0)
+            make.top.equalTo(scllocView.snp.top).offset(23)
         }
         LoginViewModel.shareInstance.getUserInfoCoins { (userInfo) in
             self.setBalanceText(str: userInfo.coinAmount)
@@ -64,7 +70,7 @@ class TopUpViewController: BaseViewController {
     
     func setUpPayButton(){
         let payView = UIView.init(frame: CGRect.init(x: 0, y: 448, width: SCREENWIDTH, height: SCREENHEIGHT - 382))
-        self.view.addSubview(payView)
+        scllocView.addSubview(payView)
         if WXApi.isWXAppInstalled() {
             let weChatPayView = AnimationTouchView.init(frame: CGRect.zero) {
                 (self.viewModel as! TopUpViewModel).wxPay()
@@ -147,7 +153,7 @@ class TopUpViewController: BaseViewController {
             (self.viewModel as! TopUpViewModel).topUpMuch = tag
             self.topUpWeekView.changeWeekViewType()
         }
-        self.view.addSubview(topUpMuchView)
+        scllocView.addSubview(topUpMuchView)
     }
     
     func setUpWeekView(){
@@ -157,11 +163,12 @@ class TopUpViewController: BaseViewController {
             (self.viewModel as! TopUpViewModel).topUpMuch = tag
             self.topUpMuchView.changeAllTag()
         }
-        self.view.addSubview(topUpWeekView)
+        scllocView.addSubview(topUpWeekView)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        UIApplication.shared.setStatusBarStyle(.lightContent, animated: false)
         self.navigationController?.fd_prefersNavigationBarHidden = false
         self.navigationController?.setNavigationBarHidden(false, animated: true)
     }

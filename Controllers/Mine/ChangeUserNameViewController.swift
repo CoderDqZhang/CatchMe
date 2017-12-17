@@ -8,14 +8,25 @@
 
 import UIKit
 
+typealias ChangeUserNameViewControllerClouse = () -> Void
 class ChangeUserNameViewController: BaseViewController {
 
+    var changeUserNameViewControllerClouse:ChangeUserNameViewControllerClouse!
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.bindViewModel(viewModel: ChangeUserNameViewModel(), controller: self)
+        self.setUpTableView(style: .grouped, cells: [UserNameChangeTableViewCell.self], controller: self)
         // Do any additional setup after loading the view.
     }
 
+    override func backBtnPress(_ sender: UIButton) {
+        self.navigationController?.popViewController({
+            if self.changeUserNameViewControllerClouse != nil {
+                self.changeUserNameViewControllerClouse()
+            }
+        })
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

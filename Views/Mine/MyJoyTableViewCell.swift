@@ -17,6 +17,7 @@ class MyJoyTableViewCell: UITableViewCell {
     var dollsDesc:UILabel!
     var cacheTime:UILabel!
     var dollsStatus:UIImageView!
+    var shareImage:AnimationButton!
     
     var didMakeConstraints = false
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
@@ -34,6 +35,11 @@ class MyJoyTableViewCell: UITableViewCell {
         
         dollsImage = UIImageView.init()
         dollsView.addSubview(dollsImage)
+        
+        shareImage = AnimationButton.init(type: .custom)
+        shareImage.setImage(UIImage.init(named: "share_default"), for: .normal)
+        shareImage.setImage(UIImage.init(named: "share"), for: .selected)
+        dollsView.addSubview(shareImage)
         
         dollsName = UILabel.init()
         dollsName.text = "布朗熊变声长颈鹿"
@@ -66,15 +72,24 @@ class MyJoyTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func cellSetData(model:MyCatchDollsModel){
+    func cellSetData(model:MyCatchDollsModel, indexPath:IndexPath, isOwn:Bool){
+        
+        
+        shareImage.tag = indexPath.section
         cacheTime.text = "\(Date.init(unixTimestamp: Double(model.time / 1000)).dateString())"
         dollsName.text = model.name
-        
         UIImageViewManger.sd_imageView(url: model.images[0], imageView: dollsImage, placeholderImage: nil) { (image, error, cacheType, url) in
 
         }
         if model.deliveryStatus != 0 {
             dollsStatus.image = model.deliveryStatus == 1 ? UIImage.init(named: "tag_待发货") : model.deliveryStatus == 2 ? UIImage.init(named: "tag_已发货") : UIImage.init(named: "tag_已收货")
+        }
+        if !isOwn {
+            dollsStatus.isHidden = true
+            shareImage.isHidden = true
+        }else{
+            dollsStatus.isHidden = false
+            shareImage.isHidden = false
         }
     }
     
@@ -112,6 +127,12 @@ class MyJoyTableViewCell: UITableViewCell {
             dollsStatus.snp.makeConstraints({ (make) in
                 make.top.equalTo(dollsView.snp.top).offset(15)
                 make.right.equalTo(dollsView.snp.right).offset(0)
+            })
+            
+            shareImage.snp.makeConstraints({ (make) in
+                make.right.equalTo(dollsView.snp.right).offset(-10)
+                make.bottom.equalTo(dollsView.snp.bottom).offset(-15)
+                make.size.equalTo(CGSize.init(width: 40, height: 40))
             })
             
             didMakeConstraints = true

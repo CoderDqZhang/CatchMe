@@ -57,7 +57,11 @@ class MineViewModel: BaseViewModel {
     func tableViewDidSelect(_ indexPath:IndexPath) {
         if indexPath.row == 0 {
             if UserInfoModel.isLoggedIn() {
-                NavigationPushView(self.controller!, toConroller: ProfileViewController())
+                let controllerVC = ProfileViewController()
+                controllerVC.profileViewControllerClouse = {
+                    self.controller?.tableView.reloadData()
+                }
+                NavigationPushView(self.controller!, toConroller: controllerVC)
             }else{
                 NavigaiontPresentView(self.controller!, toController: UINavigationController.init(rootViewController: LoginTypeViewController()))
             }

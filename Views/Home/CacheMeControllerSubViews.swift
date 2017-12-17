@@ -395,6 +395,7 @@ class QuictEnterLocalPreView: UIView {
     var label:UILabel!
     var backGroundImage:UIImageView!
     var imageView:UIImageView!
+    var backButton:UIButton!
     
     init(frame: CGRect,image:UIImage) {
         super.init(frame: frame)
@@ -415,18 +416,22 @@ class QuictEnterLocalPreView: UIView {
         imageView = UIImageView.init()
         let image = UIImage.init(named: "pic_animation")
         imageView.image = image
+        imageView.alpha = 1
         self.addSubview(imageView)
-        imageView.snp.makeConstraints { (make) in
-            make.bottom.equalTo(self.snp.bottom).offset(140)
-            make.centerX.equalTo(self.snp.centerX).offset(0)
-        }
+        self.imageView.frame = CGRect.init(x: (SCREENWIDTH - (image?.size.width)!)/2, y: SCREENHEIGHT, width: (image?.size.width)!, height: (image?.size.height)!)
         
         UIView.animate(withDuration: 0.3, animations: {
             self.backGroundImage.alpha = 1
         }) { (ret) in
             
         }
-        imageView.layer.add(AnimationTools.shareInstance.setUpAnimation(SCREENHEIGHT - (image?.size.height)! / 2, velocity: 1.0), forKey: "imageViewAnimation")
+//        UIView.animate(withDuration: 0.3, animations: {
+//            self.imageView.frame = CGRect.init(x: (SCREENWIDTH - (image?.size.width)!)/2, y: SCREENHEIGHT - (image?.size.height)!, width: (image?.size.width)!, height: (image?.size.height)!)
+//        }) { (ret) in
+//
+//        }
+        imageView.layer.add(self.setUpAnimation(SCREENHEIGHT - (image?.size.height)! / 2 + 7, velocity: 60.0, finish: { _ in
+        }), forKey: "imageViewAnimation")
         
         label = UILabel.init()
         label.frame = CGRect.init(x: 0, y: SCREENHEIGHT/2, width: SCREENWIDTH, height: 22)
@@ -437,12 +442,46 @@ class QuictEnterLocalPreView: UIView {
         self.addSubview(label)
         
         _ = Timer.after(3, {
-            UIView.animate(withDuration: 0.3, animations: {
-                self.backGroundImage.alpha = 1
-            }) { (ret) in
-                self.removeFromSuperview()
-            }
+            self.removeSelf()
         })
+        
+        backButton = UIButton.init(type: .custom)
+        backButton.setImage(UIImage.init(named: "back_bar_black"), for: .normal)
+        backButton.reactive.controlEvents(.touchUpInside).observe { (action) in
+            self.removeSelf()
+        }
+        self.addSubview(backButton)
+        
+        backButton.snp.makeConstraints { (make) in
+            make.top.equalTo(self.snp.top).offset(20)
+            make.left.equalTo(self.snp.left).offset(6)
+            make.size.equalTo(CGSize.init(width: 40, height: 40))
+        }
+    }
+    
+    func setUpAnimation(_ float:CGFloat, velocity:CGFloat, finish:@escaping AnimationFinishClouse) ->CASpringAnimation{
+        let ani = CASpringAnimation.init(keyPath: "position.y")
+        ani.mass = 1.0; //质量，影响图层运动时的弹簧惯性，质量越大，弹簧拉伸和压缩的幅度越大
+        ani.stiffness = 1000; //刚度系数(劲度系数/弹性系数)，刚度系数越大，形变产生的力就越大，运动越快
+        ani.damping = 80.0;//阻尼系数，阻止弹簧伸缩的系数，阻尼系数越大，停止越快
+        ani.initialVelocity = velocity;//初始速率，动画视图的初始速度大小;速率为正数时，速度方向与运动方向一致，速率为负数时，速度方向与运动方向相反
+        ani.duration = ani.settlingDuration;
+        ani.toValue = float
+        ani.isRemovedOnCompletion = false
+        ani.fillMode = kCAFillModeForwards;
+        ani.timingFunction = CAMediaTimingFunction.init(name: kCAMediaTimingFunctionEaseInEaseOut)
+        _ = Timer.after(ani.settlingDuration, {
+            finish(true)
+        })
+        return ani
+    }
+    
+    func removeSelf(){
+        UIView.animate(withDuration: 0.3, animations: {
+            self.backGroundImage.alpha = 1
+        }) { (ret) in
+            self.removeFromSuperview()
+        }
     }
     
     func changeLabelText(str:String){
@@ -635,6 +674,7 @@ enum GameToolsViewPlayType {
     case isPlaying
 }
 
+let LeftMergern:CGFloat = IPHONE5 ? 30 : 0
 
 class GameToolsView : UIView {
     var leftBtn:AnimationButton!
@@ -657,16 +697,19 @@ class GameToolsView : UIView {
         
         self.addSubview(gameView)
         
-        topBtn = AnimationButton.init(frame: CGRect.init(x: 108, y: 0, width: gameBtnWidht, height: gameBtnHeight))
+        topBtn = AnimationButton.init(frame: CGRect.init(x: 108 - LeftMergern, y: 0, width: gameBtnWidht, height: gameBtnHeight))
         topBtn.setImage(UIImage.init(named: "up"), for: .normal)
+        topBtn.setImage(UIImage.init(named: "up"), for: .highlighted)
+
         self.setUpButtonTheme(button: topBtn)
         topBtn.reactive.controlEvents(.touchUpInside).observe { (action) in
             gameToolsViewClouse(.moveTop)
         }
         gameView.addSubview(topBtn)
         
-        leftBtn = AnimationButton.init(frame: CGRect.init(x: 55, y: 29, width: gameBtnWidht, height: gameBtnHeight))
+        leftBtn = AnimationButton.init(frame: CGRect.init(x: 55 - LeftMergern, y: 29, width: gameBtnWidht, height: gameBtnHeight))
         leftBtn.setImage(UIImage.init(named: "left"), for: .normal)
+        leftBtn.setImage(UIImage.init(named: "left"), for: .highlighted)
         self.setUpButtonTheme(button: leftBtn)
         leftBtn.reactive.controlEvents(.touchUpInside).observe { (action) in
             gameToolsViewClouse(.moveLeft)
@@ -674,28 +717,31 @@ class GameToolsView : UIView {
         gameView.addSubview(leftBtn)
         
         
-        bottomBtn = AnimationButton.init(frame: CGRect.init(x: 108, y: 57, width: gameBtnWidht, height: gameBtnHeight))
+        bottomBtn = AnimationButton.init(frame: CGRect.init(x: 108 - LeftMergern, y: 57, width: gameBtnWidht, height: gameBtnHeight))
         self.setUpButtonTheme(button: bottomBtn)
         bottomBtn.setImage(UIImage.init(named: "down"), for: .normal)
+        bottomBtn.setImage(UIImage.init(named: "down"), for: .highlighted)
         bottomBtn.reactive.controlEvents(.touchUpInside).observe { (action) in
             gameToolsViewClouse(.moveDown)
         }
         gameView.addSubview(bottomBtn)
         
-        rightBtn = AnimationButton.init(frame: CGRect.init(x: 161, y: 29, width: gameBtnWidht, height: gameBtnHeight))
+        rightBtn = AnimationButton.init(frame: CGRect.init(x: 161 - LeftMergern, y: 29, width: gameBtnWidht, height: gameBtnHeight))
         self.setUpButtonTheme(button: rightBtn)
         rightBtn.setImage(UIImage.init(named: "right"), for: .normal)
+        rightBtn.setImage(UIImage.init(named: "right"), for: .highlighted)
         rightBtn.reactive.controlEvents(.touchUpInside).observe { (action) in
             gameToolsViewClouse(.moveRight)
         }
         gameView.addSubview(rightBtn)
         
         let image = UIImage.init(named: "go")
-        goBtn = AnimationButton.init(frame: CGRect.init(x: SCREENWIDTH - 55 - (image?.size.width)!, y: 10, width: (image?.size.width)!, height: (image?.size.height)!))
+        goBtn = AnimationButton.init(frame: CGRect.init(x: SCREENWIDTH - 55 - (image?.size.width)! + LeftMergern, y: 10, width: (image?.size.width)!, height: (image?.size.height)!))
         goBtn.backgroundColor = UIColor.clear
         goBtn.titleLabel?.textAlignment = .center
         goBtn.layer.masksToBounds = true
         goBtn.setImage(image, for: .normal)
+        goBtn.setImage(image, for: .highlighted)
         goBtn.reactive.controlEvents(.touchUpInside).observe { (action) in
             gameToolsViewClouse(.moveGO)
         }
@@ -750,7 +796,6 @@ class GameTipView : UIView {
     var tipLabel:UILabel!
     var tipLabelBg:UIImageView!
     
-    var time:Timer!
     init(frame: CGRect, tipStr:String) {
         super.init(frame: frame)
         
@@ -786,10 +831,12 @@ class GameTipView : UIView {
             make.right.equalTo(self.snp.right).offset(-10)
             make.bottom.equalTo(self.snp.bottom).offset(-16)
         }
+        _ = Timer.after(5, {
+            self.tipLabel.text = TipString1
+        })
         
-        time = Timer.after(5, {
+        _ = Timer.after(10, {
             self.removeFromSuperview()
-            self.time.invalidate()
         })
     }
     

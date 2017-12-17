@@ -18,7 +18,7 @@ class InPurchaseViewController: BaseViewController {
     var otherBalance:UILabel!
     var line:GloabLineView!
     var topUpMuchView:TopUpMuchView!
-    var productI:Int = 100
+    var productI:Int = 1
     var coinAmount:Int = 0
     var loadingView:MBProgressHUD!
     
@@ -51,12 +51,14 @@ class InPurchaseViewController: BaseViewController {
     }
     
     func updateBalance(text:String){
-        let strArray = balance.text?.components(separatedBy: " ")
-        let attributedString = NSMutableAttributedString.init(string: balance.text!)
-        attributedString.addAttributes([NSAttributedStringKey.font:App_Theme_PinFan_R_14_Font!,NSAttributedStringKey.foregroundColor:UIColor.init(hexString: App_Theme_333333_Color)!], range: NSRange.init(location: 0, length: strArray![0].count))
-        attributedString.addAttributes([NSAttributedStringKey.font:App_Theme_PinFan_R_14_Font!,NSAttributedStringKey.foregroundColor:UIColor.init(hexString: App_Theme_333333_Color)!], range: NSRange.init(location: (balance.text?.length)! - 1, length: 1))
-        attributedString.addAttributes([NSAttributedStringKey.font:App_Theme_PinFan_M_24_Font!,NSAttributedStringKey.foregroundColor:UIColor.init(hexString: App_Theme_FC4652_Color)!], range: NSRange.init(location: strArray![0].count + 1, length: strArray![1].count))
-        balance.attributedText = attributedString
+        balance.text? = text
+//        let strArray = balance.text?.components(separatedBy: " ")
+//        let attributedString = NSMutableAttributedString.init(string: balance.text!)
+//        attributedString.addAttributes([NSAttributedStringKey.font:App_Theme_PinFan_R_14_Font!,NSAttributedStringKey.foregroundColor:UIColor.init(hexString: App_Theme_333333_Color)!], range: NSRange.init(location: 0, length: strArray![0].count))
+//        attributedString.addAttributes([NSAttributedStringKey.font:App_Theme_PinFan_R_14_Font!,NSAttributedStringKey.foregroundColor:UIColor.init(hexString: App_Theme_333333_Color)!], range: NSRange.init(location: (balance.text?.length)! - 1, length: 1))
+//        attributedString.addAttributes([NSAttributedStringKey.font:App_Theme_PinFan_M_24_Font!,NSAttributedStringKey.foregroundColor:UIColor.init(hexString: App_Theme_FC4652_Color)!], range: NSRange.init(location: strArray![0].count + 1, length: strArray![1].count))
+//        balance.attributedText = attributedString
+//        self.view.updateConstraintsIfNeeded()
     }
     
     func setUpTopView(){
@@ -69,7 +71,7 @@ class InPurchaseViewController: BaseViewController {
     
     func createTopUpModel() ->NSMutableArray{
         let models = NSMutableArray.init()
-        let coins = [100,300,400,800,1500,3000]
+        let coins = [100,200,300,500,1200,2000]
         let rechargeMoney:[Float] = [6.00,12.00,18.00,30.00,60.00,98.00]
         for i in 0...5 {
             let model = RechargeRateRuleDTOList.init()
@@ -115,6 +117,7 @@ class InPurchaseViewController: BaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        UIApplication.shared.setStatusBarStyle(.lightContent, animated: false)
         self.navigationController?.fd_prefersNavigationBarHidden = false
         self.navigationController?.setNavigationBarHidden(false, animated: true)
     }
@@ -209,8 +212,11 @@ extension InPurchaseViewController : SKPaymentTransactionObserver {
             switch trannsaction.transactionState {
             case .purchased:
                 print("支付完成")
-                let str = self.coinAmount + self.productI == 1 ? 100 : self.productI == 2 ? 300 : self.productI == 3 ? 400 : self.productI == 4 ? 800 : self.productI == 5 ? 1500 : 3000
+                let str = self.coinAmount + (self.productI == 1 ? 100 : self.productI == 2 ? 200 : self.productI == 3 ? 300 : self.productI == 4 ? 500 : self.productI == 5 ? 1200 : 2000)
+                self.coinAmount = str
                 self.updateBalance(text: "账户余额 \(str) 币")
+                UserInfoModel.shareInstance().coinAmount = "\(str)"
+                UserInfoModel.shareInstance().saveOrUpdate(byColumnName: "neteaseAccountId", andColumnValue: "'\(UserInfoModel.shareInstance().neteaseAccountId!)'")
                 self.completeTransaction(transaction: trannsaction)
             case .failed:
                 print("支付失败")

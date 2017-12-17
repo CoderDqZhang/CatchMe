@@ -10,11 +10,13 @@ import UIKit
 
 class MyJoysViewController: BaseViewController {
 
+    var userId:String!
     override func viewDidLoad() {
         super.viewDidLoad()
         self.bindViewModel(viewModel: MyJoysViewModel(), controller: self)
         self.setUpTableView(style: .grouped, cells: [MyJoyTableViewCell.self], controller: self)
         self.setDZNEmptyData()
+        self.bindLogicViewModel()
         // Do any additional setup after loading the view.
     }
 
@@ -25,13 +27,31 @@ class MyJoysViewController: BaseViewController {
     
     override func setUpViewNavigationItem() {
         self.navigationItem.title = "抓到的娃娃"
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: "申请发货", style: .plain, target: self, action: #selector(self.rightBarButtonPress))
+        if userId == nil {
+            self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: "申请发货", style: .plain, target: self, action: #selector(self.rightBarButtonPress))
+        }
     }
 
+    override func backBtnPress(_ sender: UIButton) {
+        self.navigationController?.popViewController()
+        if KWINDOWDS().viewWithTag(120) != nil {
+            (KWINDOWDS().viewWithTag(120) as! GloabelShareAndConnectUs).removeSelf()
+        }
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.navigationController?.fd_fullscreenPopGestureRecognizer.isEnabled = false
         self.navigationController?.fd_prefersNavigationBarHidden = false
         self.navigationController?.setNavigationBarHidden(false, animated: true)
+    }
+    
+    func bindLogicViewModel(){
+        if userId == nil {
+            (self.viewModel as! MyJoysViewModel).requestMyDolls(userId: UserInfoModel.shareInstance().idField)
+        }else{
+            (self.viewModel as! MyJoysViewModel).requestMyDolls(userId: userId)
+        }
     }
     
     @objc func rightBarButtonPress(){
@@ -43,6 +63,10 @@ class MyJoysViewController: BaseViewController {
             }
         }
         toControllerVC.models = models
+        
+        toControllerVC.senderJoysViewControllerClouse = {
+            (self.viewModel as! MyJoysViewModel).requestMyDolls(userId: UserInfoModel.shareInstance().idField)
+        }
         NavigationPushView(self, toConroller: toControllerVC)
     }
     /*

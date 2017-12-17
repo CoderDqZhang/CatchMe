@@ -69,6 +69,7 @@ class AnimationTouchView: UIView {
 class AnimationButton: UIButton {
     override init(frame: CGRect) {
         super.init(frame: frame)
+        self.adjustsImageWhenDisabled = false
         self.addTarget(self, action: #selector(self.scaleToSmall), for: [.touchDown, .touchDragEnter])
         self.addTarget(self, action: #selector(self.scalAnimation), for: .touchUpInside)
         self.addTarget(self, action: #selector(self.scleToDefault), for: .touchDragExit)
@@ -82,7 +83,7 @@ class AnimationButton: UIButton {
         self.next?.becomeFirstResponder()
         let scaleAnimation = POPBasicAnimation.init(propertyNamed: kPOPLayerScaleXY)
         scaleAnimation?.toValue = NSValue.init(cgSize: CGSize.init(width: 0.90, height: 0.90))
-        scaleAnimation?.duration = 0.1
+        scaleAnimation?.duration = 0.00001
         self.layer.pop_add(scaleAnimation, forKey: "layerScaleSmallAnimation")
     }
     
@@ -92,7 +93,7 @@ class AnimationButton: UIButton {
         scaleAnimation?.velocity = NSValue.init(cgSize: CGSize.init(width: 3, height: 3))
         scaleAnimation?.toValue = NSValue.init(cgSize: CGSize.init(width: 1, height: 1))
         scaleAnimation?.springBounciness = 18
-        scaleAnimation?.springSpeed = 20
+        scaleAnimation?.springSpeed = 200
         self.layer.pop_add(scaleAnimation, forKey: "layerScaleSpringAnimation")
     }
     
@@ -100,7 +101,7 @@ class AnimationButton: UIButton {
         self.next?.becomeFirstResponder()
         let scaleAnimation = POPBasicAnimation.init(propertyNamed: kPOPLayerScaleXY)
         scaleAnimation?.toValue = NSValue.init(cgSize: CGSize.init(width: 1, height: 1))
-        scaleAnimation?.duration = 0.1
+        scaleAnimation?.duration = 0.00001
         self.layer.pop_add(scaleAnimation, forKey: "layerScaleDefaultAnimation")
     }
 }

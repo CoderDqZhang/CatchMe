@@ -8,11 +8,13 @@
 
 import UIKit
 
+typealias SenderJoysViewControllerClouse = () ->Void
+
 class SenderJoysViewController: BaseViewController {
 
     var bottomView:UIView!
     var models:NSMutableArray!
-    
+    var senderJoysViewControllerClouse:SenderJoysViewControllerClouse!
     override func viewDidLoad() {
         super.viewDidLoad()
         self.bindViewModel(viewModel: SenderJoysViewModel(), controller: self)

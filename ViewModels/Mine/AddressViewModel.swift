@@ -51,14 +51,27 @@ class AddressViewModel: BaseViewModel {
         if (self.controller as! AddressViewController).addressSaveSuccessClouse != nil {
             (self.controller as! AddressViewController).addressSaveSuccessClouse(model)
         }
-        let parameters = ["userId":UserInfoModel.shareInstance().idField,
+        let url = isUpdataAddress ? AddressUpdate : AddressUrl
+        let parameters:[String:Any]?
+        if isUpdataAddress {
+            parameters = ["id":self.model.idField,
+                          "userId":UserInfoModel.shareInstance().idField,
                           "consignee":self.model.consignee,
                           "telephone":self.model.telephone,
                           "province":self.model.province,
                           "city":self.model.city,
                           "county":self.model.county,
                           "address":self.model.address] as [String : Any]
-        BaseNetWorke.sharedInstance.postUrlWithString(isUpdataAddress ? AddressUpdate : AddressUrl, parameters: parameters as AnyObject).observe { (resultDic) in
+        }else{
+            parameters = ["userId":UserInfoModel.shareInstance().idField,
+                          "consignee":self.model.consignee,
+                          "telephone":self.model.telephone,
+                          "province":self.model.province,
+                          "city":self.model.city,
+                          "county":self.model.county,
+                          "address":self.model.address] as [String : Any]
+        }
+        BaseNetWorke.sharedInstance.postUrlWithString(url, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
                 self.model.save()
                 self.controller?.navigationController?.popViewController({
@@ -167,6 +180,9 @@ extension AddressViewModel: UITableViewDataSource {
         case 0,1:
             let cell = tableView.dequeueReusableCell(withIdentifier: GloableTitleLabelTextFieldCell.description(), for: indexPath)
             self.tableViewGloableTitleLabelTextFieldCellSetData(indexPath, cell: cell as! GloableTitleLabelTextFieldCell)
+            if indexPath.row == 1 {
+                (cell as! GloableTitleLabelTextFieldCell).textField.keyboardType = .numberPad
+            }
             cell.selectionStyle = .none
             return cell
         case 2:

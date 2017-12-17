@@ -192,14 +192,16 @@ enum ClickType {
 
 typealias GloabelImageAndLabelClouse = () ->Void
 
-class GloabelImageAndLabel:UIView {
+class GloabelImageAndLabel : AnimationTouchView {
     
     var imageView:UIImageView!
     var titleLabel:UILabel!
     var gloabelImageAndLabelClouse:GloabelImageAndLabelClouse!
     
     init(frame: CGRect,title:String, image:UIImage,clouse:@escaping GloabelImageAndLabelClouse) {
-        super.init(frame: frame)
+        super.init(frame: frame) {
+            clouse()
+        }
         imageView = UIImageView.init(frame: CGRect.init(x: 0, y: 0, width: 60, height: 60))
         imageView.image = image
         self.gloabelImageAndLabelClouse = clouse
@@ -211,15 +213,6 @@ class GloabelImageAndLabel:UIView {
         titleLabel.font = App_Theme_PinFan_R_14_Font
         titleLabel.textColor = UIColor.init(hexString: App_Theme_444444_Color)
         self.addSubview(titleLabel)
-        
-        let sigleTap = UITapGestureRecognizer.init(target: self, action: #selector(self.sigleTapPress))
-        sigleTap.numberOfTapsRequired = 1
-        sigleTap.numberOfTouchesRequired = 1
-        self.addGestureRecognizer(sigleTap)
-    }
-    
-    @objc func sigleTapPress(){
-        self.gloabelImageAndLabelClouse()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -251,6 +244,7 @@ class GloabelShareAndConnectUs: UIView {
         AnimationTools.shareInstance.moveAnimation(view: self, frame: CGRect.init(x: 0, y: SCREENHEIGHT - 250, width: SCREENWIDTH, height: 250), finishClouse: { ret in
             
         })
+        self.tag = 120
         self.gloabelShareAndConnectUsClouse = clickClouse
         backGroundImage = UIImageView.init(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: 250))
         backGroundImage.image = UIImage.init(color: UIColor.init(hexString: App_Theme_FFFFFF_Color, andAlpha: 0.75), size: CGSize.init(width: SCREENWIDTH, height: 250))
@@ -298,19 +292,27 @@ class GloabelShareAndConnectUs: UIView {
     func removeSelf(){
         if weChat != nil {
             weChat.frame = CGRect.init(x: weChat.frame.origin.x, y: 0, width: 60, height: 88)
-            weChat.layer.add(AnimationTools.shareInstance.setUpAnimation(244, velocity: 7.0), forKey: "weChat")
+            weChat.layer.add(AnimationTools.shareInstance.setUpAnimation(244, velocity: 7.0, finish: {_ in
+                
+            }), forKey: "weChat")
         }
         if weChatSession != nil {
             weChatSession.frame = CGRect.init(x: weChatSession.frame.origin.x, y: 0, width: 60, height: 88)
-            weChatSession.layer.add(AnimationTools.shareInstance.setUpAnimation(244, velocity: 7.0), forKey: "weChat")
+            weChatSession.layer.add(AnimationTools.shareInstance.setUpAnimation(244, velocity: 7.0, finish: {_ in
+                
+            }), forKey: "weChat")
         }
         if qq != nil {
             qq.frame = CGRect.init(x: qq.frame.origin.x, y: 0, width: 60, height: 88)
-            qq.layer.add(AnimationTools.shareInstance.setUpAnimation(244, velocity: 7.0), forKey: "weChat")
+            qq.layer.add(AnimationTools.shareInstance.setUpAnimation(244, velocity: 7.0, finish: {_ in
+                
+            }), forKey: "weChat")
         }
         
         self.frame = CGRect.init(x: 0, y: SCREENHEIGHT - 250, width: SCREENWIDTH, height: 250)
-        self.layer.add(AnimationTools.shareInstance.setUpAnimation(SCREENHEIGHT + 250, velocity: 1.0), forKey: "AnimationTools")
+        self.layer.add(AnimationTools.shareInstance.setUpAnimation(SCREENHEIGHT + 250, velocity: 1.0, finish: {_ in
+            
+        }), forKey: "AnimationTools")
         _ = Timer.after(1, {
             self.removeFromSuperview()
         })
@@ -324,33 +326,47 @@ class GloabelShareAndConnectUs: UIView {
                 self.gloabelShareAndConnectUsClouse(.weChatChat)
                 self.removeSelf()
             }
-            weChat.layer.add(AnimationTools.shareInstance.setUpAnimation(44, velocity: 8.0), forKey: "weChat")
+            _ = Timer.after(0.8, {
+                self.weChat.frame = CGRect.init(x: self.weChat.frame.origin.x, y: 0, width: 60, height: 88)
+            })
+            weChat.layer.add(AnimationTools.shareInstance.setUpAnimation(44, velocity: 8.0, finish: {_ in
+            }), forKey: "weChat")
             maxX = weChat.frame.maxX + 45
             detailView.addSubview(weChat)
             
-            weChat.frame = CGRect.init(x: weChat.frame.origin.x, y: 0, width: 60, height: 88)
             
             weChatSession = GloabelImageAndLabel.init(frame: CGRect.init(x: maxX, y: 90, width: 60, height: 88), title: "朋友圈", image: UIImage.init(named: "friends")!){
                 self.gloabelShareAndConnectUsClouse(.weChatSession)
                 self.removeSelf()
             }
-            weChatSession.layer.add(AnimationTools.shareInstance.setUpAnimation(44, velocity: 6.0), forKey: "weChatSession")
+            _ = Timer.after(0.8, {
+                self.weChatSession.frame = CGRect.init(x: self.weChatSession.frame.origin.x, y: 0, width: 60, height: 88)
+            })
+            weChatSession.layer.add(AnimationTools.shareInstance.setUpAnimation(44, velocity: 6.0, finish: {_ in
+
+            }), forKey: "weChatSession")
             maxX = weChatSession.frame.maxX + 45
             detailView.addSubview(weChatSession)
             
-            weChatSession.frame = CGRect.init(x: weChatSession.frame.origin.x, y: 0, width: 60, height: 88)
         }
         
         if isHaveQQ {
+            
             qq = GloabelImageAndLabel.init(frame: CGRect.init(x: maxX, y: 90, width: 60, height: 88), title: "QQ", image: UIImage.init(named: "QQ")!){
                 self.gloabelShareAndConnectUsClouse(.QQChat)
                 self.removeSelf()
             }
-            qq.layer.add(AnimationTools.shareInstance.setUpAnimation(44, velocity: 2.0), forKey: "qq")
+            
+            _ = Timer.after(0.8, {
+                self.qq.frame = CGRect.init(x: self.qq.frame.origin.x, y: 0, width: 60, height: 88)
+            })
+            
+            qq.layer.add(AnimationTools.shareInstance.setUpAnimation(44, velocity: 2.0, finish: {_ in
+
+            }), forKey: "qq")
             maxX = qq.frame.maxX + 45
             detailView.addSubview(qq)
             
-            qq.frame = CGRect.init(x: qq.frame.origin.x, y: 0, width: 60, height: 88)
         }
         detailView.frame = CGRect.init(x: (SCREENWIDTH - maxX + 45)/2, y: 74, width: maxX - 45, height: 88)
         self.addSubview(detailView)
@@ -676,7 +692,7 @@ class GLoabelNavigaitonBar:UIView {
     init(frame: CGRect, click:@escaping BackButtonClouse) {
         super.init(frame:frame)
         title = UILabel.init()
-        title.text = "大神榜"
+        title.text = "七日大神榜"
         title.font = App_Theme_PinFan_R_17_Font
         title.textColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
         self.addSubview(title)

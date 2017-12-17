@@ -47,6 +47,15 @@ class CacheMeViewController: BaseViewController {
     
     var numberCatch:Int = 0
     
+    var nElivePlayLoadFailATime:Timer!
+    var nElivePlayLoadFailBTime:Timer!
+    
+    var isHaveLiverAData:Bool = false
+    var isHaveLiverBData:Bool = false
+    
+    var numberACount:Int = 0
+    var numberBCount:Int = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.init(hexString: App_Theme_FC4652_Color)
@@ -149,7 +158,25 @@ class CacheMeViewController: BaseViewController {
             nELivePlayerLoadFailView = NELivePlayerLoadFailView.init(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: SCREENHEIGHT))
             nELivePlayerLoadFailView.nELivePlayerLoadFailViewClouse = {
                 self.nELivePlayerLoadFailView.isHidden = true
-                self.cacheMeViewModel.setUpStreamData()
+                self.numberACount = 0
+                self.numberBCount = 0
+                self.localPreView.isHidden = false
+                if self.liveplayerA.view.isHidden {
+                    if self.liveplayerB.isPlaying() {
+                        self.localPreView.isHidden = true
+                        self.nElivePlayLoadFailBTime.invalidate()
+                    }else{
+                        self.localPreView.isHidden = false
+                    }
+                }else if self.liveplayerB.view.isHidden {
+                    if self.liveplayerA.isPlaying() {
+                        self.localPreView.isHidden = true
+                        self.nElivePlayLoadFailATime.invalidate()
+                    }else{
+                        self.localPreView.isHidden = false
+
+                    }
+                }
             }
             nELivePlayerLoadFailView.layer.cornerRadius = 10
             nELivePlayerLoadFailView.layer.masksToBounds = true
@@ -160,8 +187,10 @@ class CacheMeViewController: BaseViewController {
                 make.bottom.equalTo(self.view.snp.bottom).offset(-122)
                 make.size.equalTo(CGSize.init(width: (SCREENHEIGHT - 122 - 64) * 3 / 4 - 10, height: SCREENHEIGHT - 122 - 64))
             })
+            self.view.bringSubview(toFront: self.switchCamera)
         }else{
             self.view.bringSubview(toFront: self.nELivePlayerLoadFailView)
+            self.view.bringSubview(toFront: self.switchCamera)
             self.nELivePlayerLoadFailView.isHidden = false
         }
     }
@@ -185,17 +214,28 @@ class CacheMeViewController: BaseViewController {
             make.centerX.equalTo(self.view.snp.centerX).offset(0)
             make.top.equalTo(self.view.snp.top).offset(64)
             make.bottom.equalTo(self.view.snp.bottom).offset(-122)
-            make.size.equalTo(CGSize.init(width: (SCREENHEIGHT - 122 - 64) * 3 / 4, height: SCREENHEIGHT - 122 - 64))
+            make.size.equalTo(CGSize.init(width: (SCREENHEIGHT - 122 - 64) * 3 / 4 - 10, height: SCREENHEIGHT - 122 - 64))
         }
         NELivePlayerController.setLogLevel(NELPLogLevel.LOG_VERBOSE)
         do {
             try self.liveplayerA = NELivePlayerController.init(contentURL: URL.init(string: url[0]))
             self.setUpPlayerB(url: url[1])
+            self.liveplayerA.setPlaybackTimeout(30000)
             self.configLiveLayer(liveplayer: self.liveplayerA)
             
             self.setUpPlayUserView()
             self.setUpCameraView()
             self.view.bringSubview(toFront: cacheMeTopView)
+            
+            if nElivePlayLoadFailATime == nil {
+                nElivePlayLoadFailATime = Timer.every(1, {
+                    self.numberACount = self.numberACount + 1
+                    //点对点连接成功后3秒获取拉流失败提示禁止
+                    if self.remoteGLView.isHidden {
+                        self.isHaveAStreamData(waitingTime: self.numberACount)
+                    }
+                })
+            }
             //拉流地址设置成功后执行拉流的一些界面创建
             //根据通知的状态来隐藏和显示视图
             
@@ -206,16 +246,62 @@ class CacheMeViewController: BaseViewController {
         }
     }
     
+    func isHaveAStreamData(waitingTime:Int){
+        if self.liveplayerA != nil && !self.liveplayerA.view.isHidden {
+            if isHaveLiverAData {
+                self.nElivePlayLoadFailATime.invalidate()
+                self.setUpSwiperGesture(view: self.liveplayerA.view)
+                if self.localPreView != nil{
+                    self.localPreView.isHidden = true
+                    self.setUpGameTipView()
+                }
+                if waitingTime > 3 && self.nELivePlayerLoadFailView != nil {
+                    self.nELivePlayerLoadFailView.isHidden = true
+                }
+            }else{
+                if waitingTime >= 3 {
+                    self.setUpNELivePlayerLoadFailView()
+                }
+            }
+        }
+    }
+    
     func setUpPlayerB(url:String) {
         do {
             try self.liveplayerB = NELivePlayerController.init(contentURL: URL.init(string: url))
             self.configLiveLayer(liveplayer: self.liveplayerB)
             self.liveplayerB.view.isHidden = true
+            self.liveplayerB.setPlaybackTimeout(30000)
+            if nElivePlayLoadFailBTime == nil {
+                nElivePlayLoadFailBTime = Timer.every(1, {
+                    self.numberBCount = self.numberBCount + 1
+                    //点对点连接成功后3秒获取拉流失败提示禁止
+                    if self.remoteGLView.isHidden {
+                        self.isHaveBStreamData(waitingTime: self.numberACount)
+                    }
+                })
+            }
             //拉流地址设置成功后执行拉流的一些界面创建
             //根据通知的状态来隐藏和显示视图
         } catch {
             print("拉流失败")
             return
+        }
+    }
+    
+    func isHaveBStreamData(waitingTime: Int) {
+        if self.liveplayerB != nil && !self.liveplayerB.view.isHidden {
+            if isHaveLiverBData {
+                self.setUpSwiperGesture(view: self.liveplayerB.view)
+                self.nElivePlayLoadFailBTime.invalidate()
+                if waitingTime > 3 && self.nELivePlayerLoadFailView != nil {
+                    self.nELivePlayerLoadFailView.isHidden = true
+                }
+            }else{
+                if waitingTime >= 3 {
+                    self.setUpNELivePlayerLoadFailView()
+                }
+            }
         }
     }
     
@@ -246,7 +332,6 @@ class CacheMeViewController: BaseViewController {
         self.setUpToolsView()
         self.setUpCacheMeTopView()
         self.setUpGameView()
-        
     }
     
     func setUpCountDown(isPlay:Bool, text:String) {
@@ -266,25 +351,23 @@ class CacheMeViewController: BaseViewController {
     }
     //开始游戏readyGo
     func setUpreadyGogameTipView(){
-        if readyGogameTipView == nil{
-            let str = "Ready...GO!"
-            let witdh = (str as NSString).width(with: App_Theme_PinFan_M_17_Font, constrainedToHeight: 20) + 100
-            readyGogameTipView = GameTipView.init(frame: CGRect.init(x: (SCREENWIDTH - witdh)/2, y: SCREENHEIGHT - 90 - 122 - 64, width: witdh, height: 87), tipStr: str)
-            readyGogameTipView.alpha = 0.1
-            self.view.addSubview(readyGogameTipView)
-            
-            UIView.animate(withDuration: 0.5, animations: {
-                self.readyGogameTipView.alpha = 1
-            }, completion: { (ret) in
-                _ = Timer.after(1, {
-                    UIView.animate(withDuration: 1, animations: {
-                        self.readyGogameTipView.alpha = 0.1
-                    }, completion: { (ret) in
-                        self.readyGogameTipView.removeFromSuperview()
-                    })
+        let str = "Ready...GO!"
+        let witdh = (str as NSString).width(with: App_Theme_PinFan_M_17_Font, constrainedToHeight: 20) + 100
+        readyGogameTipView = GameTipView.init(frame: CGRect.init(x: (SCREENWIDTH - witdh)/2, y: SCREENHEIGHT - 90 - 122 - 64, width: witdh, height: 87), tipStr: str)
+        readyGogameTipView.alpha = 0.1
+        self.view.addSubview(readyGogameTipView)
+        
+        UIView.animate(withDuration: 0.5, animations: {
+            self.readyGogameTipView.alpha = 1
+        }, completion: { (ret) in
+            _ = Timer.after(1, {
+                UIView.animate(withDuration: 1, animations: {
+                    self.readyGogameTipView.alpha = 0.1
+                }, completion: { (ret) in
+                    self.readyGogameTipView.removeFromSuperview()
                 })
             })
-        }
+        })
     }
     
     //
@@ -319,8 +402,24 @@ class CacheMeViewController: BaseViewController {
             make.centerX.equalTo(self.view.snp.centerX).offset(0)
             make.top.equalTo(self.view.snp.top).offset(64)
             make.bottom.equalTo(self.view.snp.bottom).offset(-122)
-            make.size.equalTo(CGSize.init(width: (SCREENHEIGHT - 122 - 64) * 3 / 4, height: SCREENHEIGHT - 122 - 64))
+            make.size.equalTo(CGSize.init(width: (SCREENHEIGHT - 122 - 64) * 3 / 4 - 10, height: SCREENHEIGHT - 122 - 64))
         })
+//        self.setUpSwiperGesture(view: remoteGLView)
+    }
+    
+    //创建左右滑动
+    func setUpSwiperGesture(view:UIView?){
+        GestureRecognizerManager.shareInstance.setUpSwipeGestureRecognizer(view: view)
+        GestureRecognizerManager.shareInstance.gestureRecognizerManagerClouse = { type in
+            if type == .left && !self.liveplayerA.view.isHidden {
+                self.cacheMeViewModel.changeCamera()
+            }else if type == .right && !self.liveplayerB.view.isHidden{
+                self.cacheMeViewModel.changeCamera()
+            }
+//            else if !self.remoteGLView.isHidden {
+//                self.cacheMeViewModel.changeCamera()
+//            }
+        }
     }
     
     //创建底部工具界面
@@ -349,8 +448,8 @@ class CacheMeViewController: BaseViewController {
             self.cacheMeViewModel.requestExitRooms()
             if self.isQuickEnter {
                 self.dismiss(animated: true, completion: {
-                    
                 })
+                
             }else{
                 self.navigationController?.popViewController()
             }
@@ -362,7 +461,7 @@ class CacheMeViewController: BaseViewController {
     //创建正在玩用户视图
     func setUpPlayUserView(){
         if cacheMePlayUserView == nil {
-            self.cacheMePlayUserView = CacheMePlayUserView.init(frame: CGRect.init(x: (SCREENWIDTH - (SCREENHEIGHT - 122 - 64) * 3 / 4) / 2, y: 75, width: (SCREENHEIGHT - 122 - 64) * 3 / 4, height: 54))
+            self.cacheMePlayUserView = CacheMePlayUserView.init(frame: CGRect.init(x: (SCREENWIDTH - (SCREENHEIGHT - 122 - 64) * 3 / 4) / 2 + 5, y: 75, width: (SCREENHEIGHT - 122 - 64) * 3 / 4 - 10, height: 54))
             self.cacheMePlayUserView.timeDownClouse = {
                 self.cacheMeViewModel.playGameGo()
             }
@@ -405,6 +504,35 @@ class CacheMeViewController: BaseViewController {
         }
     }
     
+    func changeCameraType(type:CameraType) {
+        self.localPreView.isHidden = false
+        if type == .Font {
+            if !self.liveplayerA.isPlaying(){
+                self.localPreView.isHidden = false
+                if self.nELivePlayerLoadFailView != nil {
+                    self.nELivePlayerLoadFailView.isHidden = false
+                }
+            }else{
+                self.localPreView.isHidden = true
+                if self.nELivePlayerLoadFailView != nil {
+                    self.nELivePlayerLoadFailView.isHidden = true
+                }
+            }
+        }else{
+            if !self.liveplayerB.isPlaying(){
+                self.localPreView.isHidden = false
+                if self.nELivePlayerLoadFailView != nil {
+                    self.nELivePlayerLoadFailView.isHidden = false
+                }
+            }else{
+                self.localPreView.isHidden = true
+                if self.nELivePlayerLoadFailView != nil {
+                    self.nELivePlayerLoadFailView.isHidden = true
+                }
+            }
+        }
+    }
+    
     @objc func playGame(){
         cacheMeViewModel.gameStart()
     }
@@ -439,19 +567,10 @@ class CacheMeViewController: BaseViewController {
             selector:#selector(self.NELivePlayerFirstVideoDisplayed(notification:)),
             name:NSNotification.Name.NELivePlayerFirstVideoDisplayed,
             object:self.liveplayerA)
+        
         NotificationCenter.default.addObserver(self,
-                                               selector:#selector(self.NELivePlayerFirstVideoDisplayed(notification:)),
+                                               selector:#selector(self.NELivePlayerFirstVideoDisplayedB(notification:)),
                                                name:NSNotification.Name.NELivePlayerFirstVideoDisplayed,
-                                               object:self.liveplayerB)
-//
-        // 第一帧音频播放时触发的通知
-        NotificationCenter.default.addObserver(self,
-            selector:#selector(self.NELivePlayerFirstAudioDisplayed(notification:)),
-            name:NSNotification.Name.NELivePlayerFirstAudioDisplayed,
-            object:self.liveplayerA)
-        NotificationCenter.default.addObserver(self,
-                                               selector:#selector(self.NELivePlayerFirstAudioDisplayed(notification:)),
-                                               name:NSNotification.Name.NELivePlayerFirstAudioDisplayed,
                                                object:self.liveplayerB)
         // 资源释放成功后触发的通知
         NotificationCenter.default.addObserver(self,
@@ -489,16 +608,16 @@ class CacheMeViewController: BaseViewController {
     }
     
     @objc func NELivePlayerFirstVideoDisplayed(notification:Notification) {
-        if self.localPreView != nil {
-            _ = Timer.after(2, {
-                UIView.animate(withDuration: 1, animations: {
-                    self.localPreView.alpha = 0.5
-                }, completion: { (ret) in
-                    self.localPreView.isHidden = true
-                    self.localPreView.alpha = 1
-                    self.setUpGameTipView()
-                })
-            })
+        if self.liveplayerA != nil && self.liveplayerA.isPlaying() {
+            isHaveLiverAData = true
+            self.isHaveAStreamData(waitingTime: -1)
+        }
+    }
+    
+    @objc func NELivePlayerFirstVideoDisplayedB(notification:Notification) {
+        if self.liveplayerB != nil && self.liveplayerB.isPlaying() {
+            isHaveLiverBData = true
+            self.isHaveBStreamData(waitingTime: -1)
         }
     }
     

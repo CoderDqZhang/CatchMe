@@ -53,7 +53,7 @@ class SenderMuchTableViewCell: UITableViewCell {
     
     
     func cellSetData(count:Int){
-        muchLabel.text = count > 2 ? "" : "100"
+        muchLabel.text = count >= 2 ? "" : "100"
         self.updateConstraintsIfNeeded()
     }
     

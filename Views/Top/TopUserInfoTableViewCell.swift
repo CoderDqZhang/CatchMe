@@ -15,6 +15,7 @@ class TopUserInfoTableViewCell: UITableViewCell {
     var userName:UILabel!
     var medalImage:UIImageView!
     var numberCache:UILabel!
+    var rightImage:UIImageView!
     
     var didMakeConstraints = false
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
@@ -51,11 +52,14 @@ class TopUserInfoTableViewCell: UITableViewCell {
         numberCache.font = App_Theme_PinFan_M_28_Font
         self.contentView.addSubview(numberCache)
         
+        rightImage = UIImageView.init()
+        rightImage.image = UIImage.init(named: "arrow")
+        self.addSubview(rightImage)
+    
         self.updateConstraints()
     }
 
     func cellSetData(indexPath:IndexPath, model:GameStatistic){
-        let numberText = indexPath.row - 1
         numberLable.text = "\(model.rank!)"
         userName.text = model.name
         UIImageViewManger.sd_imageView(url: model.photo is String ? model.photo as! String : "", imageView: avaterImage, placeholderImage: UIImage.init(named: "默认头像_1")) { (image, error, cacheType, url) in
@@ -110,8 +114,13 @@ class TopUserInfoTableViewCell: UITableViewCell {
             
             numberCache.snp.remakeConstraints({ (make) in
                 make.centerY.equalTo(self.contentView.snp.centerY).offset(2)
-                make.right.equalTo(self.contentView.snp.right).offset(-29)
+                make.right.equalTo(self.contentView.snp.right).offset(-49)
             })
+            
+            rightImage.snp.remakeConstraints { (make) in
+                make.centerY.equalTo(self.snp.centerY).offset(2)
+                make.right.equalTo(self.snp.right).offset(-30)
+            }
         default:
             self.setUpViewsColor(color: UIColor.init(hexString: App_Theme_333333_Color))
             userName.font = App_Theme_PinFan_R_17_Font
@@ -161,8 +170,13 @@ class TopUserInfoTableViewCell: UITableViewCell {
             
             numberCache.snp.makeConstraints({ (make) in
                 make.centerY.equalTo(self.contentView.snp.centerY).offset(0)
-                make.right.equalTo(self.contentView.snp.right).offset(-29)
+                make.right.equalTo(self.contentView.snp.right).offset(-49)
             })
+            
+            rightImage.snp.makeConstraints { (make) in
+                make.centerY.equalTo(self.snp.centerY).offset(0)
+                make.right.equalTo(self.snp.right).offset(-30)
+            }
             
             didMakeConstraints = true
         }

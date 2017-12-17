@@ -27,7 +27,7 @@ class AnimationTools: NSObject {
     
     
     @available(iOS 9.0, *)
-    func setUpAnimation(_ float:CGFloat,velocity:CGFloat) ->CASpringAnimation{
+    func setUpAnimation(_ float:CGFloat, velocity:CGFloat, finish:@escaping AnimationFinishClouse) ->CASpringAnimation{
         let ani = CASpringAnimation.init(keyPath: "position.y")
         ani.mass = 10.0; //质量，影响图层运动时的弹簧惯性，质量越大，弹簧拉伸和压缩的幅度越大
         ani.stiffness = 1000; //刚度系数(劲度系数/弹性系数)，刚度系数越大，形变产生的力就越大，运动越快
@@ -39,6 +39,9 @@ class AnimationTools: NSObject {
         ani.isRemovedOnCompletion = false
         ani.fillMode = kCAFillModeForwards;
         ani.timingFunction = CAMediaTimingFunction.init(name: kCAMediaTimingFunctionEaseInEaseOut)
+        _ = Timer.after(ani.settlingDuration, {
+            finish(true)
+        })
         return ani
     }
     

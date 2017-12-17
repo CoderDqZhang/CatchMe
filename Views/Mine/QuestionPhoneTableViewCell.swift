@@ -28,8 +28,9 @@ class QuestionPhoneTableViewCell: UITableViewCell {
         
         textField = UITextField.init()
         let str = "(选填)"
+        textField.keyboardType = .numberPad
         textField.placeholder = str
-        textField.attributedPlaceholder = NSAttributedString.init(string: str, attributes: [NSAttributedStringKey.font:App_Theme_PinFan_R_14_Font!,NSAttributedStringKey.foregroundColor:UIColor.init(hexString: App_Theme_AAAAAA_Color)!])
+        textField.attributedPlaceholder = NSAttributedString.init(string: str, attributes: [NSAttributedStringKey.font:App_Theme_PinFan_R_15_Font!,NSAttributedStringKey.foregroundColor:UIColor.init(hexString: App_Theme_AAAAAA_Color)!])
         textField.font = App_Theme_PinFan_R_14_Font
         textField.textColor = UIColor.init(hexString: App_Theme_222222_Color)
         self.contentView.addSubview(textField)

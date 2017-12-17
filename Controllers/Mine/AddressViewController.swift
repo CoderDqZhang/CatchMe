@@ -64,7 +64,7 @@ class AddressViewController: BaseViewController {
         let cancel = UIBarButtonItem.init(title: "取消", style: .plain, target: self, action: #selector(self.cancelSelect))
         barItems.add(cancel)
         let flexSpace = UIBarButtonItem.init(barButtonSystemItem: .fixedSpace, target: self, action: nil)
-        flexSpace.width = IPHONE_VERSION_MINE11 == 1 ? SCREENWIDTH - 110 : SCREENWIDTH - 60
+        flexSpace.width = IPHONE_VERSION_MINE11 ? SCREENWIDTH - 110 : SCREENWIDTH - 60
         barItems.add(flexSpace)
         let done = UIBarButtonItem.init(title: "确定", style: .plain, target: self, action: #selector(self.doneSelect))
         barItems.add(done)

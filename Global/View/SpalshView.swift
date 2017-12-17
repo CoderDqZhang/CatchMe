@@ -64,7 +64,6 @@ class SpalshView: UIView {
         spalshView = FLAnimatedImageView.init()
         self.addSubview(spalshView)
         let gifPath = Bundle.main.path(forResource: "出场", ofType: ".gif")
-        //指定音乐路径
         let url = URL.init(fileURLWithPath: gifPath!)
         do {
             let gifData =  try Data.init(contentsOf: url)

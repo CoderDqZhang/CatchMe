@@ -35,24 +35,8 @@ class JoysDetailViewController: BaseViewController {
     
     override func setUpViewNavigationItem() {
         self.navigationItem.title = "娃娃详情"
-//        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: "分享", style: .plain, target: self, action: #selector(JoysDetailViewController.rightBarItemPress))
     }
     
-    @objc func rightBarItemPress(){
-        KWINDOWDS().addSubview(GloabelShareAndConnectUs.init(type: GloabelShareAndConnectUsType.share, title: "每邀请一个好朋友，最高奖200娃娃币", clickClouse: { (type) in
-            switch type {
-            case .QQChat:
-                ShareTools.shareInstance.shareQQSessionWebUrl("抓我 – 朋友一起抓，娃娃带回家", webTitle: "手机抓娃娃，快递送到家。注册最高奖200娃娃币，可以抓十次！", imageUrl: "", webDescription: "", webUrl: self.url)
-            case .weChatChat:
-                ShareTools.shareInstance.shareWeChatSession("抓我 – 朋友一起抓，娃娃带回家", description: "手机抓娃娃，快递送到家。注册最高奖200娃娃币，可以抓十次！", image: UIImage.init(named: "pic_about")!, url: self.url)
-            case .weChatSession:
-                ShareTools.shareInstance.shareWeChatTimeLine("抓我 – 朋友一起抓，娃娃带回家", description: "手机抓娃娃，快递送到家。注册最高奖200娃娃币，可以抓十次！", image: UIImage.init(named: "pic_about")!, url: self.url)
-            default:
-                break
-            }
-        }))
-    }
-
     /*
     // MARK: - Navigation
 

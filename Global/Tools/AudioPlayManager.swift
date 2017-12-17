@@ -30,6 +30,10 @@ class AudioPlayManager: NSObject {
         let musicPath = Bundle.main.path(forResource: name, ofType: ".mp3")
         //指定音乐路径
         let url = URL.init(fileURLWithPath: musicPath!)
+        if audioPlayer != nil {
+            audioPlayer.stop()
+            audioPlayer = nil
+        }
         do {
             try audioPlayer = AVAudioPlayer.init(contentsOf: url, fileTypeHint: AVFileType.mp3.rawValue)
             audioPlayer.numberOfLoops = -1
@@ -46,7 +50,9 @@ class AudioPlayManager: NSObject {
     }
     
     func pause(){
-        self.audioPlayer.pause()
+        if self.audioPlayer != nil {
+            self.audioPlayer.pause()
+        }
     }
     //监听音量键 调节
     @objc func volumeClicked(notification:Notification){

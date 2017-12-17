@@ -46,6 +46,8 @@ class CacheMeViewModel: BaseViewModel {
     
     var shareCodelModel:SessionShareModel!
     
+    var canTouch:Bool = true
+    
     override init() {
         super.init()
         NIMAVChatSDK.shared().netCallManager.add(self)
@@ -85,13 +87,16 @@ class CacheMeViewModel: BaseViewModel {
     
     //退出房间后调用拉流停止
     func exitRoom(){
-        self.handUpConnect()
+        if !self.cacheMeController.remoteGLView.isHidden {
+            self.handUpConnect()
+        }
         if cacheMeController.liveplayerA.isPlaying() {
             cacheMeController.liveplayerA.shutdown()
         }
         if cacheMeController.liveplayerB.isPlaying() {
             cacheMeController.liveplayerB.shutdown()
         }
+        
         if self.timeHeader != nil {
             self.timeHeader.invalidate()
         }
@@ -101,6 +106,9 @@ class CacheMeViewModel: BaseViewModel {
         if UserDefaultsGetSynchronize(MUISCCOGIF) as! String == "true" {
             AudioPlayManager.shareInstance.pause()
         }
+    }
+    
+    @objc func otherModel(){
     }
     
     //断开点对点连接后调用
@@ -181,6 +189,12 @@ class CacheMeViewModel: BaseViewModel {
         if self.cacheMeController.localPreView != nil {
             self.cacheMeController.localPreView.isHidden = false
         }
+        //避免网易SDK关闭音乐跟自己本地播放音乐冲突
+        if AudioPlayManager.shareInstance.audioPlayer != nil {
+            AudioPlayManager.shareInstance.audioPlayer.stop()
+            AudioPlayManager.shareInstance.audioPlayer = nil
+        }
+        
         if self.callID != nil {
             self.setUpStreamData()
             NIMAVChatSDK.shared().netCallManager.hangup(self.callID)
@@ -189,6 +203,7 @@ class CacheMeViewModel: BaseViewModel {
         if UserDefaultsGetSynchronize(MUISCCOGIF) as! String == "true" {
             AudioPlayManager.shareInstance.playBgMusic(name: "\(ConfigModel.shanreInstance.musicName!)")
         }
+        self.cameraType = .Font
     }
     
     //建立点对点连接
@@ -198,9 +213,14 @@ class CacheMeViewModel: BaseViewModel {
             self.cacheMeController.localPreView.isHidden = false
         }
         self.fillUserSetting(option)
+        if AudioPlayManager.shareInstance.audioPlayer != nil {
+            AudioPlayManager.shareInstance.audioPlayer.stop()
+            AudioPlayManager.shareInstance.audioPlayer = nil
+        }
         NIMAVChatSDK.shared().netCallManager.start([self.catchMeModel.machineDTO.playerAccountId], type: .video, option: self.option) { (error, callId) in
             if error == nil {
                 print("建立点对点成功")
+
             }
         }
     }
@@ -225,19 +245,25 @@ class CacheMeViewModel: BaseViewModel {
             if self.cacheMeController.liveplayerA.view.isHidden {
                 self.cacheMeController.liveplayerA.view.isHidden = false
                 self.cacheMeController.liveplayerB.view.isHidden = true
+                self.cacheMeController.changeCameraType(type: .Font)
             }else{
                 self.cacheMeController.liveplayerA.view.isHidden = true
                 self.cacheMeController.liveplayerB.view.isHidden = false
+                self.cacheMeController.changeCameraType(type: .Back)
             }
         }else{
-            if self.cameraType == .Font {
-                self.cameraType = .Back
-            }else{
-                self.cameraType = .Font
-                
+            if canTouch {
+                canTouch = false
+                _ = Timer.after(2, {
+                    self.canTouch = true
+                })
+                if self.cameraType == .Font {
+                    self.cameraType = .Back
+                }else{
+                    self.cameraType = .Font
+                }
+                NIMAVChatSDK.shared().netCallManager.control(self.callID, type: NIMNetCallControlType.noCamera)
             }
-            
-            NIMAVChatSDK.shared().netCallManager.control(self.callID, type: NIMNetCallControlType.noCamera)
         }
     }
     //MARK: Networking
@@ -247,6 +273,9 @@ class CacheMeViewModel: BaseViewModel {
         BaseNetWorke.sharedInstance.getUrlWithString(EnterRooms, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
                 self.catchMeModel = CatchMeModel.init(fromDictionary: resultDic.value as! NSDictionary)
+                if self.cacheMeController.bottomToolsView != nil {
+                    self.cacheMeController.bottomToolsView.changePlayType(type: self.catchMeModel.currentPlayStatus == 1 ? .canNotPlay : .canPlay)
+                }
                 //设置拉流地址
                 self.setUpStreamData()
                 self.playUrl = self.catchMeModel.machineDTO.audiencePullAddressA
@@ -269,6 +298,9 @@ class CacheMeViewModel: BaseViewModel {
                 self.setUpStreamData()
                 if KWINDOWDS().viewWithTag(10000) != nil {
                     KWINDOWDS().viewWithTag(10000)?.removeFromSuperview()
+                }
+                if self.cacheMeController.bottomToolsView != nil {
+                    self.cacheMeController.bottomToolsView.changePlayType(type: self.catchMeModel.currentPlayStatus == 1 ? .canNotPlay : .canPlay)
                 }
                 self.playUrl = self.catchMeModel.machineDTO.audiencePullAddressA
                 self.setUpRoomPalyUsers(currentUser: self.catchMeModel.currentPlayerDTO)
@@ -306,7 +338,9 @@ class CacheMeViewModel: BaseViewModel {
                 self.headerModel = HeartModel.init(fromDictionary: resultDic.value as! NSDictionary)
                 self.catchMeModel.currentPlayStatus = self.headerModel.currentPlayStatus
                 self.cacheMeController.bottomToolsView.changePlayType(type: self.headerModel.currentPlayStatus == 1 ? .canNotPlay : .canPlay)
-                UserInfoModel.shareInstance().coinAmount = "\(self.headerModel.balance!)"
+                if COFIGVALUE {
+                    UserInfoModel.shareInstance().coinAmount = "\(self.headerModel.balance!)"
+                }
                 self.setUpRoomPalyUsers(currentUser: self.headerModel.currentPlayerDTO)
             }
         }
@@ -338,8 +372,13 @@ class CacheMeViewModel: BaseViewModel {
                                     //建立点对点连接
                                     self.getGameStatus = false
                                     self.playGameGoStatus = false
-                                    LoginViewModel.shareInstance.getUserInfoCoins(uerInfoUpdateClouse: { (userInfo) in
-                                    })
+                                    if !COFIGVALUE {
+                                        UserInfoModel.shareInstance().coinAmount = "\(UserInfoModel.shareInstance().coinAmount.int! - self.catchMeModel.price!)"
+                                        UserInfoModel.shareInstance().saveOrUpdate(byColumnName: "neteaseAccountId", andColumnValue: "'\(UserInfoModel.shareInstance().neteaseAccountId!)'")
+                                    }else{
+                                        LoginViewModel.shareInstance.getUserInfoCoins(uerInfoUpdateClouse: { (userInfo) in
+                                        })
+                                    }
 
                                     self.makeGameToUser()
                                 }
@@ -419,7 +458,6 @@ class CacheMeViewModel: BaseViewModel {
                     self.timeCount = self.timeCount + 1
                     self.getGameStaus()
                 }
-                
             })
         }
     }
@@ -454,6 +492,7 @@ class CacheMeViewModel: BaseViewModel {
         BaseNetWorke.sharedInstance.getUrlWithString(StopGame, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
                 self.getUserInfo(currentUser: nil)
+                self.cacheMeController.bottomToolsView.changePlayType(type: .canPlay)
             }
         }
     }
@@ -721,6 +760,9 @@ extension CacheMeViewModel : NIMNetCallManagerDelegate {
             self.makeGameToUser()
         }else{
             self.gameStarts()
+            if UserDefaultsGetSynchronize(MUISCCOGIF) as! String == "true" {
+                AudioPlayManager.shareInstance.playBgMusic(name: "\(ConfigModel.shanreInstance.musicName!)")
+            }
         }
     }
 

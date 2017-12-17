@@ -84,7 +84,7 @@ class LoginTypeViewController: BaseViewController {
         }
         self.view.addSubview(loginWithPhone)
         loginWithPhone.snp.makeConstraints { (make) in
-            make.bottom.equalTo(self.loginLable.snp.top).offset(-67)
+            make.bottom.equalTo(self.loginLable.snp.top).offset(IPHONE5 ? -47 : -67)
             make.centerX.equalTo(self.view.snp.centerX).offset(0)
         }
         

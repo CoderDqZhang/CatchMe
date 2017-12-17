@@ -45,7 +45,7 @@ class MainTabBarViewController: CYLTabBarController {
         let image = UIImage.init(byApplyingAlpha: 0.7, image: UIImage.init(named: "menu"))
         let imageHeight = SCREENWIDTH * (image?.size.height)! / (image?.size.width)!
         let imageView:UIImageView?
-        if IPHONE_VERSION_MINE11 == 1 {
+        if IPHONE_VERSION_MINE11 {
             imageView = UIImageView.init(frame: CGRect.init(x: 0, y: -(imageHeight - 49), width: SCREENWIDTH, height: imageHeight))
         }else{
             imageView = UIImageView.init(frame: CGRect.init(x: 0, y: -(imageHeight - 49), width: SCREENWIDTH, height: imageHeight))

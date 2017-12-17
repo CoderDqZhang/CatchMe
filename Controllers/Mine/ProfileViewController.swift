@@ -8,10 +8,13 @@
 
 import UIKit
 
+typealias ProfileViewControllerClouse = () ->Void
+
 class ProfileViewController: BaseViewController {
 
     var picker:UIPickerView!
     var pickerToolBar:UIToolbar!
+    var profileViewControllerClouse:ProfileViewControllerClouse!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,7 +36,6 @@ class ProfileViewController: BaseViewController {
     
     override func backBtnPress(_ sender: UIButton) {
         self.navigationController?.popViewController()
-        (self.viewModel as! ProfileViewModel).changeUserInfo()
     }
     
     override func didReceiveMemoryWarning() {
@@ -57,7 +59,7 @@ class ProfileViewController: BaseViewController {
         let cancel = UIBarButtonItem.init(title: "取消", style: .plain, target: self, action: #selector(self.cancelSelect))
         barItems.add(cancel)
         let flexSpace = UIBarButtonItem.init(barButtonSystemItem: .fixedSpace, target: self, action: nil)
-        flexSpace.width = IPHONE_VERSION_MINE11 == 1 ? SCREENWIDTH - 110 : SCREENWIDTH - 60
+        flexSpace.width = IPHONE_VERSION_MINE11 ? SCREENWIDTH - 110 : SCREENWIDTH - 60
         barItems.add(flexSpace)
         let done = UIBarButtonItem.init(title: "确定", style: .plain, target: self, action: #selector(self.doneSelect))
         barItems.add(done)
@@ -74,6 +76,7 @@ class ProfileViewController: BaseViewController {
         picker.isHidden = true
         pickerToolBar.isHidden = true
         (self.viewModel as! ProfileViewModel).getSexText()
+        (self.viewModel as! ProfileViewModel).changeUserInfo()
     }
     
     func presentImagePickerView(){

@@ -17,12 +17,7 @@ class SenderJoysViewModel: BaseViewModel {
     
     override init() {
         super.init()
-        if AddressModel.findAll().count > 0 {
-            model = AddressModel.findLastObject()
-            isHaveAddress = model == nil ? false : true
-        }else{
-            self.requestDefaultAddress()
-        }
+        self.requestDefaultAddress()
     }
     
     func senderAddress(){
@@ -140,10 +135,17 @@ class SenderJoysViewModel: BaseViewModel {
         let parameters = ["catchdollIds":senderDolls]
         BaseNetWorke.sharedInstance.postUrlWithString(ApplyShipments, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
+                self.controller!.navigationController?.popViewController({
+                    if (self.controller as! SenderJoysViewController).senderJoysViewControllerClouse != nil {
+                        (self.controller as! SenderJoysViewController).senderJoysViewControllerClouse()
+                    }
+                })
                 _ = Tools.shareInstance.showMessage(KWINDOWDS(), msg: "发货成功", autoHidder: true)
             }
         }
     }
+    
+    
     
     func requestDefaultAddress(){
         let parameters = ["userId":UserInfoModel.shareInstance().idField]

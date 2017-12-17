@@ -17,7 +17,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WeiboSDKDelegate {
     var manager: NeteaseManager!
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-//        PgyManager.shared().start(withAppId: PGYAPPKEY)
+        
+        PgyManager.shared().start(withAppId: PGYAPPKEY)
+        
         PlusButtonSubclass.register()
         AppleThemeTool.setUpToolBarColor()
         AppleThemeTool.setUpKeyBoardManager()
@@ -79,7 +81,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WeiboSDKDelegate {
             return WXApi.handleOpen(url, delegate: self)
         }
         return WeiboSDK.handleOpen(url, delegate: self)
-        //
     }
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any]) -> Bool {

@@ -22,7 +22,7 @@ class MineViewController: BaseViewController {
     
     func upDataConstraints(){
         self.tableView.snp.remakeConstraints { (make) in
-            make.top.equalTo(self.view.snp.top).offset(0)
+            make.top.equalTo(self.view.snp.top).offset(IPHONE_VERSION_MINE11 ? -20 : 0)
             make.left.equalTo(self.view.snp.left).offset(0)
             make.right.equalTo(self.view.snp.right).offset(0)
             make.bottom.equalTo(self.view.snp.bottom).offset(0)

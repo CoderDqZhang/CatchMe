@@ -166,6 +166,9 @@
 		1FCA200D1FC5CB870008BF07 /* LoginPhoneCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCA200C1FC5CB870008BF07 /* LoginPhoneCodeViewController.swift */; };
 		1FCA200F1FC720470008BF07 /* AboutUsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCA200E1FC720470008BF07 /* AboutUsViewController.swift */; };
 		1FD1B6401FE45AEF006E9AAF /* ChangeUserNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD1B63F1FE45AEF006E9AAF /* ChangeUserNameViewController.swift */; };
+		1FD1B6421FE47048006E9AAF /* ChangeUserNameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD1B6411FE47048006E9AAF /* ChangeUserNameViewModel.swift */; };
+		1FD1B6441FE47093006E9AAF /* UserNameChangeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD1B6431FE47093006E9AAF /* UserNameChangeTableViewCell.swift */; };
+		1FD1B6461FE59544006E9AAF /* GestureRecognizerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD1B6451FE59543006E9AAF /* GestureRecognizerManager.swift */; };
 		1FD729091FCD9A87005CF939 /* TopWeeklyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD729081FCD9A87005CF939 /* TopWeeklyModel.swift */; };
 		1FD7290B1FCE545E005CF939 /* InPurchaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD7290A1FCE545E005CF939 /* InPurchaseViewController.swift */; };
 		1FD7290D1FCE5E7F005CF939 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FD7290C1FCE5E7F005CF939 /* StoreKit.framework */; };
@@ -413,6 +416,9 @@
 		1FCA200C1FC5CB870008BF07 /* LoginPhoneCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPhoneCodeViewController.swift; sourceTree = "<group>"; };
 		1FCA200E1FC720470008BF07 /* AboutUsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutUsViewController.swift; sourceTree = "<group>"; };
 		1FD1B63F1FE45AEF006E9AAF /* ChangeUserNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeUserNameViewController.swift; sourceTree = "<group>"; };
+		1FD1B6411FE47048006E9AAF /* ChangeUserNameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeUserNameViewModel.swift; sourceTree = "<group>"; };
+		1FD1B6431FE47093006E9AAF /* UserNameChangeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNameChangeTableViewCell.swift; sourceTree = "<group>"; };
+		1FD1B6451FE59543006E9AAF /* GestureRecognizerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GestureRecognizerManager.swift; sourceTree = "<group>"; };
 		1FD729081FCD9A87005CF939 /* TopWeeklyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopWeeklyModel.swift; sourceTree = "<group>"; };
 		1FD7290A1FCE545E005CF939 /* InPurchaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InPurchaseViewController.swift; sourceTree = "<group>"; };
 		1FD7290C1FCE5E7F005CF939 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
@@ -873,6 +879,7 @@
 				1F126EE21FC3D89D006306D2 /* AddressViewModel.swift */,
 				1FE1A2C71FC9864B00B715D8 /* QuestionViewModel.swift */,
 				1F85F03E1FD6B5EA00FDF26C /* MyInvitationCodeViewModel.swift */,
+				1FD1B6411FE47048006E9AAF /* ChangeUserNameViewModel.swift */,
 			);
 			path = Mine;
 			sourceTree = "<group>";
@@ -910,6 +917,7 @@
 				1F126EE61FC3F715006306D2 /* SetNormalTableViewCell.swift */,
 				1FE1A2C91FC986C400B715D8 /* QuestionDetailTableViewCell.swift */,
 				1FE1A2CB1FC986D100B715D8 /* QuestionPhoneTableViewCell.swift */,
+				1FD1B6431FE47093006E9AAF /* UserNameChangeTableViewCell.swift */,
 			);
 			path = Mine;
 			sourceTree = "<group>";
@@ -957,6 +965,7 @@
 				1F126E6F1FC15457006306D2 /* NTESGLView.m */,
 				1F126EA71FC16212006306D2 /* ShareView.swift */,
 				1FF3A86A1FE1252E0017326F /* AnimationView.swift */,
+				1FD1B6451FE59543006E9AAF /* GestureRecognizerManager.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1303,6 +1312,7 @@
 				1F126DCB1FBFF3B9006306D2 /* UIViewController+NavigationBar.swift in Sources */,
 				1F126E301FC01D7F006306D2 /* BaseViewController.swift in Sources */,
 				1F126E9C1FC154A0006306D2 /* renderer_yuv420p.c in Sources */,
+				1FD1B6441FE47093006E9AAF /* UserNameChangeTableViewCell.swift in Sources */,
 				1FCA200D1FC5CB870008BF07 /* LoginPhoneCodeViewController.swift in Sources */,
 				1F126F001FC4063E006306D2 /* AddressModel.m in Sources */,
 				1FE1A2CE1FCC0CD900B715D8 /* TopUpModel.swift in Sources */,
@@ -1355,6 +1365,7 @@
 				1F126DAA1FBFF387006306D2 /* CountDown.m in Sources */,
 				1F126EA81FC16212006306D2 /* ShareView.swift in Sources */,
 				1F3739BC1FD1061F0068F1C0 /* ProfileLogoutTableViewCell.swift in Sources */,
+				1FD1B6461FE59544006E9AAF /* GestureRecognizerManager.swift in Sources */,
 				1F126DC81FBFF3AF006306D2 /* UIButton+Extentions.swift in Sources */,
 				1F126ECD1FC2C04E006306D2 /* ProfielInfoTableViewCell.swift in Sources */,
 				1F85F0411FD930AD00FDF26C /* AnimationTools.swift in Sources */,
@@ -1391,6 +1402,7 @@
 				1FD1B6401FE45AEF006E9AAF /* ChangeUserNameViewController.swift in Sources */,
 				1F126E031FBFFD5F006306D2 /* UIViewController+DismissKeyboard.m in Sources */,
 				1F126EDD1FC3109F006306D2 /* SendAddressTableViewCell.swift in Sources */,
+				1FD1B6421FE47048006E9AAF /* ChangeUserNameViewModel.swift in Sources */,
 				1F126DD91FBFF3DE006306D2 /* UIViewController+hideExcessLine.m in Sources */,
 				1F126EA41FC154A0006306D2 /* color.c in Sources */,
 				1F126E981FC154A0006306D2 /* renderer_yuv444p10le.c in Sources */,

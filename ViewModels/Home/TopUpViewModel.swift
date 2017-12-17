@@ -17,7 +17,6 @@ class TopUpViewModel: BaseViewModel {
     var model:AliPayInfoModel!
     var weChatModel:Wxpay!
     var isWeChat:Bool = false
-    
     var time:Timer!
     var hud:MBProgressHUD!
     
@@ -57,7 +56,18 @@ class TopUpViewModel: BaseViewModel {
     }
     
     func getOrderOrNo(){
-        let str = isWeChat ? self.weChatModel.orderNo  : self.model.orderNo
+        let str:String!
+        if isWeChat {
+            if self.weChatModel.orderNo == nil {
+                print("代码增加微信是错")
+            }
+            str = self.weChatModel.orderNo == nil ? UserDefaultsGetSynchronize("orderNo") as! String : self.weChatModel.orderNo
+        }else{
+            if self.model.orderNo == nil {
+                print("代码增加支付宝是错")
+            }
+            str = self.model.orderNo == nil ? UserDefaultsGetSynchronize("orderNo") as! String : self.model.orderNo
+        }
         let parameters = ["orderNo":str]
         BaseNetWorke.sharedInstance.postUrlWithString(RecordByOrderNo, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
@@ -74,10 +84,6 @@ class TopUpViewModel: BaseViewModel {
         }
     }
     
-    func getUserCoins(){
-        
-    }
-    
     func wxPay(){
         var parameters:[String : Any]!
         if self.topUpMuch != 1000 {
@@ -88,7 +94,10 @@ class TopUpViewModel: BaseViewModel {
         isWeChat = true
         BaseNetWorke.sharedInstance.postUrlWithString(WeChatPayUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
+                let orderNo = (resultDic.value as! NSDictionary).object(forKey: "orderNo") as! String
                 self.weChatModel = Wxpay.init(fromDictionary: resultDic.value as! NSDictionary)
+                self.weChatModel.orderNo = orderNo
+                UserDefaultsSetSynchronize(orderNo as AnyObject, key: "orderNo")
                 let request = PayReq()
                 request.prepayId = self.weChatModel.payInfo.prepayid
                 request.partnerId = self.weChatModel.payInfo.partnerid
@@ -111,7 +120,10 @@ class TopUpViewModel: BaseViewModel {
         }
         BaseNetWorke.sharedInstance.postUrlWithString(AliPayInfo, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
+                let orderNo = (resultDic.value as! NSDictionary).object(forKey: "orderNo") as! String
                 self.model = AliPayInfoModel.init(fromDictionary: resultDic.value as! NSDictionary)
+                self.model.orderNo = orderNo
+                UserDefaultsSetSynchronize(orderNo as AnyObject, key: "orderNo")
                 AlipaySDK.defaultService().payOrder(self.model.payInfo, fromScheme: "CatchMeAlipay") { (resultDic) in
                     print("resultDic")
                 }

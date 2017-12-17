@@ -109,7 +109,7 @@ static UserInfoModel *_instance = nil;
 {
     NSMutableDictionary * dictionary = [NSMutableDictionary dictionary];
     dictionary[kHomeLabelsGender] = @(self.gender);
-    dictionary[kHomeLabelsIdField] = self.idField;
+//    dictionary[kHomeLabelsIdField] = self.idField;
     dictionary[kHomeLabelsCoinAmount] = self.coinAmount;
     if(self.neteaseAccountId != nil){
         dictionary[kHomeLabelsNeteaseAccountId] = self.neteaseAccountId;

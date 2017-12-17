@@ -15,7 +15,7 @@ class TopViewController: BaseViewController {
         super.viewDidLoad()
         self.bindViewModel(viewModel: TopViewModel(), controller: self)
         self.setUpTableView(style: .plain, cells: [TopUserInfoTableViewCell.self,TopDescTableViewCell.self,TopAvatarTableViewCell.self], controller: self)
-        self.navigationController?.fd_fullscreenPopGestureRecognizer.isEnabled = false
+        
         self.setUpNavigationView()
         self.upDataConstraints()
         // Do any additional setup after loading the view.
@@ -23,12 +23,13 @@ class TopViewController: BaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.navigationController?.fd_fullscreenPopGestureRecognizer.isEnabled = false
         self.navigationController?.fd_prefersNavigationBarHidden = true
         self.navigationController?.setNavigationBarHidden(true, animated: false)
     }
     
     func setUpNavigationView() {
-        self.navigationItem.title = "大神榜"
+        self.navigationItem.title = "七日大神榜"
         gLoabelNavigaitonBar = GLoabelNavigaitonBar.init(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: 64), click: {
             self.navigationController?.popViewController()
         })
@@ -37,7 +38,7 @@ class TopViewController: BaseViewController {
         
      func upDataConstraints(){
         self.tableView.snp.remakeConstraints { (make) in
-            make.top.equalTo(self.view.snp.top).offset(0)
+            make.top.equalTo(self.view.snp.top).offset(IPHONE_VERSION_MINE11 ? -20 : 0)
             make.left.equalTo(self.view.snp.left).offset(0)
             make.right.equalTo(self.view.snp.right).offset(0)
             make.bottom.equalTo(self.view.snp.bottom).offset(0)

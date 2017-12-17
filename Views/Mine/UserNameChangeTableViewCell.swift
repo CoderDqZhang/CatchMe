@@ -1,16 +1,17 @@
+
 //
-//  QuestionDetailTableViewCell.swift
+//  UserNameChangeTableViewCell.swift
 //  CatchMe
 //
-//  Created by Zhang on 25/11/2017.
+//  Created by Zhang on 16/12/2017.
 //  Copyright © 2017 Zhang. All rights reserved.
 //
 
 import UIKit
 
-class QuestionDetailTableViewCell: UITableViewCell {
+class UserNameChangeTableViewCell: UITableViewCell {
 
-    var textView:UITextView!
+    var textField:UITextField!
     
     var didMakeConstraints = false
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
@@ -19,12 +20,12 @@ class QuestionDetailTableViewCell: UITableViewCell {
     }
     
     func setUpView(){
-        textView = UITextView.init()
-        textView.placeholder = "一起聊聊抓我吧"
-        textView.textColor = UIColor.init(hexString: App_Theme_000000_Color)
-        textView.placeholderColor = UIColor.init(hexString: App_Theme_888888_Color)
-        textView.font = App_Theme_PinFan_R_16_Font
-        self.contentView.addSubview(textView)
+        textField = UITextField.init()
+        textField.font = App_Theme_PinFan_M_15_Font
+        textField.textColor = UIColor.init(hexString: App_Theme_000000_Color)
+        textField.placeholder = "输入昵称"
+        self.contentView.addSubview(textField)
+        
         self.updateConstraints()
     }
     
@@ -35,11 +36,11 @@ class QuestionDetailTableViewCell: UITableViewCell {
     
     override func updateConstraints() {
         if !didMakeConstraints {
-            textView.snp.makeConstraints({ (make) in
-                make.left.equalTo(self.contentView.snp.left).offset(15)
-                 make.right.equalTo(self.contentView.snp.right).offset(-15)
-                 make.top.equalTo(self.contentView.snp.top).offset(16)
-                 make.bottom.equalTo(self.contentView.snp.bottom).offset(-16)
+            textField.snp.makeConstraints({ (make) in
+                make.left.equalTo(self.contentView.snp.left).offset(20)
+                make.right.equalTo(self.contentView.snp.right).offset(-20)
+                make.top.equalTo(self.contentView.snp.top).offset(0)
+                make.bottom.equalTo(self.contentView.snp.bottom).offset(0)
             })
             didMakeConstraints = true
         }
@@ -56,5 +57,6 @@ class QuestionDetailTableViewCell: UITableViewCell {
         
         // Configure the view for the selected state
     }
+
 
 }

@@ -17,10 +17,20 @@ class TopViewModel: BaseViewModel {
     }
     
     //MARK: UITableViewCellSetData
+    
+    func tableViewDidSelect(_ indexPath:IndexPath, tableView:UITableView) {
+        if indexPath.row >= 2 {
+            let toControllerVC = MyJoysViewController()
+            toControllerVC.userId = "\(self.model.gameStatistics[indexPath.row - 2].id!)"
+            NavigationPushView(self.controller!, toConroller: toControllerVC)
+        }
+    }
+    
+    
     func tableViewTopAvatarTableViewCellSetData(_ indexPath:IndexPath, cell:TopAvatarTableViewCell) {
         cell.cellSetData(model: self.model)
     }
-    
+        
     func tableViewTopDescTableViewCellSetData(_ indexPath:IndexPath, cell:TopDescTableViewCell) {
         cell.cellSetData(model: self.model)
     }
@@ -39,11 +49,14 @@ class TopViewModel: BaseViewModel {
         }
     }
     
+    
+    
 }
 
 extension TopViewModel: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        self.tableViewDidSelect(indexPath, tableView: tableView)
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -74,6 +87,7 @@ extension TopViewModel: UITableViewDelegate {
         if scrollView.contentOffset.y > SCREENWIDTH * (169 + 64) / 375 - 74{
             (self.controller as! TopViewController).gLoabelNavigaitonBar.changeBackGroundColor(isTheme: true)
         }else{
+
             (self.controller as! TopViewController).gLoabelNavigaitonBar.changeBackGroundColor(isTheme: false)
         }
     }

@@ -73,6 +73,7 @@ class LoginViewModel: BaseViewModel {
         let parameters = ["userId":UserInfoModel.shareInstance().idField]
         BaseNetWorke.sharedInstance.postUrlWithString(UserInfoUrl, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
+                
                 let model:UserInfoModel = UserInfoModel.init(dictionary: resultDic.value as! [AnyHashable : Any])
                 model.idField = "\((resultDic.value as! NSDictionary).object(forKey: "id")!)"
                 UserDefaultsSetSynchronize(model.neteaseAccountId as AnyObject, key: "neteaseAccountId")

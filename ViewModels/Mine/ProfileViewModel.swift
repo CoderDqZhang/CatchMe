@@ -30,7 +30,6 @@ class ProfileViewModel: BaseViewModel {
         }
     }
     
-    
     func getSexText(){
         UserInfoModel.shareInstance().gender = pickerStr[selectRow] == "男" ? 1 : 0
         self.updateCellString((self.controller as! ProfileViewController).tableView, str: pickerStr[selectRow], tag: 0)
@@ -42,11 +41,12 @@ class ProfileViewModel: BaseViewModel {
     }
     
     func tableViewGloabTitleAndFieldCellSetData(_ indexPath:IndexPath, cell:GloabTitleAndFieldCell) {
-        cell.setData(titleStr[indexPath.row], detail: (detailStr[indexPath.row] as? String)!, laceholder: "请输入用户名")
-        cell.textField.isEnabled = false
-//        cell.textField.reactive.continuousTextValues.observeValues { (str) in
-//            UserInfoModel.shareInstance().userName = str
-//        }
+        if indexPath.row == 0 {
+            cell.textField.isEnabled = false
+            cell.setData(titleStr[indexPath.row], detail: UserInfoModel.shareInstance().userName, laceholder: "请输入用户名")
+        }else{
+            cell.setData(titleStr[indexPath.row], detail: UserInfoModel.shareInstance().gender != 0 ? "男" : "女", laceholder: "请输入用户名")
+        }
     }
     
     func tableViewGloabTitleAndSwitchCellSetData(_ indexPath:IndexPath, cell:GloabTitleAndSwitchCell) {
@@ -64,11 +64,19 @@ class ProfileViewModel: BaseViewModel {
         
     }
     
-    func tableViewDidSelect(_ indexPath:IndexPath) {
+    func tableViewDidSelect(_ indexPath:IndexPath, tableView:UITableView) {
         if indexPath.section == 0 {
             (self.controller as! ProfileViewController).presentImagePickerView()
         }else{
-            if indexPath.row == 1 {
+            if indexPath.row == 0 {
+                let toControllerVC = ChangeUserNameViewController()
+                toControllerVC.changeUserNameViewControllerClouse = {
+                    let cell = tableView.cellForRow(at: IndexPath.init(row: 0, section: 1)) as! GloabTitleAndFieldCell
+                    cell.setTextFieldText(UserInfoModel.shareInstance().userName)
+                    self.changeUserInfo()
+                }
+                NavigationPushView(self.controller!, toConroller: toControllerVC)
+            }else if indexPath.row == 1 {
                 (self.controller as! ProfileViewController).showSexPickerView()
             }
         }
@@ -90,14 +98,16 @@ class ProfileViewModel: BaseViewModel {
     func changeUserInfo(){
         let parameters = ["id":UserInfoModel.shareInstance().idField,
                           "userName":UserInfoModel.shareInstance().userName,
-                          "photo":UserInfoModel.shareInstance().photo,
+                          "photo":UserInfoModel.shareInstance().photo == nil ? "" : UserInfoModel.shareInstance().photo ,
                           "telephone":UserInfoModel.shareInstance().telephone,
                           "gender":UserInfoModel.shareInstance().gender] as [String : Any]
         BaseNetWorke.sharedInstance.postUrlWithString(ChangeUserInfo, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
                 UserInfoModel.shareInstance().saveOrUpdate(byColumnName: "neteaseAccountId", andColumnValue: "'\(UserInfoModel.shareInstance().neteaseAccountId!)'")
                 Notification(ChangeUserInfoData, value: nil)
-                self.controller?.navigationController?.popViewController()
+                if (self.controller! as! ProfileViewController).profileViewControllerClouse != nil {
+                    (self.controller! as! ProfileViewController).profileViewControllerClouse()
+                }
             }
         }
     }
@@ -110,6 +120,7 @@ class ProfileViewModel: BaseViewModel {
             if !resultDic.isCompleted {
                 if resultDic.value != nil {
                     UserInfoModel.shareInstance().photo = resultDic.value as! String
+                    self.changeUserInfo()
                 }
             }
         }
@@ -119,7 +130,7 @@ class ProfileViewModel: BaseViewModel {
 extension ProfileViewModel: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        self.tableViewDidSelect(indexPath)
+        self.tableViewDidSelect(indexPath, tableView: tableView)
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {

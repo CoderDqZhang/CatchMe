@@ -22,6 +22,9 @@ class MyInvitationCodeViewController: BaseViewController {
     var sharBtn:UIButton!
     
     var myInvitationViewMode = MyInvitationCodeViewModel()
+    
+    var scollerView:UIScrollView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.bindLogicViewModel()
@@ -37,7 +40,18 @@ class MyInvitationCodeViewController: BaseViewController {
         self.myInvitationViewMode.controller = self
     }
     
+    override func backBtnPress(_ sender: UIButton) {
+        self.navigationController?.popViewController()
+        if KWINDOWDS().viewWithTag(120) != nil {
+            (KWINDOWDS().viewWithTag(120) as! GloabelShareAndConnectUs).removeSelf()
+        }
+    }
+    
     override func setUpView() {
+        scollerView = UIScrollView.init(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: SCREENHEIGHT))
+        scollerView.contentSize = CGSize.init(width: SCREENWIDTH, height: 667)
+        self.view.addSubview(scollerView)
+        
         textField = UITextField.init()
         textField.placeholder = "请输入朋友邀请码"
         textField.font = App_Theme_PinFan_M_30_Font
@@ -48,13 +62,13 @@ class MyInvitationCodeViewController: BaseViewController {
             self.myInvitationViewMode.shareCode = str!
         }
         textField.textColor = UIColor.init(hexString: App_Theme_333333_Color)
-        self.view.addSubview(textField)
+        scollerView.addSubview(textField)
         
         textField.snp.makeConstraints { (make) in
-            make.centerX.equalTo(self.view.snp.centerX).offset(0)
-            make.left.equalTo(self.view.snp.left).offset(10)
-            make.right.equalTo(self.view.snp.right).offset(-10)
-            make.top.equalTo(self.view.snp.top).offset(75)
+            make.centerX.equalTo(scollerView.snp.centerX).offset(0)
+            make.left.equalTo(scollerView.snp.left).offset(10)
+            make.right.equalTo(scollerView.snp.right).offset(-10)
+            make.top.equalTo(scollerView.snp.top).offset(75)
         }
         
         lineLabel = GloabLineView.init(frame: CGRect.init(x: 52, y: 120, width: SCREENWIDTH - 104, height: 0.5))
@@ -64,10 +78,10 @@ class MyInvitationCodeViewController: BaseViewController {
         conversionBtn = CustomTouchButton.init(frame: CGRect.init(x: (SCREENWIDTH - 200)/2, y: 150, width: 200, height: 46), title: "兑换娃娃币", tag: 10, titleFont: App_Theme_PinFan_M_17_Font!, type: CustomButtonType.withBackBoarder) { (tag) in
             self.myInvitationViewMode.requestShareCode()
         }
-        self.view.addSubview(conversionBtn)
+        scollerView.addSubview(conversionBtn)
         
         let invitationView = UIView.init()
-        self.view.addSubview(invitationView)
+        scollerView.addSubview(invitationView)
         
         let leftLabel = UIImageView.init()
         leftLabel.image = UIImage.init(named: "left_label")
@@ -119,7 +133,7 @@ class MyInvitationCodeViewController: BaseViewController {
         invitationLabel.font = App_Theme_PinFan_R_14_Font
         invitationLabel.numberOfLines = 0
         invitationLabel.textColor = UIColor.init(hexString: App_Theme_888888_Color)
-        self.view.addSubview(invitationLabel)
+        scollerView.addSubview(invitationLabel)
         
         invitationLabel.snp.makeConstraints { (make) in
             make.centerX.equalTo(self.view.snp.centerX).offset(0)
@@ -148,7 +162,7 @@ class MyInvitationCodeViewController: BaseViewController {
             }
         }
         
-        self.view.addSubview(sharBtn)
+        scollerView.addSubview(sharBtn)
         sharBtn.snp.makeConstraints { (make) in
             make.top.equalTo(self.invitationLabel.snp.bottom).offset(13)
             make.centerX.equalTo(self.view.snp.centerX).offset(0)
