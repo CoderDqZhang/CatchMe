@@ -41,7 +41,6 @@ class MyJoysViewController: BaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.fd_fullscreenPopGestureRecognizer.isEnabled = false
         self.navigationController?.fd_prefersNavigationBarHidden = false
         self.navigationController?.setNavigationBarHidden(false, animated: true)
     }
@@ -51,6 +50,13 @@ class MyJoysViewController: BaseViewController {
             (self.viewModel as! MyJoysViewModel).requestMyDolls(userId: UserInfoModel.shareInstance().idField)
         }else{
             (self.viewModel as! MyJoysViewModel).requestMyDolls(userId: userId)
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        if KWINDOWDS().viewWithTag(120) != nil {
+            (KWINDOWDS().viewWithTag(120) as! GloabelShareAndConnectUs).removeSelf()
         }
     }
     

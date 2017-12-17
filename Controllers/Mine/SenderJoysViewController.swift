@@ -51,8 +51,6 @@ class SenderJoysViewController: BaseViewController {
         (self.viewModel as! SenderJoysViewModel).changeModels()
     }
     
-    
-    
 
     override func setUpViewNavigationItem() {
         self.navigationItem.title = "申请发货"

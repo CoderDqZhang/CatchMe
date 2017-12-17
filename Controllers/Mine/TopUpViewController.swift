@@ -170,6 +170,7 @@ class TopUpViewController: BaseViewController {
         super.viewWillAppear(animated)
         UIApplication.shared.setStatusBarStyle(.lightContent, animated: false)
         self.navigationController?.fd_prefersNavigationBarHidden = false
+        self.navigationController?.fd_fullscreenPopGestureRecognizer.isEnabled = true
         self.navigationController?.setNavigationBarHidden(false, animated: true)
     }
     

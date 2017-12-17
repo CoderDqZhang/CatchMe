@@ -10,6 +10,9 @@ import UIKit
 import NIMSDK
 import NIMAVChat
 
+
+typealias CacheMeViewControllerPopViewClouse = () ->Void
+
 class CacheMeViewController: BaseViewController {
 
     var backImage:UIImageView!
@@ -56,6 +59,7 @@ class CacheMeViewController: BaseViewController {
     var numberACount:Int = 0
     var numberBCount:Int = 0
     
+    var cacheMeViewControllerPopViewClouse:CacheMeViewControllerPopViewClouse!
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.init(hexString: App_Theme_FC4652_Color)
@@ -66,7 +70,6 @@ class CacheMeViewController: BaseViewController {
         self.bindLogicViewModel()
         self.doInitPlayerNotication()
         self.initRemoteGlView()
-        self.navigationController?.fd_fullscreenPopGestureRecognizer.isEnabled = false
         // Do any additional setup after loading the view.
     }
     
@@ -117,13 +120,16 @@ class CacheMeViewController: BaseViewController {
         UIApplication.shared.setStatusBarStyle(.lightContent, animated: false)
         self.navigationController?.fd_prefersNavigationBarHidden = true
         self.navigationController?.setNavigationBarHidden(true, animated: true)
+//        self.navigationController?.fd_fullscreenPopGestureRecognizer.isEnabled = false
         if UserDefaultsGetSynchronize(MUISCCOGIF) as! String == "true" {
             AudioPlayManager.shareInstance.playBgMusic(name: "\(ConfigModel.shanreInstance.musicName!)")
         }
+
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
+//        self.navigationController?.fd_fullscreenPopGestureRecognizer.isEnabled = true
         if UserDefaultsGetSynchronize(MUISCCOGIF) as! String == "true" {
             AudioPlayManager.shareInstance.pause()
         }
@@ -225,6 +231,7 @@ class CacheMeViewController: BaseViewController {
             
             self.setUpPlayUserView()
             self.setUpCameraView()
+            self.setUpSwiperGesture(view: self.liveplayerA.view, type: .left)
             self.view.bringSubview(toFront: cacheMeTopView)
             
             if nElivePlayLoadFailATime == nil {
@@ -248,9 +255,8 @@ class CacheMeViewController: BaseViewController {
     
     func isHaveAStreamData(waitingTime:Int){
         if self.liveplayerA != nil && !self.liveplayerA.view.isHidden {
-            if isHaveLiverAData {
+            if isHaveLiverAData { // 只有在第一帧回调的时候触发
                 self.nElivePlayLoadFailATime.invalidate()
-                self.setUpSwiperGesture(view: self.liveplayerA.view)
                 if self.localPreView != nil{
                     self.localPreView.isHidden = true
                     self.setUpGameTipView()
@@ -262,6 +268,11 @@ class CacheMeViewController: BaseViewController {
                 if waitingTime >= 3 {
                     self.setUpNELivePlayerLoadFailView()
                 }
+//                if self.liveplayerA.isPlaying() {
+//                    if self.localPreView != nil{
+//                        self.localPreView.isHidden = true
+//                    }
+//                }
             }
         }
     }
@@ -271,6 +282,7 @@ class CacheMeViewController: BaseViewController {
             try self.liveplayerB = NELivePlayerController.init(contentURL: URL.init(string: url))
             self.configLiveLayer(liveplayer: self.liveplayerB)
             self.liveplayerB.view.isHidden = true
+            self.setUpSwiperGesture(view: self.liveplayerB.view, type: .left)
             self.liveplayerB.setPlaybackTimeout(30000)
             if nElivePlayLoadFailBTime == nil {
                 nElivePlayLoadFailBTime = Timer.every(1, {
@@ -292,7 +304,6 @@ class CacheMeViewController: BaseViewController {
     func isHaveBStreamData(waitingTime: Int) {
         if self.liveplayerB != nil && !self.liveplayerB.view.isHidden {
             if isHaveLiverBData {
-                self.setUpSwiperGesture(view: self.liveplayerB.view)
                 self.nElivePlayLoadFailBTime.invalidate()
                 if waitingTime > 3 && self.nELivePlayerLoadFailView != nil {
                     self.nELivePlayerLoadFailView.isHidden = true
@@ -407,18 +418,13 @@ class CacheMeViewController: BaseViewController {
 //        self.setUpSwiperGesture(view: remoteGLView)
     }
     
-    //创建左右滑动
-    func setUpSwiperGesture(view:UIView?){
-        GestureRecognizerManager.shareInstance.setUpSwipeGestureRecognizer(view: view)
+    //创建向左滑动
+    func setUpSwiperGesture(view:UIView?,type:SwipeGestureRecognizerType){
+        if type == .left {
+            GestureRecognizerManager.shareInstance.setUpSwipeGestureRecognizerLeft(view: view)
+        }
         GestureRecognizerManager.shareInstance.gestureRecognizerManagerClouse = { type in
-            if type == .left && !self.liveplayerA.view.isHidden {
-                self.cacheMeViewModel.changeCamera()
-            }else if type == .right && !self.liveplayerB.view.isHidden{
-                self.cacheMeViewModel.changeCamera()
-            }
-//            else if !self.remoteGLView.isHidden {
-//                self.cacheMeViewModel.changeCamera()
-//            }
+            self.cacheMeViewModel.changeCamera()
         }
     }
     
@@ -446,12 +452,13 @@ class CacheMeViewController: BaseViewController {
     func setUpCacheMeTopView(){
         cacheMeTopView = CacheMeTopView.init(frame: CGRect.init(x: 0, y: 20, width: SCREENWIDTH, height: 44), topViewBackButtonClouse: {
             self.cacheMeViewModel.requestExitRooms()
+            
             if self.isQuickEnter {
                 self.dismiss(animated: true, completion: {
                 })
-                
             }else{
-                self.navigationController?.popViewController()
+                self.dismiss(animated: false, completion: {
+                })
             }
         })
         self.view.addSubview(cacheMeTopView)

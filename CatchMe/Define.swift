@@ -47,8 +47,8 @@ let WANGYIIMAPPKEY = "04fdcc5868d168349f86a52c04a9d426"
 let WeiXinAppID = "wxde874e2be98bd508"
 let WeiXinSECRET = ""
 let WeiXinCode = "GetWeiXinCode"
-let QQAppID = "1105914312"
-let QQAppKey = "13YjjEEnKWGQ5IJl"
+let QQAppID = "1106567944"
+let QQAppKey = "KEYbSfLwgRaskE6SWyq"
 
 let WeiboApiKey   =    "3220687526"
 let WeiboApiSecret =   "97f3d51f3a1017cf54268accf9b83391"
@@ -56,6 +56,8 @@ let WeiboRedirectUrl = "http://sns.whalecloud.com/sina2/callback"
 
 let GaoDeApiKey = "36cf817a65c10eff954c24c3a9edcb3d"
 
+
+let NotificationPlayMusic = "NotificationPlayMusic"
 
 let ToolViewNotifacationName = "ToolsViewNotification"
 let LoginStatuesChange = "LoginStatuesChange"
@@ -76,7 +78,7 @@ let MUISCCOGIF = "MUISCCOGIF"
 let APPVERSION = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
 
 let TipString = "抓中机器内任意物品都算成功"
-let TipString1 = "主人，滑屏可切换观看视角哟~~"
+let TipString1 = "主人，向左滑屏可切换摄像头哟~~"
 
 func KWINDOWDS() -> UIWindow{
     let window = UIApplication.shared.keyWindow

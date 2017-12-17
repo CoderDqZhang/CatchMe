@@ -40,6 +40,13 @@ class MyInvitationCodeViewController: BaseViewController {
         self.myInvitationViewMode.controller = self
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        if KWINDOWDS().viewWithTag(120) != nil {
+            (KWINDOWDS().viewWithTag(120) as! GloabelShareAndConnectUs).removeSelf()
+        }
+    }
+    
     override func backBtnPress(_ sender: UIButton) {
         self.navigationController?.popViewController()
         if KWINDOWDS().viewWithTag(120) != nil {

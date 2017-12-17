@@ -84,7 +84,6 @@ class MainTabBarViewController: CYLTabBarController {
         self.viewControllers = controllers
         
         AuthorityManager.setUpAuthorityManager(controller: homeViewController)
-        self.checkLocationStatus()
 
     }
     
@@ -139,27 +138,27 @@ class MainTabBarViewController: CYLTabBarController {
     }
     
     
-    func checkLocationStatus(){
-        // 1
-        let status  = CLLocationManager.authorizationStatus()
-        let locationMgr = CLLocationManager.init()
-        // 2
-        locationMgr.delegate = self
-        locationMgr.startUpdatingLocation()
-        if status == .notDetermined {
-            locationMgr.requestWhenInUseAuthorization()
-            return
-        }
-        if status == .denied || status == .restricted {
-            let alert = UIAlertController(title: "Location Services Disabled", message: "Please enable Location Services in Settings", preferredStyle: .alert)
-            
-            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-            alert.addAction(okAction)
-            
-            present(alert, animated: true, completion: nil)
-            return
-        }
-    }
+//    func checkLocationStatus(){
+//        // 1
+//        // 2
+//        let locationMgr = CLLocationManager.init()
+//        locationMgr.delegate = self
+//        let status  = CLLocationManager.authorizationStatus()
+//        locationMgr.startUpdatingLocation()
+//        if status == .notDetermined {
+//            locationMgr.requestWhenInUseAuthorization()
+//            return
+//        }
+//        if status == .denied || status == .restricted {
+//            let alert = UIAlertController(title: "Location Services Disabled", message: "Please enable Location Services in Settings", preferredStyle: .alert)
+//            
+//            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+//            alert.addAction(okAction)
+//            
+//            present(alert, animated: true, completion: nil)
+//            return
+//        }
+//    }
 
     /*
     // MARK: - Navigation
@@ -181,33 +180,33 @@ extension MainTabBarViewController : UITabBarControllerDelegate {
 }
 
 extension MainTabBarViewController : CLLocationManagerDelegate{
-    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        //权限问题
-        switch status {
-        case .denied:
-            break;
-        case .notDetermined:
-            manager.requestWhenInUseAuthorization()
-            //            UIAlertController.shwoAlertControl(KWINDOWDS()!.root, style: .alert, title: "获取地理位置", message: "游戏需要麦克风权限", cancel: "取消", doneTitle: "确定", cancelAction: {
-            //
-            //            }, doneAction: {
-            //                SHARE_APPLICATION.openURL(URL.init(string: UIApplicationOpenSettingsURLString)!)
-        //            })
-        default:
-            break;
-        }
-    }
-    
-    // 1
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        let currentLocation = locations.last!
-        print("Current location: \(currentLocation)")
-    }
-    
-    // 2
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print("Error \(error)")
-    }
+//    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+//        //权限问题
+//        switch status {
+//        case .denied:
+//            break;
+//        case .notDetermined:
+//            manager.requestWhenInUseAuthorization()
+//            //            UIAlertController.shwoAlertControl(KWINDOWDS()!.root, style: .alert, title: "获取地理位置", message: "游戏需要麦克风权限", cancel: "取消", doneTitle: "确定", cancelAction: {
+//            //
+//            //            }, doneAction: {
+//            //                SHARE_APPLICATION.openURL(URL.init(string: UIApplicationOpenSettingsURLString)!)
+//        //            })
+//        default:
+//            break;
+//        }
+//    }
+//
+//    // 1
+//    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+//        let currentLocation = locations.last!
+//        print("Current location: \(currentLocation)")
+//    }
+//
+//    // 2
+//    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+//        print("Error \(error)")
+//    }
 }
 
 class PlusButtonSubclass : CYLPlusButton,CYLPlusButtonSubclassing {

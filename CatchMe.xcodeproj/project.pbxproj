@@ -180,6 +180,7 @@
 		1FE1A2CE1FCC0CD900B715D8 /* TopUpModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE1A2CD1FCC0CD900B715D8 /* TopUpModel.swift */; };
 		1FE1A2D01FCC1A0000B715D8 /* MyCatchDollsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE1A2CF1FCC1A0000B715D8 /* MyCatchDollsModel.swift */; };
 		1FE1A2D21FCD095300B715D8 /* Default-568.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1FE1A2D11FCD095200B715D8 /* Default-568.jpg */; };
+		1FF02A581FE7117400110BE4 /* PresentTransitionAnimated.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FF02A571FE7117400110BE4 /* PresentTransitionAnimated.m */; };
 		1FF3A86B1FE1252E0017326F /* AnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF3A86A1FE1252E0017326F /* AnimationView.swift */; };
 		1FF3A86E1FE15C6F0017326F /* 下场循环.gif in Resources */ = {isa = PBXBuildFile; fileRef = 1FF3A86C1FE15C6E0017326F /* 下场循环.gif */; };
 		1FF3A86F1FE15C6F0017326F /* 出场.gif in Resources */ = {isa = PBXBuildFile; fileRef = 1FF3A86D1FE15C6F0017326F /* 出场.gif */; };
@@ -431,6 +432,8 @@
 		1FE1A2CD1FCC0CD900B715D8 /* TopUpModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopUpModel.swift; sourceTree = "<group>"; };
 		1FE1A2CF1FCC1A0000B715D8 /* MyCatchDollsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCatchDollsModel.swift; sourceTree = "<group>"; };
 		1FE1A2D11FCD095200B715D8 /* Default-568.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Default-568.jpg"; sourceTree = "<group>"; };
+		1FF02A561FE7117400110BE4 /* PresentTransitionAnimated.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PresentTransitionAnimated.h; sourceTree = "<group>"; };
+		1FF02A571FE7117400110BE4 /* PresentTransitionAnimated.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PresentTransitionAnimated.m; sourceTree = "<group>"; };
 		1FF3A86A1FE1252E0017326F /* AnimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationView.swift; sourceTree = "<group>"; };
 		1FF3A86C1FE15C6E0017326F /* 下场循环.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "下场循环.gif"; sourceTree = "<group>"; };
 		1FF3A86D1FE15C6F0017326F /* 出场.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "出场.gif"; sourceTree = "<group>"; };
@@ -635,6 +638,8 @@
 				1F126E051FBFFD70006306D2 /* UIImage+PureColor.m */,
 				1F126E0B1FBFFDCB006306D2 /* NSDate+LSCore.h */,
 				1F126E0A1FBFFDCA006306D2 /* NSDate+LSCore.m */,
+				1FF02A561FE7117400110BE4 /* PresentTransitionAnimated.h */,
+				1FF02A571FE7117400110BE4 /* PresentTransitionAnimated.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -1420,6 +1425,7 @@
 				1F126ED11FC2C6FE006306D2 /* MyJoyTableViewCell.swift in Sources */,
 				1F126E551FC08824006306D2 /* UserProtocolViewController.swift in Sources */,
 				1F126E5F1FC0976F006306D2 /* ProfileViewController.swift in Sources */,
+				1FF02A581FE7117400110BE4 /* PresentTransitionAnimated.m in Sources */,
 				1F126EA31FC154A0006306D2 /* rgb.fsh.c in Sources */,
 				1F126EC71FC28A13006306D2 /* UITapGestureRecognizer+Extention.swift in Sources */,
 				1F126DD61FBFF3DE006306D2 /* UIColor+Hex.m in Sources */,

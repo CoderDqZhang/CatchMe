@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WeiboSDKDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
-        PgyManager.shared().start(withAppId: PGYAPPKEY)
+//        PgyManager.shared().start(withAppId: PGYAPPKEY)
         
         PlusButtonSubclass.register()
         AppleThemeTool.setUpToolBarColor()
@@ -75,6 +75,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WeiboSDKDelegate {
 
     func application(_ application: UIApplication, handleOpen url: URL) -> Bool {
         if url.host == "response_from_qq" {
+            Notification(NotificationPlayMusic, value: "分享回调音乐播放")
             return TencentOAuth.handleOpen(url)
         }
         if url.host == "platformId=wechat" || url.host == "pay" {
@@ -97,6 +98,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WeiboSDKDelegate {
         }
         
         if url.host == "response_from_qq" {
+            Notification(NotificationPlayMusic, value: "分享回调音乐播放")
             return TencentOAuth.handleOpen(url)
         }
         if url.host == "platformId=wechat" || url.host == "pay" || url.host == "oauth" {
@@ -117,6 +119,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WeiboSDKDelegate {
             return true
         }
         if url.host == "response_from_qq" {
+            Notification(NotificationPlayMusic, value: "分享回调音乐播放")
             return TencentOAuth.handleOpen(url)
         }
         if url.host == "platformId=wechat" || url.host == "pay" || url.host == "oauth" {
@@ -158,6 +161,7 @@ extension AppDelegate : WXApiDelegate {
                 break;
             }
         }else if resp is SendMessageToWXResp {
+            Notification(NotificationPlayMusic, value: "分享回调音乐播放")
             switch resp.errCode {
             case -2:
                 MainThreadAlertShow("取消分享", view: KWINDOWDS())

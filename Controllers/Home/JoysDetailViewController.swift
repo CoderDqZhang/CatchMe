@@ -15,6 +15,7 @@ class JoysDetailViewController: BaseViewController {
     var webView:WKWebView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         self.view.backgroundColor = UIColor.white
         webView = WKWebView(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: SCREENHEIGHT - 64))
         webView.load(URLRequest.init(url: URL.init(string: url)!))
@@ -29,6 +30,7 @@ class JoysDetailViewController: BaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.navigationController?.fd_fullscreenPopGestureRecognizer.isEnabled = true
         self.navigationController?.fd_prefersNavigationBarHidden = false
         self.navigationController?.setNavigationBarHidden(false, animated: true)
     }

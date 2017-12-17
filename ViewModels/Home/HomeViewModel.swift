@@ -27,10 +27,15 @@ class HomeViewModel: BaseViewModel {
     }
     
     func collectDidSelect(_ indexPath:IndexPath) {
+        
         let controllerVC = CacheMeViewController()
         controllerVC.roomModel = models.data[indexPath.row]
-        NavigationPushView(self.controller!, toConroller: controllerVC)
+        let naviController = UINavigationController.init(rootViewController:controllerVC )
+        naviController.transitioningDelegate = self
         
+        self.controller?.present(naviController, animated: true, completion: {
+            
+        })
     }
     
     func cellBanner(headerView:BannerCollectionReusableView){
@@ -146,6 +151,10 @@ class HomeViewModel: BaseViewModel {
     
 }
 
+extension HomeViewModel : CAAnimationDelegate{
+    
+}
+
 extension HomeViewModel : UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -218,4 +227,31 @@ extension HomeViewModel : UICollectionViewDelegateFlowLayout {
     }
     
     
+}
+
+extension HomeViewModel : UIViewControllerTransitioningDelegate {
+    
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return PresentTransitionAnimated.init() as! UIViewControllerAnimatedTransitioning
+    }
+    
+    
+    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return nil
+    }
+    
+    
+    func interactionControllerForPresentation(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+        return nil
+    }
+    
+    
+    func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+        return nil
+    }
+    
+    
+    func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
+        return nil
+    }
 }

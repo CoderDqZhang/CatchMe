@@ -36,6 +36,9 @@ class MyJoysViewModel: BaseViewModel {
     }
     
     func tableViewDidSelect(_ indexPath:IndexPath) {
+        if KWINDOWDS().viewWithTag(120) != nil {
+            (KWINDOWDS().viewWithTag(120) as! GloabelShareAndConnectUs).removeSelf()
+        }
         let toViewController = JoysDetailViewController()
         toViewController.url = "\(CatchDolls)\(MyCatchDollsModel.init(fromDictionary: model[indexPath.section] as! NSDictionary).gameId!)"
         NavigationPushView(self.controller!, toConroller: toViewController)
@@ -98,6 +101,12 @@ extension MyJoysViewModel: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 130
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if KWINDOWDS().viewWithTag(120) != nil {
+            (KWINDOWDS().viewWithTag(120) as! GloabelShareAndConnectUs).removeSelf()
+        }
     }
 }
 

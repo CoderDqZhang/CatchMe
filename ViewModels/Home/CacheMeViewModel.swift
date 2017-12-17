@@ -51,7 +51,16 @@ class CacheMeViewModel: BaseViewModel {
     override init() {
         super.init()
         NIMAVChatSDK.shared().netCallManager.add(self)
+        NotificationCenter.default.addObserver(self, selector: #selector(CacheMeViewModel.musicPlayAgain), name: NSNotification.Name(rawValue: NotificationPlayMusic), object: nil)
         self.getAVAuthorizationStatus()
+    }
+    
+    @objc func musicPlayAgain(){
+        if ((UserDefaultsGetSynchronize(MUISCCOGIF) as! String == "true") && (((KWINDOWDS().subviews[0]).next as! MainTabBarViewController).currentViewController.navigationController?.topViewController!.isKind(of: CacheMeViewController.self))!){
+            if !AudioPlayManager.shareInstance.isPlaying() {
+                AudioPlayManager.shareInstance.playBgMusic(name: "\(ConfigModel.shanreInstance.musicName!)")
+            }
+        }
     }
     
     deinit {
@@ -61,6 +70,7 @@ class CacheMeViewModel: BaseViewModel {
         if timeHeader != nil {
             timeHeader.invalidate()
         }
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: NotificationPlayMusic), object: nil)
         NIMAVChatSDK.shared().netCallManager.remove(self)
     }
     
@@ -109,6 +119,7 @@ class CacheMeViewModel: BaseViewModel {
     }
     
     @objc func otherModel(){
+        
     }
     
     //断开点对点连接后调用
@@ -116,7 +127,11 @@ class CacheMeViewModel: BaseViewModel {
         //拉流界面自动断开处理
         if self.cacheMeController.liveplayerView != nil {
             self.cacheMeController.liveplayerView.isHidden = false
-            cacheMeController.localPreView.isHidden = false
+            if (self.cacheMeController.liveplayerA.isPlaying() && !self.cacheMeController.liveplayerA.view.isHidden) || (self.cacheMeController.liveplayerB.isPlaying() && !self.cacheMeController.liveplayerB.view.isHidden) {
+                cacheMeController.localPreView.isHidden = true
+            }else{
+                cacheMeController.localPreView.isHidden = false
+            }
         }else{
             self.setUpStreamData()
         }
@@ -186,9 +201,6 @@ class CacheMeViewModel: BaseViewModel {
     }
     
     func handUpConnect(){
-        if self.cacheMeController.localPreView != nil {
-            self.cacheMeController.localPreView.isHidden = false
-        }
         //避免网易SDK关闭音乐跟自己本地播放音乐冲突
         if AudioPlayManager.shareInstance.audioPlayer != nil {
             AudioPlayManager.shareInstance.audioPlayer.stop()
@@ -349,52 +361,52 @@ class CacheMeViewModel: BaseViewModel {
     //查看排队情况
     func gameStart(){
         if playGame {
-            if UserInfoModel.shareInstance().coinAmount.int! < self.catchMeModel.price {
-                KWINDOWDS().addSubview(GloableAlertView.init(title: "余额不足，主人请先充值\n赶紧回来抓我哟", btnTop: "去充值", btnBottom: "取消", image: UIImage.init(named: "pic_fail_1")!, type: GloableAlertViewType.topupfail, clickClouse: { (tag) in
-                    if tag == 100 {
-                        //正价代码
-                        self.handUpConnect()
-                        
-                        self.gotoTopUpVC()
-                    }
-                }))
-                //4 xia
-            }else{
-                if NIMSDK.shared().loginManager.isLogined() {
-                    if self.catchMeModel.currentPlayStatus == 0 {
-                        let parameters = ["machineId":catchMeModel.machineDTO.id,"userId":UserInfoModel.shareInstance().idField,"roomId":self.catchMeModel.id] as [String : Any]
-                        BaseNetWorke.sharedInstance.getUrlWithString(GamePrepa, parameters: parameters as AnyObject).observe { (resultDic) in
-                            if !resultDic.isCompleted {
-                                //排队成功调用
-                                if resultDic.error != nil {
-                                    self.handUpConnect()
-                                    return
-                                }
-                                self.prepareModel = PrepareGameModel.init(fromDictionary: resultDic.value as! NSDictionary)
-                                if self.prepareModel != nil && resultDic.value != nil{
-                                    //建立点对点连接
-                                    self.getGameStatus = false
-                                    self.playGameGoStatus = false
-                                    if !COFIGVALUE {
-                                        UserInfoModel.shareInstance().coinAmount = "\(UserInfoModel.shareInstance().coinAmount.int! - self.catchMeModel.price!)"
-                                        UserInfoModel.shareInstance().saveOrUpdate(byColumnName: "neteaseAccountId", andColumnValue: "'\(UserInfoModel.shareInstance().neteaseAccountId!)'")
-                                    }else{
-                                        LoginViewModel.shareInstance.getUserInfoCoins(uerInfoUpdateClouse: { (userInfo) in
-                                        })
+            LoginViewModel.shareInstance.getUserInfoCoins(uerInfoUpdateClouse: { (userInfo) in
+                if userInfo.coinAmount.int! < self.catchMeModel.price {
+                    KWINDOWDS().addSubview(GloableAlertView.init(title: "余额不足，主人请先充值\n赶紧回来抓我哟", btnTop: "去充值", btnBottom: "取消", image: UIImage.init(named: "pic_fail_1")!, type: GloableAlertViewType.topupfail, clickClouse: { (tag) in
+                        if tag == 100 {
+                            //正价代码
+                            self.gotoTopUpVC()
+                        }
+                    }))
+                    //4 xia
+                }else{
+                    if NIMSDK.shared().loginManager.isLogined() {
+                        if self.catchMeModel.currentPlayStatus == 0 {
+                            let parameters = ["machineId":self.catchMeModel.machineDTO.id,"userId":UserInfoModel.shareInstance().idField,"roomId":self.catchMeModel.id] as [String : Any]
+                            BaseNetWorke.sharedInstance.getUrlWithString(GamePrepa, parameters: parameters as AnyObject).observe { (resultDic) in
+                                if !resultDic.isCompleted {
+                                    //排队成功调用
+                                    if resultDic.error != nil {
+                                        self.handUpConnect()
+                                        return
                                     }
-
-                                    self.makeGameToUser()
+                                    self.prepareModel = PrepareGameModel.init(fromDictionary: resultDic.value as! NSDictionary)
+                                    if self.prepareModel != nil && resultDic.value != nil{
+                                        //建立点对点连接
+                                        self.getGameStatus = false
+                                        self.playGameGoStatus = false
+                                        if !COFIGVALUE {
+                                            UserInfoModel.shareInstance().coinAmount = "\(UserInfoModel.shareInstance().coinAmount.int! - self.catchMeModel.price!)"
+                                            UserInfoModel.shareInstance().saveOrUpdate(byColumnName: "neteaseAccountId", andColumnValue: "'\(UserInfoModel.shareInstance().neteaseAccountId!)'")
+                                        }else{
+                                            LoginViewModel.shareInstance.getUserInfoCoins(uerInfoUpdateClouse: { (userInfo) in
+                                            })
+                                        }
+                                        
+                                        self.makeGameToUser()
+                                    }
                                 }
                             }
+                        }else{
+                            _ = Tools.shareInstance.showMessage(KWINDOWDS(), msg: "当前机器有人在使用", autoHidder: true)
                         }
                     }else{
-                        _ = Tools.shareInstance.showMessage(KWINDOWDS(), msg: "当前机器有人在使用", autoHidder: true)
+                        _ = Tools.shareInstance.showMessage(KWINDOWDS(), msg: "用户未登录", autoHidder: true)
+                        NeteaseManager.shareInstance.setAutoLogin()
                     }
-                }else{
-                    _ = Tools.shareInstance.showMessage(KWINDOWDS(), msg: "用户未登录", autoHidder: true)
-                    NeteaseManager.shareInstance.setAutoLogin()
                 }
-            }
+            })
         }else{
             UIAlertController.shwoAlertControl(self.cacheMeController!, style: .alert, title: "请允许使用麦克风", message: "游戏需要麦克风权限", cancel: "取消", doneTitle: "确定", cancelAction: {
                 
@@ -503,12 +515,12 @@ class CacheMeViewModel: BaseViewModel {
     //在玩一次
     func playAgain(){
         if UserInfoModel.shareInstance().coinAmount.int! < self.catchMeModel.price {
+            //余额不足断开端对点连接
+            self.stopGame()
+            self.handUpConnect()
             KWINDOWDS().addSubview(GloableAlertView.init(title: "余额不足，主人请先充值\n赶紧回来抓我哟", btnTop: "去充值", btnBottom: "取消", image: UIImage.init(named: "pic_fail_1")!, type: GloableAlertViewType.topupfail, clickClouse: { (tag) in
                 if tag == 100 {
                     //增加代码
-                    self.stopGame()
-                    self.handUpConnect()
-                    
                     self.gotoTopUpVC()
                 }
             }))
@@ -674,6 +686,9 @@ class CacheMeViewModel: BaseViewModel {
     func showShareView(){
         if self.shareCodelModel != nil {
             KWINDOWDS().addSubview(GloabelShareAndConnectUs.init(type: GloabelShareAndConnectUsType.share, title: "成功活抓！快邀请朋友们来围观吧~", clickClouse: { (type) in
+                if UserDefaultsGetSynchronize(MUISCCOGIF) as! String == "true" {
+                    AudioPlayManager.shareInstance.stop()
+                }
                 switch type {
                 case .QQChat:
                     ShareTools.shareInstance.shareQQSessionWebUrl(self.shareCodelModel.title, webTitle: self.shareCodelModel.descriptionField, imageUrl: self.shareCodelModel.thumbnailAddress, webDescription: "", webUrl: self.shareCodelModel.url)

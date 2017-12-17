@@ -49,9 +49,22 @@ class AudioPlayManager: NSObject {
         
     }
     
+    func isPlaying() -> Bool{
+        if self.audioPlayer != nil {
+            return self.audioPlayer.isPlaying
+        }
+        return false
+    }
+    
     func pause(){
         if self.audioPlayer != nil {
             self.audioPlayer.pause()
+        }
+    }
+    
+    func stop(){
+        if self.audioPlayer != nil {
+            self.audioPlayer.stop()
         }
     }
     //监听音量键 调节
