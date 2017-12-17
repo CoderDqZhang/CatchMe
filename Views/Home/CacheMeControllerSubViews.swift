@@ -418,7 +418,7 @@ class QuictEnterLocalPreView: UIView {
         imageView.image = image
         imageView.alpha = 1
         self.addSubview(imageView)
-        self.imageView.frame = CGRect.init(x: (SCREENWIDTH - (image?.size.width)!)/2, y: SCREENHEIGHT, width: (image?.size.width)!, height: (image?.size.height)!)
+        self.imageView.frame = CGRect.init(x: (SCREENWIDTH - (image?.size.width)!)/2, y: SCREENHEIGHT - (image?.size.height)! / 2 + 30, width: (image?.size.width)!, height: (image?.size.height)!)
         
         UIView.animate(withDuration: 0.3, animations: {
             self.backGroundImage.alpha = 1
@@ -430,7 +430,7 @@ class QuictEnterLocalPreView: UIView {
 //        }) { (ret) in
 //
 //        }
-        imageView.layer.add(self.setUpAnimation(SCREENHEIGHT - (image?.size.height)! / 2 + 7, velocity: 60.0, finish: { _ in
+        imageView.layer.add(self.setUpAnimation(SCREENHEIGHT - (image?.size.height)! / 2 + 15, velocity: 8.0, finish: { _ in
         }), forKey: "imageViewAnimation")
         
         label = UILabel.init()
@@ -441,7 +441,7 @@ class QuictEnterLocalPreView: UIView {
         label.font = App_Theme_PinFan_M_20_Font
         self.addSubview(label)
         
-        _ = Timer.after(3, {
+        _ = Timer.after(0.5, {
             self.removeSelf()
         })
         
@@ -462,8 +462,8 @@ class QuictEnterLocalPreView: UIView {
     func setUpAnimation(_ float:CGFloat, velocity:CGFloat, finish:@escaping AnimationFinishClouse) ->CASpringAnimation{
         let ani = CASpringAnimation.init(keyPath: "position.y")
         ani.mass = 1.0; //质量，影响图层运动时的弹簧惯性，质量越大，弹簧拉伸和压缩的幅度越大
-        ani.stiffness = 1000; //刚度系数(劲度系数/弹性系数)，刚度系数越大，形变产生的力就越大，运动越快
-        ani.damping = 80.0;//阻尼系数，阻止弹簧伸缩的系数，阻尼系数越大，停止越快
+        ani.stiffness = 400; //刚度系数(劲度系数/弹性系数)，刚度系数越大，形变产生的力就越大，运动越快
+        ani.damping = 20.0;//阻尼系数，阻止弹簧伸缩的系数，阻尼系数越大，停止越快
         ani.initialVelocity = velocity;//初始速率，动画视图的初始速度大小;速率为正数时，速度方向与运动方向一致，速率为负数时，速度方向与运动方向相反
         ani.duration = ani.settlingDuration;
         ani.toValue = float

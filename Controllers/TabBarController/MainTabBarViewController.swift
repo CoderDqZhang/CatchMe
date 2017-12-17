@@ -65,14 +65,9 @@ class MainTabBarViewController: CYLTabBarController {
 //        self.tabBar.backgroundImage = UIImage.createImage(with: UIColor.clear)
         
         self.viewControllers = controllers
-//        self.tabBarHeight = (self.tabBarController?.tabBar.height)! + 34
-//        if #available(iOS 11.0, *) {
-//            self.tabBarController?.tabBar.height  =  (self.tabBarController?.tabBar.height)! + 34
-//            self.viewSafeAreaInsetsDidChange()
-//        } else {
-//            // Fallback on earlier versions
-//        }
-        // Do any additional setup after loading the view.
+        
+        AuthorityManager.setUpAuthorityManager(controller: homeViewController)
+
     }
     
     func setNavigationControllerTitleAndImage(image:UIImage, title:String, selectImage:UIImage?, controller:UIViewController?) {
@@ -193,7 +188,7 @@ class PlusButtonSubclass : CYLPlusButton,CYLPlusButtonSubclassing {
 //        (KWINDOWDS().rootViewController as! MainTabBarViewController).currentViewController.navigationController?.view.layer.add(transition, forKey: kCATransition)
 //        (KWINDOWDS().rootViewController as! MainTabBarViewController).currentViewController.navigationController?.pushViewController(controllerVC)
         (KWINDOWDS().rootViewController as! MainTabBarViewController).setUpQuitEntRoom()
-        _ = Timer.after(3, {
+        _ = Timer.after(0.3, {
             let naviController = UINavigationController.init(rootViewController:controllerVC )
             controllerVC.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
             controllerVC.transitioningDelegate = self

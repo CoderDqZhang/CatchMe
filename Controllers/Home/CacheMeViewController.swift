@@ -185,7 +185,7 @@ class CacheMeViewController: BaseViewController {
                 make.centerX.equalTo(self.view.snp.centerX).offset(0)
                 make.top.equalTo(self.view.snp.top).offset(64)
                 make.bottom.equalTo(self.view.snp.bottom).offset(-122)
-                make.size.equalTo(CGSize.init(width: (SCREENHEIGHT - 122 - 64) * 3 / 4 - 10, height: SCREENHEIGHT - 122 - 64))
+                make.size.equalTo(CGSize.init(width: (SCREENWIDTH - 16), height: SCREENHEIGHT - 122 - 64))
             })
             self.view.bringSubview(toFront: self.switchCamera)
         }else{
@@ -214,7 +214,7 @@ class CacheMeViewController: BaseViewController {
             make.centerX.equalTo(self.view.snp.centerX).offset(0)
             make.top.equalTo(self.view.snp.top).offset(64)
             make.bottom.equalTo(self.view.snp.bottom).offset(-122)
-            make.size.equalTo(CGSize.init(width: (SCREENHEIGHT - 122 - 64) * 3 / 4 - 10, height: SCREENHEIGHT - 122 - 64))
+            make.size.equalTo(CGSize.init(width: (SCREENWIDTH - 16), height: SCREENHEIGHT - 122 - 64))
         }
         NELivePlayerController.setLogLevel(NELPLogLevel.LOG_VERBOSE)
         do {
@@ -381,7 +381,7 @@ class CacheMeViewController: BaseViewController {
             make.centerX.equalTo(self.view.snp.centerX).offset(0)
             make.top.equalTo(self.view.snp.top).offset(64)
             make.bottom.equalTo(self.view.snp.bottom).offset(-122)
-            make.size.equalTo(CGSize.init(width: (SCREENHEIGHT - 122 - 64) * 3 / 4 - 10, height: SCREENHEIGHT - 122 - 64))
+            make.size.equalTo(CGSize.init(width: (SCREENWIDTH - 16), height: SCREENHEIGHT - 122 - 64))
         })
     }
     
@@ -402,7 +402,7 @@ class CacheMeViewController: BaseViewController {
             make.centerX.equalTo(self.view.snp.centerX).offset(0)
             make.top.equalTo(self.view.snp.top).offset(64)
             make.bottom.equalTo(self.view.snp.bottom).offset(-122)
-            make.size.equalTo(CGSize.init(width: (SCREENHEIGHT - 122 - 64) * 3 / 4 - 10, height: SCREENHEIGHT - 122 - 64))
+            make.size.equalTo(CGSize.init(width: (SCREENWIDTH - 16), height: SCREENHEIGHT - 122 - 64))
         })
 //        self.setUpSwiperGesture(view: remoteGLView)
     }
@@ -461,7 +461,7 @@ class CacheMeViewController: BaseViewController {
     //创建正在玩用户视图
     func setUpPlayUserView(){
         if cacheMePlayUserView == nil {
-            self.cacheMePlayUserView = CacheMePlayUserView.init(frame: CGRect.init(x: (SCREENWIDTH - (SCREENHEIGHT - 122 - 64) * 3 / 4) / 2 + 5, y: 75, width: (SCREENHEIGHT - 122 - 64) * 3 / 4 - 10, height: 54))
+            self.cacheMePlayUserView = CacheMePlayUserView.init(frame: CGRect.init(x: 8, y: 75, width: (SCREENWIDTH - 16), height: 54))
             self.cacheMePlayUserView.timeDownClouse = {
                 self.cacheMeViewModel.playGameGo()
             }

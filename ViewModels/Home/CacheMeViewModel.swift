@@ -352,6 +352,9 @@ class CacheMeViewModel: BaseViewModel {
             if UserInfoModel.shareInstance().coinAmount.int! < self.catchMeModel.price {
                 KWINDOWDS().addSubview(GloableAlertView.init(title: "余额不足，主人请先充值\n赶紧回来抓我哟", btnTop: "去充值", btnBottom: "取消", image: UIImage.init(named: "pic_fail_1")!, type: GloableAlertViewType.topupfail, clickClouse: { (tag) in
                     if tag == 100 {
+                        //正价代码
+                        self.handUpConnect()
+                        
                         self.gotoTopUpVC()
                     }
                 }))
@@ -502,6 +505,10 @@ class CacheMeViewModel: BaseViewModel {
         if UserInfoModel.shareInstance().coinAmount.int! < self.catchMeModel.price {
             KWINDOWDS().addSubview(GloableAlertView.init(title: "余额不足，主人请先充值\n赶紧回来抓我哟", btnTop: "去充值", btnBottom: "取消", image: UIImage.init(named: "pic_fail_1")!, type: GloableAlertViewType.topupfail, clickClouse: { (tag) in
                 if tag == 100 {
+                    //增加代码
+                    self.stopGame()
+                    self.handUpConnect()
+                    
                     self.gotoTopUpVC()
                 }
             }))
@@ -638,6 +645,10 @@ class CacheMeViewModel: BaseViewModel {
             if tag == 100 {
                 self.playAgain()
             }else if tag == 200{
+                //炫耀一下
+                self.stopGame()
+                self.handUpConnect()
+                //
                 self.showShareView()
                 //成功5秒倒计时连接
             }else if tag == 1000 {

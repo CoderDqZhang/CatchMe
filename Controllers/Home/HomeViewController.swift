@@ -75,6 +75,7 @@ class HomeViewController: BaseViewController {
         super.viewWillAppear(animated)
         UIApplication.shared.setStatusBarStyle(.default, animated: false)
         self.navigationController?.fd_prefersNavigationBarHidden = true
+        self.navigationController?.fd_fullscreenPopGestureRecognizer.isEnabled = false
         if (KWINDOWDS().rootViewController as! MainTabBarViewController).currentViewController is MineViewController {
             self.navigationController?.setNavigationBarHidden(true, animated: false)
         }else{

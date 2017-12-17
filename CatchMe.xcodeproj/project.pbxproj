@@ -155,6 +155,7 @@
 		1F8432511FD29BDF000D6293 /* SwiftUserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8432501FD29BDF000D6293 /* SwiftUserModel.swift */; };
 		1F85F03F1FD6B5EA00FDF26C /* MyInvitationCodeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F85F03E1FD6B5EA00FDF26C /* MyInvitationCodeViewModel.swift */; };
 		1F85F0411FD930AD00FDF26C /* AnimationTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F85F0401FD930AC00FDF26C /* AnimationTools.swift */; };
+		1F8956C01FE69BAE0084B3FD /* AuthorityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8956BF1FE69BAE0084B3FD /* AuthorityManager.swift */; };
 		1FB5EFFD1FDBA472007D2257 /* TopUserInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB5EFFC1FDBA471007D2257 /* TopUserInfoTableViewCell.swift */; };
 		1FCA1FFF1FC47CB50008BF07 /* HomeLables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCA1FFE1FC47CB50008BF07 /* HomeLables.swift */; };
 		1FCA20011FC5202D0008BF07 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCA20001FC5202D0008BF07 /* SettingViewController.swift */; };
@@ -405,6 +406,7 @@
 		1F85F03D1FD54E5700FDF26C /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		1F85F03E1FD6B5EA00FDF26C /* MyInvitationCodeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInvitationCodeViewModel.swift; sourceTree = "<group>"; };
 		1F85F0401FD930AC00FDF26C /* AnimationTools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationTools.swift; sourceTree = "<group>"; };
+		1F8956BF1FE69BAE0084B3FD /* AuthorityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorityManager.swift; sourceTree = "<group>"; };
 		1FB5EFFC1FDBA471007D2257 /* TopUserInfoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopUserInfoTableViewCell.swift; sourceTree = "<group>"; };
 		1FCA1FFE1FC47CB50008BF07 /* HomeLables.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeLables.swift; sourceTree = "<group>"; };
 		1FCA20001FC5202D0008BF07 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
@@ -507,6 +509,7 @@
 				1F126D641FBFF024006306D2 /* ViewController.swift */,
 				1F126DF91FBFFB75006306D2 /* AppThemeTool.swift */,
 				1F126EA91FC16C50006306D2 /* ShareManager.swift */,
+				1F8956BF1FE69BAE0084B3FD /* AuthorityManager.swift */,
 				1FCA20021FC521410008BF07 /* NeteaseManager.swift */,
 				1F126DF71FBFFB75006306D2 /* Config.swift */,
 				1F126DF81FBFFB75006306D2 /* Define.swift */,
@@ -1189,8 +1192,14 @@
 						CreatedOnToolsVersion = 9.1;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 0;
+							};
 							com.apple.InAppPurchase = {
 								enabled = 1;
+							};
+							com.apple.Maps.iOS = {
+								enabled = 0;
 							};
 						};
 					};
@@ -1339,6 +1348,7 @@
 				1F126E381FC01DBA006306D2 /* MineViewController.swift in Sources */,
 				1F126EE71FC3F715006306D2 /* SetNormalTableViewCell.swift in Sources */,
 				1F126E671FC097AE006306D2 /* SenderJoysViewController.swift in Sources */,
+				1F8956C01FE69BAE0084B3FD /* AuthorityManager.swift in Sources */,
 				1F126E9D1FC154A0006306D2 /* renderer_yuv420sp.c in Sources */,
 				1F126D631FBFF024006306D2 /* AppDelegate.swift in Sources */,
 				1F126DD71FBFF3DE006306D2 /* NSString+Utils.m in Sources */,
