@@ -80,7 +80,6 @@
 		1F126E421FC07CBF006306D2 /* MineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F126E411FC07CBF006306D2 /* MineViewModel.swift */; };
 		1F126E471FC07D13006306D2 /* MineHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F126E461FC07D13006306D2 /* MineHeaderTableViewCell.swift */; };
 		1F126E491FC07F1B006306D2 /* MineToolsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F126E481FC07F1B006306D2 /* MineToolsTableViewCell.swift */; };
-		1F126E501FC08792006306D2 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F126E4F1FC08792006306D2 /* LoginViewController.swift */; };
 		1F126E531FC087D0006306D2 /* Gloable+View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F126E521FC087D0006306D2 /* Gloable+View.swift */; };
 		1F126E551FC08824006306D2 /* UserProtocolViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F126E541FC08824006306D2 /* UserProtocolViewController.swift */; };
 		1F126E5B1FC0891D006306D2 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F126E5A1FC0891D006306D2 /* LoginViewModel.swift */; };
@@ -144,6 +143,11 @@
 		1F2292821FD01A7C00089174 /* CacheTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2292811FD01A7C00089174 /* CacheTools.swift */; };
 		1F24A32F1FC8050F007D0C18 /* MyInvitationCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F24A32E1FC8050F007D0C18 /* MyInvitationCodeViewController.swift */; };
 		1F24A3311FC92207007D0C18 /* BaseWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F24A3301FC92207007D0C18 /* BaseWebViewController.swift */; };
+		1F353BC01FE78D17000E140A /* UMAnalytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F353BBC1FE78D16000E140A /* UMAnalytics.framework */; };
+		1F353BC11FE78D17000E140A /* UMCommon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F353BBE1FE78D17000E140A /* UMCommon.framework */; };
+		1F353BC21FE78D79000E140A /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F126E241FC01B15006306D2 /* Security.framework */; };
+		1F353BC41FE78DB5000E140A /* UMengManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F353BC31FE78DB5000E140A /* UMengManager.swift */; };
+		1F353BCC1FE7FE4C000E140A /* DeliveryPolicyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F353BCB1FE7FE4C000E140A /* DeliveryPolicyModel.swift */; };
 		1F3739BC1FD1061F0068F1C0 /* ProfileLogoutTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3739BB1FD1061F0068F1C0 /* ProfileLogoutTableViewCell.swift */; };
 		1F3739BE1FD10D5A0068F1C0 /* address.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1F3739BD1FD10D5A0068F1C0 /* address.txt */; };
 		1F3739C01FD10E160068F1C0 /* LocalJsonFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3739BF1FD10E160068F1C0 /* LocalJsonFile.swift */; };
@@ -307,7 +311,6 @@
 		1F126E411FC07CBF006306D2 /* MineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineViewModel.swift; sourceTree = "<group>"; };
 		1F126E461FC07D13006306D2 /* MineHeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineHeaderTableViewCell.swift; sourceTree = "<group>"; };
 		1F126E481FC07F1B006306D2 /* MineToolsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineToolsTableViewCell.swift; sourceTree = "<group>"; };
-		1F126E4F1FC08792006306D2 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		1F126E521FC087D0006306D2 /* Gloable+View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Gloable+View.swift"; sourceTree = "<group>"; };
 		1F126E541FC08824006306D2 /* UserProtocolViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProtocolViewController.swift; sourceTree = "<group>"; };
 		1F126E5A1FC0891D006306D2 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
@@ -395,6 +398,10 @@
 		1F2292811FD01A7C00089174 /* CacheTools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheTools.swift; sourceTree = "<group>"; };
 		1F24A32E1FC8050F007D0C18 /* MyInvitationCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInvitationCodeViewController.swift; sourceTree = "<group>"; };
 		1F24A3301FC92207007D0C18 /* BaseWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseWebViewController.swift; sourceTree = "<group>"; };
+		1F353BBC1FE78D16000E140A /* UMAnalytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = UMAnalytics.framework; sourceTree = "<group>"; };
+		1F353BBE1FE78D17000E140A /* UMCommon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = UMCommon.framework; sourceTree = "<group>"; };
+		1F353BC31FE78DB5000E140A /* UMengManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UMengManager.swift; sourceTree = "<group>"; };
+		1F353BCB1FE7FE4C000E140A /* DeliveryPolicyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeliveryPolicyModel.swift; sourceTree = "<group>"; };
 		1F3739BB1FD1061F0068F1C0 /* ProfileLogoutTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileLogoutTableViewCell.swift; sourceTree = "<group>"; };
 		1F3739BD1FD10D5A0068F1C0 /* address.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = address.txt; sourceTree = "<group>"; };
 		1F3739BF1FD10E160068F1C0 /* LocalJsonFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalJsonFile.swift; sourceTree = "<group>"; };
@@ -451,13 +458,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F353BC21FE78D79000E140A /* Security.framework in Frameworks */,
+				1F126E271FC01B96006306D2 /* CoreTelephony.framework in Frameworks */,
 				1F2292801FD00F3C00089174 /* Accelerate.framework in Frameworks */,
 				1F126DF11FBFF86B006306D2 /* libresolv.tbd in Frameworks */,
 				1F126DF31FBFF873006306D2 /* libz.tbd in Frameworks */,
 				1F126E291FC01BC6006306D2 /* CoreMotion.framework in Frameworks */,
 				1FD7290D1FCE5E7F005CF939 /* StoreKit.framework in Frameworks */,
-				1F126E271FC01B96006306D2 /* CoreTelephony.framework in Frameworks */,
 				1F126E251FC01B48006306D2 /* SystemConfiguration.framework in Frameworks */,
+				1F353BC11FE78D17000E140A /* UMCommon.framework in Frameworks */,
 				1F126E221FC01AC4006306D2 /* CFNetwork.framework in Frameworks */,
 				1F126DEE1FBFF849006306D2 /* libssl.a in Frameworks */,
 				1F126E201FC01A9A006306D2 /* libsqlite3.tbd in Frameworks */,
@@ -471,6 +480,7 @@
 				1F126DF51FBFF886006306D2 /* libstdc++.tbd in Frameworks */,
 				54C665C6CE13906B598CBB0B /* Pods_CatchMe.framework in Frameworks */,
 				1F126DED1FBFF849006306D2 /* libNELivePlayer.a in Frameworks */,
+				1F353BC01FE78D17000E140A /* UMAnalytics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -514,6 +524,7 @@
 				1F126EA91FC16C50006306D2 /* ShareManager.swift */,
 				1F8956BF1FE69BAE0084B3FD /* AuthorityManager.swift */,
 				1FCA20021FC521410008BF07 /* NeteaseManager.swift */,
+				1F353BC31FE78DB5000E140A /* UMengManager.swift */,
 				1F126DF71FBFFB75006306D2 /* Config.swift */,
 				1F126DF81FBFFB75006306D2 /* Define.swift */,
 				1F126DFB1FBFFB76006306D2 /* CatchMe-Bridging-Header.h */,
@@ -560,6 +571,7 @@
 		1F126D761FBFF21B006306D2 /* Utli */ = {
 			isa = PBXGroup;
 			children = (
+				1F353BB71FE78CFA000E140A /* Umeng */,
 				1F126E0D1FBFFE35006306D2 /* libWeiboSDK */,
 				1F126DE11FBFF849006306D2 /* NELivePlayer */,
 				1F126D861FBFF328006306D2 /* QQ */,
@@ -955,7 +967,6 @@
 		1F126E4E1FC08678006306D2 /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				1F126E4F1FC08792006306D2 /* LoginViewController.swift */,
 				1FCA200A1FC5C0E20008BF07 /* LoginSetPhoneViewController.swift */,
 				1FCA200C1FC5CB870008BF07 /* LoginPhoneCodeViewController.swift */,
 				1F126E5C1FC089AA006306D2 /* LoginTypeViewController.swift */,
@@ -1096,8 +1107,34 @@
 				1FE1A2CD1FCC0CD900B715D8 /* TopUpModel.swift */,
 				1FE1A2CF1FCC1A0000B715D8 /* MyCatchDollsModel.swift */,
 				1F4C5B8B1FE04B2F00C9CF66 /* SessionShareModel.swift */,
+				1F353BCB1FE7FE4C000E140A /* DeliveryPolicyModel.swift */,
 			);
 			path = Mine;
+			sourceTree = "<group>";
+		};
+		1F353BB71FE78CFA000E140A /* Umeng */ = {
+			isa = PBXGroup;
+			children = (
+				1F353BBB1FE78D16000E140A /* analytics */,
+				1F353BBD1FE78D17000E140A /* common */,
+			);
+			path = Umeng;
+			sourceTree = "<group>";
+		};
+		1F353BBB1FE78D16000E140A /* analytics */ = {
+			isa = PBXGroup;
+			children = (
+				1F353BBC1FE78D16000E140A /* UMAnalytics.framework */,
+			);
+			path = analytics;
+			sourceTree = "<group>";
+		};
+		1F353BBD1FE78D17000E140A /* common */ = {
+			isa = PBXGroup;
+			children = (
+				1F353BBE1FE78D17000E140A /* UMCommon.framework */,
+			);
+			path = common;
 			sourceTree = "<group>";
 		};
 		1FCA1FFD1FC47C9C0008BF07 /* Home */ = {
@@ -1308,6 +1345,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F353BC41FE78DB5000E140A /* UMengManager.swift in Sources */,
 				1F126ED51FC30399006306D2 /* TopDescTableViewCell.swift in Sources */,
 				1F126DBD1FBFF391006306D2 /* UITableView+FDKeyedHeightCache.m in Sources */,
 				1FF3A8761FE15E320017326F /* FLAnimatedImage.m in Sources */,
@@ -1405,9 +1443,9 @@
 				1F126E9A1FC154A0006306D2 /* mvp.vsh.c in Sources */,
 				1FCA200F1FC720470008BF07 /* AboutUsViewController.swift in Sources */,
 				1F126EAF1FC180B0006306D2 /* UserInfoModel.m in Sources */,
-				1F126E501FC08792006306D2 /* LoginViewController.swift in Sources */,
 				1F126EAA1FC16C50006306D2 /* ShareManager.swift in Sources */,
 				1FF3A8751FE15E320017326F /* FLAnimatedImageView.m in Sources */,
+				1F353BCC1FE7FE4C000E140A /* DeliveryPolicyModel.swift in Sources */,
 				1F126ECF1FC2C6BA006306D2 /* MyJoysViewModel.swift in Sources */,
 				1F126E691FC097BC006306D2 /* MyJoysViewController.swift in Sources */,
 				1F8432511FD29BDF000D6293 /* SwiftUserModel.swift in Sources */,
@@ -1599,6 +1637,9 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Global/Utli/QQ",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Global/Utli/Umeng/thirdparties/thirdparties_ios_1.0.0.16",
+					"$(PROJECT_DIR)/Global/Utli/Umeng/analytics",
+					"$(PROJECT_DIR)/Global/Utli/Umeng/common",
 				);
 				INFOPLIST_FILE = CatchMe/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -1634,6 +1675,9 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Global/Utli/QQ",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Global/Utli/Umeng/thirdparties/thirdparties_ios_1.0.0.16",
+					"$(PROJECT_DIR)/Global/Utli/Umeng/analytics",
+					"$(PROJECT_DIR)/Global/Utli/Umeng/common",
 				);
 				INFOPLIST_FILE = CatchMe/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;

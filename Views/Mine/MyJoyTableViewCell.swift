@@ -82,7 +82,13 @@ class MyJoyTableViewCell: UITableViewCell {
 
         }
         if model.deliveryStatus != 0 {
+            dollsStatus.isHidden = false
             dollsStatus.image = model.deliveryStatus == 1 ? UIImage.init(named: "tag_待发货") : model.deliveryStatus == 2 ? UIImage.init(named: "tag_已发货") : UIImage.init(named: "tag_已收货")
+        }else{
+            let imageSize = UIImage.init(named: "tag_已发货")
+            let image = UIImage.init(color: UIColor.clear, size: CGSize.init(width: (imageSize?.size.width)!, height: (imageSize?.size.height)!))
+            dollsStatus.isHidden = true
+            dollsStatus.image = image
         }
         if !isOwn {
             dollsStatus.isHidden = true

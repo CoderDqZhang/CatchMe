@@ -107,6 +107,8 @@ let RecordByOrderNo = "\(BaseURL)/recharge/findRechargeRecordByOrderNo"
 let Socialsharecard = "\(BaseURL)/socialsharecard/config"
 //使用协议
 let ProtocolUrl = "\(BaseURL)/agreement"
+//发货状态控制
+let TrackDollsURL = "\(BaseURL)/trackDolls"
 
 //http://39.106.137.21:8201/machine/again/start?userId=1&machineId=1&lastGameId=357&roomId=1
 //9.106.137.21:8201/rooms?offset=1&limit=20&userId=1

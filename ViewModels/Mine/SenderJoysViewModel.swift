@@ -12,12 +12,14 @@ class SenderJoysViewModel: BaseViewModel {
 
     var isHaveAddress:Bool = true
     var model:AddressModel!
+    var deliveryPolicyModel:DeliveryPolicyModel!
     var models:NSMutableArray!
     var selectArrary = NSMutableArray.init()
     
     override init() {
         super.init()
         self.requestDefaultAddress()
+        self.requestTrackDolls()
     }
     
     func senderAddress(){
@@ -89,8 +91,8 @@ class SenderJoysViewModel: BaseViewModel {
         }
     }
     
-    func tableViewSenderMuchTableViewCellSetData(_ indexPath:IndexPath, cell:SenderMuchTableViewCell) {
-        cell.cellSetData(count: self.models.count)
+    func tableViewSenderMuchTableViewCellSetData(_ indexPath:IndexPath, models:DeliveryPolicyModel?, cell:SenderMuchTableViewCell) {
+        cell.cellSetData(count: self.models.count, model: models)
     }
     
     func tableViewDidSelect(_ indexPath:IndexPath, tableView:UITableView) {
@@ -121,8 +123,10 @@ class SenderJoysViewModel: BaseViewModel {
                 count = 1 + count
             }
         }
-        let cell = tableView.cellForRow(at: IndexPath.init(row: 0, section: 2)) as! SenderMuchTableViewCell
-        cell.cellSetData(count: count)
+        if tableView.cellForRow(at: IndexPath.init(row: 0, section: 2)) != nil {
+            let cell = tableView.cellForRow(at: IndexPath.init(row: 0, section: 2)) as! SenderMuchTableViewCell
+            cell.cellSetData(count: count, model: self.deliveryPolicyModel)
+        }
     }
     
     func requestApplySenderJoy(){
@@ -158,6 +162,16 @@ class SenderJoysViewModel: BaseViewModel {
                 }else{
                     self.isHaveAddress = false
                 }
+                self.controller?.tableView.reloadData()
+            }
+        }
+    }
+    
+    func requestTrackDolls(){
+        let parameters = ["userId":UserInfoModel.shareInstance().idField, "deliveryStatus":"0"]
+        BaseNetWorke.sharedInstance.getUrlWithString(TrackDollsURL, parameters: parameters as AnyObject).observe { (resultDic) in
+            if !resultDic.isCompleted {
+                self.deliveryPolicyModel = DeliveryPolicyModel.init(fromDictionary: resultDic.value as! NSDictionary)
                 self.controller?.tableView.reloadData()
             }
         }
@@ -216,7 +230,7 @@ extension SenderJoysViewModel: UITableViewDataSource {
             return cell
         default:
             let cell = tableView.dequeueReusableCell(withIdentifier: SenderMuchTableViewCell.description(), for: indexPath)
-            self.tableViewSenderMuchTableViewCellSetData(indexPath, cell: cell as! SenderMuchTableViewCell)
+            self.tableViewSenderMuchTableViewCellSetData(indexPath, models: self.deliveryPolicyModel, cell: cell as! SenderMuchTableViewCell)
             cell.selectionStyle = .none
             return cell
         }

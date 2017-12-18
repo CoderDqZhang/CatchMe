@@ -33,3 +33,6 @@
 #import "FLAnimatedImageView.h"
 #import "PresentTransitionAnimated.h"
 
+#import <UMCommon/UMCommon.h>           // 公共组件是所有友盟产品的基础组件，必选
+#import <UMAnalytics/MobClick.h>        // 统计组件
+

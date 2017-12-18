@@ -64,12 +64,10 @@ let LoginStatuesChange = "LoginStatuesChange"
 let ChangeUserInfoData = "ChangeUserInfoData"
 
 let PayStatusChange = "PayStatusChange"
-
 let BlanceNumberChange = "BlanceNumberChange"
 
 
-let TalkingDataKey = "AC559E27399F4ECEA0D9880E0C6977FB"
-
+let UMENGAPPKEY = "5a110b9a8f4a9d411600095a"
 
 let PGYAPPKEY = "5b3d53cf700a36ad46f07850474fcb14"
 

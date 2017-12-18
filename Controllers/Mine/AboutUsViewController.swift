@@ -18,6 +18,7 @@ class AboutUsViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.umengPageName = "关于我们"
         self.view.backgroundColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
         // Do any additional setup after loading the view.
     }

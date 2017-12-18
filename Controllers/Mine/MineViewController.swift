@@ -17,6 +17,7 @@ class MineViewController: BaseViewController {
         
         self.upDataConstraints()
         self.setUpNavigationItem()
+        self.umengPageName = "我的"
         // Do any additional setup after loading the view.
     }
     

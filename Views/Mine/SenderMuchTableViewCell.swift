@@ -52,8 +52,11 @@ class SenderMuchTableViewCell: UITableViewCell {
     }
     
     
-    func cellSetData(count:Int){
+    func cellSetData(count:Int, model:DeliveryPolicyModel?){
         muchLabel.text = count >= 2 ? "" : "100"
+        if model != nil {
+            descLabel.text = model?.deliveryPolicyText
+        }
         self.updateConstraintsIfNeeded()
     }
     

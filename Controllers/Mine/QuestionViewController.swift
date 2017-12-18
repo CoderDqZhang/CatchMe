@@ -13,6 +13,7 @@ class QuestionViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.umengPageName = "问题反馈页面"
         self.bindViewModel(viewModel: QuestionViewModel(), controller: self)
         self.setUpTableView(style: .grouped, cells: [QuestionDetailTableViewCell.self, QuestionPhoneTableViewCell.self, UITableViewCell.self], controller: self)
         // Do any additional setup after loading the view.

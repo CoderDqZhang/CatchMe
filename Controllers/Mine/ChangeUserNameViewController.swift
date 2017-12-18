@@ -14,6 +14,7 @@ class ChangeUserNameViewController: BaseViewController {
     var changeUserNameViewControllerClouse:ChangeUserNameViewControllerClouse!
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.umengPageName = "修改用户名"
         self.bindViewModel(viewModel: ChangeUserNameViewModel(), controller: self)
         self.setUpTableView(style: .grouped, cells: [UserNameChangeTableViewCell.self], controller: self)
         // Do any additional setup after loading the view.

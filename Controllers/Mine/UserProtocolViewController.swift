@@ -20,6 +20,7 @@ class UserProtocolViewController: BaseViewController {
         webView = WKWebView(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: SCREENHEIGHT - 64))
         webView.load(URLRequest.init(url: URL.init(string:"http://test.zhuawo.com/catch-me/#/agreement")!))
         self.view.addSubview(webView)
+        self.umengPageName = "用户协议"
         // Do any additional setup after loading the view.
     }
 

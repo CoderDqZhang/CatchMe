@@ -22,6 +22,7 @@ class LoginSetPhoneViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.umengPageName = "手机号登录页面"
         // Do any additional setup after loading the view.
     }
 

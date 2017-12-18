@@ -17,16 +17,27 @@ class SenderJoysViewController: BaseViewController {
     var senderJoysViewControllerClouse:SenderJoysViewControllerClouse!
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.umengPageName = "发送娃娃页面"
         self.bindViewModel(viewModel: SenderJoysViewModel(), controller: self)
         self.setUpTableView(style: .grouped, cells: [SenderMuchTableViewCell.self,SendJoyInfoTableViewCell.self,SendAddressTableViewCell.self], controller: self)
         self.bindLogicViewModel()
         self.setUpBottomView()
+        self.updateTableView()
         // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func updateTableView() {
+        self.tableView.snp.remakeConstraints { (make) in
+            make.top.equalTo(self.view.snp.top).offset(IPHONEX ? -24 : 0)
+            make.left.equalTo(self.view.snp.left).offset(0)
+            make.right.equalTo(self.view.snp.right).offset(0)
+            make.bottom.equalTo(self.view.snp.bottom).offset(-80)
+        }
     }
     
     func setUpBottomView() {

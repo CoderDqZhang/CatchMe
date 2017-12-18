@@ -20,6 +20,7 @@ class AddressViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.umengPageName = "地址"
         self.bindViewModel(viewModel: AddressViewModel(), controller: self)
         self.setUpTableView(style: .plain, cells: [GloableTitleLabelTextFieldCell.self, GloableTitleLabelTitleDescCell.self, GloableMaxTitleLabelTextFieldCell.self,SetNormalTableViewCell.self], controller: self)
         self.bindLoginViewModel()

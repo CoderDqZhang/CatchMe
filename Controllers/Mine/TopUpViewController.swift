@@ -24,6 +24,7 @@ class TopUpViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.umengPageName = "娃娃币充值页面"
         self.bindViewModel(viewModel: TopUpViewModel(), controller: self)
         self.setUpPayButton()
         self.setUpBindLogic()
@@ -176,11 +177,12 @@ class TopUpViewController: BaseViewController {
     
     override func setUpViewNavigationItem() {
         self.navigationItem.title = "娃娃币充值"
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: "消费明细", style: .plain, target: self, action: #selector(self.rightBarItem))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: "消费记录", style: .plain, target: self, action: #selector(self.rightBarItem))
     }
     
     @objc func rightBarItem(){
         let controllerVC = BaseWebViewController()
+        controllerVC.navigationItem.title = "消费记录"
         controllerVC.url = "\(ConsumptionUrl)?uid=\(UserInfoModel.shareInstance().idField!)&token=\(UserInfoModel.shareInstance().token!)"
         NavigationPushView(self, toConroller: controllerVC)
     }

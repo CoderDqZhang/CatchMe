@@ -61,6 +61,7 @@ class CacheMeViewController: BaseViewController {
     
     var cacheMeViewControllerPopViewClouse:CacheMeViewControllerPopViewClouse!
     override func viewDidLoad() {
+        self.umengPageName = "游戏界面"
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.init(hexString: App_Theme_FC4652_Color)
         self.getNumberEnter()
@@ -150,6 +151,7 @@ class CacheMeViewController: BaseViewController {
     func bindLogicViewModel(){
         cacheMeViewModel.cacheMeController = self
         cacheMeViewModel.model = self.roomModel
+        cacheMeViewModel.getAVAuthorizationStatus()
         if isQuickEnter {
             self.setUpQuitEntRoom()
             self.view.bringSubview(toFront: cacheMeTopView)
@@ -222,7 +224,7 @@ class CacheMeViewController: BaseViewController {
             make.bottom.equalTo(self.view.snp.bottom).offset(-122)
             make.size.equalTo(CGSize.init(width: (SCREENWIDTH - 16), height: SCREENHEIGHT - 122 - 64))
         }
-        NELivePlayerController.setLogLevel(NELPLogLevel.LOG_VERBOSE)
+        NELivePlayerController.setLogLevel(NELPLogLevel.LOG_ERROR)
         do {
             try self.liveplayerA = NELivePlayerController.init(contentURL: URL.init(string: url[0]))
             self.setUpPlayerB(url: url[1])
@@ -483,9 +485,12 @@ class CacheMeViewController: BaseViewController {
             case .moveLeft,.moveRight,.moveTop,.moveDown:
                 //上//下//左//右
                 self.cacheMeViewModel.playGameLogic(tag: tag)
-            default:
-                //go
+                break;
+            case .moveGO:
                 self.cacheMeViewModel.playGameGo()
+                break;
+            default:
+                break;
             }
         })
         

@@ -18,7 +18,7 @@ class HomeViewController: BaseViewController {
     var homeViewModel = HomeViewModel()
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.umengPageName = "首页"
         self.view.backgroundColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
         self.bindLogicViewModel()
         self.setUpCollectView()
@@ -74,7 +74,6 @@ class HomeViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         UIApplication.shared.setStatusBarStyle(.default, animated: false)
-        self.navigationController?.fd_prefersNavigationBarHidden = true
         
         if (KWINDOWDS().rootViewController as! MainTabBarViewController).currentViewController is MineViewController {
             self.navigationController?.setNavigationBarHidden(true, animated: false)

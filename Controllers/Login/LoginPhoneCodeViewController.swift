@@ -33,7 +33,7 @@ class LoginPhoneCodeViewController: BaseViewController {
     var loginViewModel = LoginViewModel.shareInstance
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.umengPageName = "验证码页面"
         // Do any additional setup after loading the view.
     }
     

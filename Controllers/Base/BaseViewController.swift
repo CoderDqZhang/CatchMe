@@ -18,6 +18,7 @@ class BaseViewController: UIViewController {
 
     var tableView:UITableView!
     var viewModel:BaseViewModel?
+    var umengPageName:String! = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,15 +46,12 @@ class BaseViewController: UIViewController {
     }
     
     func setUpView(){
-        
     }
     
     func setUpViewNavigationItem(){
-        
     }
     
     func setUpLogic(){
-    
     }
     
     
@@ -119,6 +117,15 @@ class BaseViewController: UIViewController {
         
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        MobClick.beginLogPageView(self.umengPageName)
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        MobClick.endLogPageView(self.umengPageName)
+    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

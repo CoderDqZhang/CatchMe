@@ -43,7 +43,7 @@ class MineViewModel: BaseViewModel {
             case 2:
                 NavigationPushView(self.controller!, toConroller: MyJoysViewController())
             case 3:
-                NavigationPushView(self.controller!, toConroller: TopViewController())
+                self.pushTopViewController()
             case 4:
                 NavigationPushView(self.controller!, toConroller: MyInvitationCodeViewController())
             case 5:
@@ -52,6 +52,15 @@ class MineViewModel: BaseViewModel {
                 NavigationPushView(self.controller!, toConroller: AboutUsViewController())
             }
         }
+    }
+    
+    func pushTopViewController(){
+        let controllerVC = TopViewController()
+        let naviController = UINavigationController.init(rootViewController:controllerVC )
+        naviController.transitioningDelegate = self
+        self.controller?.present(naviController, animated: true, completion: {
+            
+        })
     }
     
     func tableViewDidSelect(_ indexPath:IndexPath) {
@@ -117,4 +126,32 @@ extension MineViewModel: UITableViewDataSource {
         }
     }
 }
+
+extension MineViewModel : UIViewControllerTransitioningDelegate {
+    
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return PresentTransitionAnimated.init() as! UIViewControllerAnimatedTransitioning
+    }
+    
+    
+    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return nil
+    }
+    
+    
+    func interactionControllerForPresentation(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+        return nil
+    }
+    
+    
+    func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+        return nil
+    }
+    
+    
+    func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
+        return nil
+    }
+}
+
 

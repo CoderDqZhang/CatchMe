@@ -27,6 +27,7 @@ class MyInvitationCodeViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.umengPageName = "邀请兑换"
         self.bindLogicViewModel()
         self.view.backgroundColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
         // Do any additional setup after loading the view.

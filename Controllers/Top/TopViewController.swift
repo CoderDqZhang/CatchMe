@@ -13,6 +13,7 @@ class TopViewController: BaseViewController {
     var gLoabelNavigaitonBar:GLoabelNavigaitonBar!
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.umengPageName = "大神榜"
         self.bindViewModel(viewModel: TopViewModel(), controller: self)
         self.setUpTableView(style: .plain, cells: [TopUserInfoTableViewCell.self,TopDescTableViewCell.self,TopAvatarTableViewCell.self], controller: self)
         
@@ -23,15 +24,17 @@ class TopViewController: BaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.fd_fullscreenPopGestureRecognizer.isEnabled = false
+        self.navigationController?.fd_fullscreenPopGestureRecognizer.isEnabled = true
         self.navigationController?.fd_prefersNavigationBarHidden = true
-        self.navigationController?.setNavigationBarHidden(true, animated: false)
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
     }
     
     func setUpNavigationView() {
         self.navigationItem.title = "七日大神榜"
         gLoabelNavigaitonBar = GLoabelNavigaitonBar.init(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: 64), click: {
-            self.navigationController?.popViewController()
+            self.dismiss(animated: false, completion: {
+                
+            })
         })
         self.view.addSubview(gLoabelNavigaitonBar)
     }

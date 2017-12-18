@@ -13,6 +13,7 @@ class MyJoysViewController: BaseViewController {
     var userId:String!
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.umengPageName = "我的娃娃列表"
         self.bindViewModel(viewModel: MyJoysViewModel(), controller: self)
         self.setUpTableView(style: .grouped, cells: [MyJoyTableViewCell.self], controller: self)
         self.setDZNEmptyData()

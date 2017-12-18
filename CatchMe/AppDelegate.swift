@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WeiboSDKDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
 //        PgyManager.shared().start(withAppId: PGYAPPKEY)
-        
+        UMengManager.shareInstance.setUpUMengManger(application, didFinishLaunchingWithOptions: launchOptions)
         PlusButtonSubclass.register()
         AppleThemeTool.setUpToolBarColor()
         AppleThemeTool.setUpKeyBoardManager()

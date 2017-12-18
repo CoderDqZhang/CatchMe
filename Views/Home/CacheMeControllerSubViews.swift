@@ -323,22 +323,24 @@ class CacheMePlayUserView:UIView {
     
     func setCountLabelText(count:Int){
         numberCount = count
-        if time == nil {
-            time = Timer.every(1, {
-                if self.numberCount == 0 {
-                    if self.timeDownClouse != nil {
-                        self.timeDownClouse()
-                    }
-                }
-                self.numberCount = self.numberCount - 1
-                if self.numberCount <= -1 {
-                    self.setStr(str: "0s")
-                    return
-                }
-                self.setStr(str: "\(self.numberCount)s")
-                
-            })
+        if time != nil {
+            time.invalidate()
+            time = nil
         }
+        time = Timer.every(1, {
+            if self.numberCount == 0 {
+                if self.timeDownClouse != nil {
+                    self.timeDownClouse()
+                }
+            }
+            self.numberCount = self.numberCount - 1
+            if self.numberCount <= -1 {
+                self.setStr(str: "0s")
+                return
+            }
+            self.setStr(str: "\(self.numberCount)s")
+            
+        })
     }
 }
 

@@ -215,7 +215,7 @@ class BaseNetWorke {
                 failure(response.result.error! as AnyObject)
             }else{
                 if response.response?.statusCode == 200 || response.response?.statusCode == 201 {
-                    print(response)
+//                    print(response)
                     if (response.result.value as! NSDictionary).object(forKey: "code")! as! Int == 1003 {
                         UserInfoModel.logout()
                     }else{

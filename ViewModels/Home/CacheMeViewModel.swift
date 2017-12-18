@@ -48,15 +48,17 @@ class CacheMeViewModel: BaseViewModel {
     
     var canTouch:Bool = true
     
+    //网易出现1005出现重现连接2次
+    var numberConnect:Int = 0
+    
     override init() {
         super.init()
         NIMAVChatSDK.shared().netCallManager.add(self)
         NotificationCenter.default.addObserver(self, selector: #selector(CacheMeViewModel.musicPlayAgain), name: NSNotification.Name(rawValue: NotificationPlayMusic), object: nil)
-        self.getAVAuthorizationStatus()
     }
     
     @objc func musicPlayAgain(){
-        if ((UserDefaultsGetSynchronize(MUISCCOGIF) as! String == "true") && (((KWINDOWDS().subviews[0]).next as! MainTabBarViewController).currentViewController.navigationController?.topViewController!.isKind(of: CacheMeViewController.self))!){
+        if ((UserDefaultsGetSynchronize(MUISCCOGIF) as! String == "true") && (KWINDOWDS().rootViewController as! MainTabBarViewController).currentViewController!.isKind(of: HomeViewController.self)){
             if !AudioPlayManager.shareInstance.isPlaying() {
                 AudioPlayManager.shareInstance.playBgMusic(name: "\(ConfigModel.shanreInstance.musicName!)")
             }
@@ -78,11 +80,12 @@ class CacheMeViewModel: BaseViewModel {
         let authorizate = AVCaptureDevice.authorizationStatus(for: .audio)
         switch authorizate {
         case .denied:
-            UIAlertController.shwoAlertControl(self.cacheMeController!, style: .alert, title: "请允许使用麦克风", message: "游戏需要麦克风权限", cancel: "取消", doneTitle: "确定", cancelAction: {
-                
+            UIAlertController.shwoAlertControl(KWINDOWDS().currentViewController()!, style: .alert, title: "请允许使用麦克风", message: "游戏需要麦克风权限", cancel: "取消", doneTitle: "确定", cancelAction: {
+
             }, doneAction: {
                 SHARE_APPLICATION.openURL(URL.init(string: UIApplicationOpenSettingsURLString)!)
             })
+            break;
         case .authorized:
             self.playGame = true
         case .notDetermined:
@@ -344,7 +347,6 @@ class CacheMeViewModel: BaseViewModel {
         BaseNetWorke.sharedInstance.getUrlWithString(Heartbeat, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
                 if resultDic.error != nil {
-                    self.handUpConnect()
                     return
                 }
                 self.headerModel = HeartModel.init(fromDictionary: resultDic.value as! NSDictionary)
@@ -378,7 +380,6 @@ class CacheMeViewModel: BaseViewModel {
                                 if !resultDic.isCompleted {
                                     //排队成功调用
                                     if resultDic.error != nil {
-                                        self.handUpConnect()
                                         return
                                     }
                                     self.prepareModel = PrepareGameModel.init(fromDictionary: resultDic.value as! NSDictionary)
@@ -393,7 +394,6 @@ class CacheMeViewModel: BaseViewModel {
                                             LoginViewModel.shareInstance.getUserInfoCoins(uerInfoUpdateClouse: { (userInfo) in
                                             })
                                         }
-                                        
                                         self.makeGameToUser()
                                     }
                                 }
@@ -423,7 +423,6 @@ class CacheMeViewModel: BaseViewModel {
             if !resultDic.isCompleted {
                 //点对点连接成功&&开始游戏成功后创建游戏界面
                 if resultDic.error != nil {
-                    self.handUpConnect()
                     return
                 }
                 self.getUserInfo(currentUser: BasicUserDTO.init(fromDictionary: ["photo":UserInfoModel.shareInstance().photo == nil ? "" : UserInfoModel.shareInstance().photo, "userName":UserInfoModel.shareInstance().userName]))
@@ -531,7 +530,6 @@ class CacheMeViewModel: BaseViewModel {
                 if !resultDic.isCompleted {
                     //抓取成功调用
                     if resultDic.error != nil {
-                        self.handUpConnect()
                         return
                     }
                     let model = PlayGameAgain.init(fromDictionary: resultDic.value as! NSDictionary)
@@ -731,6 +729,10 @@ extension CacheMeViewModel : NIMNetCallManagerDelegate {
         }
     }
     
+    func onMyVolumeUpdate(_ volume: UInt16) {
+        
+    }
+    
     func onAudioMixTaskCompleted() {
         
     }
@@ -755,7 +757,11 @@ extension CacheMeViewModel : NIMNetCallManagerDelegate {
     
     func onCallDisconnected(_ callID: UInt64, withError error: Error?) {
         if error != nil {
-            _ = Tools.shareInstance.showLoading(KWINDOWDS(), msg: error!.localizedDescription)
+            if numberConnect < 2 {
+                numberConnect = numberConnect + 1
+                self.makeGameToUser()
+//                _ = Tools.shareInstance.showMessage(KWINDOWDS(), msg: "10015", autoHidder: true)
+            }
         }
         self.prepedPlay()
         
@@ -783,12 +789,16 @@ extension CacheMeViewModel : NIMNetCallManagerDelegate {
     
     func onResponse(_ callID: UInt64, from callee: String, accepted: Bool) {
         if !accepted {
-            self.makeGameToUser()
+            if numberConnect == 0 {
+                self.makeGameToUser()
+            }
         }else{
+            NIMAVChatSDK.shared().netCallManager.setMute(true)
             self.gameStarts()
             if UserDefaultsGetSynchronize(MUISCCOGIF) as! String == "true" {
                 AudioPlayManager.shareInstance.playBgMusic(name: "\(ConfigModel.shanreInstance.musicName!)")
             }
+            numberConnect = 0
         }
     }
 

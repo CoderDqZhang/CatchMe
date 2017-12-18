@@ -45,11 +45,6 @@ class LoginTypeViewController: BaseViewController {
         loginImageProc.isUserInteractionEnabled = true
         loginImageProc.image = UIImage.init(named: "check_1")
         self.view.addSubview(loginImageProc)
-        let sigleTap = UITapGestureRecognizer.init(target: self, action: #selector(self.imageSelect))
-        sigleTap.numberOfTapsRequired = 1
-        sigleTap.numberOfTouchesRequired = 1
-        loginImageProc.addGestureRecognizer(sigleTap)
-        
         
         loginLable = UILabel.init()
         loginLable.isUserInteractionEnabled = true
@@ -94,35 +89,37 @@ class LoginTypeViewController: BaseViewController {
         
         self.view.addSubview(loginWeChatView)
         
-        let loginWithWeChat_bg = UIButton.init(type: .custom)
-        loginWithWeChat_bg.backgroundColor = UIColor.init(hexString: App_Theme_FF8989_Color)
-        loginWithWeChat_bg.layer.cornerRadius = 25
-        loginWeChatView.addSubview(loginWithWeChat_bg)
-        loginWithWeChat_bg.snp.makeConstraints { (make) in
-            make.top.equalTo(self.loginWeChatView.snp.top).offset(2)
-            make.left.equalTo(self.loginWeChatView.snp.left).offset(0)
-            make.size.equalTo(CGSize.init(width: 200, height: 48))
-        }
-        
-        loginWithWeChat = UIButton.init(type: .custom)
-        loginWithWeChat.setImage(UIImage.init(named: "wechat_login"), for: .normal)
-        loginWithWeChat.backgroundColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
-        loginWithWeChat.setTitle(" 微信登录", for: .normal)
-        loginWithWeChat.layer.cornerRadius = 25
-        loginWithWeChat.setTitleColor(UIColor.init(hexString: App_Theme_FC4652_Color), for: .normal)
-        loginWithWeChat.titleLabel?.font = App_Theme_PinFan_M_17_Font
-        loginWeChatView.addSubview(loginWithWeChat)
-        
-        loginWithWeChat.snp.makeConstraints { (make) in
-            make.top.equalTo(self.loginWeChatView.snp.top).offset(0)
-            make.left.equalTo(self.loginWeChatView.snp.left).offset(0)
-            make.size.equalTo(CGSize.init(width: 200, height: 48))
-        }
-        
-        loginWeChatView.snp.makeConstraints { (make) in
-            make.bottom.equalTo(self.loginWithPhone.snp.top).offset(-10)
-            make.centerX.equalTo(self.view.snp.centerX).offset(0)
-            make.size.equalTo(CGSize.init(width: 200, height: 50))
+        if WXApi.isWXAppInstalled() {
+            let loginWithWeChat_bg = UIButton.init(type: .custom)
+            loginWithWeChat_bg.backgroundColor = UIColor.init(hexString: App_Theme_FF8989_Color)
+            loginWithWeChat_bg.layer.cornerRadius = 25
+            loginWeChatView.addSubview(loginWithWeChat_bg)
+            loginWithWeChat_bg.snp.makeConstraints { (make) in
+                make.top.equalTo(self.loginWeChatView.snp.top).offset(2)
+                make.left.equalTo(self.loginWeChatView.snp.left).offset(0)
+                make.size.equalTo(CGSize.init(width: 200, height: 48))
+            }
+            
+            loginWithWeChat = UIButton.init(type: .custom)
+            loginWithWeChat.setImage(UIImage.init(named: "wechat_login"), for: .normal)
+            loginWithWeChat.backgroundColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
+            loginWithWeChat.setTitle(" 微信登录", for: .normal)
+            loginWithWeChat.layer.cornerRadius = 25
+            loginWithWeChat.setTitleColor(UIColor.init(hexString: App_Theme_FC4652_Color), for: .normal)
+            loginWithWeChat.titleLabel?.font = App_Theme_PinFan_M_17_Font
+            loginWeChatView.addSubview(loginWithWeChat)
+            
+            loginWithWeChat.snp.makeConstraints { (make) in
+                make.top.equalTo(self.loginWeChatView.snp.top).offset(0)
+                make.left.equalTo(self.loginWeChatView.snp.left).offset(0)
+                make.size.equalTo(CGSize.init(width: 200, height: 48))
+            }
+            
+            loginWeChatView.snp.makeConstraints { (make) in
+                make.bottom.equalTo(self.loginWithPhone.snp.top).offset(-10)
+                make.centerX.equalTo(self.view.snp.centerX).offset(0)
+                make.size.equalTo(CGSize.init(width: 200, height: 50))
+            }
         }
         
         self.setGIfImage()
@@ -137,14 +134,6 @@ class LoginTypeViewController: BaseViewController {
             make.centerX.equalTo(self.view.snp.centerX).offset(0)
         }
         
-    }
-    
-    @objc func imageSelect(){
-        if loginImageProc.image == UIImage.init(named: "check_1") {
-            loginImageProc.image = UIImage.init(named: "circle")
-        }else{
-            loginImageProc.image = UIImage.init(named: "check_1")
-        }
     }
     
     @objc func buttonClick(){

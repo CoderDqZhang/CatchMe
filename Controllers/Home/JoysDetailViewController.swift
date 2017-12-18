@@ -15,7 +15,7 @@ class JoysDetailViewController: BaseViewController {
     var webView:WKWebView!
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.umengPageName = "娃娃详情"
         self.view.backgroundColor = UIColor.white
         webView = WKWebView(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: SCREENHEIGHT - 64))
         webView.load(URLRequest.init(url: URL.init(string: url)!))
