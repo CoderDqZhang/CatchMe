@@ -60,7 +60,11 @@ class HomeViewModel: BaseViewModel {
                 case 2:
                     let controllerVC = CacheMeViewController()
                     controllerVC.roomModel = Labels.init(fromDictionary: ["id":banner.roomId as! Int])
-                    NavigationPushView(self.controller!, toConroller: controllerVC)
+                    let naviController = UINavigationController.init(rootViewController:controllerVC )
+                    naviController.transitioningDelegate = self
+                    self.controller?.present(naviController, animated: true, completion: {
+                        
+                    })
                 default:
                     break;
                 }
@@ -80,9 +84,22 @@ class HomeViewModel: BaseViewModel {
         if self.headerView != nil {
             self.headerView.setcycleScrollerViewData(imageUrls.mutableCopy() as! NSArray)
             self.headerView.cyCleScrollerViewClouse = { index in
-                let controllerVC = BaseWebViewController()
-                controllerVC.bannerModel = BannerModel.init(fromDictionary: self.banners[index] as! NSDictionary)
-                NavigationPushView(self.controller!, toConroller: controllerVC)
+                let banner = BannerModel.init(fromDictionary: self.banners[index] as! NSDictionary)
+                
+                switch banner.type {
+                case 1:
+                    NavigationPushView(self.controller!, toConroller: MyInvitationCodeViewController())
+                case 3:
+                    let controllerVC = BaseWebViewController()
+                    controllerVC.bannerModel = BannerModel.init(fromDictionary: self.banners[index] as! NSDictionary)
+                    NavigationPushView(self.controller!, toConroller: controllerVC)
+                case 2:
+                    let controllerVC = CacheMeViewController()
+                    controllerVC.roomModel = Labels.init(fromDictionary: ["id":banner.roomId as! Int])
+                    NavigationPushView(self.controller!, toConroller: controllerVC)
+                default:
+                    break;
+                }
             }
         }
     }

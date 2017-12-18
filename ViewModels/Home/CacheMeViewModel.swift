@@ -51,6 +51,9 @@ class CacheMeViewModel: BaseViewModel {
     //网易出现1005出现重现连接2次
     var numberConnect:Int = 0
     
+    //
+    var inPurchaseCoins:Int = 0
+    
     override init() {
         super.init()
         NIMAVChatSDK.shared().netCallManager.add(self)
@@ -363,7 +366,14 @@ class CacheMeViewModel: BaseViewModel {
     //查看排队情况
     func gameStart(){
         if playGame {
+            if !COFIGVALUE {
+                inPurchaseCoins = UserInfoModel.shareInstance().coinAmount.int!
+            }
             LoginViewModel.shareInstance.getUserInfoCoins(uerInfoUpdateClouse: { (userInfo) in
+                if !COFIGVALUE {
+                    UserInfoModel.shareInstance().coinAmount = "\(self.inPurchaseCoins)"
+                    userInfo.coinAmount = "\(self.inPurchaseCoins)"
+                }
                 if userInfo.coinAmount.int! < self.catchMeModel.price {
                     KWINDOWDS().addSubview(GloableAlertView.init(title: "余额不足，主人请先充值\n赶紧回来抓我哟", btnTop: "去充值", btnBottom: "取消", image: UIImage.init(named: "pic_fail_1")!, type: GloableAlertViewType.topupfail, clickClouse: { (tag) in
                         if tag == 100 {
@@ -760,7 +770,6 @@ extension CacheMeViewModel : NIMNetCallManagerDelegate {
             if numberConnect < 2 {
                 numberConnect = numberConnect + 1
                 self.makeGameToUser()
-//                _ = Tools.shareInstance.showMessage(KWINDOWDS(), msg: "10015", autoHidder: true)
             }
         }
         self.prepedPlay()

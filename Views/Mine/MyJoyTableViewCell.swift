@@ -76,7 +76,7 @@ class MyJoyTableViewCell: UITableViewCell {
         
         
         shareImage.tag = indexPath.section
-        cacheTime.text = "\(Date.init(unixTimestamp: Double(model.time / 1000)).dateString())"
+        cacheTime.text = "\(Date.init(unixTimestamp: Double(model.time / 1000)).dateTimeString(ofStyle: DateFormatter.Style.short))"
         dollsName.text = model.name
         UIImageViewManger.sd_imageView(url: model.images[0], imageView: dollsImage, placeholderImage: nil) { (image, error, cacheType, url) in
 

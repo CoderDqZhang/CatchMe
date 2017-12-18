@@ -45,7 +45,7 @@ class TopDescTableViewCell: UITableViewCell {
     }
     
     func cellSetData(model:TopWeeklyModel){
-        let startTime = "\(Date.init(unixTimestamp: Double(model.firstDayOfWeek / 1000)).dateString()) ~ \(Date.init(unixTimestamp: Double(model.lastDayOfWeek / 1000)).dateString())"
+        let startTime = "\(Date.init(unixTimestamp: Double(model.firstDayOfWeek / 1000)).dateString(ofStyle: DateFormatter.Style.short)) ~ \(Date.init(unixTimestamp: Double(model.lastDayOfWeek / 1000)).dateString(ofStyle: DateFormatter.Style.short))"
         timeLable.text = "第\(model.weekth!)周 \(startTime)"
     }
     
