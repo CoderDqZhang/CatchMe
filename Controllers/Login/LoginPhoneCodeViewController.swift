@@ -51,7 +51,7 @@ class LoginPhoneCodeViewController: BaseViewController {
         self.view.addSubview(backGroupButton)
         backGroupButton.snp.makeConstraints { (make) in
             make.left.equalTo(self.view.snp.left).offset(6)
-            make.top.equalTo(self.view.snp.top).offset(20)
+            make.top.equalTo(self.view.snp.top).offset(20 + IPHONEXFRAMEHEIGHT)
             make.size.equalTo(CGSize.init(width: 40, height: 40))
         }
     }
@@ -65,7 +65,7 @@ class LoginPhoneCodeViewController: BaseViewController {
         
         phoneLabel.snp.makeConstraints { (make) in
             make.centerX.equalTo(self.view.snp.centerX).offset(0)
-            make.top.equalTo(self.view.snp.top).offset(76)
+            make.top.equalTo(self.view.snp.top).offset(76 + IPHONEXFRAMEHEIGHT)
         }
         
         inputCode = UITextField.init()
@@ -122,7 +122,7 @@ class LoginPhoneCodeViewController: BaseViewController {
         }
         
         self.setUpForLableAndLine()
-        loginButton = CustomTouchButton.init(frame:  CGRect.init(x: (SCREENWIDTH - 220)/2, y: 268, width: 220, height: 48), title: "登录", tag: 10, titleFont: App_Theme_PinFan_M_17_Font!, type: .withBackBoarder, pressClouse: { (tag) in
+        loginButton = CustomTouchButton.init(frame:  CGRect.init(x: (SCREENWIDTH - 220)/2, y: 268 + IPHONEXFRAMEHEIGHT, width: 220, height: 48), title: "登录", tag: 10, titleFont: App_Theme_PinFan_M_17_Font!, type: .withBackBoarder, pressClouse: { (tag) in
             self.loginViewModel.requestLogin(self.loginViewModel.form)
         })
         self.view.addSubview(loginButton)
@@ -150,33 +150,33 @@ class LoginPhoneCodeViewController: BaseViewController {
     }
     
     func setUpForLableAndLine(){
-        lingLabel1 = GloabLineView.init(frame: CGRect.init(x: (SCREENWIDTH - 220)/2, y: 227, width: 40, height: 2))
+        lingLabel1 = GloabLineView.init(frame: CGRect.init(x: (SCREENWIDTH - 220)/2, y: 227 + IPHONEXFRAMEHEIGHT, width: 40, height: 2))
         self.view.addSubview(lingLabel1)
         lingLabel1.setLineColor(UIColor.init(hexString: App_Theme_DDDDDD_Color))
-        lingLabel2 = GloabLineView.init(frame: CGRect.init(x: lingLabel1.frame.maxX + 20, y: 227, width: 40, height: 2))
+        lingLabel2 = GloabLineView.init(frame: CGRect.init(x: lingLabel1.frame.maxX + 20, y: 227 + IPHONEXFRAMEHEIGHT, width: 40, height: 2))
         self.view.addSubview(lingLabel2)
         lingLabel2.setLineColor(UIColor.init(hexString: App_Theme_DDDDDD_Color))
-        lingLabel3 = GloabLineView.init(frame: CGRect.init(x: lingLabel2.frame.maxX + 20, y: 227, width: 40, height: 2))
+        lingLabel3 = GloabLineView.init(frame: CGRect.init(x: lingLabel2.frame.maxX + 20, y: 227 + IPHONEXFRAMEHEIGHT, width: 40, height: 2))
         self.view.addSubview(lingLabel3)
         lingLabel3.setLineColor(UIColor.init(hexString: App_Theme_DDDDDD_Color))
-        lingLabel4 = GloabLineView.init(frame: CGRect.init(x: lingLabel3.frame.maxX + 20, y: 227, width: 40, height: 2))
+        lingLabel4 = GloabLineView.init(frame: CGRect.init(x: lingLabel3.frame.maxX + 20, y: 227 + IPHONEXFRAMEHEIGHT, width: 40, height: 2))
         lingLabel4.setLineColor(UIColor.init(hexString: App_Theme_DDDDDD_Color))
         self.view.addSubview(lingLabel4)
         
         codeLabel1 = self.setUpLable()
-        codeLabel1.frame = CGRect.init(x: (SCREENWIDTH - 220)/2, y: 184, width: 40, height: 28)
+        codeLabel1.frame = CGRect.init(x: (SCREENWIDTH - 220)/2, y: 184 + IPHONEXFRAMEHEIGHT, width: 40, height: 28)
         self.view.addSubview(codeLabel1)
         
         codeLabel2 = self.setUpLable()
-        codeLabel2.frame = CGRect.init(x: codeLabel1.frame.maxX + 20, y: 184, width: 40, height: 28)
+        codeLabel2.frame = CGRect.init(x: codeLabel1.frame.maxX + 20, y: 184 + IPHONEXFRAMEHEIGHT, width: 40, height: 28)
         self.view.addSubview(codeLabel2)
         
         codeLabel3 = self.setUpLable()
-        codeLabel3.frame = CGRect.init(x: codeLabel2.frame.maxX + 20, y: 184, width: 40, height: 28)
+        codeLabel3.frame = CGRect.init(x: codeLabel2.frame.maxX + 20, y: 184 + IPHONEXFRAMEHEIGHT, width: 40, height: 28)
         self.view.addSubview(codeLabel3)
         
         codeLabel4 = self.setUpLable()
-        codeLabel4.frame = CGRect.init(x: codeLabel3.frame.maxX + 20, y: 184, width: 40, height: 28)
+        codeLabel4.frame = CGRect.init(x: codeLabel3.frame.maxX + 20, y: 184 + IPHONEXFRAMEHEIGHT, width: 40, height: 28)
         self.view.addSubview(codeLabel4)
     }
     

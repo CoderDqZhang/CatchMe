@@ -31,7 +31,7 @@ class TopViewController: BaseViewController {
     
     func setUpNavigationView() {
         self.navigationItem.title = "七日大神榜"
-        gLoabelNavigaitonBar = GLoabelNavigaitonBar.init(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: 64), click: {
+        gLoabelNavigaitonBar = GLoabelNavigaitonBar.init(frame: CGRect.init(x: 0, y: 0 + IPHONEXFRAMEHEIGHT, width: SCREENWIDTH, height: 64), click: {
             self.dismiss(animated: false, completion: {
                 
             })

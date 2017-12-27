@@ -41,7 +41,7 @@ class LoginSetPhoneViewController: BaseViewController {
         self.view.addSubview(backGroupButton)
         backGroupButton.snp.makeConstraints { (make) in
             make.left.equalTo(self.view.snp.left).offset(6)
-            make.top.equalTo(self.view.snp.top).offset(20)
+            make.top.equalTo(self.view.snp.top).offset(20 + IPHONEXFRAMEHEIGHT)
             make.size.equalTo(CGSize.init(width: 40, height: 40))
         }
     }
@@ -55,7 +55,7 @@ class LoginSetPhoneViewController: BaseViewController {
         
         phoneLabel.snp.makeConstraints { (make) in
             make.centerX.equalTo(self.view.snp.centerX).offset(0)
-            make.top.equalTo(self.view.snp.top).offset(76)
+            make.top.equalTo(self.view.snp.top).offset(76 + IPHONEXFRAMEHEIGHT)
         }
         
         inputPhone = UITextField.init()
@@ -82,11 +82,11 @@ class LoginSetPhoneViewController: BaseViewController {
             make.top.equalTo(self.phoneLabel.snp.bottom).offset(74)
         }
         
-        lingLabel = GloabLineView.init(frame: CGRect.init(x: 53, y: 230, width: SCREENWIDTH - 106, height: 1))
+        lingLabel = GloabLineView.init(frame: CGRect.init(x: 53, y: 230 + IPHONEXFRAMEHEIGHT , width: SCREENWIDTH - 106, height: 1))
         lingLabel.setLineColor(UIColor.init(hexString: App_Theme_DDDDDD_Color))
         self.view.addSubview(lingLabel)
         
-        loginButton = CustomTouchButton.init(frame:  CGRect.init(x: (SCREENWIDTH - 220)/2, y: 268, width: 220, height: 48), title: "获取验证码", tag: 10, titleFont: App_Theme_PinFan_M_17_Font!, type: .withBackBoarder, pressClouse: { (tag) in
+        loginButton = CustomTouchButton.init(frame:  CGRect.init(x: (SCREENWIDTH - 220)/2, y: 268 + IPHONEXFRAMEHEIGHT, width: 220, height: 48), title: "获取验证码", tag: 10, titleFont: App_Theme_PinFan_M_17_Font!, type: .withBackBoarder, pressClouse: { (tag) in
             self.loginViewModel.requestLoginCode(self.loginViewModel.form.phone)
         })
         self.loginViewModel.senderCodeSuccessClouse = {

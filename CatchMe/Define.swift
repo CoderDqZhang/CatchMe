@@ -25,6 +25,8 @@ let IPHONEWIDTH320 = SCREENWIDTH == 320 ? true:false
 let IPHONEWIDTH375 = SCREENWIDTH == 375 ? true:false
 let IPHONEWIDTH414 = SCREENWIDTH == 414 ? true:false
 
+let IPHONEXFRAMEHEIGHT:CGFloat = IPHONEX ? 24 : 0 
+let IPHONEXTABBARHEIGHT:CGFloat = IPHONEX ? 30 : 0
 
 let SCREENWIDTH = SwifterSwift.screenWidth
 let SCREENHEIGHT = SwifterSwift.screenHeight

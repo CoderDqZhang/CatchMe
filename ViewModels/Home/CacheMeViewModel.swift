@@ -160,9 +160,10 @@ class CacheMeViewModel: BaseViewModel {
         if self.cacheMeController.switchCamera != nil {
             self.cacheMeController.view.bringSubview(toFront: self.cacheMeController.switchCamera)
         }
-        if self.cacheMeController.showDollsDetail != nil {
-            self.cacheMeController.view.bringSubview(toFront: self.cacheMeController.showDollsDetail)
-        }
+        //2.0
+//        if self.cacheMeController.showDollsDetail != nil {
+//            self.cacheMeController.view.bringSubview(toFront: self.cacheMeController.showDollsDetail)
+//        }
     }
 
     //开始游戏成功
@@ -192,10 +193,10 @@ class CacheMeViewModel: BaseViewModel {
         if self.cacheMeController.switchCamera != nil {
             self.cacheMeController.view.bringSubview(toFront: self.cacheMeController.switchCamera)
         }
-        
-        if self.cacheMeController.showDollsDetail != nil {
-            self.cacheMeController.view.bringSubview(toFront: self.cacheMeController.showDollsDetail)
-        }
+        //2.0
+//        if self.cacheMeController.showDollsDetail != nil {
+//            self.cacheMeController.view.bringSubview(toFront: self.cacheMeController.showDollsDetail)
+//        }
 
         if cacheMeController.gameToolsView != nil {
             cacheMeController.cacheMePlayUserView.countDownLabel.isHidden = false

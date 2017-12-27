@@ -193,16 +193,18 @@ class CacheMeViewController: BaseViewController {
             self.view.addSubview(nELivePlayerLoadFailView)
             self.nELivePlayerLoadFailView.snp.makeConstraints({ (make) in
                 make.centerX.equalTo(self.view.snp.centerX).offset(0)
-                make.top.equalTo(self.view.snp.top).offset(64)
+                make.top.equalTo(self.view.snp.top).offset(64 + IPHONEXFRAMEHEIGHT)
                 make.bottom.equalTo(self.view.snp.bottom).offset(-122)
-                make.size.equalTo(CGSize.init(width: (SCREENWIDTH - 16), height: SCREENHEIGHT - 122 - 64))
+                make.size.equalTo(CGSize.init(width: (SCREENWIDTH - 16), height: SCREENHEIGHT - 122 - 64 - IPHONEXFRAMEHEIGHT))
             })
             self.view.bringSubview(toFront: self.switchCamera)
-            self.view.bringSubview(toFront: self.showDollsDetail)
+            //2.0
+//            self.view.bringSubview(toFront: self.showDollsDetail)
         }else{
             self.view.bringSubview(toFront: self.nELivePlayerLoadFailView)
             self.view.bringSubview(toFront: self.switchCamera)
-            self.view.bringSubview(toFront: self.showDollsDetail)
+            //2.0
+//            self.view.bringSubview(toFront: self.showDollsDetail)
             self.nELivePlayerLoadFailView.isHidden = false
         }
     }
@@ -224,9 +226,9 @@ class CacheMeViewController: BaseViewController {
         self.view.addSubview(liveplayerView)
         liveplayerView.snp.makeConstraints { (make) in
             make.centerX.equalTo(self.view.snp.centerX).offset(0)
-            make.top.equalTo(self.view.snp.top).offset(64)
+            make.top.equalTo(self.view.snp.top).offset(64 + IPHONEXFRAMEHEIGHT)
             make.bottom.equalTo(self.view.snp.bottom).offset(-122)
-            make.size.equalTo(CGSize.init(width: (SCREENWIDTH - 16), height: SCREENHEIGHT - 122 - 64))
+            make.size.equalTo(CGSize.init(width: (SCREENWIDTH - 16), height: SCREENHEIGHT - 122 - 64 - IPHONEXFRAMEHEIGHT))
         }
         NELivePlayerController.setLogLevel(NELPLogLevel.LOG_ERROR)
         do {
@@ -237,7 +239,7 @@ class CacheMeViewController: BaseViewController {
             
             self.setUpPlayUserView()
             self.setUpCameraView()
-            self.setUpShowDollsDetail()
+//            self.setUpShowDollsDetail()
             self.setUpSwiperGesture(view: self.liveplayerA.view, type: .left)
             self.view.bringSubview(toFront: cacheMeTopView)
             
@@ -397,9 +399,9 @@ class CacheMeViewController: BaseViewController {
         self.view.addSubview(localPreView)
         self.localPreView.snp.makeConstraints({ (make) in
             make.centerX.equalTo(self.view.snp.centerX).offset(0)
-            make.top.equalTo(self.view.snp.top).offset(64)
+            make.top.equalTo(self.view.snp.top).offset(64 + IPHONEXFRAMEHEIGHT)
             make.bottom.equalTo(self.view.snp.bottom).offset(-122)
-            make.size.equalTo(CGSize.init(width: (SCREENWIDTH - 16), height: SCREENHEIGHT - 122 - 64))
+            make.size.equalTo(CGSize.init(width: (SCREENWIDTH - 16), height: SCREENHEIGHT - 122 - 64 - IPHONEXFRAMEHEIGHT))
         })
     }
     
@@ -418,9 +420,9 @@ class CacheMeViewController: BaseViewController {
         self.view.addSubview(remoteGLView)
         self.remoteGLView.snp.makeConstraints({ (make) in
             make.centerX.equalTo(self.view.snp.centerX).offset(0)
-            make.top.equalTo(self.view.snp.top).offset(64)
+            make.top.equalTo(self.view.snp.top).offset(64 + IPHONEXFRAMEHEIGHT)
             make.bottom.equalTo(self.view.snp.bottom).offset(-122)
-            make.size.equalTo(CGSize.init(width: (SCREENWIDTH - 16), height: SCREENHEIGHT - 122 - 64))
+            make.size.equalTo(CGSize.init(width: (SCREENWIDTH - 16), height: SCREENHEIGHT - 122 - 64 - IPHONEXFRAMEHEIGHT))
         })
     }
     
@@ -457,9 +459,10 @@ class CacheMeViewController: BaseViewController {
     //创建娃娃详情界面
     func setUpDollDetailView(model:DollsDetailModel){
         dollDetailView = DollDetailView.init(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: SCREENHEIGHT), closeClouse: {
-            AnimationTools.shareInstance.hiddenViewAnimation(view: self.dollDetailView, frame: self.showDollsDetail.frame, finish: { (ret) in
-                self.dollDetailView.isHidden = true
-            })
+            //2.0
+//            AnimationTools.shareInstance.hiddenViewAnimation(view: self.dollDetailView, frame: self.showDollsDetail.frame, finish: { (ret) in
+//                self.dollDetailView.isHidden = true
+//            })
         })
         dollDetailView.setUpSubViews(model: model)
         KWINDOWDS().addSubview(dollDetailView)
@@ -467,7 +470,7 @@ class CacheMeViewController: BaseViewController {
     
     //创建顶部导航栏
     func setUpCacheMeTopView(){
-        cacheMeTopView = CacheMeTopView.init(frame: CGRect.init(x: 0, y: 20, width: SCREENWIDTH, height: 44), topViewBackButtonClouse: {
+        cacheMeTopView = CacheMeTopView.init(frame: CGRect.init(x: 0, y: 20 + IPHONEXFRAMEHEIGHT, width: SCREENWIDTH, height: 44), topViewBackButtonClouse: {
             self.cacheMeViewModel.requestExitRooms()
             
             if self.isQuickEnter {
@@ -485,7 +488,7 @@ class CacheMeViewController: BaseViewController {
     //创建正在玩用户视图
     func setUpPlayUserView(){
         if cacheMePlayUserView == nil {
-            self.cacheMePlayUserView = CacheMePlayUserView.init(frame: CGRect.init(x: 8, y: 75, width: (SCREENWIDTH - 16), height: 54))
+            self.cacheMePlayUserView = CacheMePlayUserView.init(frame: CGRect.init(x: 8, y: 75 + IPHONEXFRAMEHEIGHT, width: (SCREENWIDTH - 16), height: 54))
             self.cacheMePlayUserView.timeDownClouse = {
                 self.cacheMeViewModel.playGameGo()
             }
@@ -531,7 +534,7 @@ class CacheMeViewController: BaseViewController {
         }
     }
     
-    //娃娃详情
+    //娃娃详情 2.0
     func setUpShowDollsDetail(){
         showDollsDetail = AnimationButton.init(type: .custom)
         showDollsDetail.setImage(UIImage.init(named: "camera"), for: .normal)

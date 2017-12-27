@@ -149,7 +149,7 @@ class LoginTypeViewController: BaseViewController {
             let gifImage = FLAnimatedImage.init(animatedGIFData: gifData)
             loginImage.animatedImage = gifImage
             loginImage.snp.makeConstraints { (make) in
-                make.top.equalTo(self.view.snp.top).offset(43)
+                make.top.equalTo(self.view.snp.top).offset(43 + IPHONEXFRAMEHEIGHT)
                 make.centerX.equalTo(self.view.snp.centerX).offset(0)
                 make.size.equalTo(CGSize.init(width: SCREENWIDTH, height: SCREENWIDTH * 684 / 750))
             }

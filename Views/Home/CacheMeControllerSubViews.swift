@@ -43,7 +43,9 @@ class DollDetailView: UIView,SDCycleScrollViewDelegate {
         closeBtn = AnimationButton.init(frame: CGRect.zero)
         closeBtn.setImage(UIImage.init(named: "close_home"), for: .normal)
         closeBtn.reactive.controlEvents(.touchUpInside).observe { (btn) in
-            closeClouse()
+            2.0
+            self.removeSelf()
+//            closeClouse()
         }
         self.addSubview(closeBtn)
         
@@ -52,6 +54,13 @@ class DollDetailView: UIView,SDCycleScrollViewDelegate {
             make.top.equalTo(dollDetailView.snp.bottom).offset(20)
         }
         
+    }
+    
+    //1.1系统
+    func removeSelf(){
+        AnimationTools.shareInstance.removeViewAnimation(view: self.dollDetailView, finish: {_ in
+            self.removeFromSuperview()
+        })
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -594,7 +603,7 @@ class QuictEnterLocalPreView: UIView {
         self.addSubview(backButton)
         
         backButton.snp.makeConstraints { (make) in
-            make.top.equalTo(self.snp.top).offset(20)
+            make.top.equalTo(self.snp.top).offset(20 + IPHONEXFRAMEHEIGHT)
             make.left.equalTo(self.snp.left).offset(6)
             make.size.equalTo(CGSize.init(width: 40, height: 40))
         }
