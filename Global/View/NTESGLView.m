@@ -29,6 +29,10 @@
         _overlay.is_private = 0;
         _overlay.sar_num = 0;
         _overlay.sar_den = 0;
+        
+        _imageView = [[UIImageView alloc] init];
+        _imageView.frame = CGRectMake(0, 0, frame.size.width, frame.size.height);
+        [self addSubview: _imageView];
     }
     return self;
 }

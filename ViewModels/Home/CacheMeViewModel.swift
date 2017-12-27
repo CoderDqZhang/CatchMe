@@ -51,9 +51,6 @@ class CacheMeViewModel: BaseViewModel {
     //网易出现1005出现重现连接2次
     var numberConnect:Int = 0
     
-    //
-    var inPurchaseCoins:Int = 0
-    
     override init() {
         super.init()
         NIMAVChatSDK.shared().netCallManager.add(self)
@@ -163,6 +160,9 @@ class CacheMeViewModel: BaseViewModel {
         if self.cacheMeController.switchCamera != nil {
             self.cacheMeController.view.bringSubview(toFront: self.cacheMeController.switchCamera)
         }
+        if self.cacheMeController.showDollsDetail != nil {
+            self.cacheMeController.view.bringSubview(toFront: self.cacheMeController.showDollsDetail)
+        }
     }
 
     //开始游戏成功
@@ -193,6 +193,9 @@ class CacheMeViewModel: BaseViewModel {
             self.cacheMeController.view.bringSubview(toFront: self.cacheMeController.switchCamera)
         }
         
+        if self.cacheMeController.showDollsDetail != nil {
+            self.cacheMeController.view.bringSubview(toFront: self.cacheMeController.showDollsDetail)
+        }
 
         if cacheMeController.gameToolsView != nil {
             cacheMeController.cacheMePlayUserView.countDownLabel.isHidden = false
@@ -294,6 +297,8 @@ class CacheMeViewModel: BaseViewModel {
                 if self.cacheMeController.bottomToolsView != nil {
                     self.cacheMeController.bottomToolsView.changePlayType(type: self.catchMeModel.currentPlayStatus == 1 ? .canNotPlay : .canPlay)
                 }
+                //查看娃娃详情界面
+                self.reuqestDollsDetail()
                 //设置拉流地址
                 self.setUpStreamData()
                 self.playUrl = self.catchMeModel.machineDTO.audiencePullAddressA
@@ -313,6 +318,8 @@ class CacheMeViewModel: BaseViewModel {
         BaseNetWorke.sharedInstance.getUrlWithString(QuictEnter, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
                 self.catchMeModel = CatchMeModel.init(fromDictionary: resultDic.value as! NSDictionary)
+                //查看娃娃详情界面
+                self.reuqestDollsDetail()
                 self.setUpStreamData()
                 if KWINDOWDS().viewWithTag(10000) != nil {
                     KWINDOWDS().viewWithTag(10000)?.removeFromSuperview()
@@ -355,9 +362,6 @@ class CacheMeViewModel: BaseViewModel {
                 self.headerModel = HeartModel.init(fromDictionary: resultDic.value as! NSDictionary)
                 self.catchMeModel.currentPlayStatus = self.headerModel.currentPlayStatus
                 self.cacheMeController.bottomToolsView.changePlayType(type: self.headerModel.currentPlayStatus == 1 ? .canNotPlay : .canPlay)
-                if COFIGVALUE {
-                    UserInfoModel.shareInstance().coinAmount = "\(self.headerModel.balance!)"
-                }
                 self.setUpRoomPalyUsers(currentUser: self.headerModel.currentPlayerDTO)
             }
         }
@@ -366,14 +370,7 @@ class CacheMeViewModel: BaseViewModel {
     //查看排队情况
     func gameStart(){
         if playGame {
-            if !COFIGVALUE {
-                inPurchaseCoins = UserInfoModel.shareInstance().coinAmount.int!
-            }
             LoginViewModel.shareInstance.getUserInfoCoins(uerInfoUpdateClouse: { (userInfo) in
-                if !COFIGVALUE {
-                    UserInfoModel.shareInstance().coinAmount = "\(self.inPurchaseCoins)"
-                    userInfo.coinAmount = "\(self.inPurchaseCoins)"
-                }
                 if userInfo.coinAmount.int! < self.catchMeModel.price {
                     KWINDOWDS().addSubview(GloableAlertView.init(title: "余额不足，主人请先充值\n赶紧回来抓我哟", btnTop: "去充值", btnBottom: "取消", image: UIImage.init(named: "pic_fail_1")!, type: GloableAlertViewType.topupfail, clickClouse: { (tag) in
                         if tag == 100 {
@@ -397,13 +394,8 @@ class CacheMeViewModel: BaseViewModel {
                                         //建立点对点连接
                                         self.getGameStatus = false
                                         self.playGameGoStatus = false
-                                        if !COFIGVALUE {
-                                            UserInfoModel.shareInstance().coinAmount = "\(UserInfoModel.shareInstance().coinAmount.int! - self.catchMeModel.price!)"
-                                            UserInfoModel.shareInstance().saveOrUpdate(byColumnName: "neteaseAccountId", andColumnValue: "'\(UserInfoModel.shareInstance().neteaseAccountId!)'")
-                                        }else{
-                                            LoginViewModel.shareInstance.getUserInfoCoins(uerInfoUpdateClouse: { (userInfo) in
-                                            })
-                                        }
+                                        LoginViewModel.shareInstance.getUserInfoCoins(uerInfoUpdateClouse: { (userInfo) in
+                                        })
                                         self.makeGameToUser()
                                     }
                                 }
@@ -555,6 +547,18 @@ class CacheMeViewModel: BaseViewModel {
         }
     }
     
+    func reuqestDollsDetail(){
+        BaseNetWorke.sharedInstance.getUrlWithString("\(Dollsvariation)/\(self.catchMeModel.skuSubId!)", parameters: nil).observe { (resultDic) in
+            if !resultDic.isCompleted {
+                if resultDic.value != nil {
+                    let model = DollsDetailModel.init(fromDictionary: resultDic.value as! NSDictionary)
+                    self.cacheMeController.setUpDollDetailView(model:model)
+                }
+                
+            }
+        }
+    }
+    
     func setUpRoomPalyUsers(currentUser:BasicUserDTO?){
         //获取当前真正玩的用户
         self.getUserInfo(currentUser: currentUser)
@@ -650,13 +654,7 @@ class CacheMeViewModel: BaseViewModel {
     }
     
     func gotoTopUpVC(){
-        if !COFIGVALUE {
-            NavigationPushView(self.cacheMeController, toConroller: InPurchaseViewController())
-        }else{
-            let controllerVC = TopUpViewController()
-            controllerVC.isPlayGameView = true
-            NavigationPushView(self.cacheMeController, toConroller: TopUpViewController())
-        }
+        NavigationPushView(self.cacheMeController, toConroller: TopUpViewController())
     }
     
     func shootSuccess(){
@@ -730,14 +728,14 @@ extension CacheMeViewModel : NIMNetCallManagerDelegate {
 //        cacheMeController.localPreView.addSubview(displayView)
     }
     
-    func onRemoteImageReady(_ image: CGImage) {
-        if cacheMeController != nil {
-            if cacheMeController.remoteGLView == nil {
-                cacheMeController.initRemoteGlView()
-            }
-            self.cacheMeController.remoteGLView.image = UIImage.init(cgImage: image)
-        }
-    }
+//    func onRemoteImageReady(_ image: CGImage) {
+////        if cacheMeController != nil {
+////            if cacheMeController.remoteGLView == nil {
+////                cacheMeController.initRemoteGlView()
+////            }
+////            self.cacheMeController.remoteGLView.image = UIImage.init(cgImage: image)
+////        }
+//    }
     
     func onMyVolumeUpdate(_ volume: UInt16) {
         
@@ -749,10 +747,13 @@ extension CacheMeViewModel : NIMNetCallManagerDelegate {
     
     //YUVdata数据直接渲染
     func onRemoteYUVReady(_ yuvData: Data, width: UInt, height: UInt, from user: String) {
-//        if cacheMeController.remoteGLView == nil {
-//            cacheMeController.initRemoteGlView()
-//        }
-//        cacheMeController.remoteGLView.render(yuvData, width: width, height: height)
+        if cacheMeController.remoteGLView == nil {
+            cacheMeController.initRemoteGlView()
+        }
+//        cacheMeController.remoteGLView.imageView.image = UIImage.init(fromYData: yuvData, width: uint(width), height: uint(height))
+        DispatchQueue.main.async(execute: {
+            self.cacheMeController.remoteGLView.render(yuvData, width: width, height: height)
+        })
     }
     
     func onControl(_ callID: UInt64, from user: String, type control: NIMNetCallControlType) {

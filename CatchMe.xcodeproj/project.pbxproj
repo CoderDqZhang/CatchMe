@@ -43,8 +43,6 @@
 		1F126DD81FBFF3DE006306D2 /* NSString+StringSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F126DD11FBFF3DD006306D2 /* NSString+StringSize.m */; };
 		1F126DD91FBFF3DE006306D2 /* UIViewController+hideExcessLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F126DD31FBFF3DD006306D2 /* UIViewController+hideExcessLine.m */; };
 		1F126DDA1FBFF3DE006306D2 /* UITextView+Placeholder.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F126DD41FBFF3DD006306D2 /* UITextView+Placeholder.m */; };
-		1F126DDE1FBFF46A006306D2 /* AlipaySDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1F126DDB1FBFF469006306D2 /* AlipaySDK.bundle */; };
-		1F126DDF1FBFF46A006306D2 /* AlipaySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F126DDC1FBFF46A006306D2 /* AlipaySDK.framework */; };
 		1F126DEB1FBFF849006306D2 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F126DE61FBFF849006306D2 /* libcrypto.a */; };
 		1F126DEC1FBFF849006306D2 /* libyuv.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F126DE71FBFF849006306D2 /* libyuv.a */; };
 		1F126DED1FBFF849006306D2 /* libNELivePlayer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F126DE81FBFF849006306D2 /* libNELivePlayer.a */; };
@@ -136,6 +134,7 @@
 		1F126EE71FC3F715006306D2 /* SetNormalTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F126EE61FC3F715006306D2 /* SetNormalTableViewCell.swift */; };
 		1F126EEB1FC3FD65006306D2 /* AppForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F126EEA1FC3FD65006306D2 /* AppForm.swift */; };
 		1F126F001FC4063E006306D2 /* AddressModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F126EFF1FC4063E006306D2 /* AddressModel.m */; };
+		1F1B2D621FED0C5500672114 /* TransitionAnimatedManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1B2D611FED0C5500672114 /* TransitionAnimatedManager.swift */; };
 		1F1D149C1FE31A8700CC486B /* music_xmas.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 1F1D149B1FE31A8600CC486B /* music_xmas.mp3 */; };
 		1F22927C1FCF219C00089174 /* ConfigModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F22927B1FCF219C00089174 /* ConfigModel.swift */; };
 		1F22927E1FCFBC6700089174 /* Address.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1F22927D1FCFBC6600089174 /* Address.plist */; };
@@ -156,6 +155,7 @@
 		1F4C5B911FE05A2300C9CF66 /* music_normal.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 1F4C5B8E1FE05A2200C9CF66 /* music_normal.mp3 */; };
 		1F4C5B921FE05A2300C9CF66 /* music_hny.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 1F4C5B8F1FE05A2200C9CF66 /* music_hny.mp3 */; };
 		1F57EEE31FDBFDA0009D0CAE /* AudioPlayManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F57EEE21FDBFDA0009D0CAE /* AudioPlayManager.swift */; };
+		1F62DE8D1FF349C80003DE0B /* UIPageControlExtentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F62DE8C1FF349C80003DE0B /* UIPageControlExtentions.swift */; };
 		1F8432511FD29BDF000D6293 /* SwiftUserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8432501FD29BDF000D6293 /* SwiftUserModel.swift */; };
 		1F85F03F1FD6B5EA00FDF26C /* MyInvitationCodeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F85F03E1FD6B5EA00FDF26C /* MyInvitationCodeViewModel.swift */; };
 		1F85F0411FD930AD00FDF26C /* AnimationTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F85F0401FD930AC00FDF26C /* AnimationTools.swift */; };
@@ -255,8 +255,6 @@
 		1F126DD31FBFF3DD006306D2 /* UIViewController+hideExcessLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+hideExcessLine.m"; sourceTree = "<group>"; };
 		1F126DD41FBFF3DD006306D2 /* UITextView+Placeholder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextView+Placeholder.m"; sourceTree = "<group>"; };
 		1F126DD51FBFF3DE006306D2 /* NSString+Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Utils.h"; sourceTree = "<group>"; };
-		1F126DDB1FBFF469006306D2 /* AlipaySDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AlipaySDK.bundle; sourceTree = "<group>"; };
-		1F126DDC1FBFF46A006306D2 /* AlipaySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AlipaySDK.framework; sourceTree = "<group>"; };
 		1F126DE31FBFF849006306D2 /* NELivePlayerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NELivePlayerController.h; sourceTree = "<group>"; };
 		1F126DE41FBFF849006306D2 /* NELivePlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NELivePlayer.h; sourceTree = "<group>"; };
 		1F126DE61FBFF849006306D2 /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcrypto.a; sourceTree = "<group>"; };
@@ -391,6 +389,7 @@
 		1F126EEA1FC3FD65006306D2 /* AppForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppForm.swift; sourceTree = "<group>"; };
 		1F126EFE1FC4063E006306D2 /* AddressModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddressModel.h; sourceTree = "<group>"; };
 		1F126EFF1FC4063E006306D2 /* AddressModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddressModel.m; sourceTree = "<group>"; };
+		1F1B2D611FED0C5500672114 /* TransitionAnimatedManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionAnimatedManager.swift; sourceTree = "<group>"; };
 		1F1D149B1FE31A8600CC486B /* music_xmas.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = music_xmas.mp3; sourceTree = "<group>"; };
 		1F22927B1FCF219C00089174 /* ConfigModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigModel.swift; sourceTree = "<group>"; };
 		1F22927D1FCFBC6600089174 /* Address.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Address.plist; sourceTree = "<group>"; };
@@ -410,6 +409,7 @@
 		1F4C5B8E1FE05A2200C9CF66 /* music_normal.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = music_normal.mp3; sourceTree = "<group>"; };
 		1F4C5B8F1FE05A2200C9CF66 /* music_hny.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = music_hny.mp3; sourceTree = "<group>"; };
 		1F57EEE21FDBFDA0009D0CAE /* AudioPlayManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayManager.swift; sourceTree = "<group>"; };
+		1F62DE8C1FF349C80003DE0B /* UIPageControlExtentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIPageControlExtentions.swift; sourceTree = "<group>"; };
 		1F8432501FD29BDF000D6293 /* SwiftUserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUserModel.swift; sourceTree = "<group>"; };
 		1F85F03D1FD54E5700FDF26C /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		1F85F03E1FD6B5EA00FDF26C /* MyInvitationCodeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInvitationCodeViewModel.swift; sourceTree = "<group>"; };
@@ -474,7 +474,6 @@
 				1F126D8A1FBFF328006306D2 /* libWeChatSDK.a in Frameworks */,
 				1F126DEB1FBFF849006306D2 /* libcrypto.a in Frameworks */,
 				1F126DEF1FBFF849006306D2 /* libNMCBasicModule.a in Frameworks */,
-				1F126DDF1FBFF46A006306D2 /* AlipaySDK.framework in Frameworks */,
 				1F126D8C1FBFF328006306D2 /* TencentOpenAPI.framework in Frameworks */,
 				1F126E1C1FBFFE35006306D2 /* libWeiboSDK.a in Frameworks */,
 				1F126DF51FBFF886006306D2 /* libstdc++.tbd in Frameworks */,
@@ -650,8 +649,6 @@
 				1F126E051FBFFD70006306D2 /* UIImage+PureColor.m */,
 				1F126E0B1FBFFDCB006306D2 /* NSDate+LSCore.h */,
 				1F126E0A1FBFFDCA006306D2 /* NSDate+LSCore.m */,
-				1FF02A561FE7117400110BE4 /* PresentTransitionAnimated.h */,
-				1FF02A571FE7117400110BE4 /* PresentTransitionAnimated.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -667,6 +664,7 @@
 				1F126DC31FBFF3AF006306D2 /* UIButton+Extentions.swift */,
 				1F126DC41FBFF3AF006306D2 /* UIImage+Crop.swift */,
 				1F126EC61FC28A13006306D2 /* UITapGestureRecognizer+Extention.swift */,
+				1F62DE8C1FF349C80003DE0B /* UIPageControlExtentions.swift */,
 			);
 			path = Extentions;
 			sourceTree = "<group>";
@@ -703,6 +701,9 @@
 		1F126D8D1FBFF348006306D2 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				1FF02A561FE7117400110BE4 /* PresentTransitionAnimated.h */,
+				1FF02A571FE7117400110BE4 /* PresentTransitionAnimated.m */,
+				1F1B2D611FED0C5500672114 /* TransitionAnimatedManager.swift */,
 				1F126D8E1FBFF354006306D2 /* ShareTools.swift */,
 				1F126D8F1FBFF354006306D2 /* Tools.swift */,
 				1F57EEE21FDBFDA0009D0CAE /* AudioPlayManager.swift */,
@@ -1181,8 +1182,6 @@
 				1F126DF41FBFF886006306D2 /* libstdc++.tbd */,
 				1F126DF21FBFF873006306D2 /* libz.tbd */,
 				1F126DF01FBFF86B006306D2 /* libresolv.tbd */,
-				1F126DDB1FBFF469006306D2 /* AlipaySDK.bundle */,
-				1F126DDC1FBFF46A006306D2 /* AlipaySDK.framework */,
 				018F762371DA9CCCFF9892F6 /* Pods_CatchMe.framework */,
 			);
 			name = Frameworks;
@@ -1270,7 +1269,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1F126DDE1FBFF46A006306D2 /* AlipaySDK.bundle in Resources */,
 				1FF3A86F1FE15C6F0017326F /* 出场.gif in Resources */,
 				1F1D149C1FE31A8700CC486B /* music_xmas.mp3 in Resources */,
 				1F3739C41FD1302E0068F1C0 /* AddressValueKey.txt in Resources */,
@@ -1351,6 +1349,7 @@
 				1FF3A8761FE15E320017326F /* FLAnimatedImage.m in Sources */,
 				1FD7290B1FCE545E005CF939 /* InPurchaseViewController.swift in Sources */,
 				1F126E3B1FC01EB9006306D2 /* BaseViewModel.swift in Sources */,
+				1F1B2D621FED0C5500672114 /* TransitionAnimatedManager.swift in Sources */,
 				1F126EBD1FC198D6006306D2 /* HomeViewModel.swift in Sources */,
 				1F126EBB1FC18CCB006306D2 /* UIImageViewManger.swift in Sources */,
 				1F126DC51FBFF3AF006306D2 /* AlertControl+Tools.swift in Sources */,
@@ -1361,6 +1360,7 @@
 				1F126EA01FC154A0006306D2 /* yuv444p10le.fsh.c in Sources */,
 				1F126EB61FC180FC006306D2 /* JKDBHelper.m in Sources */,
 				1F126EC31FC2661E006306D2 /* CacheMeViewModel.swift in Sources */,
+				1F62DE8D1FF349C80003DE0B /* UIPageControlExtentions.swift in Sources */,
 				1F126DCB1FBFF3B9006306D2 /* UIViewController+NavigationBar.swift in Sources */,
 				1F126E301FC01D7F006306D2 /* BaseViewController.swift in Sources */,
 				1F126E9C1FC154A0006306D2 /* renderer_yuv420p.c in Sources */,

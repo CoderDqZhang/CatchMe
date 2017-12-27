@@ -85,23 +85,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WeiboSDKDelegate {
     }
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any]) -> Bool {
-        if url.host == "safepay" {
-            AlipaySDK.defaultService().processOrder(withPaymentResult: url, standbyCallback: { (resultDic) in
-                if resultDic?["resultStatus"] as! String == "9000" {
-                    Notification(PayStatusChange, value: "3")
-                }else{
-                    Notification(PayStatusChange, value: "100")
-                    MainThreseanShowAliPayError(resultDic?["resultStatus"] as! String)
-                }
-            })
-            return true
-        }
+        
         
         if url.host == "response_from_qq" {
             Notification(NotificationPlayMusic, value: "分享回调音乐播放")
             return TencentOAuth.handleOpen(url)
         }
-        if url.host == "platformId=wechat" || url.host == "pay" || url.host == "oauth" {
+        if url.host == "platformId=wechat" || url.host == "oauth" {
             return WXApi.handleOpen(url, delegate: self)
         }
         
@@ -109,20 +99,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WeiboSDKDelegate {
     }
     
     func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
-        if url.host == "safepay" {
-            AlipaySDK.defaultService().processOrder(withPaymentResult: url, standbyCallback: { (resultDic) in
-            })
-            
-            AlipaySDK.defaultService().processAuthResult(url, standbyCallback: { (resultDic) in
-            })
-            
-            return true
-        }
+       
         if url.host == "response_from_qq" {
             Notification(NotificationPlayMusic, value: "分享回调音乐播放")
             return TencentOAuth.handleOpen(url)
         }
-        if url.host == "platformId=wechat" || url.host == "pay" || url.host == "oauth" {
+        if url.host == "platformId=wechat" || url.host == "oauth" {
             return WXApi.handleOpen(url, delegate: self)
         }
         return WeiboSDK.handleOpen(url, delegate: self)
@@ -145,22 +127,7 @@ extension AppDelegate : WXApiDelegate {
     }
     
     func onResp(_ resp: BaseResp!) {
-        if resp is PayResp {
-            switch resp.errCode {
-            case 0:
-                Notification(PayStatusChange, value: "3")
-            case -1:
-                Notification(PayStatusChange, value: "100")
-                MainThreadAlertShow("微信支付错误", view: KWINDOWDS())
-            //                print("可能的原因：签名错误、未注册APPID、项目设置APPID不正确、注册的APPID与设置的不匹配、其他异常等。")
-            case -2:
-                Notification(PayStatusChange, value: "100")
-                MainThreadAlertShow("取消支付", view: KWINDOWDS())
-            //                print("无需处理。发生场景：用户不支付了，点击取消，返回APP。")
-            default:
-                break;
-            }
-        }else if resp is SendMessageToWXResp {
+        if resp is SendMessageToWXResp {
             Notification(NotificationPlayMusic, value: "分享回调音乐播放")
             switch resp.errCode {
             case -2:

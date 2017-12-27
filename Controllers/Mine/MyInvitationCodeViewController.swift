@@ -49,9 +49,15 @@ class MyInvitationCodeViewController: BaseViewController {
     }
     
     override func backBtnPress(_ sender: UIButton) {
-        self.navigationController?.popViewController()
         if KWINDOWDS().viewWithTag(120) != nil {
             (KWINDOWDS().viewWithTag(120) as! GloabelShareAndConnectUs).removeSelf()
+        }
+        if isFormHomeVC {
+            self.dismiss(animated: false, completion: {
+                
+            })
+        }else{
+            self.navigationController?.popViewController()
         }
     }
     

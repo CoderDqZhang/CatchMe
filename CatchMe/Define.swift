@@ -56,6 +56,7 @@ let WeiboRedirectUrl = "http://sns.whalecloud.com/sina2/callback"
 
 let GaoDeApiKey = "36cf817a65c10eff954c24c3a9edcb3d"
 
+let APPPayRejectKey = "*a$10$R39P4ld0e2TqL7fJEHY73OfKLswkYKiLNWi/q9/C9bZMNG0l000sS"
 
 let NotificationPlayMusic = "NotificationPlayMusic"
 
@@ -108,7 +109,7 @@ func UserDefaultsGetSynchronize(_ key:String) -> AnyObject{
     return UserDefaults.standard.object(forKey: key)! as AnyObject
 }
 
-let COFIGVALUE:Bool = ConfigModel.shanreInstance.isOnlineVersion
+//let COFIGVALUE:Bool = ConfigModel.shanreInstance.isOnlineVersion
 
 
 func Storyboard(_ name:String,controllerid:String) -> UIViewController{
@@ -148,38 +149,6 @@ func MainThreanShowErrorMessage(_ error:AnyObject){
 func MainThreanShowNetWorkError(_ error:AnyObject){
     DispatchQueue.main.async(execute: {
         _ = Tools.shareInstance.showNetWorkError(error)
-    })
-}
-
-func GloableSetEvent(_ trackEvent:String, lable:String?, parameters:NSDictionary?) {
-//    if lable == nil {
-//        TalkingData.trackEvent(trackEvent)
-//    }else if parameters == nil {
-//        TalkingData.trackEvent(trackEvent, label: lable)
-//    }else{
-//        TalkingData.trackEvent(trackEvent, label: lable, parameters: parameters as! [AnyHashable: Any])
-//    }
-}
-
-
-func MainThreseanShowAliPayError(_ error:String) {
-    var aliPayError = ""
-    switch error {
-    case "4000":
-        aliPayError = "订单支付失败"
-    case "5000":
-        aliPayError = "重复请求"
-    case "6001":
-        aliPayError = "用户中途取消"
-    case "6002":
-        aliPayError = "网络连接出错"
-    case "8000":
-        aliPayError = "正在处理中"
-    default:
-        break
-    }
-    DispatchQueue.main.async(execute: {
-        _ = Tools.shareInstance.showAliPathError(aliPayError)
     })
 }
 

@@ -44,11 +44,17 @@ class ProfileViewController: BaseViewController {
     }
     
     func showSexPickerView(){
-        picker = UIPickerView.init(frame: CGRect.init(x: 0, y: SCREENHEIGHT - 220, width: SCREENWIDTH, height: 220))
-        picker.dataSource = (self.viewModel as! ProfileViewModel)
-        picker.delegate = (self.viewModel as! ProfileViewModel)
-        self.view.addSubview(self.showToolBar())
-        self.view.addSubview(picker)
+        if self.view.viewWithTag(100) == nil {
+            picker = UIPickerView.init(frame: CGRect.init(x: 0, y: SCREENHEIGHT - 220, width: SCREENWIDTH, height: 220))
+            picker.dataSource = (self.viewModel as! ProfileViewModel)
+            picker.delegate = (self.viewModel as! ProfileViewModel)
+            picker.tag = 100
+            self.view.addSubview(self.showToolBar())
+            self.view.addSubview(picker)
+        }else{
+            picker.isHidden = false
+            pickerToolBar.isHidden = false
+        }
     }
     
     func showToolBar() -> UIToolbar{

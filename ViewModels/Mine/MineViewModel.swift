@@ -35,11 +35,7 @@ class MineViewModel: BaseViewModel {
         cell.customViewButtonClouse = { tag in
             switch tag {
             case 1:
-                if !COFIGVALUE {
-                    NavigationPushView(self.controller!, toConroller: InPurchaseViewController())
-                }else{
-                    NavigationPushView(self.controller!, toConroller: TopUpViewController())
-                }
+                NavigationPushView(self.controller!, toConroller: TopUpViewController())
             case 2:
                 NavigationPushView(self.controller!, toConroller: MyJoysViewController())
             case 3:

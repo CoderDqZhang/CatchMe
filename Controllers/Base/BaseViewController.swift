@@ -20,6 +20,10 @@ class BaseViewController: UIViewController {
     var viewModel:BaseViewModel?
     var umengPageName:String! = ""
     
+    //是否从主页进入
+    var isFormHomeVC:Bool = false
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.init(hexString: App_Theme_FAFAFA_Color)

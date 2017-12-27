@@ -38,6 +38,16 @@ class BaseWebViewController: BaseViewController {
         
     }
     
+    override func backBtnPress(_ sender: UIButton) {
+        if isFormHomeVC {
+            self.dismiss(animated: false, completion: {
+                
+            })
+        }else{
+            self.navigationController?.popViewController()
+        }
+    }
+    
     override func setUpViewNavigationItem() {
 //        self.navigationItem.title = bannerModel != nil ? bannerModel.title : "炫耀一下"
 //        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: "分享", style: .plain, target: self, action: #selector(self.rightBarItemPress))

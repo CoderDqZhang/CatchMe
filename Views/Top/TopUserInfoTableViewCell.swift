@@ -73,14 +73,17 @@ class TopUserInfoTableViewCell: UITableViewCell {
             medalImage.image = UIImage.init(named: "medal_1")
             userName.font = App_Theme_PinFan_M_17_Font
             medalImage.isHidden = false
+            avaterBack.isHidden = false
         case 3:
             self.setUpViewsColor(color: UIColor.init(hexString: App_Theme_AAAAAA_Color))
             avaterBack.image = UIImage.init(named: "crown_2")
             medalImage.image = UIImage.init(named: "medal_2")
             userName.font = App_Theme_PinFan_M_17_Font
             medalImage.isHidden = false
+            avaterBack.isHidden = false
         case 4:
             self.setUpViewsColor(color: UIColor.init(hexString: App_Theme_FC4652_Color))
+            avaterBack.isHidden = false
             avaterBack.image = UIImage.init(named: "crown_3")
             medalImage.image = UIImage.init(named: "medal_3")
             userName.font = App_Theme_PinFan_M_17_Font
@@ -123,6 +126,7 @@ class TopUserInfoTableViewCell: UITableViewCell {
             }
         default:
             self.setUpViewsColor(color: UIColor.init(hexString: App_Theme_333333_Color))
+            avaterBack.isHidden = true
             userName.font = App_Theme_PinFan_R_17_Font
             medalImage.isHidden = true
         }
@@ -161,6 +165,7 @@ class TopUserInfoTableViewCell: UITableViewCell {
             userName.snp.makeConstraints({ (make) in
                 make.centerY.equalTo(self.contentView.snp.centerY).offset(0)
                 make.left.equalTo(self.avaterImage.snp.right).offset(13)
+                make.right.lessThanOrEqualTo(self.contentView.snp.right).offset(-63)
             })
             
             medalImage.snp.makeConstraints({ (make) in

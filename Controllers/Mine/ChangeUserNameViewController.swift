@@ -21,11 +21,16 @@ class ChangeUserNameViewController: BaseViewController {
     }
 
     override func backBtnPress(_ sender: UIButton) {
-        self.navigationController?.popViewController({
-            if self.changeUserNameViewControllerClouse != nil {
-                self.changeUserNameViewControllerClouse()
-            }
-        })
+        if UserInfoModel.shareInstance().userName == "" {
+            _ = Tools.shareInstance.showMessage(KWINDOWDS(), msg: "主人，昵称为空就不美腻了~", autoHidder: true)
+        }else{
+            self.navigationController?.popViewController({
+                
+                if self.changeUserNameViewControllerClouse != nil {
+                    self.changeUserNameViewControllerClouse()
+                }
+            })
+        }
     }
     
     override func didReceiveMemoryWarning() {

@@ -52,25 +52,30 @@ class HomeViewModel: BaseViewModel {
                 
                 switch banner.type {
                 case 1:
-                    NavigationPushView(self.controller!, toConroller: MyInvitationCodeViewController())
+                    let controllerVC = MyInvitationCodeViewController()
+                    controllerVC.isFormHomeVC = true
+                    self.presenetVC(controllerVC: controllerVC)
                 case 3:
                     let controllerVC = BaseWebViewController()
+                    controllerVC.isFormHomeVC = true
                     controllerVC.bannerModel = BannerModel.init(fromDictionary: self.banners[index] as! NSDictionary)
-                    NavigationPushView(self.controller!, toConroller: controllerVC)
+                    self.presenetVC(controllerVC: controllerVC)
                 case 2:
                     let controllerVC = CacheMeViewController()
                     controllerVC.roomModel = Labels.init(fromDictionary: ["id":banner.roomId as! Int])
-                    let naviController = UINavigationController.init(rootViewController:controllerVC )
-                    naviController.transitioningDelegate = self
-                    self.controller?.present(naviController, animated: true, completion: {
-                        
-                    })
+                    self.presenetVC(controllerVC: controllerVC)
                 default:
                     break;
                 }
             }
         }
         
+    }
+    
+    func presenetTopUpVC(){
+        let controllerVC = TopUpViewController()
+        controllerVC.isFormHomeVC = true
+        self.presenetVC(controllerVC: controllerVC)
     }
     
     func cellSetBanner(){
@@ -88,20 +93,31 @@ class HomeViewModel: BaseViewModel {
                 
                 switch banner.type {
                 case 1:
-                    NavigationPushView(self.controller!, toConroller: MyInvitationCodeViewController())
+                    let controllerVC = MyInvitationCodeViewController()
+                    controllerVC.isFormHomeVC = true
+                    self.presenetVC(controllerVC: controllerVC)
                 case 3:
                     let controllerVC = BaseWebViewController()
+                    controllerVC.isFormHomeVC = true
                     controllerVC.bannerModel = BannerModel.init(fromDictionary: self.banners[index] as! NSDictionary)
-                    NavigationPushView(self.controller!, toConroller: controllerVC)
+                    self.presenetVC(controllerVC: controllerVC)
                 case 2:
                     let controllerVC = CacheMeViewController()
                     controllerVC.roomModel = Labels.init(fromDictionary: ["id":banner.roomId as! Int])
-                    NavigationPushView(self.controller!, toConroller: controllerVC)
+                    self.presenetVC(controllerVC: controllerVC)
                 default:
                     break;
                 }
             }
         }
+    }
+    
+    func presenetVC(controllerVC:BaseViewController){
+        let naviController = UINavigationController.init(rootViewController:controllerVC)
+        naviController.transitioningDelegate = self
+        self.controller?.present(naviController, animated: true, completion: {
+            
+        })
     }
     
     func loadMoreData(){

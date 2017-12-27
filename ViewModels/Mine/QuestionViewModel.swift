@@ -17,10 +17,14 @@ class QuestionViewModel: BaseViewModel {
     }
     
     func submit(){
-        let parameters = ["content":content,"contact":contact,"userId":UserInfoModel.shareInstance().idField]
-        BaseNetWorke.sharedInstance.postUrlWithString(FeedBack, parameters: parameters as AnyObject).observe { (resultDic) in
-            if !resultDic.isCompleted {
-                _ = Tools.shareInstance.showMessage(KWINDOWDS(), msg: "反馈成功", autoHidder: true)
+        if content == "" {
+            _ = Tools.shareInstance.showMessage(KWINDOWDS(), msg: "主人，填写一些反馈吧~", autoHidder: true)
+        }else{
+            let parameters = ["content":content,"contact":contact,"userId":UserInfoModel.shareInstance().idField]
+            BaseNetWorke.sharedInstance.postUrlWithString(FeedBack, parameters: parameters as AnyObject).observe { (resultDic) in
+                if !resultDic.isCompleted {
+                    _ = Tools.shareInstance.showMessage(KWINDOWDS(), msg: "反馈成功", autoHidder: true)
+                }
             }
         }
     }

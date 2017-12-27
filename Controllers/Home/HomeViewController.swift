@@ -42,11 +42,7 @@ class HomeViewController: BaseViewController {
     
     func setUpTopUpView() {
         let topView = TopUpHomeView.init(frame: CGRect.init(x: SCREENWIDTH - 90, y: SCREENHEIGHT - 120 - (IPHONEX ? 73 : 49), width: 86, height: 86)) {
-            if !COFIGVALUE {
-                NavigationPushView(self, toConroller: InPurchaseViewController())
-            }else{
-                NavigationPushView(self, toConroller: TopUpViewController())
-            }
+            self.homeViewModel.presenetTopUpVC()
         }
         self.view.addSubview(topView)
     }

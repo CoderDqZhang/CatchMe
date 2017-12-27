@@ -626,8 +626,9 @@ class GloableAlertView: UIView {
     }
     
     func removeSelf(){
-        AnimationTools.shareInstance.removeViewAnimation(view: self.backView)
-        self.removeFromSuperview()
+        AnimationTools.shareInstance.removeViewAnimation(view: self.backView, finish: {_ in 
+            self.removeFromSuperview()
+        })
     }
     
     func createButton(title:String) ->UIButton{

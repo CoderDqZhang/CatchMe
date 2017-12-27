@@ -11,6 +11,147 @@ import UIKit
 class CacheMeControllerSubViews: NSObject {
 
 }
+typealias DollDetailViewCollectClouse = () ->Bool
+typealias DollDetailViewCloseClouse = () ->Void
+
+class DollDetailView: UIView,SDCycleScrollViewDelegate {
+    var closeBtn:AnimationButton!
+    var dollDetailView:UIView!
+    var cycleScrollView:SDCycleScrollView!
+    var collectButton:AnimationButton!
+    var currentPage:UILabel!
+    var pageControl:UIPageControl!
+    var dollDetailViewCollectClouse:DollDetailViewCollectClouse!
+    
+    init(frame: CGRect, closeClouse:@escaping DollDetailViewCloseClouse) {
+        super.init(frame: frame)
+        
+        self.backgroundColor = UIColor.init(hexString: App_Theme_000000_Color, andAlpha: 0.7)
+        
+        dollDetailView = UIView.init()
+        dollDetailView.backgroundColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
+        dollDetailView.layer.masksToBounds = true
+        dollDetailView.layer.cornerRadius = 11
+        self.addSubview(dollDetailView)
+        
+        dollDetailView.snp.makeConstraints { (make) in
+            make.size.equalTo(CGSize.init(width: 309, height: 407))
+            make.centerX.equalTo(self.snp.centerX).offset(0)
+            make.centerY.equalTo(self.snp.centerY).offset(-38)
+        }
+        
+        closeBtn = AnimationButton.init(frame: CGRect.zero)
+        closeBtn.setImage(UIImage.init(named: "close_home"), for: .normal)
+        closeBtn.reactive.controlEvents(.touchUpInside).observe { (btn) in
+            closeClouse()
+        }
+        self.addSubview(closeBtn)
+        
+        closeBtn.snp.makeConstraints { (make) in
+            make.centerX.equalTo(self.snp.centerX).offset(0)
+            make.top.equalTo(dollDetailView.snp.bottom).offset(20)
+        }
+        
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    
+    
+    func setUpSubViews(model:DollsDetailModel){
+        let label = UILabel.init()
+        label.text = model.name
+        label.font = App_Theme_PinFan_M_18_Font
+        label.textColor = UIColor.init(hexString: App_Theme_333333_Color)
+        dollDetailView.addSubview(label)
+        label.snp.makeConstraints { (make) in
+            make.left.equalTo(dollDetailView.snp.left).offset(16)
+            make.top.equalTo(dollDetailView.snp.top).offset(18)
+        }
+        
+        let allPage = UILabel.init()
+        allPage.text = "/ \(model.images.count)"
+        allPage.font = App_Theme_PinFan_M_18_Font
+        allPage.textColor = UIColor.init(hexString: App_Theme_000000_Color)
+        dollDetailView.addSubview(allPage)
+        allPage.snp.makeConstraints { (make) in
+            make.right.equalTo(dollDetailView.snp.right).offset(-20)
+            make.top.equalTo(dollDetailView.snp.top).offset(16)
+        }
+        
+        currentPage = UILabel.init()
+        currentPage.text = "1"
+        currentPage.font = App_Theme_PinFan_M_18_Font
+        currentPage.textColor = UIColor.init(hexString: App_Theme_FC4652_Color)
+        dollDetailView.addSubview(currentPage)
+        currentPage.snp.makeConstraints { (make) in
+            make.right.equalTo(allPage.snp.left).offset(-2)
+            make.top.equalTo(dollDetailView.snp.top).offset(16)
+        }
+        
+        if cycleScrollView == nil {
+            cycleScrollView = SDCycleScrollView(frame: CGRect(x: 0, y: 50, width: 310, height: 310), delegate: self, placeholderImage: nil)
+            cycleScrollView.imageURLStringsGroup = model.images
+            cycleScrollView.pageDotImage = UIImage.init(named: "circle_2-1")
+            cycleScrollView.currentPageDotImage = UIImage.init(named: "circle_1-1")
+            cycleScrollView.currentPageDotColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
+            cycleScrollView.pageControlStyle = SDCycleScrollViewPageContolStyleAnimated;
+            cycleScrollView.pageControlDotSize = CGSize(width: 12, height: 12)
+            cycleScrollView.showPageControl = false
+            dollDetailView.addSubview(cycleScrollView)
+            //         --- 轮播时间间隔，默认1.0秒，可自定义
+            cycleScrollView.autoScroll = true
+        }
+        
+        pageControl = UIPageControl.init()
+        pageControl.numberOfPages = model.images.count
+        pageControl.setNormalControl(image: UIImage.init(named: "circle_2-1"), size: CGSize.init(width: 8, height: 8))
+        pageControl.setCurrentControl(image: UIImage.init(named: "circle_1-1"), size: CGSize.init(width: 10, height: 10))
+        pageControl.currentPage = 0
+        
+        dollDetailView.addSubview(pageControl)
+        pageControl.snp.makeConstraints { (make) in
+            make.centerX.equalTo(dollDetailView.snp.centerX).offset(0)
+            make.bottom.equalTo(dollDetailView.snp.bottom).offset(-20)
+        }
+        
+//        collectButton = AnimationButton.init(frame: CGRect.zero)
+//        collectButton.setImage(model.flag == 1 ? UIImage.init(named: "未收藏") : UIImage.init(named: "已收藏"), for: .normal)
+//        collectButton.reactive.controlEvents(.touchUpInside).observe { (btn) in
+//            if self.dollDetailViewCollectClouse != nil {
+//                let ret = self.dollDetailViewCollectClouse()
+//                if ret {
+//                    self.collectButton.setImage(UIImage.init(named: "已收藏"), for: .normal)
+//                }
+//            }
+//        }
+//        dollDetailView.addSubview(collectButton)
+//        collectButton.snp.makeConstraints { (make) in
+//            make.right.equalTo(dollDetailView.snp.right).offset(-20)
+//            make.bottom.equalTo(dollDetailView.snp.bottom).offset(-14)
+//        }
+        
+        AnimationTools.shareInstance.scalBigToNormalAnimation(view: dollDetailView)
+    }
+    
+    func cycleScrollView(_ cycleScrollView: SDCycleScrollView!, didScrollTo index: Int) {
+        currentPage.text = "\(index + 1)"
+        if pageControl != nil {
+            pageControl.currentPage = index
+            pageControl.updateCurrentPageDisplay()
+            pageControl.setNormalControl(image: UIImage.init(named: "circle_2-1"), size: CGSize.init(width: 8, height: 8))
+            pageControl.setCurrentControl(image: UIImage.init(named: "circle_1-1"), size: CGSize.init(width: 10, height: 10))
+        }
+    }
+    
+    func cycleScrollView(_ cycleScrollView: SDCycleScrollView!, didSelectItemAt index: Int) {
+        currentPage.text = "\(index)"
+    }
+}
+
+
 
 typealias NELivePlayerLoadFailViewClouse = () ->Void
 

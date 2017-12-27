@@ -32,9 +32,11 @@ class CacheMeViewController: BaseViewController {
     var gameToolsView:GameToolsView!
     var gameTipView:GameTipView!
     var readyGogameTipView:GameTipView!
+    var dollDetailView:DollDetailView!
     var switchCamera:UIButton!
+    var showDollsDetail:UIButton!
     
-    var remoteGLView:UIImageView!
+    var remoteGLView:NTESGLView!
     
     var roomModel:Labels!
     
@@ -196,9 +198,11 @@ class CacheMeViewController: BaseViewController {
                 make.size.equalTo(CGSize.init(width: (SCREENWIDTH - 16), height: SCREENHEIGHT - 122 - 64))
             })
             self.view.bringSubview(toFront: self.switchCamera)
+            self.view.bringSubview(toFront: self.showDollsDetail)
         }else{
             self.view.bringSubview(toFront: self.nELivePlayerLoadFailView)
             self.view.bringSubview(toFront: self.switchCamera)
+            self.view.bringSubview(toFront: self.showDollsDetail)
             self.nELivePlayerLoadFailView.isHidden = false
         }
     }
@@ -233,6 +237,7 @@ class CacheMeViewController: BaseViewController {
             
             self.setUpPlayUserView()
             self.setUpCameraView()
+            self.setUpShowDollsDetail()
             self.setUpSwiperGesture(view: self.liveplayerA.view, type: .left)
             self.view.bringSubview(toFront: cacheMeTopView)
             
@@ -406,7 +411,7 @@ class CacheMeViewController: BaseViewController {
     
     //创建游戏者视频界面
     func initRemoteGlView(){
-        remoteGLView = UIImageView.init()
+        remoteGLView = NTESGLView.init()
         remoteGLView.isHidden = true
         remoteGLView.layer.cornerRadius = 10
         remoteGLView.layer.masksToBounds = true
@@ -417,7 +422,6 @@ class CacheMeViewController: BaseViewController {
             make.bottom.equalTo(self.view.snp.bottom).offset(-122)
             make.size.equalTo(CGSize.init(width: (SCREENWIDTH - 16), height: SCREENHEIGHT - 122 - 64))
         })
-//        self.setUpSwiperGesture(view: remoteGLView)
     }
     
     //创建向左滑动
@@ -448,6 +452,17 @@ class CacheMeViewController: BaseViewController {
             }
         }
         self.view.addSubview(bottomToolsView)
+    }
+    
+    //创建娃娃详情界面
+    func setUpDollDetailView(model:DollsDetailModel){
+        dollDetailView = DollDetailView.init(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: SCREENHEIGHT), closeClouse: {
+            AnimationTools.shareInstance.hiddenViewAnimation(view: self.dollDetailView, frame: self.showDollsDetail.frame, finish: { (ret) in
+                self.dollDetailView.isHidden = true
+            })
+        })
+        dollDetailView.setUpSubViews(model: model)
+        KWINDOWDS().addSubview(dollDetailView)
     }
     
     //创建顶部导航栏
@@ -513,6 +528,28 @@ class CacheMeViewController: BaseViewController {
             make.right.equalTo(self.view.snp.right).offset(-18)
             make.size.equalTo(CGSize.init(width: 60, height: 60))
             make.centerY.equalTo(self.view.snp.centerY).offset(-36)
+        }
+    }
+    
+    //娃娃详情
+    func setUpShowDollsDetail(){
+        showDollsDetail = AnimationButton.init(type: .custom)
+        showDollsDetail.setImage(UIImage.init(named: "camera"), for: .normal)
+        showDollsDetail.backgroundColor = UIColor.init(hexString: App_Theme_000000_Color, andAlpha: 0.3)
+        showDollsDetail.layer.cornerRadius = 30
+        showDollsDetail.layer.masksToBounds = true
+        showDollsDetail.titleLabel?.textAlignment = .center
+        showDollsDetail.reactive.controlEvents(.touchUpInside).observe { (action) in
+            self.dollDetailView.isHidden = false
+            AnimationTools.shareInstance.showViewAnimation(view: self.dollDetailView, frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: SCREENHEIGHT), finish: { (ret) in
+                AnimationTools.shareInstance.scalBigToNormalAnimation(view: self.dollDetailView.dollDetailView)
+            })
+        }
+        self.view.addSubview(showDollsDetail)
+        showDollsDetail.snp.makeConstraints { (make) in
+            make.right.equalTo(self.view.snp.right).offset(-18)
+            make.size.equalTo(CGSize.init(width: 60, height: 60))
+            make.centerY.equalTo(self.view.snp.centerY).offset(36)
         }
     }
     

@@ -36,6 +36,10 @@ class MainTabBarViewController: CYLTabBarController {
         
         currentViewController = homeViewController
         
+        if IPHONEX {
+            self.tabBar.frame = CGRect.init(x: 0, y: SCREENHEIGHT, width: SCREENWIDTH, height: 43)
+        }
+        
         self.tabBar.barStyle = .default
         self.tabBar.shadowImage = UIImage.init()
         self.tabBar.backgroundImage = UIImage.init()

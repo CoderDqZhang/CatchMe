@@ -12,38 +12,40 @@ import MBProgressHUD
 class TopUpViewModel: BaseViewModel {
 
     //topUpMuch 1 == 10,2==20,3==50,4==100,5=200,6==500
-    var topUpMuch:Int = 1000
+    var topUpMuch:Int = 7
     var models:TopUpModel!
     var model:AliPayInfoModel!
     var weChatModel:Wxpay!
     var isWeChat:Bool = false
     var time:Timer!
     var hud:MBProgressHUD!
+    var orderNo:String!
     
     override init() {
         super.init()
-        NotificationCenter.default.addObserver(self, selector: #selector(self.paySuccess(_:)), name: NSNotification.Name(rawValue: PayStatusChange), object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(self.paySuccess(_:)), name: NSNotification.Name(rawValue: PayStatusChange), object: nil)
     }
     
-    @objc func paySuccess(_ object:Foundation.Notification){
-        if Int(object.object as! String) != 100 {
-            //支付成功执行更新方法
-            hud = Tools.shareInstance.showLoading(KWINDOWDS(), msg: "加载中")
-            time = Timer.every(1, {
-                self.getOrderOrNo()
-            })
-            
-        }else{
-            //支付失败
-        }
-    }
+//    @objc func paySuccess(_ object:Foundation.Notification){
+//        if Int(object.object as! String) != 100 {
+//            //支付成功执行更新方法
+//            hud = Tools.shareInstance.showLoading(KWINDOWDS(), msg: "加载中")
+//            time = Timer.every(1, {
+//                self.getOrderOrNo()
+//            })
+//
+//        }else{
+//            //支付失败
+//        }
+//    }
     
-    deinit {
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: PayStatusChange), object: nil)
-    }
+//    deinit {
+//        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: PayStatusChange), object: nil)
+//    }
     
     func requestTopUp(){
-        BaseNetWorke.sharedInstance.postUrlWithString(TopUp, parameters: nil).observe { (resultDic) in
+        let parameters = ["platformType":"2"]
+        BaseNetWorke.sharedInstance.postUrlWithString(TopUp, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
                 if (self.controller as! TopUpViewController).isPlayGameView {
                     self.controller?.navigationController?.popViewController()
@@ -55,20 +57,44 @@ class TopUpViewModel: BaseViewModel {
         }
     }
     
-    func getOrderOrNo(){
-        let str:String!
-        if isWeChat {
-            if self.weChatModel.orderNo == nil {
-                print("代码增加微信是错")
+    func rechargeAppPay(rejectStr:String){
+        if self.orderNo != nil {
+            var str:String = ""
+            if self.topUpMuch != 7 {
+                str = "\(APPPayRejectKey)orderNo=\(self.orderNo!)&receipt=\(rejectStr)&timeStamp=\(Int(Date.init().timeIntervalSince1970))\(APPPayRejectKey)"
+            }else{
+                str = "\(APPPayRejectKey)orderNo=\(self.orderNo!)&receipt=\(rejectStr)&timeStamp=\(Int(Date.init().timeIntervalSince1970))\(APPPayRejectKey)"
             }
-            str = self.weChatModel.orderNo == nil ? UserDefaultsGetSynchronize("orderNo") as! String : self.weChatModel.orderNo
-        }else{
-            if self.model.orderNo == nil {
-                print("代码增加支付宝是错")
+            let parameters = ["orderNo":self.orderNo,"receipt":rejectStr,"timeStamp":Int(Date.init().timeIntervalSince1970),"sign":str.md5()] as [String : Any]
+            BaseNetWorke.sharedInstance.postUrlWithString(ApplePay, parameters: parameters as AnyObject).observe { (resultDic) in
+                if !resultDic.isCompleted{
+                    if resultDic.value != nil {
+                        if resultDic.value as! Bool {
+                            self.hud = Tools.shareInstance.showLoading(KWINDOWDS(), msg: nil)
+                            self.time = Timer.every(1, {
+                                self.getOrderOrNo()
+                            })
+                        }
+                    }
+                }
             }
-            str = self.model.orderNo == nil ? UserDefaultsGetSynchronize("orderNo") as! String : self.model.orderNo
         }
-        let parameters = ["orderNo":str]
+    }
+    
+    func getOrderOrNo(){
+//        let str:String!
+//        if isWeChat {
+//            if self.weChatModel.orderNo == nil {
+//                print("代码增加微信是错")
+//            }
+//            str = self.weChatModel.orderNo == nil ? UserDefaultsGetSynchronize("orderNo") as! String : self.weChatModel.orderNo
+//        }else{
+//            if self.model.orderNo == nil {
+//                print("代码增加支付宝是错")
+//            }
+//            str = self.model.orderNo == nil ? UserDefaultsGetSynchronize("orderNo") as! String : self.model.orderNo
+//        }
+        let parameters = ["orderNo":self.orderNo]
         BaseNetWorke.sharedInstance.postUrlWithString(RecordByOrderNo, parameters: parameters as AnyObject).observe { (resultDic) in
             if !resultDic.isCompleted {
                 if (resultDic.value is NSDictionary) {
@@ -98,18 +124,11 @@ class TopUpViewModel: BaseViewModel {
                 self.weChatModel = Wxpay.init(fromDictionary: resultDic.value as! NSDictionary)
                 self.weChatModel.orderNo = orderNo
                 UserDefaultsSetSynchronize(orderNo as AnyObject, key: "orderNo")
-                let request = PayReq()
-                request.prepayId = self.weChatModel.payInfo.prepayid
-                request.partnerId = self.weChatModel.payInfo.partnerid
-                request.package = self.weChatModel.payInfo.package
-                request.nonceStr = self.weChatModel.payInfo.noncestr
-                request.timeStamp = UInt32(self.weChatModel.payInfo.timestamp)!
-                request.sign = self.weChatModel.payInfo.sign
-                WXApi.send(request)
+                
             }
         }
     }
-    
+
     func aliPay(){
         isWeChat = false
         var parameters:[String : Any]!
@@ -124,8 +143,27 @@ class TopUpViewModel: BaseViewModel {
                 self.model = AliPayInfoModel.init(fromDictionary: resultDic.value as! NSDictionary)
                 self.model.orderNo = orderNo
                 UserDefaultsSetSynchronize(orderNo as AnyObject, key: "orderNo")
-                AlipaySDK.defaultService().payOrder(self.model.payInfo, fromScheme: "CatchMeAlipay") { (resultDic) in
-                    print("resultDic")
+                
+            }
+        }
+    }
+    
+    func getOrderInPurchase(){
+        var parameters:[String : Any]!
+        if self.topUpMuch != 7 {
+            parameters = ["ruleId":models.rechargeRateRuleDTOList[topUpMuch - 1].id]
+        }else{
+            parameters = ["ruleId":models.weeklyRechargeRateRuleDTO.id]
+        }
+        BaseNetWorke.sharedInstance.postUrlWithString(InPurchase, parameters: parameters as AnyObject).observe { (resultDic) in
+            if !resultDic.isCompleted {
+                if resultDic.value != nil {
+                    if resultDic.value != nil {
+                        let orderNo = resultDic.value!
+                        self.orderNo = orderNo as! String
+                        UserDefaultsSetSynchronize(orderNo as AnyObject, key: "orderNo")
+                        (self.controller as! TopUpViewController).requestProduceData(model: self.models)
+                    }
                 }
             }
         }

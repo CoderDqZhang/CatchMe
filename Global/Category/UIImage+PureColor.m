@@ -151,4 +151,14 @@
     
 }
 
++ (UIImage *)imageFromYData:(NSData *)data width:(uint)width height:(uint)height {
+    CGColorSpaceRef rgbSpace = CGColorSpaceCreateDeviceGray();
+    CGContextRef context = CGBitmapContextCreate((__bridge void * _Nullable)(data), width, height, 8, width, rgbSpace, kCGBitmapByteOrderDefault );
+    CGImageRef imageRef = CGBitmapContextCreateImage(context);
+    CGContextRelease(context);
+    UIImage *image = [UIImage imageWithCGImage:imageRef];
+    CGImageRelease(imageRef);
+    return image;
+}
+
 @end

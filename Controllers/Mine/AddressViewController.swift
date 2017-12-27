@@ -50,11 +50,17 @@ class AddressViewController: BaseViewController {
     }
 
     func showCityPickerView(){
-        picker = UIPickerView.init(frame: CGRect.init(x: 0, y: SCREENHEIGHT - 220, width: SCREENWIDTH, height: 220))
-        picker.dataSource = self.viewModel as? UIPickerViewDataSource
-        picker.delegate = self.viewModel as? UIPickerViewDelegate
-        self.view.addSubview(self.showToolBar())
-        self.view.addSubview(picker)
+        if self.view.viewWithTag(100) == nil {
+            picker = UIPickerView.init(frame: CGRect.init(x: 0, y: SCREENHEIGHT - 220, width: SCREENWIDTH, height: 220))
+            picker.dataSource = self.viewModel as? UIPickerViewDataSource
+            picker.delegate = self.viewModel as? UIPickerViewDelegate
+            picker.tag = 100
+            self.view.addSubview(self.showToolBar())
+            self.view.addSubview(picker)
+        }else{
+            picker.isHidden = false
+            pickerToolBar.isHidden = false
+        }
     }
     
     func showToolBar() -> UIToolbar{

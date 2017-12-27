@@ -309,7 +309,7 @@ class TopUpWeekView : UIView {
     
     @objc func singTap(tag:UITapGestureRecognizer){
         if topUpMuchViewClouse != nil {
-            topUpMuchViewClouse(1000)
+            topUpMuchViewClouse(7)
         }
         weekView.changeType(type: .select)
     }

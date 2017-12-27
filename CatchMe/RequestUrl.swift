@@ -19,11 +19,11 @@ import Foundation
 //ONLINE("http://webfront.zhuawo.com/catch-me/#");
 
 //测试服
-//let BaseURL = "http://test.zhuawo.com:8201"
-//let BaseH5URL = "http://test.zhuawo.com/catch-me/#"
+let BaseURL = "http://test.zhuawo.com:8201"
+let BaseH5URL = "http://test.zhuawo.com/catch-me/#"
 //正式服
-let BaseURL = "http://backend.zhuawo.com"
-let BaseH5URL = "http://webfront.zhuawo.com/catch-me/#"
+//let BaseURL = "http://backend.zhuawo.com"
+//let BaseH5URL = "http://webfront.zhuawo.com/catch-me/#"
 
 let ConsumptionUrl = "\(BaseH5URL)/consumption"
 
@@ -43,6 +43,8 @@ let EnterRooms = "\(BaseURL)/room/enter"
 let ExitRoom = "\(BaseURL)/machine/exit"
 //心跳
 let Heartbeat = "\(BaseURL)/machine/heartbeat"
+//内购验证
+let ApplePay = "\(BaseURL)/recharge/applePay"
 //停止游戏
 let StopGame = "\(BaseURL)/machine/stop"
 //开始游戏
@@ -59,6 +61,8 @@ let GameStatus = "\(BaseURL)/game/status"
 let TopUp = "\(BaseURL)/recharge/findAllRechargeRateRuleDTOList"
 //获取支付宝充值信息
 let AliPayInfo = "\(BaseURL)/recharge/getRechargeAliPayInfo"
+//获取内购订单编号接口
+let InPurchase = "\(BaseURL)/recharge/getRechargePrepayOrderNo"
 //微信支付充值信息
 let WeChatPayUrl = "\(BaseURL)/recharge/getRechargeWxPayInfo"
 //问题反馈
@@ -79,6 +83,8 @@ let DollsDetail = "\(BaseH5URL)/toyDetail?skuSubId="
 let ShareCatchDoll = "\(BaseH5URL)/shareLanding?gameId="
 //抓到娃娃详情
 let CatchDolls = "\(BaseH5URL)/toyDetail?gameId="
+//娃娃详情
+let Dollsvariation = "\(BaseURL)/variation"
 //邀请码
 let InviteFriends = "\(BaseH5URL)/invite"
 //修改用户信息

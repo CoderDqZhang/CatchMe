@@ -93,12 +93,14 @@ class AnimationTools: NSObject {
         }
     }
     
-    func removeViewAnimation(view:UIView) {
+    func removeViewAnimation(view:UIView,finish:@escaping AnimationFinishClouse) {
         UIView.animate(withDuration: 0.2, animations: {
             view.alpha = 0
             view.transform = CGAffineTransform.init(scaleX: 0.75, y: 0.75)
+            
         }) { (ret) in
             view.removeFromSuperview()
+            finish(ret)
         }
     }
     
@@ -108,6 +110,42 @@ class AnimationTools: NSObject {
             view.transform = CGAffineTransform.init(scaleX: 1.1, y: 1.1)
         }) { (ret) in
             view.removeFromSuperview()
+        }
+    }
+    
+    func scalBigToNormalAnimation(view:UIView){
+        view.transform = CGAffineTransform.identity
+        UIView.animate(withDuration: 0.2, animations: {
+            view.transform = CGAffineTransform.init(scaleX: 1.2, y: 1.2)
+        }){ (ret) in
+            UIView.animate(withDuration: 0.2, animations: {
+                view.transform = CGAffineTransform.init(scaleX: 1, y: 1)
+            })
+        }
+    }
+    
+    func hiddenViewAnimation(view:UIView, frame:CGRect, finish:@escaping AnimationFinishClouse){
+        for subview in view.subviews {
+            subview.isHidden = true
+        }
+        UIView.animate(withDuration: 0.2, animations: {
+            view.transform = CGAffineTransform.identity
+            view.frame = frame
+        }){ (ret) in
+            finish(ret)
+        }
+    }
+    
+    func showViewAnimation(view:UIView,frame:CGRect, finish:@escaping AnimationFinishClouse){
+        view.transform = CGAffineTransform.identity
+        for subview in view.subviews {
+            subview.isHidden = false
+        }
+        UIView.animate(withDuration: 0.2, animations: {
+            view.transform = CGAffineTransform.init(scaleX: 1, y: 1)
+            view.frame = frame
+        }){ (ret) in
+            finish(ret)
         }
     }
 }

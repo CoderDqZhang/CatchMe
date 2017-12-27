@@ -22,4 +22,6 @@
 
 + (UIImage *)imageByApplyingAlpha:(CGFloat )alpha  image:(UIImage*)image;
 
++ (UIImage *)imageFromYData:(NSData *)data width:(uint)width height:(uint)height ;
+
 @end

@@ -300,3 +300,123 @@ class BannerModel : NSObject, NSCoding{
         }
     }
 }
+
+class DollsDetailModel : NSObject, NSCoding{
+    
+    var desc : String!
+    var flag : Int!
+    var id : Int!
+    var images : [String]!
+    var name : String!
+    var price : Int!
+    var shareMessage : AnyObject!
+    var skuId : Int!
+    var time : Int!
+    
+    
+    /**
+     * Instantiate the instance using the passed dictionary values to set the properties values
+     */
+    init(fromDictionary dictionary: NSDictionary){
+        desc = dictionary["desc"] as? String
+        flag = dictionary["flag"] as? Int
+        id = dictionary["id"] as? Int
+        images = dictionary["images"] as? [String]
+        name = dictionary["name"] as? String
+        price = dictionary["price"] as? Int
+        shareMessage = dictionary["shareMessage"] as? AnyObject
+        skuId = dictionary["skuId"] as? Int
+        time = dictionary["time"] as? Int
+    }
+    
+    /**
+     * Returns all the available property values in the form of NSDictionary object where the key is the approperiate json key and the value is the value of the corresponding property
+     */
+    func toDictionary() -> NSDictionary
+    {
+        let dictionary = NSMutableDictionary()
+        if desc != nil{
+            dictionary["desc"] = desc
+        }
+        if flag != nil{
+            dictionary["flag"] = flag
+        }
+        if id != nil{
+            dictionary["id"] = id
+        }
+        if images != nil{
+            dictionary["images"] = images
+        }
+        if name != nil{
+            dictionary["name"] = name
+        }
+        if price != nil{
+            dictionary["price"] = price
+        }
+        if shareMessage != nil{
+            dictionary["shareMessage"] = shareMessage
+        }
+        if skuId != nil{
+            dictionary["skuId"] = skuId
+        }
+        if time != nil{
+            dictionary["time"] = time
+        }
+        return dictionary
+    }
+    
+    /**
+     * NSCoding required initializer.
+     * Fills the data from the passed decoder
+     */
+    @objc required init(coder aDecoder: NSCoder)
+    {
+        desc = aDecoder.decodeObject(forKey: "desc") as? String
+        flag = aDecoder.decodeObject(forKey: "flag") as? Int
+        id = aDecoder.decodeObject(forKey: "id") as? Int
+        images = aDecoder.decodeObject(forKey: "images") as? [String]
+        name = aDecoder.decodeObject(forKey: "name") as? String
+        price = aDecoder.decodeObject(forKey: "price") as? Int
+        shareMessage = aDecoder.decodeObject(forKey: "shareMessage") as? AnyObject
+        skuId = aDecoder.decodeObject(forKey: "skuId") as? Int
+        time = aDecoder.decodeObject(forKey: "time") as? Int
+        
+    }
+    
+    /**
+     * NSCoding required method.
+     * Encodes mode properties into the decoder
+     */
+    @objc func encode(with aCoder: NSCoder)
+    {
+        if desc != nil{
+            aCoder.encode(desc, forKey: "desc")
+        }
+        if flag != nil{
+            aCoder.encode(flag, forKey: "flag")
+        }
+        if id != nil{
+            aCoder.encode(id, forKey: "id")
+        }
+        if images != nil{
+            aCoder.encode(images, forKey: "images")
+        }
+        if name != nil{
+            aCoder.encode(name, forKey: "name")
+        }
+        if price != nil{
+            aCoder.encode(price, forKey: "price")
+        }
+        if shareMessage != nil{
+            aCoder.encode(shareMessage, forKey: "shareMessage")
+        }
+        if skuId != nil{
+            aCoder.encode(skuId, forKey: "skuId")
+        }
+        if time != nil{
+            aCoder.encode(time, forKey: "time")
+        }
+        
+    }
+    
+}
