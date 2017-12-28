@@ -68,6 +68,9 @@ class BaseNetWorke {
                 if (responseObject as! NSDictionary).object(forKey: "code")! as! Int == 0 {
                     subscriber.send(value: (responseObject as! NSDictionary).object(forKey: "data") ?? "")
                 }else{
+                    if url == RecordByOrderNo {
+                        subscriber.send(value: ["isSuccess":false])
+                    }
                     _ = Tools.shareInstance.showMessage(KWINDOWDS(), msg: (responseObject as! NSDictionary).object(forKey: "message") as! String, autoHidder: true)
                 }
                 subscriber.sendCompleted()

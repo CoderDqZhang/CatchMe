@@ -20,6 +20,7 @@ class MuchView: UIView {
     var muchIconStr:UILabel!
     var muchView:UIView!
     
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -161,7 +162,7 @@ class TopUpMuchView: UIView {
             }else{
                 model = models[i - 1] as! RechargeRateRuleDTOList
             }
-            muchView.setUpMuchViewData(much: "￥\(model.rechargeMoney!)", icon: "\(model.rechargeCoin!)")
+            muchView.setUpMuchViewData(much: "￥\(model.rechargeMoney!)0", icon: "\(model.rechargeCoin!)")
             if i == 1 {
                 muchView.changeType(type: .select)
             }else{
@@ -182,7 +183,7 @@ class TopUpMuchView: UIView {
             self.setUpSingleTap(muchView: muchView)
             let model = models[i - 1]
             
-            muchView.setUpMuchViewData(much: "￥\(model.rechargeMoney!)", icon: "\(model.rechargeCoin!)")
+            muchView.setUpMuchViewData(much: "￥\(model.rechargeMoney!)0", icon: "\(model.rechargeCoin!)")
             muchView.changeType(type: .normal)
             self.addSubview(muchView)
         }
@@ -376,7 +377,7 @@ class WeekView : UIView {
     }
     
     func setData(model:WeeklyRechargeRateRuleDTO){
-        titleLabel.text = "花\(model.rechargeMoney!)得\(model.totalAmount!)币哦~"
+        titleLabel.text = "花\(model.rechargeMoney!)0得\(model.totalAmount!)币哦~"
         descLabel.text = "多送主人\(model.totalMoreAmount!)币"
     }
     

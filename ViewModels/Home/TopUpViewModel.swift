@@ -21,6 +21,8 @@ class TopUpViewModel: BaseViewModel {
     var hud:MBProgressHUD!
     var orderNo:String!
     
+    var paySuccess:Bool = true
+
     override init() {
         super.init()
 //        NotificationCenter.default.addObserver(self, selector: #selector(self.paySuccess(_:)), name: NSNotification.Name(rawValue: PayStatusChange), object: nil)
@@ -99,11 +101,21 @@ class TopUpViewModel: BaseViewModel {
             if !resultDic.isCompleted {
                 if (resultDic.value is NSDictionary) {
                     if ((resultDic.value as! NSDictionary).object(forKey: "isSuccess")! as! Bool) {
+                        self.paySuccess = true
                         UserInfoModel.shareInstance().coinAmount = "\((resultDic.value as! NSDictionary).object(forKey: "coinAmount")!)"
-                        (self.controller as! TopUpViewController).setBalanceText(str: "\(UserInfoModel.shareInstance().coinAmount!)")
+                        DispatchQueue.main.async(execute: {
+                            (self.controller as! TopUpViewController).setBalanceText(str: "\(UserInfoModel.shareInstance().coinAmount!)")
+                        })
                         UserInfoModel.shareInstance().saveOrUpdate(byColumnName: "neteaseAccountId", andColumnValue: "'\(UserInfoModel.shareInstance().neteaseAccountId!)'")
-                        self.hud.hide(animated: true)
-                        self.time.invalidate()
+                        if self.hud != nil {
+                            self.hud.hide(animated: true)
+                            self.time.invalidate()
+                        }
+                    }else{
+//                        if self.hud != nil {
+//                            self.hud.hide(animated: true)
+//                            self.time.invalidate()
+//                        }
                     }
                 }
             }
@@ -149,23 +161,28 @@ class TopUpViewModel: BaseViewModel {
     }
     
     func getOrderInPurchase(){
-        var parameters:[String : Any]!
-        if self.topUpMuch != 7 {
-            parameters = ["ruleId":models.rechargeRateRuleDTOList[topUpMuch - 1].id]
-        }else{
-            parameters = ["ruleId":models.weeklyRechargeRateRuleDTO.id]
-        }
-        BaseNetWorke.sharedInstance.postUrlWithString(InPurchase, parameters: parameters as AnyObject).observe { (resultDic) in
-            if !resultDic.isCompleted {
-                if resultDic.value != nil {
+        if paySuccess {
+            var parameters:[String : Any]!
+            if self.topUpMuch != 7 {
+                parameters = ["ruleId":models.rechargeRateRuleDTOList[topUpMuch - 1].id]
+            }else{
+                parameters = ["ruleId":models.weeklyRechargeRateRuleDTO.id]
+            }
+            BaseNetWorke.sharedInstance.postUrlWithString(InPurchase, parameters: parameters as AnyObject).observe { (resultDic) in
+                if !resultDic.isCompleted {
                     if resultDic.value != nil {
-                        let orderNo = resultDic.value!
-                        self.orderNo = orderNo as! String
-                        UserDefaultsSetSynchronize(orderNo as AnyObject, key: "orderNo")
-                        (self.controller as! TopUpViewController).requestProduceData(model: self.models)
+                        if resultDic.value != nil {
+                            self.paySuccess = false
+                            let orderNo = resultDic.value!
+                            self.orderNo = orderNo as! String
+                            UserDefaultsSetSynchronize(orderNo as AnyObject, key: "orderNo")
+                            (self.controller as! TopUpViewController).requestProduceData(model: self.models)
+                        }
                     }
                 }
             }
+        }else{
+            _ = Tools.shareInstance.showMessage(KWINDOWDS(), msg: "请稍后", autoHidder: true)
         }
     }
 }

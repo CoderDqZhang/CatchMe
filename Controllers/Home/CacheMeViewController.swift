@@ -268,7 +268,6 @@ class CacheMeViewController: BaseViewController {
                 self.nElivePlayLoadFailATime.invalidate()
                 if self.localPreView != nil{
                     self.localPreView.isHidden = true
-                    self.setUpGameTipView()
                 }
                 if waitingTime > 3 && self.nELivePlayerLoadFailView != nil {
                     self.nELivePlayerLoadFailView.isHidden = true
@@ -415,6 +414,7 @@ class CacheMeViewController: BaseViewController {
     func initRemoteGlView(){
         remoteGLView = NTESGLView.init()
         remoteGLView.isHidden = true
+        remoteGLView.clipsToBounds = true
         remoteGLView.layer.cornerRadius = 10
         remoteGLView.layer.masksToBounds = true
         self.view.addSubview(remoteGLView)
@@ -459,6 +459,7 @@ class CacheMeViewController: BaseViewController {
     //创建娃娃详情界面
     func setUpDollDetailView(model:DollsDetailModel){
         dollDetailView = DollDetailView.init(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: SCREENHEIGHT), closeClouse: {
+            self.setUpGameTipView()
             //2.0
 //            AnimationTools.shareInstance.hiddenViewAnimation(view: self.dollDetailView, frame: self.showDollsDetail.frame, finish: { (ret) in
 //                self.dollDetailView.isHidden = true

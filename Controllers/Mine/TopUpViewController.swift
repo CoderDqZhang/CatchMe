@@ -83,13 +83,14 @@ class TopUpViewController: BaseViewController {
     }
     
     func setBalanceText(str:String){
-        balance.text = "账户余额 \(str) 币"
-        let strArray = balance.text?.components(separatedBy: " ")
-        let attributedString = NSMutableAttributedString.init(string: balance.text!)
-        attributedString.addAttributes([NSAttributedStringKey.font:App_Theme_PinFan_R_14_Font!,NSAttributedStringKey.foregroundColor:UIColor.init(hexString: App_Theme_333333_Color)!], range: NSRange.init(location: 0, length: strArray![0].count))
-        attributedString.addAttributes([NSAttributedStringKey.font:App_Theme_PinFan_R_14_Font!,NSAttributedStringKey.foregroundColor:UIColor.init(hexString: App_Theme_333333_Color)!], range: NSRange.init(location: (balance.text?.length)! - 1, length: 1))
-        attributedString.addAttributes([NSAttributedStringKey.font:App_Theme_PinFan_M_24_Font!,NSAttributedStringKey.foregroundColor:UIColor.init(hexString: App_Theme_FC4652_Color)!], range: NSRange.init(location: strArray![0].count + 1, length: strArray![1].count))
+        let strs = "账户余额 \(str) 币"
+        let strArray = strs.components(separatedBy: " ")
+        let attributedString = NSMutableAttributedString.init(string: strs)
+        attributedString.addAttributes([NSAttributedStringKey.font:App_Theme_PinFan_R_14_Font!,NSAttributedStringKey.foregroundColor:UIColor.init(hexString: App_Theme_333333_Color)!], range: NSRange.init(location: 0, length: strArray[0].count))
+        attributedString.addAttributes([NSAttributedStringKey.font:App_Theme_PinFan_R_14_Font!,NSAttributedStringKey.foregroundColor:UIColor.init(hexString: App_Theme_333333_Color)!], range: NSRange.init(location: (strs.length) - 1, length: 1))
+        attributedString.addAttributes([NSAttributedStringKey.font:App_Theme_PinFan_M_24_Font!,NSAttributedStringKey.foregroundColor:UIColor.init(hexString: App_Theme_FC4652_Color)!], range: NSRange.init(location: strArray[0].count + 1, length: strArray[1].count))
         balance.attributedText = attributedString
+        self.view.updateConstraintsIfNeeded()
     }
     
     func setUpPayButton(){

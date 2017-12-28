@@ -43,9 +43,10 @@ class DollDetailView: UIView,SDCycleScrollViewDelegate {
         closeBtn = AnimationButton.init(frame: CGRect.zero)
         closeBtn.setImage(UIImage.init(named: "close_home"), for: .normal)
         closeBtn.reactive.controlEvents(.touchUpInside).observe { (btn) in
-            2.0
+            //2.0
+            closeClouse()
             self.removeSelf()
-//            closeClouse()
+            
         }
         self.addSubview(closeBtn)
         
