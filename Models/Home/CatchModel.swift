@@ -10,10 +10,11 @@ import UIKit
 
 class CatchMeModel : NSObject, NSCoding{
     
-    var currentPlayerDTO : BasicUserDTO?
+    var currentPlayerDTO : CurrentPlayerDTO?
     var currentPlayStatus : Int!
     var id : Int!
     var machineDTO : MachineDTO!
+    var onlineUserDTOs : [BasicUserDTO]!
     var onlineUserList : [Int]!
     var price : Int!
     var skuId : Int!
@@ -27,12 +28,19 @@ class CatchMeModel : NSObject, NSCoding{
      */
     init(fromDictionary dictionary: NSDictionary){
         if let basicUserDTOData = dictionary["currentPlayerDTO"] as? NSDictionary{
-            currentPlayerDTO = BasicUserDTO(fromDictionary: basicUserDTOData)
+            currentPlayerDTO = CurrentPlayerDTO(fromDictionary: basicUserDTOData)
         }
         currentPlayStatus = dictionary["currentPlayStatus"] as? Int
         id = dictionary["id"] as? Int
         if let machineDTOData = dictionary["machineDTO"] as? NSDictionary{
             machineDTO = MachineDTO(fromDictionary: machineDTOData)
+        }
+        onlineUserDTOs = [BasicUserDTO]()
+        if let onlineUserDTOsArray = dictionary["onlineUserDTOs"] as? [NSDictionary]{
+            for dic in onlineUserDTOsArray{
+                let value = BasicUserDTO(fromDictionary: dic)
+                onlineUserDTOs.append(value)
+            }
         }
         onlineUserList = dictionary["onlineUserList"] as? [Int]
         price = dictionary["price"] as? Int
@@ -64,6 +72,13 @@ class CatchMeModel : NSObject, NSCoding{
         if onlineUserList != nil{
             dictionary["onlineUserList"] = onlineUserList
         }
+        if onlineUserDTOs != nil{
+            var dictionaryElements = [NSDictionary]()
+            for onlineUserDTOsElement in onlineUserDTOs {
+                dictionaryElements.append(onlineUserDTOsElement.toDictionary())
+            }
+            dictionary["onlineUserDTOs"] = dictionaryElements
+        }
         if price != nil{
             dictionary["price"] = price
         }
@@ -88,9 +103,10 @@ class CatchMeModel : NSObject, NSCoding{
      */
     @objc required init(coder aDecoder: NSCoder)
     {
-        currentPlayerDTO = aDecoder.decodeObject(forKey: "currentPlayerDTO") as? BasicUserDTO
+        currentPlayerDTO = aDecoder.decodeObject(forKey: "currentPlayerDTO") as? CurrentPlayerDTO
         currentPlayStatus = aDecoder.decodeObject(forKey: "currentPlayStatus") as? Int
         id = aDecoder.decodeObject(forKey: "id") as? Int
+        onlineUserDTOs = aDecoder.decodeObject(forKey: "onlineUserDTOs") as? [BasicUserDTO]
         machineDTO = aDecoder.decodeObject(forKey: "machineDTO") as? MachineDTO
         onlineUserList = aDecoder.decodeObject(forKey: "onlineUserList") as? [Int]
         price = aDecoder.decodeObject(forKey: "price") as? Int
@@ -122,6 +138,9 @@ class CatchMeModel : NSObject, NSCoding{
         }
         if onlineUserList != nil{
             aCoder.encode(onlineUserList, forKey: "onlineUserList")
+        }
+        if onlineUserDTOs != nil{
+            aCoder.encode(onlineUserDTOs, forKey: "onlineUserDTOs")
         }
         if price != nil{
             aCoder.encode(price, forKey: "price")
@@ -311,11 +330,104 @@ class BasicUserDTO : NSObject, NSCoding{
     
 }
 
+class CurrentPlayerDTO : NSObject, NSCoding{
+    
+    var coinAmount : Int!
+    var gender : Int!
+    var id : Int!
+    var photo : String!
+    var telephone : String!
+    var userName : String!
+    
+    
+    /**
+     * Instantiate the instance using the passed dictionary values to set the properties values
+     */
+    init(fromDictionary dictionary: NSDictionary){
+        coinAmount = dictionary["coinAmount"] as? Int
+        gender = dictionary["gender"] as? Int
+        id = dictionary["id"] as? Int
+        photo = dictionary["photo"] as? String
+        telephone = dictionary["telephone"] as? String
+        userName = dictionary["userName"] as? String
+    }
+    
+    /**
+     * Returns all the available property values in the form of NSDictionary object where the key is the approperiate json key and the value is the value of the corresponding property
+     */
+    func toDictionary() -> NSDictionary
+    {
+        let dictionary = NSMutableDictionary()
+        if coinAmount != nil{
+            dictionary["coinAmount"] = coinAmount
+        }
+        if gender != nil{
+            dictionary["gender"] = gender
+        }
+        if id != nil{
+            dictionary["id"] = id
+        }
+        if photo != nil{
+            dictionary["photo"] = photo
+        }
+        if telephone != nil{
+            dictionary["telephone"] = telephone
+        }
+        if userName != nil{
+            dictionary["userName"] = userName
+        }
+        return dictionary
+    }
+    
+    /**
+     * NSCoding required initializer.
+     * Fills the data from the passed decoder
+     */
+    @objc required init(coder aDecoder: NSCoder)
+    {
+        coinAmount = aDecoder.decodeObject(forKey: "coinAmount") as? Int
+        gender = aDecoder.decodeObject(forKey: "gender") as? Int
+        id = aDecoder.decodeObject(forKey: "id") as? Int
+        photo = aDecoder.decodeObject(forKey: "photo") as? String
+        telephone = aDecoder.decodeObject(forKey: "telephone") as? String
+        userName = aDecoder.decodeObject(forKey: "userName") as? String
+        
+    }
+    
+    /**
+     * NSCoding required method.
+     * Encodes mode properties into the decoder
+     */
+    @objc func encode(with aCoder: NSCoder)
+    {
+        if coinAmount != nil{
+            aCoder.encode(coinAmount, forKey: "coinAmount")
+        }
+        if gender != nil{
+            aCoder.encode(gender, forKey: "gender")
+        }
+        if id != nil{
+            aCoder.encode(id, forKey: "id")
+        }
+        if photo != nil{
+            aCoder.encode(photo, forKey: "photo")
+        }
+        if telephone != nil{
+            aCoder.encode(telephone, forKey: "telephone")
+        }
+        if userName != nil{
+            aCoder.encode(userName, forKey: "userName")
+        }
+        
+    }
+    
+}
+
 class HeartModel : NSObject, NSCoding{
     
-    var currentPlayerDTO : BasicUserDTO?
+    var currentPlayerDTO : CurrentPlayerDTO?
     var currentPlayStatus : Int!
-    var currentPlayerId : AnyObject!
+    var userDTOs : [BasicUserDTO]!
     var userList : [Int]!
     var balance : Int!
     
@@ -324,10 +436,16 @@ class HeartModel : NSObject, NSCoding{
      */
     init(fromDictionary dictionary: NSDictionary){
         if let basicUserDTOData = dictionary["currentPlayerDTO"] as? NSDictionary{
-            currentPlayerDTO = BasicUserDTO(fromDictionary: basicUserDTOData)
+            currentPlayerDTO = CurrentPlayerDTO(fromDictionary: basicUserDTOData)
         }
         currentPlayStatus = dictionary["currentPlayStatus"] as? Int
-        currentPlayerId = dictionary["currentPlayerId"] as AnyObject
+        userDTOs = [BasicUserDTO]()
+        if let userDTOsArray = dictionary["userDTOs"] as? [NSDictionary]{
+            for dic in userDTOsArray{
+                let value = BasicUserDTO(fromDictionary: dic)
+                userDTOs.append(value)
+            }
+        }
         userList = dictionary["userList"] as? [Int]
         balance = dictionary["balance"] as? Int
     }
@@ -347,8 +465,12 @@ class HeartModel : NSObject, NSCoding{
         if currentPlayStatus != nil{
             dictionary["currentPlayStatus"] = currentPlayStatus
         }
-        if currentPlayerId != nil{
-            dictionary["currentPlayerId"] = currentPlayerId
+        if userDTOs != nil{
+            var dictionaryElements = [NSDictionary]()
+            for userDTOsElement in userDTOs {
+                dictionaryElements.append(userDTOsElement.toDictionary())
+            }
+            dictionary["userDTOs"] = dictionaryElements
         }
         if userList != nil{
             dictionary["userList"] = userList
@@ -362,9 +484,9 @@ class HeartModel : NSObject, NSCoding{
      */
     @objc required init(coder aDecoder: NSCoder)
     {
-        currentPlayerDTO = aDecoder.decodeObject(forKey: "currentPlayerDTO") as? BasicUserDTO
+        currentPlayerDTO = aDecoder.decodeObject(forKey: "currentPlayerDTO") as? CurrentPlayerDTO
         currentPlayStatus = aDecoder.decodeObject(forKey: "currentPlayStatus") as? Int
-        currentPlayerId = aDecoder.decodeObject(forKey: "currentPlayerId") as AnyObject
+        userDTOs = aDecoder.decodeObject(forKey: "userDTOs") as? [BasicUserDTO]
         userList = aDecoder.decodeObject(forKey: "userList") as? [Int]
         balance = aDecoder.decodeObject(forKey: "balance") as? Int
     }
@@ -381,8 +503,8 @@ class HeartModel : NSObject, NSCoding{
         if currentPlayStatus != nil{
             aCoder.encode(currentPlayStatus, forKey: "currentPlayStatus")
         }
-        if currentPlayerId != nil{
-            aCoder.encode(currentPlayerId, forKey: "currentPlayerId")
+        if userDTOs != nil{
+            aCoder.encode(userDTOs, forKey: "userDTOs")
         }
         if userList != nil{
             aCoder.encode(userList, forKey: "userList")

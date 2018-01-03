@@ -325,11 +325,6 @@ class GloabTitleAndFieldCell: UITableViewCell {
                 make.right.equalTo(self.contentView.snp.right).offset(-38)
             })
             
-            lineLable.snp.makeConstraints({ (make) in
-                make.left.equalTo(self.contentView.snp.left).offset(20)
-                make.bottom.equalTo(self.contentView.snp.bottom).offset(-0.5)
-            })
-            
             rightImage.snp.makeConstraints { (make) in
                 make.centerY.equalTo(self.snp.centerY).offset(0)
                 make.right.equalTo(self.snp.right).offset(-20)

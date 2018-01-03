@@ -204,30 +204,54 @@ class BaseNetWorke {
             default:
                 methods = HTTPMethod.put
         }
-        var headers:HTTPHeaders? = nil
+        var headers:HTTPHeaders? = [:]
         if UserInfoModel.isLoggedIn() {
             headers = url != LoginUrl && url != LoginCode && url != LoginWeiChat ? ["X-ui":UserInfoModel.shareInstance().idField,"X-di":"","X-token":UserInfoModel.shareInstance().token == nil ? "" : UserInfoModel.shareInstance().token] as! [String:String] : [:]
         }
-        
+        print("\(url)=================================")
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
-        Alamofire.request(url, method: methods , parameters: parameters as? [String: Any], encoding: url == AddressUrl || url == AddressUpdate || url == ApplyShipments ? JSONEncoding.default : URLEncoding.default, headers: headers).responseJSON { (response) in
+        Alamofire.request(url, method: methods , parameters: parameters as? [String: Any], encoding: url == AddressUrl || url == AddressUpdate || url == ApplyShipments ? JSONEncoding.default : URLEncoding.default, headers: headers).responseString(completionHandler: { (response) in
             UIApplication.shared.isNetworkActivityIndicatorVisible = false
-            
-//            NetWorkingResponse.sharedInstance.showNetWorkingResPonse(response as AnyObject)
+            print(response)
+            //            NetWorkingResponse.sharedInstance.showNetWorkingResPonse(response as AnyObject)
             if response.result.error != nil{
                 failure(response.result.error! as AnyObject)
             }else{
                 if response.response?.statusCode == 200 || response.response?.statusCode == 201 {
-                    if (response.result.value as! NSDictionary).object(forKey: "code")! as! Int == 1003 {
+                    let dic = self.jsonStringToDic(response.result.value!)
+                    if dic.object(forKey: "code")! as! Int == 1003 {
                         UserInfoModel.logout()
                     }else{
-                        success(response.result.value! as AnyObject)
+                        success(dic as AnyObject)
                     }
                 }else{
                     failure(response.result.value! as AnyObject)
                 }
             }
-        }
+        })
+//        if (url == Heartbeat) {
+//            
+//        }else{
+//            Alamofire.request(url, method: methods , parameters: parameters as? [String: Any], encoding: url == AddressUrl || url == AddressUpdate || url == ApplyShipments ? JSONEncoding.default : URLEncoding.default, headers: headers).responseJSON { (response) in
+//                UIApplication.shared.isNetworkActivityIndicatorVisible = false
+//                
+//                //            NetWorkingResponse.sharedInstance.showNetWorkingResPonse(response as AnyObject)
+//                if response.result.error != nil{
+//                    failure(response.result.error! as AnyObject)
+//                }else{
+//                    if response.response?.statusCode == 200 || response.response?.statusCode == 201 {
+//                        if (response.result.value as! NSDictionary).object(forKey: "code")! as! Int == 1003 {
+//                            UserInfoModel.logout()
+//                        }else{
+//                            success(response.result.value! as AnyObject)
+//                        }
+//                    }else{
+//                        failure(response.result.value! as AnyObject)
+//                    }
+//                }
+//            }
+//        }
+        
     }
     
     func jsonStringToDic(_ dictionary_temp:String) ->NSDictionary {

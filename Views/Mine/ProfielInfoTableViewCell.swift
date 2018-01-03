@@ -13,7 +13,7 @@ class ProfielInfoTableViewCell: UITableViewCell {
     var titleLabel:UILabel!
     var detailLabel:UILabel!
     
-    var linLabel:GloabLineView!
+    var lineLable:GloabLineView!
     
     var rightImage:UIImageView!
     
@@ -40,12 +40,20 @@ class ProfielInfoTableViewCell: UITableViewCell {
         rightImage.image = UIImage.init(named: "arrow")
         self.addSubview(rightImage)
         
+        lineLable = GloabLineView(frame: CGRect(x: 20,y: 0,width: SCREENWIDTH - 20, height: 0.5))
+        lineLable.setLineColor(UIColor.init(hexString: App_Theme_EEEEEE_Color))
+        self.contentView.addSubview(lineLable)
+        
         self.updateConstraints()
     }
     
-    func cellSetData(title:String, desc:String){
+    func cellSetData(title:String, desc:String?){
         titleLabel.text = title
-        detailLabel.text = desc
+        if desc != nil {
+            detailLabel.text = desc
+        }else{
+            detailLabel.text = ""
+        }
     }
     
     func updateCellDesc(desc:String){

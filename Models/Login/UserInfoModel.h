@@ -27,6 +27,9 @@
 @property (nonatomic, copy) NSString * userName;
 @property (nonatomic, copy) NSString * wechatOpenid;
 @property (nonatomic, copy) NSString * coinAmount;
+@property (nonatomic, copy) NSString * provinceName;
+@property (nonatomic, copy) NSString * cityName;
+@property (nonatomic, copy) NSString * birth;
 
 + (instancetype)shareInstance;
 

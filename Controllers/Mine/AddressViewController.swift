@@ -55,6 +55,7 @@ class AddressViewController: BaseViewController {
             picker.dataSource = self.viewModel as? UIPickerViewDataSource
             picker.delegate = self.viewModel as? UIPickerViewDelegate
             picker.tag = 100
+            picker.backgroundColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
             self.view.addSubview(self.showToolBar())
             self.view.addSubview(picker)
         }else{

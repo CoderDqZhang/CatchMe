@@ -78,10 +78,18 @@ class LoginTypeViewController: BaseViewController {
             NavigationPushView(self, toConroller: LoginSetPhoneViewController())
         }
         self.view.addSubview(loginWithPhone)
-        loginWithPhone.snp.makeConstraints { (make) in
-            make.bottom.equalTo(self.loginLable.snp.top).offset(IPHONE5 ? -47 : -67)
-            make.centerX.equalTo(self.view.snp.centerX).offset(0)
+        if IPHONE4 {
+            loginWithPhone.snp.makeConstraints { (make) in
+                make.bottom.equalTo(self.loginLable.snp.top).offset(-10)
+                make.centerX.equalTo(self.view.snp.centerX).offset(0)
+            }
+        }else{
+            loginWithPhone.snp.makeConstraints { (make) in
+                make.bottom.equalTo(self.loginLable.snp.top).offset(IPHONE5 ? -47 : -67)
+                make.centerX.equalTo(self.view.snp.centerX).offset(0)
+            }
         }
+        
         
         loginWeChatView = AnimationTouchView.init(frame: CGRect.zero) {
             self.loginWeiChat()
@@ -148,11 +156,20 @@ class LoginTypeViewController: BaseViewController {
             let gifData =  try Data.init(contentsOf: url)
             let gifImage = FLAnimatedImage.init(animatedGIFData: gifData)
             loginImage.animatedImage = gifImage
-            loginImage.snp.makeConstraints { (make) in
-                make.top.equalTo(self.view.snp.top).offset(43 + IPHONEXFRAMEHEIGHT)
-                make.centerX.equalTo(self.view.snp.centerX).offset(0)
-                make.size.equalTo(CGSize.init(width: SCREENWIDTH, height: SCREENWIDTH * 684 / 750))
+            if IPHONE4 {
+                loginImage.snp.makeConstraints { (make) in
+                    make.top.equalTo(self.view.snp.top).offset(0)
+                    make.centerX.equalTo(self.view.snp.centerX).offset(0)
+                    make.size.equalTo(CGSize.init(width: SCREENWIDTH, height: SCREENWIDTH * 684 / 750))
+                }
+            }else{
+                loginImage.snp.makeConstraints { (make) in
+                    make.top.equalTo(self.view.snp.top).offset(43 + IPHONEXFRAMEHEIGHT)
+                    make.centerX.equalTo(self.view.snp.centerX).offset(0)
+                    make.size.equalTo(CGSize.init(width: SCREENWIDTH, height: SCREENWIDTH * 684 / 750))
+                }
             }
+            
         } catch  {
             print("error")
         }

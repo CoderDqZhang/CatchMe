@@ -199,12 +199,12 @@ class CacheMeViewController: BaseViewController {
             })
             self.view.bringSubview(toFront: self.switchCamera)
             //2.0
-//            self.view.bringSubview(toFront: self.showDollsDetail)
+            self.view.bringSubview(toFront: self.showDollsDetail)
         }else{
             self.view.bringSubview(toFront: self.nELivePlayerLoadFailView)
             self.view.bringSubview(toFront: self.switchCamera)
             //2.0
-//            self.view.bringSubview(toFront: self.showDollsDetail)
+            self.view.bringSubview(toFront: self.showDollsDetail)
             self.nELivePlayerLoadFailView.isHidden = false
         }
     }
@@ -239,9 +239,11 @@ class CacheMeViewController: BaseViewController {
             
             self.setUpPlayUserView()
             self.setUpCameraView()
-//            self.setUpShowDollsDetail()
             self.setUpSwiperGesture(view: self.liveplayerA.view, type: .left)
             self.view.bringSubview(toFront: cacheMeTopView)
+            if self.showDollsDetail != nil {
+                self.view.bringSubview(toFront: showDollsDetail)
+            }
             
             if nElivePlayLoadFailATime == nil {
                 nElivePlayLoadFailATime = Timer.every(1, {
@@ -412,18 +414,20 @@ class CacheMeViewController: BaseViewController {
     
     //创建游戏者视频界面
     func initRemoteGlView(){
-        remoteGLView = NTESGLView.init()
-        remoteGLView.isHidden = true
-        remoteGLView.clipsToBounds = true
-        remoteGLView.layer.cornerRadius = 10
-        remoteGLView.layer.masksToBounds = true
-        self.view.addSubview(remoteGLView)
-        self.remoteGLView.snp.makeConstraints({ (make) in
-            make.centerX.equalTo(self.view.snp.centerX).offset(0)
-            make.top.equalTo(self.view.snp.top).offset(64 + IPHONEXFRAMEHEIGHT)
-            make.bottom.equalTo(self.view.snp.bottom).offset(-122)
-            make.size.equalTo(CGSize.init(width: (SCREENWIDTH - 16), height: SCREENHEIGHT - 122 - 64 - IPHONEXFRAMEHEIGHT))
-        })
+        DispatchQueue.main.async {
+            self.remoteGLView = NTESGLView.init()
+            self.remoteGLView.isHidden = true
+            self.remoteGLView.clipsToBounds = true
+            self.remoteGLView.layer.cornerRadius = 10
+            self.remoteGLView.layer.masksToBounds = true
+            self.view.addSubview(self.remoteGLView)
+            self.remoteGLView.snp.makeConstraints({ (make) in
+                make.centerX.equalTo(self.view.snp.centerX).offset(0)
+                make.top.equalTo(self.view.snp.top).offset(64 + IPHONEXFRAMEHEIGHT)
+                make.bottom.equalTo(self.view.snp.bottom).offset(-122)
+                make.size.equalTo(CGSize.init(width: (SCREENWIDTH - 16), height: SCREENHEIGHT - 122 - 64 - IPHONEXFRAMEHEIGHT))
+            })
+        }
     }
     
     //创建向左滑动
@@ -450,7 +454,7 @@ class CacheMeViewController: BaseViewController {
             case 2:
                 self.playGame()
             default:
-                self.cacheMeViewModel.gotoTopUpVC()
+                NavigationPushView(self, toConroller: StrategyViewController())
             }
         }
         self.view.addSubview(bottomToolsView)
@@ -458,15 +462,18 @@ class CacheMeViewController: BaseViewController {
     
     //创建娃娃详情界面
     func setUpDollDetailView(model:DollsDetailModel){
-        dollDetailView = DollDetailView.init(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: SCREENHEIGHT), closeClouse: {
-            self.setUpGameTipView()
-            //2.0
-//            AnimationTools.shareInstance.hiddenViewAnimation(view: self.dollDetailView, frame: self.showDollsDetail.frame, finish: { (ret) in
-//                self.dollDetailView.isHidden = true
-//            })
-        })
-        dollDetailView.setUpSubViews(model: model)
-        KWINDOWDS().addSubview(dollDetailView)
+        DispatchQueue.main.async {
+            self.dollDetailView = DollDetailView.init(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: SCREENHEIGHT), closeClouse: {
+                self.setUpGameTipView()
+                //2.0
+                AnimationTools.shareInstance.hiddenViewAnimation(view: self.dollDetailView, frame: self.showDollsDetail.frame, finish: { (ret) in
+                    self.dollDetailView.isHidden = true
+                })
+            })
+            self.dollDetailView.setUpSubViews(model: model)
+            KWINDOWDS().addSubview(self.dollDetailView)
+        }
+        
     }
     
     //创建顶部导航栏
@@ -482,6 +489,9 @@ class CacheMeViewController: BaseViewController {
                 })
             }
         })
+        cacheMeTopView.topCoinClickClouse = {
+            self.cacheMeViewModel.gotoTopUpVC()
+        }
         self.view.addSubview(cacheMeTopView)
         self.view.bringSubview(toFront: cacheMeTopView)
     }
@@ -536,11 +546,18 @@ class CacheMeViewController: BaseViewController {
     }
     
     //娃娃详情 2.0
-    func setUpShowDollsDetail(){
+    func setUpShowDollsDetail(model:CatchMeModel){
+
         showDollsDetail = AnimationButton.init(type: .custom)
-        showDollsDetail.setImage(UIImage.init(named: "camera"), for: .normal)
-        showDollsDetail.backgroundColor = UIColor.init(hexString: App_Theme_000000_Color, andAlpha: 0.3)
+        showDollsDetail.layer.cornerRadius = 31
+        showDollsDetail.layer.borderWidth = 2
+        showDollsDetail.layer.borderColor = UIColor.init(hexString: App_Theme_333333_Color, andAlpha: 0.2).cgColor
         showDollsDetail.layer.cornerRadius = 30
+        UIImageViewManger.sd_downImage(url: model.imageAddress, placeholderImage: nil) { (image, error, cacheType, url) in
+            if image != nil {
+                self.showDollsDetail.setImage(image, for: .normal)
+            }
+        }
         showDollsDetail.layer.masksToBounds = true
         showDollsDetail.titleLabel?.textAlignment = .center
         showDollsDetail.reactive.controlEvents(.touchUpInside).observe { (action) in
@@ -552,8 +569,8 @@ class CacheMeViewController: BaseViewController {
         self.view.addSubview(showDollsDetail)
         showDollsDetail.snp.makeConstraints { (make) in
             make.right.equalTo(self.view.snp.right).offset(-18)
-            make.size.equalTo(CGSize.init(width: 60, height: 60))
-            make.centerY.equalTo(self.view.snp.centerY).offset(36)
+            make.size.equalTo(CGSize.init(width: 62, height: 62))
+            make.bottom.equalTo(self.view.snp.bottom).offset(-135)
         }
     }
     

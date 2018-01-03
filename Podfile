@@ -20,9 +20,9 @@ target 'CatchMe' do
   pod 'IQKeyboardManagerSwift'
   pod 'NIMSDK'
   pod 'DZNEmptyDataSet'
-  pod 'CYLTabBarController'
+  pod 'CYLTabBarController','= 1.17.2'
   pod 'pop'
-  
+  pod 'YYWebImage'
 #  pod 'SDWebImage/WebP'
   pod 'Pgyer'
   

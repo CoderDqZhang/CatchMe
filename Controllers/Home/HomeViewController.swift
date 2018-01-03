@@ -16,6 +16,7 @@ class HomeViewController: BaseViewController {
     var topUpBtn:UIButton!
     
     var homeViewModel = HomeViewModel()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.umengPageName = "首页"
@@ -24,6 +25,9 @@ class HomeViewController: BaseViewController {
         self.setUpCollectView()
         self.setUpCollectViewRefreshData()
         self.setUpTopUpView()
+        _ = Timer.after(5, {
+            self.showSelectSex()
+        })
         // Do any additional setup after loading the view.
     }
     
@@ -51,6 +55,16 @@ class HomeViewController: BaseViewController {
         self.homeViewModel.controller = self
         self.homeViewModel.requestRooms(pageIndex: "1")
 
+    }
+    
+    func showSelectSex(){
+        KWINDOWDS().addSubview(GloableAlertView.init(title: "请选择您的性别", desc: nil, btnTop: "帅哥", btnBottom: "美女", image: UIImage.init(named: "pic_success")!, topImageUrl: nil, type: GloableAlertViewType.selectSex, clickClouse: { (tag) in
+            if tag == 100 {
+                
+            }else if tag == 200 {
+                
+            }
+        }))
     }
 
     func setUpCollectViewRefreshData(){

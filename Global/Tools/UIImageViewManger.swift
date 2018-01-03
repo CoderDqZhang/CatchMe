@@ -10,7 +10,7 @@ import UIKit
 import SDWebImage
 
 typealias DownLoadImageCompletionBlock = (_ image:UIImage?, _ error:Error?, _ url:URL) -> Void
-
+typealias ImageDownLoadImageCompletionBlock = (_ image:UIImage?, _ data:Data?,  _ error:Error?, _ ret:Bool) ->Void
 
 class UIImageViewManger: NSObject {
 
@@ -19,5 +19,12 @@ class UIImageViewManger: NSObject {
         imageView.sd_setIndicatorStyle(.gray)
         imageView.sd_setImage(with: URL.init(string: url), placeholderImage: placeholderImage, options: .retryFailed, completed: completedBlock)
     }
+    
+    class func sd_downImage(url:String, placeholderImage:UIImage?, completedBlock: SDWebImage.SDWebImageDownloaderCompletedBlock? = nil) {
+        SDWebImageDownloader.shared().downloadImage(with: URL.init(string: url), options: .continueInBackground, progress: { (pro, end, url) in
+        }, completed: completedBlock)
+    }
+    
+    
     
 }

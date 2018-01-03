@@ -34,6 +34,7 @@ class LoginPhoneCodeViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.umengPageName = "验证码页面"
+        self.setupForDismissKeyboard()
         // Do any additional setup after loading the view.
     }
     

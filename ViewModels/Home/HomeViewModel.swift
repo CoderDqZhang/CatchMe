@@ -18,8 +18,10 @@ class HomeViewModel: BaseViewModel {
         super.init()
         self.requestBanner()
         self.getConfig()
-
+    
     }
+    
+    
     
     //MARK: UICollectionCellSetData
     func collectViewMyDollsCollectionViewCellSetData(_ indexPath:IndexPath, cell:MyDollsCollectionViewCell) {

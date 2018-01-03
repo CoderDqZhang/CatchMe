@@ -15,7 +15,8 @@ import MapKit
 class MainTabBarViewController: CYLTabBarController {
 
     var homeViewController = HomeViewController()
-    var topViewController = TopViewController()
+    var recommendController = RecommendViewController()
+    var friendsController = FriendsViewController()
     var mineViewController = MineViewController()
     var currentViewController:UIViewController!
     
@@ -28,9 +29,11 @@ class MainTabBarViewController: CYLTabBarController {
     
         self.tabBarItemsAttributes = [
             [CYLTabBarItemTitle:"首页",CYLTabBarItemImage : "home_gray",CYLTabBarItemSelectedImage : "home_red"],
+            [CYLTabBarItemTitle:"抓友推荐",CYLTabBarItemImage : "commend_gray",CYLTabBarItemSelectedImage : "commend_red"],
+            [CYLTabBarItemTitle:"我的抓友",CYLTabBarItemImage : "friend_gray",CYLTabBarItemSelectedImage : "friend_red"],
             [CYLTabBarItemTitle:"我的",CYLTabBarItemImage : "me_gray",CYLTabBarItemSelectedImage : "me_red"]]
         
-        let controllers = [createNavigationController(controller: homeViewController),createNavigationController(controller: mineViewController)]
+        let controllers = [createNavigationController(controller: homeViewController),createNavigationController(controller: recommendController),createNavigationController(controller: friendsController),createNavigationController(controller: mineViewController)]
         
         currentViewController = homeViewController
         
@@ -40,49 +43,49 @@ class MainTabBarViewController: CYLTabBarController {
         
         self.tabBar.barStyle = .default
         self.tabBar.shadowImage = UIImage.init()
-        self.tabBar.backgroundImage = UIImage.init()
+        self.tabBar.backgroundImage = UIImage.init(color: UIColor.init(hexString: App_Theme_FFFFFF_Color, andAlpha: 1), size: self.tabBar.bounds.size)
         self.tabBar.layer.shadowColor = UIColor.init(hexString: App_Theme_000000_Color, andAlpha: 0.1).cgColor
         self.tabBar.layer.shadowOffset = .zero
         self.tabBar.layer.shadowRadius = 1
         self.tabBar.layer.shadowOpacity = 0.5
         
-        if !IPHONE_VERSION_MINE11 {
-            
-            let image = UIImage.init(byApplyingAlpha: 0.7, image: UIImage.init(named: "menu"))
-            let imageHeight = SCREENWIDTH * (image?.size.height)! / (image?.size.width)!
-            let imageView:UIImageView?
-            imageView = UIImageView.init(frame: CGRect.init(x: 0, y: -(imageHeight - 49), width: SCREENWIDTH, height: imageHeight + IPHONEXTABBARHEIGHT))
-            let blurEffect = UIBlurEffect(style: .light)
-            //接着创建一个承载模糊效果的视图
-            let blurView = UIVisualEffectView(effect: blurEffect)
-            //设置模糊视图的大小（全屏）
-            blurView.frame = CGRect.init(x: 0, y: imageHeight - 49, width: SCREENWIDTH, height: 48 + IPHONEXTABBARHEIGHT)
-            //添加模糊视图到页面view上（模糊视图下方都会有模糊效果）
-            
-            imageView?.addSubview(blurView)
-            imageView?.image = image
-            
-            self.tabBar.addSubview(imageView!)
-            
-        }else{
-            let image = UIImage.init(byApplyingAlpha: 0.7, image: UIImage.init(named: "menu"))
-            let imageHeight = image?.size.height
-            let imageView:UIImageView?
-            imageView = UIImageView.init(frame: CGRect.init(x: 0, y: -(imageHeight! - 49) - 2, width: SCREENWIDTH, height: imageHeight! + IPHONEXTABBARHEIGHT))
-            let blurEffect = UIBlurEffect(style: .light)
-            //接着创建一个承载模糊效果的视图
-            let blurView = UIVisualEffectView(effect: blurEffect)
-            //设置模糊视图的大小（全屏）
-            blurView.frame = CGRect.init(x: 0, y: imageHeight! - 49, width: SCREENWIDTH, height: 49 + IPHONEXTABBARHEIGHT)
-            //添加模糊视图到页面view上（模糊视图下方都会有模糊效果）
-            
-            imageView?.addSubview(blurView)
-            imageView?.image = image
-            
-            self.tabBar.addSubview(imageView!)
-        }
+//        if !IPHONE_VERSION_MINE11 {
+//
+//            let image = UIImage.init(byApplyingAlpha: 0.7, image: UIImage.init(named: "menu"))
+//            let imageHeight = SCREENWIDTH * (image?.size.height)! / (image?.size.width)!
+//            let imageView:UIImageView?
+//            imageView = UIImageView.init(frame: CGRect.init(x: 0, y: -(imageHeight - 49), width: SCREENWIDTH, height: imageHeight + IPHONEXTABBARHEIGHT))
+//            let blurEffect = UIBlurEffect(style: .light)
+//            //接着创建一个承载模糊效果的视图
+//            let blurView = UIVisualEffectView(effect: blurEffect)
+//            //设置模糊视图的大小（全屏）
+//            blurView.frame = CGRect.init(x: 0, y: imageHeight - 49, width: SCREENWIDTH, height: 48 + IPHONEXTABBARHEIGHT)
+//            //添加模糊视图到页面view上（模糊视图下方都会有模糊效果）
+//
+//            imageView?.addSubview(blurView)
+//            imageView?.image = image
+//
+//            self.tabBar.addSubview(imageView!)
+//
+//        }else{
+//            let image = UIImage.init(byApplyingAlpha: 0.7, image: UIImage.init(named: "menu"))
+//            let imageHeight = image?.size.height
+//            let imageView:UIImageView?
+//            imageView = UIImageView.init(frame: CGRect.init(x: 0, y: -(imageHeight! - 49) - 2, width: SCREENWIDTH, height: imageHeight! + IPHONEXTABBARHEIGHT))
+//            let blurEffect = UIBlurEffect(style: .light)
+//            //接着创建一个承载模糊效果的视图
+//            let blurView = UIVisualEffectView(effect: blurEffect)
+//            //设置模糊视图的大小（全屏）
+//            blurView.frame = CGRect.init(x: 0, y: imageHeight! - 49, width: SCREENWIDTH, height: 49 + IPHONEXTABBARHEIGHT)
+//            //添加模糊视图到页面view上（模糊视图下方都会有模糊效果）
+//
+//            imageView?.addSubview(blurView)
+//            imageView?.image = image
+//
+//            self.tabBar.addSubview(imageView!)
+//        }
         
-        self.tabBar.isTranslucent = true
+//        self.tabBar.isTranslucent = true
         self.viewControllers = controllers
         
         AuthorityManager.setUpAuthorityManager(controller: homeViewController)
@@ -216,11 +219,6 @@ class PlusButtonSubclass : CYLPlusButton,CYLPlusButtonSubclassing {
         let view = UIView.init()
         let button:PlusButtonSubclass =  PlusButtonSubclass()
         button.setImage(UIImage(named: "tabar"), for: UIControlState.normal)
-        button.setTitle("快抓我呀", for: UIControlState.normal)
-        button.setTitleColor(UIColor.init(hexString: App_Theme_333333_Color), for: UIControlState.normal)
-        
-        button.titleLabel?.font = App_Theme_PinFan_M_10_Font
-        button.titleLabel!.textAlignment = .center;
         button.adjustsImageWhenHighlighted = false;
         // if you use `+plusChildViewController` , do not addTarget to plusButton.
         let singTap = UITapGestureRecognizer.init(target: MainTabBarViewController(), action: #selector(MainTabBarViewController.sigTapGest))
@@ -231,21 +229,20 @@ class PlusButtonSubclass : CYLPlusButton,CYLPlusButtonSubclassing {
         button.addTarget(button, action: #selector(self.buttonClicked(sender:)), for: .touchUpInside)
         button.frame.origin.y = 1
         // set button frame
-        button.frame.size.width = 70
-        button.frame.size.height = 70
-        button.frame = CGRect.init(x: 0, y: -50, width: 70, height: 70)
-        button.verticalImageAndTitle(spacing: 4)
-        let blurEffect = UIBlurEffect(style: .light)
-        //接着创建一个承载模糊效果的视图
-        let blurView = UIVisualEffectView(effect: blurEffect)
-        blurView.layer.cornerRadius = 35
-        blurView.layer.masksToBounds = true
-        //设置模糊视图的大小（全屏）
-        blurView.isUserInteractionEnabled = true
-        blurView.frame = CGRect.init(x: 0, y: -3, width: 70, height: 70)
-        //添加模糊视图到页面view上（模糊视图下方都会有模糊效果）
-        button.addSubview(blurView)
-        button.sendSubview(toBack: blurView)
+//        button.frame.size.width = 70
+//        button.frame.size.height = 70
+        button.frame = CGRect.init(x: 0, y: -50, width: 58, height: 58)
+//        let blurEffect = UIBlurEffect(style: .light)
+//        //接着创建一个承载模糊效果的视图
+//        let blurView = UIVisualEffectView(effect: blurEffect)
+//        blurView.layer.cornerRadius = 24
+//        blurView.layer.masksToBounds = true
+//        //设置模糊视图的大小（全屏）
+//        blurView.isUserInteractionEnabled = true
+//        blurView.frame = CGRect.init(x: 0, y: -3, width: 58, height: 58)
+//        //添加模糊视图到页面view上（模糊视图下方都会有模糊效果）
+//        button.addSubview(blurView)
+//        button.sendSubview(toBack: blurView)
         return button
     }
     
@@ -277,7 +274,7 @@ class PlusButtonSubclass : CYLPlusButton,CYLPlusButtonSubclassing {
     }
     
     static func indexOfPlusButtonInTabBar() -> UInt {
-        return 1
+        return 2
     }
     
     static func multiplierOfTabBarHeight(tabBarHeight: CGFloat) -> CGFloat {
@@ -285,7 +282,7 @@ class PlusButtonSubclass : CYLPlusButton,CYLPlusButtonSubclassing {
     }
     
     static func constantOfPlusButtonCenterYOffset(forTabBarHeight tabBarHeight: CGFloat) -> CGFloat {
-        return -IPHONEXTABBARHEIGHT
+        return -IPHONEXTABBARHEIGHT - 5
     }
 }
 

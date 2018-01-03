@@ -14,6 +14,10 @@ class ProfileViewController: BaseViewController {
 
     var picker:UIPickerView!
     var pickerToolBar:UIToolbar!
+    var picker1:UIPickerView!
+    var pickerToolBar1:UIToolbar!
+    var picker2:UIDatePicker!
+    var pickerToolBar2:UIToolbar!
     var profileViewControllerClouse:ProfileViewControllerClouse!
     
     override func viewDidLoad() {
@@ -49,11 +53,43 @@ class ProfileViewController: BaseViewController {
             picker.dataSource = (self.viewModel as! ProfileViewModel)
             picker.delegate = (self.viewModel as! ProfileViewModel)
             picker.tag = 100
+            picker.backgroundColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
             self.view.addSubview(self.showToolBar())
             self.view.addSubview(picker)
         }else{
             picker.isHidden = false
             pickerToolBar.isHidden = false
+        }
+    }
+    
+    func showCityPickerView(){
+        if self.view.viewWithTag(200) == nil {
+            picker1 = UIPickerView.init(frame: CGRect.init(x: 0, y: SCREENHEIGHT - 220, width: SCREENWIDTH, height: 220))
+            picker1.backgroundColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
+            picker1.dataSource = (self.viewModel as! ProfileViewModel)
+            picker1.delegate = (self.viewModel as! ProfileViewModel)
+            picker1.tag = 200
+            picker1.backgroundColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
+            self.view.addSubview(self.showToolBar1())
+            self.view.addSubview(picker1)
+        }else{
+            picker1.isHidden = false
+            pickerToolBar1.isHidden = false
+        }
+    }
+    
+    func showAgePickerView(){
+        if self.view.viewWithTag(300) == nil {
+            picker2 = UIDatePicker.init(frame: CGRect.init(x: 0, y: SCREENHEIGHT - 220, width: SCREENWIDTH, height: 220))                
+            picker2.backgroundColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
+            picker2.datePickerMode = .date
+            picker2.tag = 300
+            picker2.backgroundColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
+            self.view.addSubview(self.showToolBar2())
+            self.view.addSubview(picker2)
+        }else{
+            picker2.isHidden = false
+            pickerToolBar2.isHidden = false
         }
     }
     
@@ -73,9 +109,44 @@ class ProfileViewController: BaseViewController {
         return pickerToolBar
     }
     
+    func showToolBar1() -> UIToolbar{
+        pickerToolBar1 = UIToolbar.init(frame: CGRect.init(x: 0, y: SCREENHEIGHT - 264, width: SCREENWIDTH, height: 44))
+        pickerToolBar1.barTintColor = UIColor.init(hexString: App_Theme_FA3A47_Color)
+        pickerToolBar1.backgroundColor =  UIColor.clear
+        let barItems = NSMutableArray.init()
+        let cancel = UIBarButtonItem.init(title: "取消", style: .plain, target: self, action: #selector(self.cancelSelectCity))
+        barItems.add(cancel)
+        let flexSpace = UIBarButtonItem.init(barButtonSystemItem: .fixedSpace, target: self, action: nil)
+        flexSpace.width = IPHONE_VERSION_MINE11 ? SCREENWIDTH - 110 : SCREENWIDTH - 60
+        barItems.add(flexSpace)
+        let done = UIBarButtonItem.init(title: "确定", style: .plain, target: self, action: #selector(self.doneSelectCity))
+        barItems.add(done)
+        pickerToolBar1.items = barItems as? [UIBarButtonItem]
+        return pickerToolBar1
+    }
+    
+    func showToolBar2() -> UIToolbar{
+        pickerToolBar2 = UIToolbar.init(frame: CGRect.init(x: 0, y: SCREENHEIGHT - 264, width: SCREENWIDTH, height: 44))
+        pickerToolBar2.barTintColor = UIColor.init(hexString: App_Theme_FA3A47_Color)
+        pickerToolBar2.backgroundColor =  UIColor.clear
+        let barItems = NSMutableArray.init()
+        let cancel = UIBarButtonItem.init(title: "取消", style: .plain, target: self, action: #selector(self.cancelSelectAge))
+        barItems.add(cancel)
+        let flexSpace = UIBarButtonItem.init(barButtonSystemItem: .fixedSpace, target: self, action: nil)
+        flexSpace.width = IPHONE_VERSION_MINE11 ? SCREENWIDTH - 110 : SCREENWIDTH - 60
+        barItems.add(flexSpace)
+        let done = UIBarButtonItem.init(title: "确定", style: .plain, target: self, action: #selector(self.doneSelectAge))
+        barItems.add(done)
+        pickerToolBar2.items = barItems as? [UIBarButtonItem]
+        return pickerToolBar2
+    }
+    
     @objc func cancelSelect(){
-        picker.isHidden = true
-        pickerToolBar.isHidden = true
+        if picker != nil {
+            picker.isHidden = true
+            pickerToolBar.isHidden = true
+        }
+        
     }
     
     @objc func doneSelect(){
@@ -85,42 +156,39 @@ class ProfileViewController: BaseViewController {
         (self.viewModel as! ProfileViewModel).changeUserInfo()
     }
     
-    func presentImagePickerView(){
-        let controller = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        let cancel = UIAlertAction(title: "取消", style: .cancel) { (cancelAction) in
-            
-        }
-        if (UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera)){
-            let cameraAction = UIAlertAction(title: "拍照", style: .default) { (cancelAction) in
-                let imagePicker = UIImagePickerController()
-                imagePicker.allowsEditing = true
-                imagePicker.sourceType = .camera
-                imagePicker.delegate = self
-                self.present(imagePicker, animated: true) {
-                    
-                }
-            }
-            controller.addAction(cameraAction)
-        }
-        
-        
-        let album = UIAlertAction(title: "相册", style: .default) { (cancelAction) in
-            let imagePicker = UIImagePickerController()
-            imagePicker.allowsEditing = true
-            imagePicker.sourceType = .photoLibrary
-            imagePicker.delegate = self
-            self.present(imagePicker, animated: true) {
-                
-            }
-        }
-        controller.addAction(cancel)
-        controller.addAction(album)
-        self.present(controller, animated: true) {
-            
+    @objc func cancelSelectCity(){
+        if picker1 != nil {
+            picker1.isHidden = true
+            pickerToolBar1.isHidden = true
         }
         
     }
     
+    @objc func doneSelectCity(){
+        picker1.isHidden = true
+        pickerToolBar1.isHidden = true
+        (self.viewModel as! ProfileViewModel).getAddress()
+    }
+    
+    @objc func cancelSelectAge(){
+        if picker2 != nil {
+            picker2.isHidden = true
+            pickerToolBar2.isHidden = true
+        }
+        
+    }
+    
+    @objc func doneSelectAge(){
+        let str = Date.init().timeIntervalSince(picker2.date)
+        if Int(str) < 0 {
+            _ = Tools.shareInstance.showMessage(KWINDOWDS(), msg: "这个日期的人还没出生呢", autoHidder: true)
+        }else{
+            picker2.isHidden = true
+            pickerToolBar2.isHidden = true
+            (self.viewModel as! ProfileViewModel).getAge(age:(Int(str) / (365 * 24 * 60 * 60)))
+        }
+        
+    }
 
     /*
     // MARK: - Navigation
@@ -143,25 +211,3 @@ extension ProfileViewController : ZHPickViewDelegate {
         }
     }
 }
-
-extension ProfileViewController : UIImagePickerControllerDelegate {
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        picker.dismiss(animated: true) {
-            
-        }
-    }
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        let image = info[UIImagePickerControllerEditedImage] as! UIImage
-        _ = SaveImageTools.sharedInstance.saveImage("photoImage.png", image: image, path: "headerImage")
-        let cell = self.tableView.cellForRow(at: IndexPath.init(row: 0, section: 0)) as! ProfileHeaderTableViewCell
-        cell.avatarImage.image = image
-        (viewModel as! ProfileViewModel).uploadImage(image: image)
-        picker.dismiss(animated: true, completion: nil)
-    }
-}
-
-extension ProfileViewController : UINavigationControllerDelegate {
-    
-}
-

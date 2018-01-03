@@ -13,13 +13,14 @@ class AnimationView: UIView {
 }
 
 typealias TouchClickClouse = () -> Void
-class AnimationTouchView: UIView {
+class AnimationTouchView: UIView, UIGestureRecognizerDelegate {
     
     var touchClickClouse:TouchClickClouse!
     init(frame: CGRect, click:@escaping TouchClickClouse) {
         super.init(frame: frame)
         self.touchClickClouse = click
         let longPressGestureRecognizer = UILongPressGestureRecognizer.init(target: self, action: #selector(self.longPress(longPress:)))
+        longPressGestureRecognizer.delegate = self
         longPressGestureRecognizer.minimumPressDuration = 0.0001
         self.addGestureRecognizer(longPressGestureRecognizer)
     }
@@ -63,6 +64,14 @@ class AnimationTouchView: UIView {
         scaleAnimation?.toValue = NSValue.init(cgSize: CGSize.init(width: 1, height: 1))
         scaleAnimation?.duration = 0.1
         self.layer.pop_add(scaleAnimation, forKey: "layerScaleDefaultAnimation")
+    }
+    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+    }
+    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        return true
     }
 }
 

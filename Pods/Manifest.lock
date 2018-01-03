@@ -40,10 +40,17 @@ PODS:
   - SwifterSwift/Foundation (4.1.0)
   - SwifterSwift/SwiftStdlib (4.1.0)
   - SwifterSwift/UIKit (4.1.0)
+  - YYCache (1.0.4)
+  - YYImage (1.0.4):
+    - YYImage/Core (= 1.0.4)
+  - YYImage/Core (1.0.4)
+  - YYWebImage (1.0.5):
+    - YYCache
+    - YYImage
 
 DEPENDENCIES:
   - Alamofire (~> 4.4)
-  - CYLTabBarController
+  - CYLTabBarController (= 1.17.2)
   - DZNEmptyDataSet
   - FDFullscreenPopGesture (= 1.1)
   - FMDB
@@ -59,6 +66,7 @@ DEPENDENCIES:
   - SDWebImage (~> 4.0.0-beta2)
   - SnapKit (~> 4.0.0)
   - SwifterSwift
+  - YYWebImage
 
 SPEC CHECKSUMS:
   Alamofire: f41a599bd63041760b26d393ec1069d9d7b917f4
@@ -80,7 +88,10 @@ SPEC CHECKSUMS:
   SDWebImage: 76a6348bdc74eb5a55dd08a091ef298e56b55e41
   SnapKit: a42d492c16e80209130a3379f73596c3454b7694
   SwifterSwift: 4d962b5d653760b85266832aff6ab6d08c1b7974
+  YYCache: 8105b6638f5e849296c71f331ff83891a4942952
+  YYImage: 1e1b62a9997399593e4b9c4ecfbbabbf1d3f3b54
+  YYWebImage: 5f7f36aee2ae293f016d418c7d6ba05c4863e928
 
-PODFILE CHECKSUM: a39d2b48cc60368e49ef78bf7803b9524d71c4b8
+PODFILE CHECKSUM: 87b6f8f6d93fdbb05c9a19d30450c7871629d319
 
 COCOAPODS: 1.1.1

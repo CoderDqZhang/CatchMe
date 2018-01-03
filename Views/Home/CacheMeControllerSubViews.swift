@@ -45,7 +45,6 @@ class DollDetailView: UIView,SDCycleScrollViewDelegate {
         closeBtn.reactive.controlEvents(.touchUpInside).observe { (btn) in
             //2.0
             closeClouse()
-            self.removeSelf()
             
         }
         self.addSubview(closeBtn)
@@ -55,13 +54,6 @@ class DollDetailView: UIView,SDCycleScrollViewDelegate {
             make.top.equalTo(dollDetailView.snp.bottom).offset(20)
         }
         
-    }
-    
-    //1.1系统
-    func removeSelf(){
-        AnimationTools.shareInstance.removeViewAnimation(view: self.dollDetailView, finish: {_ in
-            self.removeFromSuperview()
-        })
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -124,24 +116,24 @@ class DollDetailView: UIView,SDCycleScrollViewDelegate {
         dollDetailView.addSubview(pageControl)
         pageControl.snp.makeConstraints { (make) in
             make.centerX.equalTo(dollDetailView.snp.centerX).offset(0)
-            make.bottom.equalTo(dollDetailView.snp.bottom).offset(-20)
+            make.bottom.equalTo(dollDetailView.snp.bottom).offset(-6)
         }
         
-//        collectButton = AnimationButton.init(frame: CGRect.zero)
-//        collectButton.setImage(model.flag == 1 ? UIImage.init(named: "未收藏") : UIImage.init(named: "已收藏"), for: .normal)
-//        collectButton.reactive.controlEvents(.touchUpInside).observe { (btn) in
-//            if self.dollDetailViewCollectClouse != nil {
-//                let ret = self.dollDetailViewCollectClouse()
-//                if ret {
-//                    self.collectButton.setImage(UIImage.init(named: "已收藏"), for: .normal)
-//                }
-//            }
-//        }
-//        dollDetailView.addSubview(collectButton)
-//        collectButton.snp.makeConstraints { (make) in
-//            make.right.equalTo(dollDetailView.snp.right).offset(-20)
-//            make.bottom.equalTo(dollDetailView.snp.bottom).offset(-14)
-//        }
+        collectButton = AnimationButton.init(frame: CGRect.zero)
+        collectButton.setImage(model.flag == 1 ? UIImage.init(named: "未收藏") : UIImage.init(named: "已收藏"), for: .normal)
+        collectButton.reactive.controlEvents(.touchUpInside).observe { (btn) in
+            if self.dollDetailViewCollectClouse != nil {
+                let ret = self.dollDetailViewCollectClouse()
+                if ret {
+                    self.collectButton.setImage(UIImage.init(named: "已收藏"), for: .normal)
+                }
+            }
+        }
+        dollDetailView.addSubview(collectButton)
+        collectButton.snp.makeConstraints { (make) in
+            make.right.equalTo(dollDetailView.snp.right).offset(-20)
+            make.bottom.equalTo(dollDetailView.snp.bottom).offset(-14)
+        }
         
         AnimationTools.shareInstance.scalBigToNormalAnimation(view: dollDetailView)
     }
@@ -245,11 +237,16 @@ class NELivePlayerLoadFailView : UIView {
 }
 
 typealias TopViewBackButtonClouse = () ->Void
+typealias TopCoinClickClouse = ()->Void
 class CacheMeTopView : UIView {
     var backButton:UIButton!
     var roomsUser:UIView!
     var detail:UILabel!
     var userName :UILabel!
+    var coinView:UIView!
+    
+    var coinLabel:UILabel!
+    var topCoinClickClouse:TopCoinClickClouse!
     init(frame: CGRect,topViewBackButtonClouse:@escaping TopViewBackButtonClouse) {
         super.init(frame: frame)
         self.isUserInteractionEnabled = true
@@ -263,47 +260,109 @@ class CacheMeTopView : UIView {
         self.addSubview(backButton)
         
         self.setUpRoomsUsers()
+        self.setUpConinsView()
     }
     
     func setUpRoomsUsers(){
         roomsUser = UIView.init()
-        roomsUser.frame = CGRect.init(x: 44, y: 0, width: SCREENWIDTH - 44 - 18, height: 44)
+        roomsUser.frame = CGRect.init(x: SCREENWIDTH/2, y: 0, width: SCREENWIDTH/2 - 20, height: 44)
         self.addSubview(roomsUser)
-
     }
     
-    func setUpData(models:NSMutableArray, count:String){
+    func setUpConinsView(){
+        coinView = UIView.init()
+        let sinTap = UITapGestureRecognizer.init(target: self, action: #selector(self.coinClick))
+        sinTap.numberOfTapsRequired = 1
+        sinTap.numberOfTouchesRequired = 1
+        coinView.addGestureRecognizer(sinTap)
+        coinView.frame = CGRect.zero
+        coinView.backgroundColor = UIColor.clear
+        self.addSubview(coinView)
+        
+        let backImageView = UIImageView.init()
+        backImageView.image = UIImage.init(named: "充值背景")
+        coinView.addSubview(backImageView)
+        
+        backImageView.snp.makeConstraints { (make) in
+            make.left.equalTo(coinView.snp.left).offset(0)
+            make.top.equalTo(coinView.snp.top).offset(0)
+            make.right.equalTo(coinView.snp.right).offset(0)
+            make.bottom.equalTo(coinView.snp.bottom).offset(0)
+        }
+        
+        coinLabel = UILabel.init()
+        coinLabel.font = App_Theme_PinFan_M_16_Font
+        coinLabel.textColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
+        coinView.addSubview(coinLabel)
+        coinLabel.snp.makeConstraints { (make) in
+            make.centerY.equalTo(coinView.snp.centerY).offset(0)
+            make.centerX.equalTo(coinView.snp.centerX).offset(0)
+            make.left.equalTo(coinView.snp.left).offset(30)
+        }
+        
+        let imageView = UIImageView.init()
+        imageView.image = UIImage.init(named: "coin")
+        coinView.addSubview(imageView)
+        
+        imageView.snp.makeConstraints { (make) in
+            make.left.equalTo(coinView.snp.left).offset(6)
+            make.centerY.equalTo(coinView.snp.centerY).offset(0)
+        }
+        
+        let rightImageView = UIImageView.init()
+        rightImageView.image = UIImage.init(named: "充值+")
+        coinView.addSubview(rightImageView)
+        
+        rightImageView.snp.makeConstraints { (make) in
+            make.right.equalTo(coinView.snp.right).offset(0)
+            make.centerY.equalTo(coinView.snp.centerY).offset(0)
+        }
+        
+        self.setUpCoinsData()
+    }
+    
+    func setUpData(models:[BasicUserDTO], count:String){
         self.roomsUser.removeSubviews()
-        var maxX = SCREENWIDTH - 44 - 18 - 32
+        var maxX = SCREENWIDTH/2 - 20 - 32 - 5
+        let right = models.count  <= 2 ? models.count * 35 : 70
+        userName = UILabel.init()
+        userName.font = App_Theme_PinFan_M_20_Font
+        userName.textColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
+        roomsUser.addSubview(userName)
+        userName.snp.makeConstraints { (make) in
+            make.right.equalTo(roomsUser.snp.right).offset(-right - 5)
+            make.centerY.equalTo(roomsUser.snp.centerY).offset(0)
+        }
+        self.changeNumberUser(str: "\(count)")
         for i in 0...models.count - 1{
-            let frame = CGRect.init(x: maxX, y: 6, width: 32, height: 32)
-            let avatar = self.createImageWithModle(frame: frame, model:  SwiftUserModel.init(fromDictionary: models[i] as! NSDictionary))
-            roomsUser.addSubview(avatar)
-            maxX = maxX - 35
-            if i == models.count - 1 {
-                userName = UILabel.init()
-                userName.font = App_Theme_PinFan_M_20_Font
-                self.changeNumberUser(str: "\(count)")
-                userName.textColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
-                roomsUser.addSubview(userName)
-                userName.snp.makeConstraints { (make) in
-                    make.right.equalTo(avatar.snp.left).offset(-5)
-                    make.centerY.equalTo(roomsUser.snp.centerY).offset(0)
-                }
+            if i <= 2 {
+                let frame = CGRect.init(x: maxX, y: 6, width: 32, height: 32)
+                let avatar = self.createImageWithModle(frame: frame, model:  models[i])
+                roomsUser.addSubview(avatar)
+                maxX = maxX - 35
             }
         }
         self.updateConstraintsIfNeeded()
     }
     
+    func setUpCoinsData(){
+        coinLabel.text = UserInfoModel.shareInstance().coinAmount
+        coinView.snp.remakeConstraints { (make) in
+            make.centerY.equalTo(self.snp.centerY).offset(0)
+            make.left.equalTo(self.snp.left).offset(52)
+        }
+        self.updateConstraintsIfNeeded()
+    }
+    
     func changeNumberUser(str:String){
-        let numberText = "\(str)人在房间"
+        let numberText = "\(str)人"
         let attributedString = NSMutableAttributedString.init(string: numberText)
-        attributedString.addAttributes([NSAttributedStringKey.font:App_Theme_PinFan_M_14_Font!,NSAttributedStringKey.foregroundColor:UIColor.init(hexString: App_Theme_FFFFFF_Color)!], range: NSRange.init(location: numberText.length - 4, length: 4))
-        attributedString.addAttributes([NSAttributedStringKey.font:App_Theme_PinFan_M_16_Font!,NSAttributedStringKey.foregroundColor:UIColor.init(hexString: App_Theme_FFFFFF_Color)!], range: NSRange.init(location: 0, length: numberText.length - 4))
+        attributedString.addAttributes([NSAttributedStringKey.font:App_Theme_PinFan_M_14_Font!,NSAttributedStringKey.foregroundColor:UIColor.init(hexString: App_Theme_FFFFFF_Color)!], range: NSRange.init(location: numberText.length - 1, length: 1))
+        attributedString.addAttributes([NSAttributedStringKey.font:App_Theme_PinFan_M_16_Font!,NSAttributedStringKey.foregroundColor:UIColor.init(hexString: App_Theme_FFFFFF_Color)!], range: NSRange.init(location: 0, length: numberText.length - 1))
         userName.attributedText = attributedString
     }
     
-    func createImageWithModle(frame:CGRect,model:SwiftUserModel) -> UIImageView{
+    func createImageWithModle(frame:CGRect,model:BasicUserDTO) -> UIImageView{
         let avatar = UIImageView.init()
         avatar.frame = frame
         avatar.layer.cornerRadius = 16
@@ -312,6 +371,12 @@ class CacheMeTopView : UIView {
             
         }
         return avatar
+    }
+    
+    @objc func coinClick(){
+        if self.topCoinClickClouse != nil {
+            self.topCoinClickClouse()
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -450,7 +515,7 @@ class CacheMePlayUserView:UIView {
         }
     }
     
-    func setData(model:BasicUserDTO?){
+    func setData(model:CurrentPlayerDTO?){
         playUser.isHidden = model == nil ? true : false
         if model == nil {
             detail.text = "空闲中..."
@@ -756,7 +821,7 @@ class CacheMeToolsView: UIView {
         }
         self.addSubview(playGame)
         
-        topUp = ToolsView.init(frame: CGRect.init(x: playGame.frame.maxX + 8, y: 25, width: toolsWidth, height: 60), title: "充值", blance: nil, image: UIImage.init(named: "coin_1")!,tag:3) {
+        topUp = ToolsView.init(frame: CGRect.init(x: playGame.frame.maxX + 8, y: 25, width: toolsWidth, height: 60), title: "抓友攻略", blance: nil, image: UIImage.init(named: "coin_1")!,tag:3) {
             if self.cacheMeToolsViewClouse != nil {
                 self.cacheMeToolsViewClouse(3)
             }

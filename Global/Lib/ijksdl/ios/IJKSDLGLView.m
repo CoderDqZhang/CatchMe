@@ -143,7 +143,7 @@
 
     if ([self isApplicationActive] == NO)
         return NO;
-
+    
     CAEAGLLayer *eaglLayer = (CAEAGLLayer*) self.layer;
     eaglLayer.opaque = YES;
     eaglLayer.drawableProperties = [NSDictionary dictionaryWithObjectsAndKeys:
@@ -194,6 +194,7 @@
 
 - (BOOL)isApplicationActive
 {
+    
     UIApplicationState appState = [UIApplication sharedApplication].applicationState;
     switch (appState) {
         case UIApplicationStateActive:
@@ -317,10 +318,14 @@
     if ([[NSThread currentThread] isMainThread]) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
             if (_isRenderBufferInvalidated)
-                [self display:nil clear:YES];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self display:nil clear:YES];
+                });
         });
     } else {
-        [self display:nil clear:YES];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self display:nil clear:YES];
+        });
     }
 
     [self unlockGLActive];

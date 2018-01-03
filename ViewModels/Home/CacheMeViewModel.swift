@@ -32,11 +32,11 @@ class CacheMeViewModel: BaseViewModel {
     var cameraType = CameraType.Font
     var option = NIMNetCallOption.init()
     
-    var olineUserList:[Int]!
+    var olineUserList:[BasicUserDTO]!
     
     var numberOlineUser:Int = 0
     
-    var currentUser:BasicUserDTO!
+    var currentUser:CurrentPlayerDTO!
     
     var getGameStatus:Bool = false
     var playGameGoStatus:Bool = false
@@ -161,9 +161,9 @@ class CacheMeViewModel: BaseViewModel {
             self.cacheMeController.view.bringSubview(toFront: self.cacheMeController.switchCamera)
         }
         //2.0
-//        if self.cacheMeController.showDollsDetail != nil {
-//            self.cacheMeController.view.bringSubview(toFront: self.cacheMeController.showDollsDetail)
-//        }
+        if self.cacheMeController.showDollsDetail != nil {
+            self.cacheMeController.view.bringSubview(toFront: self.cacheMeController.showDollsDetail)
+        }
     }
 
     //开始游戏成功
@@ -194,9 +194,9 @@ class CacheMeViewModel: BaseViewModel {
             self.cacheMeController.view.bringSubview(toFront: self.cacheMeController.switchCamera)
         }
         //2.0
-//        if self.cacheMeController.showDollsDetail != nil {
-//            self.cacheMeController.view.bringSubview(toFront: self.cacheMeController.showDollsDetail)
-//        }
+        if self.cacheMeController.showDollsDetail != nil {
+            self.cacheMeController.view.bringSubview(toFront: self.cacheMeController.showDollsDetail)
+        }
 
         if cacheMeController.gameToolsView != nil {
             cacheMeController.cacheMePlayUserView.countDownLabel.isHidden = false
@@ -302,8 +302,10 @@ class CacheMeViewModel: BaseViewModel {
                 self.reuqestDollsDetail()
                 //设置拉流地址
                 self.setUpStreamData()
+                self.cacheMeController.setUpShowDollsDetail(model:self.catchMeModel)
                 self.playUrl = self.catchMeModel.machineDTO.audiencePullAddressA
                 self.setUpRoomPalyUsers(currentUser: self.catchMeModel.currentPlayerDTO)
+                self.getRoomUserListInfo()
                 self.cacheMeController.bottomToolsView.changePlayGameCoins(str: "\(self.catchMeModel.price!)")
                 //心跳接口
                 self.timeHeader = Timer.every(10, {
@@ -322,6 +324,7 @@ class CacheMeViewModel: BaseViewModel {
                 //查看娃娃详情界面
                 self.reuqestDollsDetail()
                 self.setUpStreamData()
+                self.cacheMeController.setUpShowDollsDetail(model:self.catchMeModel)
                 if KWINDOWDS().viewWithTag(10000) != nil {
                     KWINDOWDS().viewWithTag(10000)?.removeFromSuperview()
                 }
@@ -330,6 +333,7 @@ class CacheMeViewModel: BaseViewModel {
                 }
                 self.playUrl = self.catchMeModel.machineDTO.audiencePullAddressA
                 self.setUpRoomPalyUsers(currentUser: self.catchMeModel.currentPlayerDTO)
+                self.getRoomUserListInfo()
                 self.cacheMeController.bottomToolsView.changePlayGameCoins(str: "\(self.catchMeModel.price!)")
                 //心跳接口
                 self.timeHeader = Timer.every(3, {
@@ -360,10 +364,16 @@ class CacheMeViewModel: BaseViewModel {
                 if resultDic.error != nil {
                     return
                 }
-                self.headerModel = HeartModel.init(fromDictionary: resultDic.value as! NSDictionary)
-                self.catchMeModel.currentPlayStatus = self.headerModel.currentPlayStatus
-                self.cacheMeController.bottomToolsView.changePlayType(type: self.headerModel.currentPlayStatus == 1 ? .canNotPlay : .canPlay)
-                self.setUpRoomPalyUsers(currentUser: self.headerModel.currentPlayerDTO)
+                if resultDic.value != nil && resultDic.value is NSDictionary {
+                    self.headerModel = HeartModel.init(fromDictionary: resultDic.value as! NSDictionary)
+                    self.catchMeModel.currentPlayStatus = self.headerModel.currentPlayStatus
+                    self.cacheMeController.bottomToolsView.changePlayType(type: self.headerModel.currentPlayStatus == 1 ? .canNotPlay : .canPlay)
+                    if self.headerModel.currentPlayerDTO is NSDictionary {
+                        self.setUpRoomPalyUsers(currentUser: self.headerModel.currentPlayerDTO)
+                    }
+                    self.getRoomUserListInfo()
+                }
+                
             }
         }
     }
@@ -372,8 +382,11 @@ class CacheMeViewModel: BaseViewModel {
     func gameStart(){
         if playGame {
             LoginViewModel.shareInstance.getUserInfoCoins(uerInfoUpdateClouse: { (userInfo) in
+                //设置账户余额
+                self.cacheMeController.cacheMeTopView.setUpCoinsData()
+                
                 if userInfo.coinAmount.int! < self.catchMeModel.price {
-                    KWINDOWDS().addSubview(GloableAlertView.init(title: "余额不足，主人请先充值\n赶紧回来抓我哟", btnTop: "去充值", btnBottom: "取消", image: UIImage.init(named: "pic_fail_1")!, type: GloableAlertViewType.topupfail, clickClouse: { (tag) in
+                    KWINDOWDS().addSubview(GloableAlertView.init(title: "余额不足，主人请先充值\n赶紧回来抓我哟", desc: nil, btnTop: "去充值", btnBottom: "取消", image: UIImage.init(named: "pic_fail_1")!, topImageUrl: nil, type: GloableAlertViewType.topupfail, clickClouse: { (tag) in
                         if tag == 100 {
                             //正价代码
                             self.gotoTopUpVC()
@@ -428,7 +441,7 @@ class CacheMeViewModel: BaseViewModel {
                 if resultDic.error != nil {
                     return
                 }
-                self.getUserInfo(currentUser: BasicUserDTO.init(fromDictionary: ["photo":UserInfoModel.shareInstance().photo == nil ? "" : UserInfoModel.shareInstance().photo, "userName":UserInfoModel.shareInstance().userName]))
+                self.getUserInfo(currentUser: CurrentPlayerDTO.init(fromDictionary: ["photo":UserInfoModel.shareInstance().photo == nil ? "" : UserInfoModel.shareInstance().photo, "userName":UserInfoModel.shareInstance().userName]))
                 self.showGameView()
                 self.cacheMeController.setUpreadyGogameTipView()
             }
@@ -520,7 +533,7 @@ class CacheMeViewModel: BaseViewModel {
             //余额不足断开端对点连接
             self.stopGame()
             self.handUpConnect()
-            KWINDOWDS().addSubview(GloableAlertView.init(title: "余额不足，主人请先充值\n赶紧回来抓我哟", btnTop: "去充值", btnBottom: "取消", image: UIImage.init(named: "pic_fail_1")!, type: GloableAlertViewType.topupfail, clickClouse: { (tag) in
+            KWINDOWDS().addSubview(GloableAlertView.init(title: "余额不足，主人请先充值\n赶紧回来抓我哟", desc: nil, btnTop: "去充值", btnBottom: "取消", image: UIImage.init(named: "pic_fail_1")!, topImageUrl: nil, type: GloableAlertViewType.topupfail, clickClouse: { (tag) in
                 if tag == 100 {
                     //增加代码
                     self.gotoTopUpVC()
@@ -560,14 +573,13 @@ class CacheMeViewModel: BaseViewModel {
         }
     }
     
-    func setUpRoomPalyUsers(currentUser:BasicUserDTO?){
+    func setUpRoomPalyUsers(currentUser:CurrentPlayerDTO?){
         //获取当前真正玩的用户
         self.getUserInfo(currentUser: currentUser)
         //获取用户列表
-        self.getRoomUserListInfo()
     }
     
-    func getUserInfo(currentUser:BasicUserDTO?){
+    func getUserInfo(currentUser:CurrentPlayerDTO?){
         if self.currentUser == nil {
             self.currentUser = currentUser
         }else{
@@ -589,68 +601,13 @@ class CacheMeViewModel: BaseViewModel {
     }
     
     func getRoomUserListInfo(){
-        if self.olineUserList == nil {
-            if self.catchMeModel != nil {
-                self.olineUserList = self.catchMeModel.onlineUserList
-            }else{
-                self.olineUserList = self.headerModel.userList
-            }
-        }else{
-            let count = self.headerModel.userList == nil ? self.catchMeModel.onlineUserList.count : self.headerModel.userList.count
-            let olist:[Int] = self.headerModel.userList == nil ? self.catchMeModel.onlineUserList : self.headerModel.userList
-            if self.numberOlineUser != olist.count {
-                self.cacheMeController.cacheMeTopView.changeNumberUser(str: "\(olist.count)")
-            }
-
-            if count > 3 {
-                if self.olineUserList.count > 3 {
-                    var ret:Bool = false
-                    for i in 0...2 {
-                        if self.olineUserList.item(at: i) != olist.item(at: i) {
-                            self.olineUserList.insert(olist.item(at: i)!, at: i)
-                            ret = true
-                        }
-                    }
-                    if ret {
-                        return
-                    }
-                }else{
-                    for i in 0...2 {
-                        self.olineUserList.insert(olist.item(at: i)!, at: i)
-                    }
-                }
-            }else{
-                if self.olineUserList.count == olist.count {
-                    self.olineUserList.removeAll()
-                    for i in 0...olist.count - 1 {
-                        self.olineUserList.insert(olist.item(at: i)!, at: i)
-                    }
-                }else{
-                    var ret:Bool = false
-                    for i in 0...olist.count - 1 {
-                        if self.olineUserList.item(at: i) != olist.item(at: i) {
-                            self.olineUserList.insert(olist.item(at: i)!, at: i)
-                            ret = true
-                        }
-                    }
-                    if ret {
-                        return
-                    }
-                }
-            }
+        if self.catchMeModel != nil {
+            self.olineUserList = self.catchMeModel.onlineUserDTOs
+        }else if self.headerModel != nil {
+            self.olineUserList = self.headerModel.userDTOs
         }
-        var str:NSString = ""
-        for userId in self.olineUserList {
-            str = str.appending("\(userId),") as NSString
-        }
-        
-        let parameters = ["userIdList":str]
-        BaseNetWorke.sharedInstance.postUrlWithString(RoomUserList, parameters: parameters as AnyObject).observe { (resultDic) in
-            if !resultDic.isCompleted {
-                let models:NSMutableArray = NSMutableArray.mj_objectArray(withKeyValuesArray: resultDic.value)
-                self.numberOlineUser = models.count
-                self.cacheMeController.cacheMeTopView.setUpData(models: models, count: "\(models.count)")
-            }
+        if self.olineUserList != nil {
+            self.cacheMeController.cacheMeTopView.setUpData(models: self.olineUserList, count: "\(self.olineUserList.count)")
         }
     }
     
@@ -660,7 +617,7 @@ class CacheMeViewModel: BaseViewModel {
     
     func shootSuccess(){
         self.getShareCodeInfo(gameId: "\(self.prepareModel.gameId!)")
-        KWINDOWDS().addSubview(GloableAlertView.init(title: "好棒，活捉一只娃娃", btnTop: "再试一次5s", btnBottom: "炫耀一下", image: UIImage.init(named: "pic_success")!, type: GloableAlertViewType.success, clickClouse: { (tag) in
+        KWINDOWDS().addSubview(GloableAlertView.init(title: "好棒，活捉一只娃娃", desc: nil, btnTop: "再试一次5s", btnBottom: "炫耀一下", image: UIImage.init(named: "pic_success")!, topImageUrl: nil, type: GloableAlertViewType.success, clickClouse: { (tag) in
             if tag == 100 {
                 self.playAgain()
             }else if tag == 200{
@@ -679,7 +636,7 @@ class CacheMeViewModel: BaseViewModel {
     
     func shootFail(){
         //抓取失败
-        KWINDOWDS().addSubview(GloableAlertView.init(title: "再来一次, 带我回家吧", btnTop: "再试一次5s", btnBottom: "无力再试", image: UIImage.init(named: "pic_fail")!, type: GloableAlertViewType.catchfail, clickClouse: { (tag) in
+        KWINDOWDS().addSubview(GloableAlertView.init(title: "再来一次, 带我回家吧", desc: nil, btnTop: "再试一次5s", btnBottom: "无力再试", image: UIImage.init(named: "pic_fail")!, topImageUrl: nil, type: GloableAlertViewType.catchfail, clickClouse: { (tag) in
             if tag == 100 {
                 self.playAgain()
             }else if tag == 200{

@@ -20,7 +20,7 @@ class GloabLineView: UIView {
         super.init(frame:frame)
         lineLabel.frame = CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height)
         //gba(216,216,216,1)
-        lineLabel.backgroundColor = UIColor.init(hexString: App_Theme_FAFAFA_Color)
+        lineLabel.backgroundColor = UIColor.init(hexString: App_Theme_EEEEEE_Color)
         self.addSubview(lineLabel)
     }
     
@@ -129,13 +129,15 @@ class CustomTouchButton: AnimationTouchView {
 }
 
 
-class CustomViewButton: UIView {
+class CustomViewButton: AnimationTouchView {
     
     var imageView:UIImageView!
     var label:UILabel!
     //size = 34+11,34 + 14
-    init(frame:CGRect, title:String, image:UIImage, tag:NSInteger?) {
-        super.init(frame: frame)
+    init(frame:CGRect, title:String, image:UIImage, tag:NSInteger?, click:@escaping TouchClickClouse) {
+        super.init(frame: frame) {
+            click()
+        }
         
         imageView = UIImageView.init(frame: CGRect.init(x: 11, y: 0, width: 68, height: 68))
         imageView.image = image
@@ -415,6 +417,8 @@ enum GloableAlertViewType {
     case success
     case catchfail
     case topupfail
+    case selectSex
+    case showUser
 }
 
 typealias GloableAlertViewClouse = (_ tag:Int) ->Void
@@ -430,7 +434,8 @@ class GloableAlertView: UIView {
     var timeDone:Bool = false
     
     var gloableAlertViewClouse:GloableAlertViewClouse!
-    init(title:String, btnTop:String, btnBottom:String, image:UIImage, type:GloableAlertViewType, clickClouse:GloableAlertViewClouse!) {
+    
+    init(title:String, desc:String?, btnTop:String, btnBottom:String, image:UIImage?, topImageUrl:String?, type:GloableAlertViewType, clickClouse:GloableAlertViewClouse!) {
         super.init(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: SCREENHEIGHT))
         self.gloableAlertViewClouse = clickClouse
         self.backgroundColor = UIColor.init(hexString: App_Theme_000000_Color, andAlpha: 0.7)
@@ -449,6 +454,12 @@ class GloableAlertView: UIView {
                 make.centerY.equalTo(self.snp.centerY).offset(7)
                 make.size.equalTo(CGSize.init(width: 240, height: 230))
             }
+        }else if type == .showUser {
+            detailView.snp.makeConstraints { (make) in
+                make.centerX.equalTo(self.snp.centerX).offset(0)
+                make.centerY.equalTo(self.snp.centerY).offset(7)
+                make.size.equalTo(CGSize.init(width: 240, height: 232.5))
+            }
         }else{
             detailView.snp.makeConstraints { (make) in
                 make.centerX.equalTo(self.snp.centerX).offset(0)
@@ -458,17 +469,43 @@ class GloableAlertView: UIView {
         }
         
         topImage = UIImageView.init()
-        topImage.image = image
-        backView.addSubview(topImage)
-        topImage.snp.makeConstraints { (make) in
-            make.centerX.equalTo(self.snp.centerX).offset(0)
-            make.bottom.equalTo(self.detailView.snp.top).offset(type == .success ? 7 : type == .catchfail ? 21 : 18)
+        if image != nil {
+            topImage.image = image
         }
+        backView.addSubview(topImage)
+        if type == .showUser {
+            UIImageViewManger.sd_imageView(url: topImageUrl!, imageView: topImage, placeholderImage: nil, completedBlock: { (image, error, cacheType, url) in
+                
+            })
+            topImage.layer.borderColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)?.cgColor
+            topImage.layer.borderWidth = 2.0
+            topImage.layer.cornerRadius = 46
+            topImage.clipsToBounds = true
+            topImage.snp.makeConstraints { (make) in
+                make.centerX.equalTo(self.snp.centerX).offset(0)
+                make.size.equalTo(CGSize.init(width: 92, height: 92))
+                make.bottom.equalTo(self.detailView.snp.top).offset(46)
+            }
+        }else{
+            topImage.snp.makeConstraints { (make) in
+                make.centerX.equalTo(self.snp.centerX).offset(0)
+                make.bottom.equalTo(self.detailView.snp.top).offset(type == .success ? 7 : type == .catchfail ? 21 : type == .selectSex ? 8 : 18)
+            }
+        }
+
         AnimationTools.shareInstance.scalAnimation(view: backView)
-        backView.snp.makeConstraints { (make) in
-            make.centerX.equalToSuperview()
-            make.centerY.equalToSuperview()
-            make.size.equalTo(CGSize.init(width: SCREENWIDTH, height: (type == .topupfail ? 230 : 200) +  image.size.height))
+        if type == .showUser {
+            backView.snp.makeConstraints { (make) in
+                make.centerX.equalToSuperview()
+                make.centerY.equalToSuperview()
+                make.size.equalTo(CGSize.init(width: SCREENWIDTH, height: 223.5))
+            }
+        }else{
+            backView.snp.makeConstraints { (make) in
+                make.centerX.equalToSuperview()
+                make.centerY.equalToSuperview()
+                make.size.equalTo(CGSize.init(width: SCREENWIDTH, height: (type == .topupfail ? 230 : 200) +  (image?.size.height)!))
+            }
         }
         
         let titleLabel = UILabel.init()
@@ -480,10 +517,34 @@ class GloableAlertView: UIView {
         titleLabel.textAlignment = .center
         detailView.addSubview(titleLabel)
         
-        titleLabel.snp.makeConstraints { (make) in
-            make.centerX.equalTo(self.detailView.snp.centerX).offset(0)
-            make.top.equalTo(self.detailView.snp.top).offset(27)
+        if type == .showUser {
+            titleLabel.snp.makeConstraints { (make) in
+                make.centerX.equalTo(self.detailView.snp.centerX).offset(0)
+                make.top.equalTo(self.topImage.snp.bottom).offset(8)
+            }
+        }else{
+            titleLabel.snp.makeConstraints { (make) in
+                make.centerX.equalTo(self.detailView.snp.centerX).offset(0)
+                make.top.equalTo(self.detailView.snp.top).offset(27)
+            }
         }
+        
+        if desc != nil {
+            let descLabel = UILabel.init()
+            descLabel.font = App_Theme_PinFan_R_12_Font
+            descLabel.textColor = UIColor.init(hexString: App_Theme_AAAAAA_Color)
+            descLabel.text = desc
+            descLabel.numberOfLines = 0
+            UILabel.changeLineSpace(for: titleLabel, withSpace: 4)
+            descLabel.textAlignment = .center
+            detailView.addSubview(descLabel)
+            
+            descLabel.snp.makeConstraints { (make) in
+                make.centerX.equalTo(self.detailView.snp.centerX).offset(0)
+                make.top.equalTo(titleLabel.snp.bottom).offset(3)
+            }
+        }
+        
         
         let leftLabel = self.createLabel()
         detailView.addSubview(leftLabel)
@@ -502,8 +563,60 @@ class GloableAlertView: UIView {
             make.size.equalTo(CGSize.init(width: 18, height: 18))
             make.top.equalTo(self.detailView.snp.top).offset(26)
         }
+        if type == .selectSex {
+            self.setUpSexView(btnTop: btnTop, btnBottom: btnBottom)
+        }else{
+            self.setUpView(btnTop: btnTop, btnBottom: btnBottom, type: type)
+        }
+    }
+    
+    func setUpSexView(btnTop:String, btnBottom:String){
+        let male = AnimationButton.init(frame: CGRect.zero)
+        male.setImage(UIImage.init(named: "帅哥"), for: .normal)
+        male.setImage(UIImage.init(named: "帅哥"), for: .highlighted)
+        male.reactive.controlEvents(.touchUpInside).observe { (btn) in
+            self.gloableAlertViewClouse(100)
+            self.removeSelf()
+        }
+        detailView.addSubview(male)
+        male.snp.makeConstraints { (make) in
+            make.left.equalTo(detailView.snp.left).offset(26)
+            make.bottom.equalTo(detailView.snp.bottom).offset(-45)
+        }
         
-        self.setUpView(btnTop: btnTop, btnBottom: btnBottom, type: type)
+        let maleLabel = UILabel.init()
+        maleLabel.text = btnTop
+        maleLabel.font = App_Theme_PinFan_R_14_Font
+        maleLabel.textColor = UIColor.init(hexString: App_Theme_333333_Color)
+        detailView.addSubview(maleLabel)
+        maleLabel.snp.makeConstraints { (make) in
+            make.left.equalTo(detailView.snp.left).offset(52)
+            make.bottom.equalTo(detailView.snp.bottom).offset(-21)
+        }
+        
+        let female = AnimationButton.init(frame: CGRect.zero)
+        female.setImage(UIImage.init(named: "美女"), for: .normal)
+        female.setImage(UIImage.init(named: "美女"), for: .highlighted)
+        female.reactive.controlEvents(.touchUpInside).observe { (btn) in
+            self.gloableAlertViewClouse(200)
+            self.removeSelf()
+        }
+        detailView.addSubview(female)
+        female.snp.makeConstraints { (make) in
+            make.right.equalTo(detailView.snp.right).offset(-26)
+            make.bottom.equalTo(detailView.snp.bottom).offset(-45)
+        }
+        
+        let femaleLabel = UILabel.init()
+        femaleLabel.text = btnBottom
+        femaleLabel.font = App_Theme_PinFan_R_14_Font
+        femaleLabel.textColor = UIColor.init(hexString: App_Theme_333333_Color)
+        detailView.addSubview(femaleLabel)
+        femaleLabel.snp.makeConstraints { (make) in
+            make.right.equalTo(detailView.snp.right).offset(-52)
+            make.bottom.equalTo(detailView.snp.bottom).offset(-21)
+        }
+        
     }
     
     func setUpView(btnTop:String, btnBottom:String, type:GloableAlertViewType) {
@@ -543,6 +656,12 @@ class GloableAlertView: UIView {
                 make.top.equalTo(self.detailView.snp.top).offset(92)
                 make.size.equalTo(CGSize.init(width: 150, height: 44))
             }
+        }else if type == .showUser {
+            detailTopView.snp.makeConstraints { (make) in
+                make.centerX.equalTo(self.detailView.snp.centerX).offset(0)
+                make.top.equalTo(self.detailView.snp.top).offset(107)
+                make.size.equalTo(CGSize.init(width: 150, height: 44))
+            }
         }else{
             detailTopView.snp.makeConstraints { (make) in
                 make.centerX.equalTo(self.detailView.snp.centerX).offset(0)
@@ -563,6 +682,8 @@ class GloableAlertView: UIView {
         let btn_bg = self.createButton(title: btnBottom)
         if type == .topupfail {
             btn_bg.backgroundColor = UIColor.init(hexString: App_Theme_F5F5F5_Color)
+        }else if type == .showUser {
+            btn_bg.backgroundColor = UIColor.init(hexString: App_Theme_EAEAEA_Color)
         }else{
             btn_bg.backgroundColor = UIColor.init(hexString: App_Theme_FEE3E5_Color)
         }
@@ -574,6 +695,9 @@ class GloableAlertView: UIView {
         }
         let btn = self.createButton(title: btnBottom)
         detailBottomView.addSubview(btn)
+        if type == .showUser {
+            btn.backgroundColor = UIColor.init(hexString: App_Theme_1081FF_Color)
+        }
         btn.snp.makeConstraints { (make) in
             make.left.equalTo(detailBottomView.snp.left).offset(0)
             make.top.equalTo(detailBottomView.snp.top).offset(0)
@@ -583,6 +707,12 @@ class GloableAlertView: UIView {
             detailBottomView.snp.makeConstraints { (make) in
                 make.centerX.equalTo(self.detailView.snp.centerX).offset(0)
                 make.bottom.equalTo(self.detailView.snp.bottom).offset(-37)
+                make.size.equalTo(CGSize.init(width: 150, height: 44))
+            }
+        }else if type == .showUser {
+            detailBottomView.snp.makeConstraints { (make) in
+                make.centerX.equalTo(self.detailView.snp.centerX).offset(0)
+                make.bottom.equalTo(self.detailView.snp.bottom).offset(-25)
                 make.size.equalTo(CGSize.init(width: 150, height: 44))
             }
         }else{
@@ -618,6 +748,8 @@ class GloableAlertView: UIView {
                     topButton.setTitle("再试一次\(number)s", for: .normal)
                 }
             })
+        }else if type == .showUser {
+            
         }
     }
     
@@ -726,4 +858,136 @@ class GLoabelNavigaitonBar:UIView {
     }
 }
 
+enum GloabelStatusViewType {
+    case male
+    case female
+    case oline
+    case onGame
+}
+
+class GloabelStatusView:UIView {
+    
+    var titleLabel:UILabel!
+    init(frame:CGRect, title:String?, type:GloabelStatusViewType) {
+        super.init(frame: frame)
+        self.layer.cornerRadius = frame.size.height / 2
+        self.layer.masksToBounds = true
+        titleLabel = UILabel.init()
+        titleLabel.text = title
+        titleLabel.font = App_Theme_PinFan_M_11_Font
+        titleLabel.textColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
+        self.addSubview(titleLabel)
+        
+        titleLabel.snp.makeConstraints { (make) in
+            make.centerY.equalTo(self.snp.centerY).offset(0)
+            make.centerX.equalTo(self.snp.centerX).offset(0)
+        }
+        
+        switch type {
+        case .male:
+            self.setUpMaleView()
+        case .female:
+            self.setUpFemaleView()
+        case .oline:
+            self.setUpOnlineView()
+        default:
+            self.setUpOnGameView()
+        }
+    }
+    
+    func setUpMaleView(){
+        let imageView = UIImageView.init()
+        imageView.image = UIImage.init(named: "male")
+        self.addSubview(imageView)
+        imageView.snp.makeConstraints { (make) in
+            make.centerY.equalTo(self.snp.centerY).offset(0)
+            make.left.equalTo(self.snp.left).offset(6)
+        }
+        titleLabel.snp.remakeConstraints { (make) in
+            make.centerY.equalTo(self.snp.centerY).offset(0)
+            make.left.equalTo(imageView.snp.right).offset(3)
+            make.right.equalTo(self.snp.right).offset(-6)
+        }
+        self.backgroundColor = UIColor.init(hexString: App_Theme_0070E9_Color)
+        
+    }
+    
+    func setUpFemaleView(){
+        let imageView = UIImageView.init()
+        imageView.image = UIImage.init(named: "female")
+        self.addSubview(imageView)
+        imageView.snp.makeConstraints { (make) in
+            make.centerY.equalTo(self.snp.centerY).offset(0)
+            make.left.equalTo(self.snp.left).offset(6)
+        }
+        titleLabel.snp.remakeConstraints { (make) in
+            make.centerY.equalTo(self.snp.centerY).offset(0)
+            make.left.equalTo(imageView.snp.right).offset(3)
+            make.right.equalTo(self.snp.right).offset(-6)
+        }
+        self.backgroundColor = UIColor.init(hexString: App_Theme_F61262_Color)
+    }
+    
+    func setUpOnlineView(){
+        self.backgroundColor = UIColor.init(hexString: App_Theme_00C700_Color)
+    }
+    
+    func setUpOnGameView(){
+        self.backgroundColor = UIColor.init(hexString: App_Theme_F5A623_Color)
+    }
+    
+    
+    func setUpImageView(image:UIImage){
+        let imageView = UIImageView.init()
+        imageView.image = image
+        self.addSubview(imageView)
+        imageView.snp.makeConstraints { (make) in
+            make.centerY.equalTo(self.snp.centerY).offset(0)
+            make.left.equalTo(self.snp.centerX).offset(4)
+        }
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
+typealias GloableBottomViewClouse = () ->Void
+class GloableBottomView: UIView {
+    var label:UILabel!
+    var gloableBottomViewClouse:GloableBottomViewClouse!
+    
+    init(frame: CGRect, title:String, click:@escaping GloableBottomViewClouse) {
+        super.init(frame: frame)
+        self.gloableBottomViewClouse = click
+        let singleTap = UITapGestureRecognizer.init(target: self, action: #selector(self.singleTap))
+        singleTap.numberOfTapsRequired = 1
+        singleTap.numberOfTouchesRequired = 1
+        self.addGestureRecognizer(singleTap)
+        
+        label = UILabel.init()
+        label.backgroundColor = UIColor.init(hexString: App_Theme_FC4652_Color)
+        label.text = title
+        label.textAlignment = .center
+        label.font = App_Theme_PinFan_R_20_Font
+        label.textColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
+        self.addSubview(label)
+        label.snp.makeConstraints { (make) in
+            make.left.equalTo(self.snp.left).offset(0)
+            make.right.equalTo(self.snp.right).offset(0)
+            make.bottom.equalTo(self.snp.bottom).offset(0)
+            make.top.equalTo(self.snp.top).offset(0)
+        }
+    }
+    
+    @objc func singleTap() {
+        if self.gloableBottomViewClouse != nil {
+            self.gloableBottomViewClouse()
+        }
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
 

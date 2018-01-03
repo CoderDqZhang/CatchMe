@@ -33,6 +33,10 @@ class ChangeUserNameViewController: BaseViewController {
         }
     }
     
+    override func setUpViewNavigationItem() {
+        self.navigationItem.title = "修改用户名"
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

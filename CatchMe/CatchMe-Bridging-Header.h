@@ -31,6 +31,10 @@
 #import "FLAnimatedImage.h"
 #import "FLAnimatedImageView.h"
 #import "PresentTransitionAnimated.h"
+#import "KSPhotoItem.h"
+#import "KSPhotoBrowser.h"
+#import "KSPhotoView.h"
+#import "KSSDImageManager.h"
 
 #import <UMCommon/UMCommon.h>           // 公共组件是所有友盟产品的基础组件，必选
 #import <UMAnalytics/MobClick.h>        // 统计组件

@@ -27,45 +27,45 @@ class AudioPlayManager: NSObject {
     }
     
     func playBgMusic(name:String){
-        let musicPath = Bundle.main.path(forResource: name, ofType: ".mp3")
-        //指定音乐路径
-        let url = URL.init(fileURLWithPath: musicPath!)
-        if audioPlayer != nil {
-            audioPlayer.stop()
-            audioPlayer = nil
-        }
-        do {
-            try audioPlayer = AVAudioPlayer.init(contentsOf: url, fileTypeHint: AVFileType.mp3.rawValue)
-            audioPlayer.numberOfLoops = -1
-            //设置音乐播放次数，-1为循环播放
-            audioPlayer.volume = 0.8
-            audioPlayer.delegate = self
-            //设置音乐音量，可用范围为0~1
-            audioPlayer.prepareToPlay()
-            audioPlayer.play()
-        } catch  {
-            print("error")
-        }
+//        let musicPath = Bundle.main.path(forResource: name, ofType: ".mp3")
+//        //指定音乐路径
+//        let url = URL.init(fileURLWithPath: musicPath!)
+//        if audioPlayer != nil {
+//            audioPlayer.stop()
+//            audioPlayer = nil
+//        }
+//        do {
+//            try audioPlayer = AVAudioPlayer.init(contentsOf: url, fileTypeHint: AVFileType.mp3.rawValue)
+//            audioPlayer.numberOfLoops = -1
+//            //设置音乐播放次数，-1为循环播放
+//            audioPlayer.volume = 0.8
+//            audioPlayer.delegate = self
+//            //设置音乐音量，可用范围为0~1
+//            audioPlayer.prepareToPlay()
+//            audioPlayer.play()
+//        } catch  {
+//            print("error")
+//        }
         
     }
     
     func isPlaying() -> Bool{
-        if self.audioPlayer != nil {
-            return self.audioPlayer.isPlaying
-        }
+//        if self.audioPlayer != nil {
+//            return self.audioPlayer.isPlaying
+//        }
         return false
     }
     
     func pause(){
-        if self.audioPlayer != nil {
-            self.audioPlayer.pause()
-        }
+//        if self.audioPlayer != nil {
+//            self.audioPlayer.pause()
+//        }
     }
     
     func stop(){
-        if self.audioPlayer != nil {
-            self.audioPlayer.stop()
-        }
+//        if self.audioPlayer != nil {
+//            self.audioPlayer.stop()
+//        }
     }
     //监听音量键 调节
     @objc func volumeClicked(notification:Notification){

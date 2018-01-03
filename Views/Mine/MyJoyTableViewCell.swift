@@ -18,6 +18,7 @@ class MyJoyTableViewCell: UITableViewCell {
     var cacheTime:UILabel!
     var dollsStatus:UIImageView!
     var shareImage:AnimationButton!
+    var detailImage:AnimationButton!
     
     var didMakeConstraints = false
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
@@ -37,9 +38,22 @@ class MyJoyTableViewCell: UITableViewCell {
         dollsView.addSubview(dollsImage)
         
         shareImage = AnimationButton.init(type: .custom)
-        shareImage.setImage(UIImage.init(named: "share_default"), for: .normal)
-        shareImage.setImage(UIImage.init(named: "share"), for: .selected)
+        shareImage.setTitle("分享", for: .normal)
+        shareImage.setTitleColor(UIColor.init(hexString: App_Theme_FC4652_Color), for: .normal)
+        shareImage.titleLabel?.font = App_Theme_PinFan_R_14_Font
+        shareImage.layer.borderWidth = 0.5
+        shareImage.layer.borderColor = UIColor.init(hexString: App_Theme_FC4652_Color)?.cgColor
+        shareImage.layer.cornerRadius = 13
         dollsView.addSubview(shareImage)
+        
+        detailImage = AnimationButton.init(type: .custom)
+        detailImage.setTitle("查看详情", for: .normal)
+        detailImage.titleLabel?.font = App_Theme_PinFan_R_14_Font
+        detailImage.layer.borderWidth = 0.5
+        detailImage.setTitleColor(UIColor.init(hexString: App_Theme_1081FF_Color), for: .normal)
+        detailImage.layer.borderColor = UIColor.init(hexString: App_Theme_1081FF_Color)?.cgColor
+        detailImage.layer.cornerRadius = 13
+        dollsView.addSubview(detailImage)
         
         dollsName = UILabel.init()
         dollsName.text = "布朗熊变声长颈鹿"
@@ -47,6 +61,7 @@ class MyJoyTableViewCell: UITableViewCell {
         dollsName.font = App_Theme_PinFan_M_16_Font
         dollsName.textColor = UIColor.init(hexString: App_Theme_222222_Color)
         dollsView.addSubview(dollsName)
+        
         
         dollsDesc = UILabel.init()
         dollsDesc.text = "抓中时间"
@@ -83,8 +98,10 @@ class MyJoyTableViewCell: UITableViewCell {
         }
         if model.deliveryStatus != 0 {
             dollsStatus.isHidden = false
+            detailImage.isHidden = true
             dollsStatus.image = model.deliveryStatus == 1 ? UIImage.init(named: "tag_待发货") : model.deliveryStatus == 2 ? UIImage.init(named: "tag_已发货") : UIImage.init(named: "tag_已收货")
         }else{
+            detailImage.isHidden = false
             let imageSize = UIImage.init(named: "tag_已发货")
             let image = UIImage.init(color: UIColor.clear, size: CGSize.init(width: (imageSize?.size.width)!, height: (imageSize?.size.height)!))
             dollsStatus.isHidden = true
@@ -117,7 +134,7 @@ class MyJoyTableViewCell: UITableViewCell {
             
             dollsName.snp.makeConstraints({ (make) in
                 make.left.equalTo(dollsImage.snp.right).offset(5)
-                make.top.equalTo(dollsView.snp.top).offset(37)
+                make.top.equalTo(dollsView.snp.top).offset(17)
             })
             
             dollsDesc.snp.makeConstraints({ (make) in
@@ -136,9 +153,15 @@ class MyJoyTableViewCell: UITableViewCell {
             })
             
             shareImage.snp.makeConstraints({ (make) in
-                make.right.equalTo(dollsView.snp.right).offset(-10)
-                make.bottom.equalTo(dollsView.snp.bottom).offset(-15)
-                make.size.equalTo(CGSize.init(width: 40, height: 40))
+                make.left.equalTo(dollsImage.snp.right).offset(5)
+                make.bottom.equalTo(dollsView.snp.bottom).offset(-10)
+                make.size.equalTo(CGSize.init(width: 70, height: 26))
+            })
+            
+            detailImage.snp.makeConstraints({ (make) in
+                make.left.equalTo(shareImage.snp.right).offset(8)
+                make.bottom.equalTo(dollsView.snp.bottom).offset(-10)
+                make.size.equalTo(CGSize.init(width: 70, height: 26))
             })
             
             didMakeConstraints = true

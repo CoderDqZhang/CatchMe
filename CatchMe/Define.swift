@@ -21,6 +21,8 @@ let IPHONE6P = SCREENWIDTH == 414 ? true:false
 let IPHONE7P = SCREENHEIGHT == 736 ? true:false
 let IPHONEX = SCREENHEIGHT == 812.0 ? true : false
 
+let IPAD = UIDevice.current.userInterfaceIdiom == .pad ? true : false
+
 let IPHONEWIDTH320 = SCREENWIDTH == 320 ? true:false
 let IPHONEWIDTH375 = SCREENWIDTH == 375 ? true:false
 let IPHONEWIDTH414 = SCREENWIDTH == 414 ? true:false
