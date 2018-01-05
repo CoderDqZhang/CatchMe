@@ -58,11 +58,12 @@ class HomeViewController: BaseViewController {
     }
     
     func showSelectSex(){
+//        NavigaiontPresentView(self, toController: ContactMeViewController())
         KWINDOWDS().addSubview(GloableAlertView.init(title: "请选择您的性别", desc: nil, btnTop: "帅哥", btnBottom: "美女", image: UIImage.init(named: "pic_success")!, topImageUrl: nil, type: GloableAlertViewType.selectSex, clickClouse: { (tag) in
             if tag == 100 {
-                
+
             }else if tag == 200 {
-                
+
             }
         }))
     }

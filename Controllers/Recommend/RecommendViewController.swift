@@ -11,17 +11,20 @@ import MJRefresh
 
 class RightBarItemView:UIView {
     var imageView:UIImageView!
-    var button:UIButton!
+    var button:AnimationButton!
     
-    init(frame: CGRect, image:UIImage, title:String) {
+    init(frame: CGRect, image:UIImage, title:String, click:@escaping TouchClickClouse) {
         super.init(frame: frame)
         imageView = UIImageView.init()
         imageView.image = image
         imageView.frame = CGRect.init(x: 0, y: 15, width: image.size.width, height: image.size.height)
         self.addSubview(imageView)
         
-        button = UIButton.init(type: .custom)
+        button = AnimationButton.init(frame: CGRect.zero)
         button.setTitle(title, for: .normal)
+        button.reactive.controlEvents(.touchUpInside).observe { (btn) in
+            click()
+        }
         button.frame = CGRect.init(x: image.size.width, y: 0, width: frame.size.width - image.size.width, height: frame.size.height)
         self.addSubview(button)
     }
@@ -52,7 +55,10 @@ class RecommendViewController: BaseViewController {
     
     override func setUpViewNavigationItem() {
         self.navigationItem.title = "抓友推荐"
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(customView: RightBarItemView.init(frame: CGRect.init(x: 0, y: 0, width: 60, height: 44), image: UIImage.init(named: "筛选")!, title: "筛选"))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(customView: RightBarItemView.init(frame: CGRect.init(x: 0, y: 0, width: 60, height: 44), image: UIImage.init(named: "筛选")!, title: "筛选", click: {
+            NavigationPushView(self, toConroller: FilterViewController())
+        }))
+        
     }
     
     func setUpCollectView(){

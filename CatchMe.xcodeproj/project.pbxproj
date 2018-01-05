@@ -147,6 +147,10 @@
 		1F18FC2B1FFB7B890093A1B8 /* KSPhotoBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F18FC211FFB7B890093A1B8 /* KSPhotoBrowser.m */; };
 		1F18FC341FFB86E00093A1B8 /* KSYYImageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F18FC311FFB86E00093A1B8 /* KSYYImageManager.m */; };
 		1F18FC371FFBBF0C0093A1B8 /* KSSDImageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F18FC351FFBBF0C0093A1B8 /* KSSDImageManager.m */; };
+		1F18FC3B1FFDBC250093A1B8 /* ContactOtherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F18FC3A1FFDBC250093A1B8 /* ContactOtherViewController.swift */; };
+		1F18FC3F1FFDBC5B0093A1B8 /* ContactViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F18FC3E1FFDBC5B0093A1B8 /* ContactViewModel.swift */; };
+		1F18FC411FFDBC730093A1B8 /* ContactSubViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F18FC401FFDBC730093A1B8 /* ContactSubViews.swift */; };
+		1F18FC431FFDE7F80093A1B8 /* ContactMeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F18FC421FFDE7F70093A1B8 /* ContactMeViewController.swift */; };
 		1F1B2D621FED0C5500672114 /* TransitionAnimatedManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1B2D611FED0C5500672114 /* TransitionAnimatedManager.swift */; };
 		1F1D149C1FE31A8700CC486B /* music_xmas.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 1F1D149B1FE31A8600CC486B /* music_xmas.mp3 */; };
 		1F22927C1FCF219C00089174 /* ConfigModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F22927B1FCF219C00089174 /* ConfigModel.swift */; };
@@ -189,6 +193,16 @@
 		1FCA200B1FC5C0E20008BF07 /* LoginSetPhoneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCA200A1FC5C0E20008BF07 /* LoginSetPhoneViewController.swift */; };
 		1FCA200D1FC5CB870008BF07 /* LoginPhoneCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCA200C1FC5CB870008BF07 /* LoginPhoneCodeViewController.swift */; };
 		1FCA200F1FC720470008BF07 /* AboutUsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCA200E1FC720470008BF07 /* AboutUsViewController.swift */; };
+		1FD15B391FFF054C00159ED3 /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD15B381FFF054C00159ED3 /* FilterViewController.swift */; };
+		1FD15B3B1FFF0D8D00159ED3 /* FilterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD15B3A1FFF0D8D00159ED3 /* FilterViewModel.swift */; };
+		1FD15B3D1FFF0EF300159ED3 /* FilterSexTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD15B3C1FFF0EF300159ED3 /* FilterSexTableViewCell.swift */; };
+		1FD15B3F1FFF0EFE00159ED3 /* FilterAgeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD15B3E1FFF0EFE00159ED3 /* FilterAgeTableViewCell.swift */; };
+		1FD15B411FFF0F0D00159ED3 /* FilterStatusTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD15B401FFF0F0D00159ED3 /* FilterStatusTableViewCell.swift */; };
+		1FD15B431FFF0F1B00159ED3 /* FilterLocationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD15B421FFF0F1B00159ED3 /* FilterLocationTableViewCell.swift */; };
+		1FD15B451FFF0F8200159ED3 /* FilterItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD15B441FFF0F8200159ED3 /* FilterItemView.swift */; };
+		1FD15B4A1FFF499D00159ED3 /* RangeSeekSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD15B471FFF499D00159ED3 /* RangeSeekSlider.swift */; };
+		1FD15B4B1FFF499D00159ED3 /* RangeSeekSliderDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD15B481FFF499D00159ED3 /* RangeSeekSliderDelegate.swift */; };
+		1FD15B4C1FFF499D00159ED3 /* TapticEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD15B491FFF499D00159ED3 /* TapticEngine.swift */; };
 		1FD1B6401FE45AEF006E9AAF /* ChangeUserNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD1B63F1FE45AEF006E9AAF /* ChangeUserNameViewController.swift */; };
 		1FD1B6421FE47048006E9AAF /* ChangeUserNameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD1B6411FE47048006E9AAF /* ChangeUserNameViewModel.swift */; };
 		1FD1B6441FE47093006E9AAF /* UserNameChangeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD1B6431FE47093006E9AAF /* UserNameChangeTableViewCell.swift */; };
@@ -428,6 +442,10 @@
 		1F18FC321FFB86E00093A1B8 /* KSYYImageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSYYImageManager.h; sourceTree = "<group>"; };
 		1F18FC351FFBBF0C0093A1B8 /* KSSDImageManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSSDImageManager.m; sourceTree = "<group>"; };
 		1F18FC361FFBBF0C0093A1B8 /* KSSDImageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSSDImageManager.h; sourceTree = "<group>"; };
+		1F18FC3A1FFDBC250093A1B8 /* ContactOtherViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactOtherViewController.swift; sourceTree = "<group>"; };
+		1F18FC3E1FFDBC5B0093A1B8 /* ContactViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactViewModel.swift; sourceTree = "<group>"; };
+		1F18FC401FFDBC730093A1B8 /* ContactSubViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactSubViews.swift; sourceTree = "<group>"; };
+		1F18FC421FFDE7F70093A1B8 /* ContactMeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactMeViewController.swift; sourceTree = "<group>"; };
 		1F1B2D611FED0C5500672114 /* TransitionAnimatedManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionAnimatedManager.swift; sourceTree = "<group>"; };
 		1F1D149B1FE31A8600CC486B /* music_xmas.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = music_xmas.mp3; sourceTree = "<group>"; };
 		1F22927B1FCF219C00089174 /* ConfigModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigModel.swift; sourceTree = "<group>"; };
@@ -470,6 +488,16 @@
 		1FCA200A1FC5C0E20008BF07 /* LoginSetPhoneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginSetPhoneViewController.swift; sourceTree = "<group>"; };
 		1FCA200C1FC5CB870008BF07 /* LoginPhoneCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPhoneCodeViewController.swift; sourceTree = "<group>"; };
 		1FCA200E1FC720470008BF07 /* AboutUsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutUsViewController.swift; sourceTree = "<group>"; };
+		1FD15B381FFF054C00159ED3 /* FilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
+		1FD15B3A1FFF0D8D00159ED3 /* FilterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewModel.swift; sourceTree = "<group>"; };
+		1FD15B3C1FFF0EF300159ED3 /* FilterSexTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterSexTableViewCell.swift; sourceTree = "<group>"; };
+		1FD15B3E1FFF0EFE00159ED3 /* FilterAgeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterAgeTableViewCell.swift; sourceTree = "<group>"; };
+		1FD15B401FFF0F0D00159ED3 /* FilterStatusTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterStatusTableViewCell.swift; sourceTree = "<group>"; };
+		1FD15B421FFF0F1B00159ED3 /* FilterLocationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterLocationTableViewCell.swift; sourceTree = "<group>"; };
+		1FD15B441FFF0F8200159ED3 /* FilterItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterItemView.swift; sourceTree = "<group>"; };
+		1FD15B471FFF499D00159ED3 /* RangeSeekSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RangeSeekSlider.swift; sourceTree = "<group>"; };
+		1FD15B481FFF499D00159ED3 /* RangeSeekSliderDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RangeSeekSliderDelegate.swift; sourceTree = "<group>"; };
+		1FD15B491FFF499D00159ED3 /* TapticEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TapticEngine.swift; sourceTree = "<group>"; };
 		1FD1B63F1FE45AEF006E9AAF /* ChangeUserNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeUserNameViewController.swift; sourceTree = "<group>"; };
 		1FD1B6411FE47048006E9AAF /* ChangeUserNameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeUserNameViewModel.swift; sourceTree = "<group>"; };
 		1FD1B6431FE47093006E9AAF /* UserNameChangeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNameChangeTableViewCell.swift; sourceTree = "<group>"; };
@@ -627,6 +655,7 @@
 		1F126D771FBFF21B006306D2 /* Lib */ = {
 			isa = PBXGroup;
 			children = (
+				1FD15B461FFF498B00159ED3 /* RangeSeekSlider */,
 				1F18FC1B1FFB7B890093A1B8 /* KSPhotoBrowser */,
 				1FF3A8701FE15E230017326F /* FLAnimation */,
 				1F126EB01FC180FC006306D2 /* DBModel */,
@@ -1221,6 +1250,8 @@
 			isa = PBXGroup;
 			children = (
 				1F86332D1FF5FD400078407B /* FriendsViewController.swift */,
+				1F18FC3A1FFDBC250093A1B8 /* ContactOtherViewController.swift */,
+				1F18FC421FFDE7F70093A1B8 /* ContactMeViewController.swift */,
 			);
 			path = Friends;
 			sourceTree = "<group>";
@@ -1229,6 +1260,7 @@
 			isa = PBXGroup;
 			children = (
 				1F86332F1FF5FD4D0078407B /* RecommendViewController.swift */,
+				1FD15B381FFF054C00159ED3 /* FilterViewController.swift */,
 			);
 			path = Recommend;
 			sourceTree = "<group>";
@@ -1237,6 +1269,7 @@
 			isa = PBXGroup;
 			children = (
 				1F8633371FF629E10078407B /* FriendsViewModel.swift */,
+				1F18FC3E1FFDBC5B0093A1B8 /* ContactViewModel.swift */,
 			);
 			path = Friends;
 			sourceTree = "<group>";
@@ -1245,6 +1278,7 @@
 			isa = PBXGroup;
 			children = (
 				1F8633351FF629D40078407B /* RecommendViewModel.swift */,
+				1FD15B3A1FFF0D8D00159ED3 /* FilterViewModel.swift */,
 			);
 			path = Recomm;
 			sourceTree = "<group>";
@@ -1253,6 +1287,7 @@
 			isa = PBXGroup;
 			children = (
 				1F18FC0D1FF773280093A1B8 /* FriendsCollectionViewCell.swift */,
+				1F18FC401FFDBC730093A1B8 /* ContactSubViews.swift */,
 			);
 			path = Friends;
 			sourceTree = "<group>";
@@ -1261,6 +1296,11 @@
 			isa = PBXGroup;
 			children = (
 				1F86333B1FF62BD00078407B /* RecommendCollectionViewCell.swift */,
+				1FD15B441FFF0F8200159ED3 /* FilterItemView.swift */,
+				1FD15B3C1FFF0EF300159ED3 /* FilterSexTableViewCell.swift */,
+				1FD15B3E1FFF0EFE00159ED3 /* FilterAgeTableViewCell.swift */,
+				1FD15B401FFF0F0D00159ED3 /* FilterStatusTableViewCell.swift */,
+				1FD15B421FFF0F1B00159ED3 /* FilterLocationTableViewCell.swift */,
 			);
 			path = Recommend;
 			sourceTree = "<group>";
@@ -1273,6 +1313,16 @@
 				1F22927B1FCF219C00089174 /* ConfigModel.swift */,
 			);
 			path = Home;
+			sourceTree = "<group>";
+		};
+		1FD15B461FFF498B00159ED3 /* RangeSeekSlider */ = {
+			isa = PBXGroup;
+			children = (
+				1FD15B471FFF499D00159ED3 /* RangeSeekSlider.swift */,
+				1FD15B481FFF499D00159ED3 /* RangeSeekSliderDelegate.swift */,
+				1FD15B491FFF499D00159ED3 /* TapticEngine.swift */,
+			);
+			path = RangeSeekSlider;
 			sourceTree = "<group>";
 		};
 		1FD729071FCD9A72005CF939 /* Top */ = {
@@ -1476,6 +1526,7 @@
 				1FF3A8761FE15E320017326F /* FLAnimatedImage.m in Sources */,
 				1FD7290B1FCE545E005CF939 /* InPurchaseViewController.swift in Sources */,
 				1F126E3B1FC01EB9006306D2 /* BaseViewModel.swift in Sources */,
+				1FD15B411FFF0F0D00159ED3 /* FilterStatusTableViewCell.swift in Sources */,
 				1F1B2D621FED0C5500672114 /* TransitionAnimatedManager.swift in Sources */,
 				1F126EBD1FC198D6006306D2 /* HomeViewModel.swift in Sources */,
 				1F126EBB1FC18CCB006306D2 /* UIImageViewManger.swift in Sources */,
@@ -1495,21 +1546,26 @@
 				1F18FC371FFBBF0C0093A1B8 /* KSSDImageManager.m in Sources */,
 				1FD1B6441FE47093006E9AAF /* UserNameChangeTableViewCell.swift in Sources */,
 				1FCA200D1FC5CB870008BF07 /* LoginPhoneCodeViewController.swift in Sources */,
+				1F18FC3F1FFDBC5B0093A1B8 /* ContactViewModel.swift in Sources */,
 				1F126F001FC4063E006306D2 /* AddressModel.m in Sources */,
+				1FD15B451FFF0F8200159ED3 /* FilterItemView.swift in Sources */,
 				1FE1A2CE1FCC0CD900B715D8 /* TopUpModel.swift in Sources */,
 				1F86332A1FF5FCB80078407B /* StrategyViewController.swift in Sources */,
+				1FD15B3F1FFF0EFE00159ED3 /* FilterAgeTableViewCell.swift in Sources */,
 				1F85F03F1FD6B5EA00FDF26C /* MyInvitationCodeViewModel.swift in Sources */,
 				1F126ED91FC303EC006306D2 /* TopAvatarTableViewCell.swift in Sources */,
 				1F18FC141FF859730093A1B8 /* UserAuthorityTableViewCell.swift in Sources */,
 				1FCA20071FC56BBF0008BF07 /* TopUpMuchView.swift in Sources */,
 				1F126E351FC01DA8006306D2 /* TopViewController.swift in Sources */,
 				1FE1A2C81FC9864B00B715D8 /* QuestionViewModel.swift in Sources */,
+				1F18FC431FFDE7F80093A1B8 /* ContactMeViewController.swift in Sources */,
 				1F126E5B1FC0891D006306D2 /* LoginViewModel.swift in Sources */,
 				1F126D931FBFF36B006306D2 /* BaseNetWorke.swift in Sources */,
 				1FE1A2D01FCC1A0000B715D8 /* MyCatchDollsModel.swift in Sources */,
 				1F4C5B8C1FE04B2F00C9CF66 /* SessionShareModel.swift in Sources */,
 				1F126D651FBFF024006306D2 /* ViewController.swift in Sources */,
 				1FCA200B1FC5C0E20008BF07 /* LoginSetPhoneViewController.swift in Sources */,
+				1FD15B3B1FFF0D8D00159ED3 /* FilterViewModel.swift in Sources */,
 				1F126E061FBFFD70006306D2 /* UIImage+PureColor.m in Sources */,
 				1F126EE51FC3F3D5006306D2 /* GloableTableViewCell.swift in Sources */,
 				1F126EDB1FC3104A006306D2 /* SenderJoysViewModel.swift in Sources */,
@@ -1523,6 +1579,7 @@
 				1F126EE71FC3F715006306D2 /* SetNormalTableViewCell.swift in Sources */,
 				1F126E671FC097AE006306D2 /* SenderJoysViewController.swift in Sources */,
 				1F8956C01FE69BAE0084B3FD /* AuthorityManager.swift in Sources */,
+				1FD15B431FFF0F1B00159ED3 /* FilterLocationTableViewCell.swift in Sources */,
 				1F126E9D1FC154A0006306D2 /* renderer_yuv420sp.c in Sources */,
 				1F126D631FBFF024006306D2 /* AppDelegate.swift in Sources */,
 				1F126DD71FBFF3DE006306D2 /* NSString+Utils.m in Sources */,
@@ -1571,8 +1628,10 @@
 				1F126E3D1FC021B5006306D2 /* CacheMeViewController.swift in Sources */,
 				1F126EC51FC268BF006306D2 /* CacheMeControllerSubViews.swift in Sources */,
 				1F2292821FD01A7C00089174 /* CacheTools.swift in Sources */,
+				1FD15B4A1FFF499D00159ED3 /* RangeSeekSlider.swift in Sources */,
 				1F126E611FC0977F006306D2 /* QuestionViewController.swift in Sources */,
 				1FF3A86B1FE1252E0017326F /* AnimationView.swift in Sources */,
+				1F18FC411FFDBC730093A1B8 /* ContactSubViews.swift in Sources */,
 				1F126DAC1FBFF387006306D2 /* UIView+SDExtension.m in Sources */,
 				1F126E491FC07F1B006306D2 /* MineToolsTableViewCell.swift in Sources */,
 				1F126E9F1FC154A0006306D2 /* renderer.c in Sources */,
@@ -1601,6 +1660,8 @@
 				1F18FC101FF78ADD0093A1B8 /* UserPhotosTableViewCell.swift in Sources */,
 				1F18FC2A1FFB7B890093A1B8 /* KSPhotoItem.m in Sources */,
 				1F126ED11FC2C6FE006306D2 /* MyJoyTableViewCell.swift in Sources */,
+				1F18FC3B1FFDBC250093A1B8 /* ContactOtherViewController.swift in Sources */,
+				1FD15B3D1FFF0EF300159ED3 /* FilterSexTableViewCell.swift in Sources */,
 				1F126E551FC08824006306D2 /* UserProtocolViewController.swift in Sources */,
 				1F126E5F1FC0976F006306D2 /* ProfileViewController.swift in Sources */,
 				1FF02A581FE7117400110BE4 /* PresentTransitionAnimated.m in Sources */,
@@ -1624,13 +1685,16 @@
 				1F3739C01FD10E160068F1C0 /* LocalJsonFile.swift in Sources */,
 				1F126EE31FC3D89D006306D2 /* AddressViewModel.swift in Sources */,
 				1F18FC1A1FF8983F0093A1B8 /* AnimationTouchViewButton.swift in Sources */,
+				1FD15B4B1FFF499D00159ED3 /* RangeSeekSliderDelegate.swift in Sources */,
 				1F126E6B1FC097CE006306D2 /* JoysDetailViewController.swift in Sources */,
 				1F126E001FBFFB76006306D2 /* RequestUrl.swift in Sources */,
 				1FB5EFFD1FDBA472007D2257 /* TopUserInfoTableViewCell.swift in Sources */,
 				1F126EA21FC154A0006306D2 /* yuv420sp.fsh.c in Sources */,
 				1F126E531FC087D0006306D2 /* Gloable+View.swift in Sources */,
 				1F126EEB1FC3FD65006306D2 /* AppForm.swift in Sources */,
+				1FD15B4C1FFF499D00159ED3 /* TapticEngine.swift in Sources */,
 				1FD729091FCD9A87005CF939 /* TopWeeklyModel.swift in Sources */,
+				1FD15B391FFF054C00159ED3 /* FilterViewController.swift in Sources */,
 				1F86332E1FF5FD400078407B /* FriendsViewController.swift in Sources */,
 				1F126EBF1FC19A42006306D2 /* MyDollsCollectionViewCell.swift in Sources */,
 				1F24A3311FC92207007D0C18 /* BaseWebViewController.swift in Sources */,

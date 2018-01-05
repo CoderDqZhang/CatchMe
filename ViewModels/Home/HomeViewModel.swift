@@ -153,7 +153,9 @@ class HomeViewModel: BaseViewModel {
                         (self.controller as! HomeViewController).collectView.mj_footer.endRefreshing()
                     }
                 }
-                (self.controller as! HomeViewController).collectView.reloadData()
+                DispatchQueue.main.async {
+                    (self.controller as! HomeViewController).collectView.reloadData()
+                }
             }
             (self.controller as! HomeViewController).collectView.mj_header.endRefreshing()
             
