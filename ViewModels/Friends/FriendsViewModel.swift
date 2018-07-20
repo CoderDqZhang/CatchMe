@@ -50,7 +50,7 @@ class FriendsViewModel: BaseViewModel {
     func showOneVideoView(){
         KWINDOWDS().addSubview(GloableAlertView.init(title: "需要10币/分钟哦", desc: "对方不接受不会收钱的", btnTop: "没问题", btnBottom: "再想想", image: nil, topImageUrl: "", type: .showUser, clickClouse: { (tag) in
             if tag == 100 {
-                
+                NavigaiontPresentView(self.controller!, toController: ContactMeViewController())
             }else if tag == 200 {
                 
             }
@@ -60,7 +60,7 @@ class FriendsViewModel: BaseViewModel {
     func showTwoVideoView(){
         KWINDOWDS().addSubview(GloableAlertView.init(title: "需要10币/分钟哦", desc: "对方不接受不会收钱的", btnTop: "没问题", btnBottom: "再想想", image: nil, topImageUrl: UserInfoModel.shareInstance().photo, type: .showUser, clickClouse: { (tag) in
             if tag == 100 {
-                
+                NavigaiontPresentView(self.controller!, toController: ContactMeViewController())
             }else if tag == 200 {
                 
             }
